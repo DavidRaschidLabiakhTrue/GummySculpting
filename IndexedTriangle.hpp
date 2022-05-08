@@ -6,6 +6,9 @@
 namespace IndexedTriangleDefinition
 {
 	using namespace IndicesDefinition;
+
+	// Implementation of an Indexed Triangle meant for structured face look ups
+
 	struct IndexedTriangle
 	{
 		public:
@@ -13,6 +16,7 @@ namespace IndexedTriangleDefinition
 			~IndexedTriangle();
 			KeyData indice[3];
 	};
+
 }
 
 #endif
