@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Main">
+      <UniqueIdentifier>{28a414c9-0fc0-4bca-a397-3684d5a131e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Macro">
+      <UniqueIdentifier>{fd8eb3dc-5984-4914-8656-3238912814d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{127f50a0-1af7-4073-9570-3625db938641}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{3a37fb95-7d5e-402d-97db-740ee0f8e0d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debugger">
+      <UniqueIdentifier>{bc24fa46-7c5f-4ff6-a336-c06b60ed1574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FileOps">
+      <UniqueIdentifier>{9d3667ad-c584-498e-8caa-cf66fe2380cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\GraphicsAPI_OpenGL">
+      <UniqueIdentifier>{da4d4b9d-a0e8-4a76-9648-e50caf7d9727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\BufferObjects">
+      <UniqueIdentifier>{18dd77d4-6413-4f1e-9180-2b5fd02d97e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Color">
+      <UniqueIdentifier>{63d73882-612e-428a-bc5f-8859313b203f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\OpenGLWrapper">
+      <UniqueIdentifier>{70830b1f-060c-417e-8894-48b8fcded691}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Models">
+      <UniqueIdentifier>{b5308a50-b6de-48a8-b54e-cb23862a6139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Models\.obj files">
+      <UniqueIdentifier>{a5d4649b-ff37-4ef6-94ee-865f5a907753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Models\.gum files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{cd86fc62-28a6-4b81-94b2-128d5bdf7e89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Camera">
+      <UniqueIdentifier>{3fe5a1e1-de9b-4d45-9c63-50cbf0e82896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders">
+      <UniqueIdentifier>{bd53cc1e-ff3d-4b01-b621-e477ac6fe19d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\WireFrameShader">
+      <UniqueIdentifier>{b2f2ea3a-dd02-4b5c-a1f0-e22338c6a7ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\StandardShader">
+      <UniqueIdentifier>{3a7c4cfd-b519-4ec2-81f0-af392b75854e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI">
+      <UniqueIdentifier>{1a58b1f9-4ba5-4067-9f32-bcb9c563e96f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\Window">
+      <UniqueIdentifier>{4005758b-1f9d-4328-8264-4f6fda72bc37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\Window\Window Class">
+      <UniqueIdentifier>{a836530d-2b43-4336-b5a9-6b899ae67290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\Window\Window API">
+      <UniqueIdentifier>{d12ab59c-407a-44ff-8ec7-b98e4d8b80d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics">
+      <UniqueIdentifier>{77d0d484-33d5-4ca5-a8eb-ca77f6483fce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sampling">
+      <UniqueIdentifier>{fa6c5a62-b994-4775-bf20-805638ce0e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sampling\Octree">
+      <UniqueIdentifier>{bc091c26-9894-488e-a07f-2018d1e720cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sampling\Sculpting">
+      <UniqueIdentifier>{5d014eee-9bba-462e-b03e-628a4ae5b2a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Camera\CameraParameters">
+      <UniqueIdentifier>{8af3d975-e8a3-4ac8-8479-54db1a746031}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\ShaderPosition">
+      <UniqueIdentifier>{c52b576a-8140-410e-843d-53451d0e1063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Renderer">
+      <UniqueIdentifier>{df3112c3-3d12-4ecb-b129-d507540ac445}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FileOps\MeshLoading">
+      <UniqueIdentifier>{bf866087-59e5-421b-a2f7-9f8a6ab9b991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI">
+      <UniqueIdentifier>{ef7eee4c-05ee-4799-8db2-27e723902f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader">
+      <UniqueIdentifier>{fbd8854d-3a3e-4ce0-ab8f-8d79a19368fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FileOps\Mesh File Loading">
+      <UniqueIdentifier>{d7ba1906-1b0e-4f34-b45c-31f6d129d6ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures">
+      <UniqueIdentifier>{ade9a426-7164-4277-8c7a-e4165280edbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures">
+      <UniqueIdentifier>{ac9534b2-8886-4974-8ae7-d198376d8abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\GraphicsData">
+      <UniqueIdentifier>{90e07af0-b078-4995-9015-e3f154686324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Lists">
+      <UniqueIdentifier>{b2cf5b61-47df-4795-810e-5015655c9fba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Lists\VertexList">
+      <UniqueIdentifier>{250672a9-f7ff-4521-8a37-eda69cff4b9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Lists\IndiceList">
+      <UniqueIdentifier>{9f350489-f819-4fa6-b6f2-1d3cd6cf6f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Indices">
+      <UniqueIdentifier>{0091298a-7b52-4d31-9452-95ef97628db8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Vertex">
+      <UniqueIdentifier>{c378287f-02de-4f65-b4a2-a31518043ed9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures">
+      <UniqueIdentifier>{49f28c4e-4fcd-43e2-a1f9-e863e20b4570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\Mesh">
+      <UniqueIdentifier>{9bfe7ffd-e93e-44bb-852e-1c8765251958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\MeshStats">
+      <UniqueIdentifier>{dc67609d-bf9c-465b-812d-038fc14b0d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Management">
+      <UniqueIdentifier>{d1c1eaf7-0cf1-4254-91be-e6c85d4624ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Management\Mesh_Manager">
+      <UniqueIdentifier>{fd41b6f8-c410-4ae6-93a4-b768903ff1fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics And Search Structure">
+      <UniqueIdentifier>{ae79c3db-bc84-4f73-b8bb-78474e3c0d15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics And Search Structure\IndexedTriangle">
+      <UniqueIdentifier>{60e67002-3371-445d-af0d-97db70d3ede5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Window_Class.cpp">
+      <Filter>Window And GUI\Window\Window Class</Filter>
+    </ClCompile>
+    <ClCompile Include="Window_API.cpp">
+      <Filter>Window And GUI\Window\Window API</Filter>
+    </ClCompile>
+    <ClCompile Include="include\glad\glad.c">
+      <Filter>Graphics\GraphicsAPI_OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="V3D.cpp">
+      <Filter>Data Structures\Graphics Structures\Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="Indices.cpp">
+      <Filter>Data Structures\Graphics Structures\Indices</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexList.cpp">
+      <Filter>Data Structures\Graphics Structures\Lists\VertexList</Filter>
+    </ClCompile>
+    <ClCompile Include="IndiceList.cpp">
+      <Filter>Data Structures\Graphics Structures\Lists\IndiceList</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsBufferObjects.cpp">
+      <Filter>Graphics\BufferObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Graphics\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsData.cpp">
+      <Filter>Data Structures\Graphics Structures\GraphicsData</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGLWrapper.cpp">
+      <Filter>Graphics\OpenGLWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Rendering\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraParameters.cpp">
+      <Filter>Rendering\Camera\CameraParameters</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyInput.cpp">
+      <Filter>Window And GUI\Window\Window API</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderPosition.cpp">
+      <Filter>Rendering\Shaders\ShaderPosition</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Data Structures\Search Structures\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Rendering\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh_Manager.cpp">
+      <Filter>Data Structures\Management\Mesh_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshLoading.cpp">
+      <Filter>FileOps\MeshLoading</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Window And GUI\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshStats.cpp">
+      <Filter>Data Structures\Search Structures\MeshStats</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Rendering\Shaders\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFileLoader.cpp">
+      <Filter>FileOps\Mesh File Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexedTriangle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Main.hpp">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Macro.hpp">
+      <Filter>Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="MathDefinitions.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Window_Class.hpp">
+      <Filter>Window And GUI\Window\Window Class</Filter>
+    </ClInclude>
+    <ClInclude Include="Window_API.hpp">
+      <Filter>Window And GUI\Window\Window API</Filter>
+    </ClInclude>
+    <ClInclude Include="V3D.hpp">
+      <Filter>Data Structures\Graphics Structures\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="Indices.hpp">
+      <Filter>Data Structures\Graphics Structures\Indices</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexList.hpp">
+      <Filter>Data Structures\Graphics Structures\Lists\VertexList</Filter>
+    </ClInclude>
+    <ClInclude Include="IndiceList.hpp">
+      <Filter>Data Structures\Graphics Structures\Lists\IndiceList</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsData.hpp">
+      <Filter>Data Structures\Graphics Structures\GraphicsData</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsBufferObjects.hpp">
+      <Filter>Graphics\BufferObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.hpp">
+      <Filter>Graphics\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLWrapper.hpp">
+      <Filter>Graphics\OpenGLWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Rendering\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraParameters.hpp">
+      <Filter>Rendering\Camera\CameraParameters</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyInput.hpp">
+      <Filter>Window And GUI\Window\Window API</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearAlgebra.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPosition.hpp">
+      <Filter>Rendering\Shaders\ShaderPosition</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>Data Structures\Search Structures\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.hpp">
+      <Filter>Rendering\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh_Manager.hpp">
+      <Filter>Data Structures\Management\Mesh_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshLoading.hpp">
+      <Filter>FileOps\MeshLoading</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.hpp">
+      <Filter>Window And GUI\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshStats.hpp">
+      <Filter>Data Structures\Search Structures\MeshStats</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.hpp">
+      <Filter>Rendering\Shaders\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFileLoader.hpp">
+      <Filter>FileOps\Mesh File Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexedTriangle.hpp">
+      <Filter>Data Structures\Graphics And Search Structure\IndexedTriangle</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WireFrameShader.vert">
+      <Filter>Rendering\Shaders\WireFrameShader</Filter>
+    </None>
+    <None Include="WireFrameShader.frag">
+      <Filter>Rendering\Shaders\WireFrameShader</Filter>
+    </None>
+    <None Include="StandardShader.vert">
+      <Filter>Rendering\Shaders\StandardShader</Filter>
+    </None>
+    <None Include="StandardShader.frag">
+      <Filter>Rendering\Shaders\StandardShader</Filter>
+    </None>
+    <None Include="cube.gum">
+      <Filter>3D Models\.gum files</Filter>
+    </None>
+    <None Include="sphere.gum">
+      <Filter>3D Models\.gum files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
