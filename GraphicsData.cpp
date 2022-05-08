@@ -33,7 +33,6 @@ GraphicsData::~GraphicsData()
 void GraphicsData::bind()
 {
 	
-
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
 	glGenBuffers(1, &ebo);

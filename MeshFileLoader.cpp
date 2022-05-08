@@ -62,6 +62,7 @@ namespace MeshFileLoader::GumLoading
 		mesh.indices.push_back(stoi(str));
 	}
 
+
 	void readGumMesh(string filePath, Mesh& mesh)
 	{
 
@@ -128,6 +129,7 @@ namespace MeshFileLoader::GumLoading
 			readIndice(&file, str, mesh);
 			str.clear();
 		}
+
 		str.clear();
 		auto uniformcolor = v4(0.5, 0.5, 0.5, 1.0);
 		mesh.colorDataUniformly(uniformcolor);

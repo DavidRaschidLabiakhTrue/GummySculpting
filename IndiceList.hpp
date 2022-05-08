@@ -34,6 +34,8 @@ namespace IndiceListDefinition
 			TriangleList();
 			~TriangleList();
 
+			void printTriangleListToConsole();
+
 			IndexedTriangles triangles;
 
 

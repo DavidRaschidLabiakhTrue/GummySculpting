@@ -89,9 +89,6 @@
     <Filter Include="Rendering\Renderer">
       <UniqueIdentifier>{df3112c3-3d12-4ecb-b129-d507540ac445}</UniqueIdentifier>
     </Filter>
-    <Filter Include="FileOps\MeshLoading">
-      <UniqueIdentifier>{bf866087-59e5-421b-a2f7-9f8a6ab9b991}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Window And GUI\GUI">
       <UniqueIdentifier>{ef7eee4c-05ee-4799-8db2-27e723902f90}</UniqueIdentifier>
     </Filter>
@@ -205,9 +202,6 @@
     <ClCompile Include="Mesh_Manager.cpp">
       <Filter>Data Structures\Management\Mesh_Manager</Filter>
     </ClCompile>
-    <ClCompile Include="MeshLoading.cpp">
-      <Filter>FileOps\MeshLoading</Filter>
-    </ClCompile>
     <ClCompile Include="GUI.cpp">
       <Filter>Window And GUI\GUI</Filter>
     </ClCompile>
@@ -285,9 +279,6 @@
     </ClInclude>
     <ClInclude Include="Mesh_Manager.hpp">
       <Filter>Data Structures\Management\Mesh_Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshLoading.hpp">
-      <Filter>FileOps\MeshLoading</Filter>
     </ClInclude>
     <ClInclude Include="GUI.hpp">
       <Filter>Window And GUI\GUI</Filter>

@@ -16,7 +16,7 @@ namespace GraphicsDataDefinition
 		*	Graphics Data - A graphics format meant specifically for interacting with the GPU.
 		*   Inherited by MeshStats -> Mesh
 	*/
-	class GraphicsData : protected GraphicsBufferObject, public VertexList, public IndiceList
+	class GraphicsData : protected GraphicsBufferObject, public VertexList, public IndiceList, public TriangleList
 	{
 		public:
 			Construct GraphicsData();

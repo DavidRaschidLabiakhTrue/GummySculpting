@@ -18,4 +18,13 @@ TriangleList::~TriangleList()
 {
 }
 
+void TriangleList::printTriangleListToConsole()
+{
+	forall(tri, triangles)
+	{
+		tri.print();
+	}
+	say "\n";
+}
+
 

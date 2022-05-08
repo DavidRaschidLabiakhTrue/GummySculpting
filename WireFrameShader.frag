@@ -2,7 +2,9 @@
 in vec4 myColor;
 out vec4 FragColor;
 
+
+
 void main()
 {
-	FragColor = vec4(myColor.x / 2, myColor.y/ 2, myColor.z/ 2, 1.0);;
+	FragColor = FragColor = vec4(myColor.x * 0.5, myColor.y* 0.5, myColor.z* 0.5, 1.0);
 };

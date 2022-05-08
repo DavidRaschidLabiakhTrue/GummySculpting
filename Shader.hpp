@@ -25,6 +25,7 @@ namespace ShaderDefinition
 			
 		protected:
 			void uploadCameraMatrixToGPU(); // send the camera matrix to opengl to load into the shaders on the GPU.
+			void uploadRandomVectorToGPU();
 			int id; // shader id on gpu
 			void checkShaderStatus(string shaderType, int shaderProgramID); // check the shader compilation status.
 

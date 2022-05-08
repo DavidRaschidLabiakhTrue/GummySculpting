@@ -169,7 +169,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshFileLoader.cpp" />
-    <ClCompile Include="MeshLoading.cpp" />
     <ClCompile Include="MeshStats.cpp" />
     <ClCompile Include="Mesh_Manager.cpp" />
     <ClCompile Include="OpenGLWrapper.cpp" />
@@ -198,7 +197,6 @@
     <ClInclude Include="MathDefinitions.hpp" />
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="MeshFileLoader.hpp" />
-    <ClInclude Include="MeshLoading.hpp" />
     <ClInclude Include="MeshStats.hpp" />
     <ClInclude Include="Mesh_Manager.hpp" />
     <ClInclude Include="OpenGLWrapper.hpp" />

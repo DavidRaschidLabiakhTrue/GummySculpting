@@ -104,6 +104,11 @@ void Shader::uploadCameraMatrixToGPU()
 	glUniformMatrix4fv(ShaderSlotInfo.cameraMatrix.position, 1, GL_FALSE, value_ptr(GlobalCamera->cameraMatrix));
 }
 
+void Shader::uploadRandomVectorToGPU()
+{
+	// to be implemented
+}
+
 void Shader::compileStandardShader()
 {
 	compileShader("StandardShader.vert", "StandardShader.frag", "Standard Shader");
