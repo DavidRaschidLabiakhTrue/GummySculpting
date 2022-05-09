@@ -19,7 +19,7 @@ namespace RayCastDefinition
 			RayCast(bool trueConstruct);
 			~RayCast();
 
-			void cast(); // the query
+			void cast(); // fire out a ray cast if clicking and collect ray data
 
 
 			void drawRay();
@@ -37,7 +37,6 @@ namespace RayCastDefinition
 
 			bool shouldDrawRay = true;
 			v3 direction = v3(0,0,0);
-		protected:
 			void screenToWorld();
 			void bindRay();
 			void refreshRay();

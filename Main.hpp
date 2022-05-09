@@ -10,7 +10,8 @@
 
 #include "Renderer.hpp"
 
-#include "RayCasting.hpp"
+#include "Sampler.hpp"
+
 
 using namespace MathTypeDefinitions;
 using namespace Window_Class;
@@ -19,7 +20,7 @@ using namespace CameraDefinition;
 
 using namespace RendererDefinition;
 
-using namespace RayCastDefinition;
+using namespace SamplerDefinition;
 
 class MainProgram
 {
@@ -49,7 +50,7 @@ class MainProgram
 
 		Renderer renderer;
 
-		RayCast caster;
+		Sampler sampler;
 
 
 };

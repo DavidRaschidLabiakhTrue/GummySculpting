@@ -74,12 +74,6 @@
     <Filter Include="Mechanics\Sampling">
       <UniqueIdentifier>{fa6c5a62-b994-4775-bf20-805638ce0e28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mechanics\Sampling\Octree">
-      <UniqueIdentifier>{bc091c26-9894-488e-a07f-2018d1e720cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sampling\Sculpting">
-      <UniqueIdentifier>{5d014eee-9bba-462e-b03e-628a4ae5b2a9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Rendering\Camera\CameraParameters">
       <UniqueIdentifier>{8af3d975-e8a3-4ac8-8479-54db1a746031}</UniqueIdentifier>
     </Filter>
@@ -151,6 +145,9 @@
     </Filter>
     <Filter Include="Rendering\Camera\Camera Implementation">
       <UniqueIdentifier>{c7690ac4-fa02-4feb-b305-90b048ea7557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting">
+      <UniqueIdentifier>{5d014eee-9bba-462e-b03e-628a4ae5b2a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Rendering\Camera\Camera Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Sampler.cpp">
+      <Filter>Mechanics\Sampling</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -317,6 +317,9 @@
     </ClInclude>
     <ClInclude Include="Camera.hpp">
       <Filter>Rendering\Camera\Camera Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Sampler.hpp">
+      <Filter>Mechanics\Sampling</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
