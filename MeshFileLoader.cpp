@@ -50,6 +50,8 @@ namespace MeshFileLoader::GumLoading
 
 		return;
 	}
+#ifdef IMPLEMENT_LINEAR_INDICES
+	// UNIMPLEMENTED - COLLAPSE
 	void readIndice(FILE** file, string& str, Mesh& mesh)
 	{
 		char parser;
@@ -61,6 +63,7 @@ namespace MeshFileLoader::GumLoading
 		}
 		mesh.indices.push_back(stoi(str));
 	}
+#endif
 	KeyData readTriangleIndice(FILE** file, string& str)
 	{
 		char parser;

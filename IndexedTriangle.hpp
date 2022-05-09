@@ -9,7 +9,7 @@ namespace IndexedTriangleDefinition
 
 	// Implementation of an Indexed Triangle meant for structured face look ups
 
-	#pragma pack()
+	
 	struct IndexedTriangle
 	{
 		public:

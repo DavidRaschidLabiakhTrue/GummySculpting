@@ -30,26 +30,7 @@ GraphicsData::~GraphicsData()
 {
 }
 
-void GraphicsDataDefinition::GraphicsData::loadTriangleTest()
-{
-	V3D p1 = V3D(-1, -1, 0);
-	V3D p2 = V3D(1, -1, 0);
-	V3D p3 = V3D(1, 1, 0);
 
-	vertices.push_back(p1);
-	vertices.push_back(p2);
-	vertices.push_back(p3);
-
-	this->indices.push_back(0);
-	this->indices.push_back(1);
-	this->indices.push_back(2);
-
-	IndexedTriangle tri;
-	tri.indice[0] = 0;
-	tri.indice[1] = 1;
-	tri.indice[2] = 2;
-	this->triangles.push_back(tri);
-}
 
 void GraphicsData::bind()
 {
@@ -62,11 +43,12 @@ void GraphicsData::bind()
 
 	// binding vertices
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, VERTEX_SIZING(vertices), vertices.data() , GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, verticesMemorySize(), vertices.data(), GL_STATIC_DRAW);
 
 	// binding indices
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(IndexedTriangle), static_cast<void*>(triangles.data()), GL_STATIC_DRAW);
+
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangleMemorySize(), static_cast<void*>(triangles.data()), GL_STATIC_DRAW);
 
 	// enable position data
 	glEnableVertexAttribArray(0);
@@ -90,7 +72,7 @@ void GraphicsData::refresh()
 
 	// refresh indices
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(IndexedTriangle), triangles.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangleMemorySize(), static_cast<void*>(triangles.data()), GL_STATIC_DRAW);
 	// enable position data
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void*)0);
@@ -105,7 +87,7 @@ void GraphicsData::render()
 {
 	bindVAO();
 
-	glDrawElements(GL_TRIANGLES, triangles.size()*3, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, indiceCount(), GL_UNSIGNED_INT, NULL); // this is what actually draws to the screen
 
 	GL::unbindActiveVAO();
 }

@@ -166,7 +166,7 @@
     <ClCompile Include="VertexList.cpp">
       <Filter>Data Structures\Graphics Structures\Lists\VertexList</Filter>
     </ClCompile>
-    <ClCompile Include="IndiceList.cpp">
+    <ClCompile Include="TriangleList.cpp">
       <Filter>Data Structures\Graphics Structures\Lists\IndiceList</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsBufferObjects.cpp">
@@ -241,7 +241,7 @@
     <ClInclude Include="VertexList.hpp">
       <Filter>Data Structures\Graphics Structures\Lists\VertexList</Filter>
     </ClInclude>
-    <ClInclude Include="IndiceList.hpp">
+    <ClInclude Include="TriangleList.hpp">
       <Filter>Data Structures\Graphics Structures\Lists\IndiceList</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsData.hpp">

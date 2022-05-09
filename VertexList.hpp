@@ -23,10 +23,13 @@ namespace VertexListDefinition
 		RV3D getVertex(int index); // access element reference by index 
 		void setVertex(RV3D element, int index); // set element by index
 
-		void colorDataUniformly(v4& uniformColor);
+		void colorDataUniformly(rv4 uniformColor);
 
-		int verticeCount();
-		Vertices vertices;
+		const int verticesMemorySize(); // returns the memory size of vertices allocate within the vertex list
+
+		int verticeCount(); // returns the count of vertices in the vertex list
+
+		Vertices vertices; // 
 
 		auto getVertexArray(); // get the underlying array component.
 	};
