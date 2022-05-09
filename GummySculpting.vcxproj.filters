@@ -149,6 +149,9 @@
     <Filter Include="Data Structures\Graphics Structures\Lists\Indice List">
       <UniqueIdentifier>{6c642001-9be2-4c14-84f9-1c45c727db21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Rendering\Camera\Camera Implementation">
+      <UniqueIdentifier>{c7690ac4-fa02-4feb-b305-90b048ea7557}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -186,9 +189,6 @@
     </ClCompile>
     <ClCompile Include="OpenGLWrapper.cpp">
       <Filter>Graphics\OpenGLWrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Rendering\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CameraParameters.cpp">
       <Filter>Rendering\Camera\CameraParameters</Filter>
@@ -228,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="IndiceList.cpp">
       <Filter>Data Structures\Graphics Structures\Lists\Indice List</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Rendering\Camera\Camera Implementation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -270,9 +273,6 @@
     <ClInclude Include="OpenGLWrapper.hpp">
       <Filter>Graphics\OpenGLWrapper</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.hpp">
-      <Filter>Rendering\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="CameraParameters.hpp">
       <Filter>Rendering\Camera\CameraParameters</Filter>
     </ClInclude>
@@ -314,6 +314,9 @@
     </ClInclude>
     <ClInclude Include="IndiceList.hpp">
       <Filter>Data Structures\Graphics Structures\Lists\Indice List</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Rendering\Camera\Camera Implementation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

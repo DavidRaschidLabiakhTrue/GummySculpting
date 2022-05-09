@@ -32,7 +32,7 @@ namespace CameraDefinition
 			void checkKeyInput();
 			void checkMouseInput();
 
-			bool firstClick = true;
+			bool firstClick = false;
 
 	};
 	typedef Camera* CameraPTR;

@@ -35,7 +35,7 @@ MainProgram::MainProgram(StringList& arguments)
     Window_Class::WindowGlobal::ActiveWindow = &win; // set up window linkage.
 
 	CameraDefinition::GlobalCamera = &cam; // set up camera linkage
-
+	caster = RayCast(TrueConstructor);
     preprocess(arguments);
 }
 
@@ -62,9 +62,10 @@ int MainProgram::ProgramCycle()
     {
 		clearBuffer();
 
-		queryCamera();
+		queryMechanics();
 
-		renderer.draw();
+		draw3D();
+		
 
 
 		eventQuery();
@@ -106,10 +107,21 @@ void MainProgram::generateMaps()
 {
 
 }
+void MainProgram::queryMechanics()
+{
+	queryCamera();
+	caster.cast();
+
+}
 void MainProgram::queryCamera()
 {
 	cam.checkInput();
 	cam.updateMatrix();
+}
+void MainProgram::draw3D()
+{
+	renderer.draw();
+	caster.drawRay();
 }
 void MainProgram::loadResources()
 {

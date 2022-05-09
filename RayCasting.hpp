@@ -4,28 +4,29 @@
 
 #include "GraphicsData.hpp"
 #include "IndiceList.hpp"
+#include "Window_API.hpp"
 
 namespace RayCastDefinition
 {
 	using namespace GraphicsDataDefinition;
 	using namespace IndiceListDefinition;
+	using namespace Window_API;
 
 	class RayCast : protected GraphicsData, public IndiceList
 	{
 		public:
-			RayCast();
+			Empty_Construct RayCast();
+			RayCast(bool trueConstruct);
 			~RayCast();
 
-			void bindRay();
-			void refreshRay();
+			void cast(); // the query
 
-			void redirectRay();
 
 			void drawRay();
 
-			bool shouldDrawRay = true;
+			
 
-			void screenToWorld();
+			
 
 			void setOrigin();
 
@@ -34,7 +35,12 @@ namespace RayCastDefinition
 			RV3D origin();
 			RV3D end();
 
+			bool shouldDrawRay = true;
 			v3 direction = v3(0,0,0);
+		protected:
+			void screenToWorld();
+			void bindRay();
+			void refreshRay();
 
 
 	};

@@ -10,12 +10,16 @@
 
 #include "Renderer.hpp"
 
-Usage MathTypeDefinitions;
-Usage Window_Class;
+#include "RayCasting.hpp"
 
-Usage CameraDefinition;
+using namespace MathTypeDefinitions;
+using namespace Window_Class;
 
-Usage RendererDefinition;
+using namespace CameraDefinition;
+
+using namespace RendererDefinition;
+
+using namespace RayCastDefinition;
 
 class MainProgram
 {
@@ -35,13 +39,19 @@ class MainProgram
 		void loadResources();
 		void bindGraphicsDataToGPU();
 		void generateMaps();
-
+		void queryMechanics();
 		void queryCamera();
+
+		void draw3D();
 
 		Window win;
 		Camera cam;
 
 		Renderer renderer;
+
+		RayCast caster;
+
+
 };
 
 

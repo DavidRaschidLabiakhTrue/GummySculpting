@@ -3,8 +3,11 @@
 #include "Window_API.hpp"
 
 #include "Camera.hpp"
+#include "Shader.hpp"
 
 #include "LinearAlgebra.hpp"
+
+#include "KeyInput.hpp"
 
 using namespace RayCastDefinition;
 using namespace Window_API;
@@ -12,7 +15,18 @@ using namespace CameraDefinition;
 
 using namespace LinearAlgebra;
 
+using namespace KeyInputDefinition;
+
+using namespace ShaderDefinition;
+
 RayCast::RayCast()
+{
+
+
+
+}
+
+RayCastDefinition::RayCast::RayCast(bool trueConstruct)
 {
 	V3D castPoint;
 	castPoint.setPositionToCenter();
@@ -25,13 +39,20 @@ RayCast::RayCast()
 
 
 	bindRay();
-
-
 }
 
 RayCast::~RayCast()
 {
 
+}
+
+void RayCastDefinition::RayCast::cast()
+{
+	if (CheckMousePressed(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		say "Casting Ray" done;
+		screenToWorld();
+	}
 }
 
 void RayCast::bindRay()
@@ -80,19 +101,18 @@ void RayCastDefinition::RayCast::refreshRay()
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void*)offsetof(V3D, V3D::color)); // color data reserves 4 slots.
 }
 
-void RayCastDefinition::RayCast::redirectRay()
-{
-
-}
 
 void RayCastDefinition::RayCast::drawRay()
 {
+	
 	if (shouldDrawRay)
 	{
+		StandardShader.use();
 		bindVAO();
 		glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, NULL);
 		unbindActiveVAO();
 	}
+
 }
 
 void RayCastDefinition::RayCast::screenToWorld()
@@ -104,8 +124,13 @@ void RayCastDefinition::RayCast::screenToWorld()
 	auto unprojection = unProject(spaceTranslationVector, GlobalCamera->view, GlobalCamera->projection, scrn.translationVector);
 	setOrigin();
 	direction = normalize(unprojection - vertices[0].position); // unprojection - the origin
+	setEnd();
 
 
+	if (shouldDrawRay)
+	{
+		refreshRay();
+	}
 
 
 }
