@@ -13,3 +13,8 @@ SamplerDefinition::Sampler::Sampler(bool trueConstructor)
 SamplerDefinition::Sampler::~Sampler()
 {
 }
+
+void SamplerDefinition::Sampler::queryRay()
+{
+	cast();
+}

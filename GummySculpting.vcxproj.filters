@@ -131,9 +131,6 @@
     <Filter Include="Data Structures\Graphics And Search Structure\IndexedTriangle">
       <UniqueIdentifier>{60e67002-3371-445d-af0d-97db70d3ede5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mechanics\Ray Casting">
-      <UniqueIdentifier>{0602a549-3604-4cf2-b5f4-0745409d68ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data Structures\Graphics Structures\Lists\Triangle List">
       <UniqueIdentifier>{9f350489-f819-4fa6-b6f2-1d3cd6cf6f72}</UniqueIdentifier>
     </Filter>
@@ -148,6 +145,9 @@
     </Filter>
     <Filter Include="Mechanics\Sculpting">
       <UniqueIdentifier>{5d014eee-9bba-462e-b03e-628a4ae5b2a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sampling\Ray Casting">
+      <UniqueIdentifier>{0602a549-3604-4cf2-b5f4-0745409d68ff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -221,7 +221,7 @@
       <Filter>Data Structures\Graphics And Search Structure\IndexedTriangle</Filter>
     </ClCompile>
     <ClCompile Include="RayCasting.cpp">
-      <Filter>Mechanics\Ray Casting</Filter>
+      <Filter>Mechanics\Sampling\Ray Casting</Filter>
     </ClCompile>
     <ClCompile Include="IndiceList.cpp">
       <Filter>Data Structures\Graphics Structures\Lists\Indice List</Filter>
@@ -310,7 +310,7 @@
       <Filter>Data Structures\Graphics And Search Structure\IndexedTriangle</Filter>
     </ClInclude>
     <ClInclude Include="RayCasting.hpp">
-      <Filter>Mechanics\Ray Casting</Filter>
+      <Filter>Mechanics\Sampling\Ray Casting</Filter>
     </ClInclude>
     <ClInclude Include="IndiceList.hpp">
       <Filter>Data Structures\Graphics Structures\Lists\Indice List</Filter>

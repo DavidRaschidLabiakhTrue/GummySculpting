@@ -110,7 +110,7 @@ void MainProgram::generateMaps()
 void MainProgram::queryMechanics()
 {
 	queryCamera();
-	sampler.cast();
+	sampler.queryRay();
 
 }
 void MainProgram::queryCamera()

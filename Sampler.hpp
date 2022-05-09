@@ -14,6 +14,8 @@ namespace SamplerDefinition
 			Sampler(bool trueConstructor);
 			~Sampler();
 
+			void queryRay();
+
 		
 	};
 }
