@@ -17,6 +17,8 @@ namespace IndexedTriangleDefinition
 			IndexedTriangle();
 			~IndexedTriangle();
 
+			KeyData& operator[](int pos);
+
 			void print();
 			KeyData indice[3];
 	};

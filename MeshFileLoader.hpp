@@ -23,6 +23,8 @@ namespace MeshFileLoader::GumLoading
 {
 	void readVertex(FILE** file, string& str, Mesh& mesh);
 	void readIndice(FILE** file, string& str, Mesh& mesh);
+	KeyData readTriangleIndice(FILE** file, string& str);
+	void readTriangle(FILE** file, string& str, Mesh& mesh);
 
 	// actual implementation of reading .gum files
 	void readGumMesh(string filePath, Mesh& mesh);

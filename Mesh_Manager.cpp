@@ -21,6 +21,7 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 
 	if (fileType == ".gum" )
 	{
+		//mesh.loadTriangleTest();
 		MeshFileLoader::loadGumFile(meshFilePath, mesh);
 		meshes.push_back(mesh);
 		return;

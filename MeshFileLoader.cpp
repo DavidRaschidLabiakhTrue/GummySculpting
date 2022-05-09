@@ -61,6 +61,32 @@ namespace MeshFileLoader::GumLoading
 		}
 		mesh.indices.push_back(stoi(str));
 	}
+	KeyData readTriangleIndice(FILE** file, string& str)
+	{
+		char parser;
+		while ((parser = fgetc(*file)) != ' ')
+		{
+			if (parser == '\n')
+				break;
+			str += parser;
+		}
+		return (KeyData)stoi(str);
+	}
+
+
+	void GumLoading::readTriangle(FILE** file, string& str, Mesh& mesh)
+	{
+		IndexedTriangle tri;
+		tri[0] = readTriangleIndice(file, str);
+		str.clear();
+		tri[1] = readTriangleIndice(file, str);
+		str.clear();
+		tri[2] = readTriangleIndice(file, str);
+		str.clear();
+
+		mesh.triangles.push_back(tri);
+
+	}
 
 
 	void readGumMesh(string filePath, Mesh& mesh)
@@ -124,10 +150,10 @@ namespace MeshFileLoader::GumLoading
 
 		str.clear();
 
-		for (int j = 0; j < indiceLim; j++)
+		const int triLimit = indiceLim / 3;
+		for (int j = 0; j < triLimit; j++)
 		{
-			readIndice(&file, str, mesh);
-			str.clear();
+			readTriangle(&file, str, mesh);
 		}
 
 		str.clear();

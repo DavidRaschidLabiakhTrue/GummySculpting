@@ -22,6 +22,8 @@ namespace GraphicsDataDefinition
 			Construct GraphicsData();
 			Deconstruct ~GraphicsData();
 
+			void loadTriangleTest();
+
 			void bind(); // bind to OpenGL
 
 			void refresh(); // reload vertex data to OpenGL.
