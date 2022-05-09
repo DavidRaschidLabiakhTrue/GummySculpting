@@ -2,6 +2,7 @@
 #define GraphicsData_HPP
 
 #include "TriangleList.hpp"
+#include "IndiceList.hpp"
 #include "VertexList.hpp"
 #include "GraphicsBufferObjects.hpp"
 

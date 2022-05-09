@@ -52,7 +52,7 @@ namespace Window_API
 		public:
 			Construct WindowAPIData();
 			Deconstruct ~WindowAPIData();
-			Window_API_Structures::ScreenData reload(); // reload and send out data.
+			Window_API_Structures::ScreenData& reload(); // reload and send out data.
 		private:
 			Window_API_Structures::ScreenData screendata;
 	};

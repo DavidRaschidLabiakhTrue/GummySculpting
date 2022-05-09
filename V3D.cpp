@@ -77,3 +77,13 @@ void V3D::operator-=(rv4 colorOffset)
 	color.b = ((color.b - colorOffset.b > 0.0f) ? 0.0f : color.b - colorOffset.b);
 	// color.a is *always* 1.0.
 }
+
+void VertexDefinition::V3D::setPositionToCenter()
+{
+	position = v3(0, 0, 0);
+}
+
+void V3D::loadColorAs255(int r, int g, int b)
+{
+	color = v4((float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f, 1.0f);
+}

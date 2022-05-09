@@ -10,7 +10,7 @@ Usage MathTypeDefinitions::MatrixDefine;
 namespace CameraDefinition
 {
 	Usage CameraParametersDefinition;
-	class Camera : protected CameraParameters
+	class Camera : public CameraParameters
 	{
 		public:
 			Camera();

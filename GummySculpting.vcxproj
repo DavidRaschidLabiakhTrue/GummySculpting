@@ -163,6 +163,8 @@
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="include\glad\glad.c" />
     <ClCompile Include="IndexedTriangle.cpp" />
+    <ClCompile Include="IndiceList.cpp" />
+    <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="TriangleList.cpp" />
     <ClCompile Include="Indices.cpp" />
     <ClCompile Include="KeyInput.cpp" />
@@ -188,6 +190,8 @@
     <ClInclude Include="GraphicsData.hpp" />
     <ClInclude Include="GUI.hpp" />
     <ClInclude Include="IndexedTriangle.hpp" />
+    <ClInclude Include="IndiceList.hpp" />
+    <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="TriangleList.hpp" />
     <ClInclude Include="Indices.hpp" />
     <ClInclude Include="KeyInput.hpp" />

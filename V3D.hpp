@@ -39,7 +39,9 @@ namespace VertexDefinition
 		void operator +=(v4 addColor);
 		void operator -=(rv4 subtractColor);
 
+		void setPositionToCenter();
 
+		void loadColorAs255(int r, int g, int b);
 	
 
 

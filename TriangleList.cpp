@@ -2,26 +2,20 @@
 
 Usage TriangleListDefinition;
 
-#ifdef IMPLEMENT_LINEAR_INDICES
-IndiceList::IndiceList()
-{
-}
 
-IndiceList::~IndiceList()
-{
-}
-#endif
 
 
 TriangleList::TriangleList()
 {
+
 }
 
 TriangleList::~TriangleList()
 {
+
 }
 
-const int TriangleList::indiceCount()
+const int TriangleList::triangleCountAsindiceCount()
 {
     return triangles.size() * 3;
 }

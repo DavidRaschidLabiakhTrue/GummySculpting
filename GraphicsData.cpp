@@ -87,7 +87,7 @@ void GraphicsData::render()
 {
 	bindVAO();
 
-	glDrawElements(GL_TRIANGLES, indiceCount(), GL_UNSIGNED_INT, NULL); // this is what actually draws to the screen
+	glDrawElements(GL_TRIANGLES, triangleCountAsindiceCount(), GL_UNSIGNED_INT, NULL); // this is what actually draws to the screen
 
 	GL::unbindActiveVAO();
 }

@@ -13,7 +13,6 @@ namespace CameraParametersDefinition
 		public:
 			Construct CameraParameters();
 			Deconstruct ~CameraParameters();
-		protected:
 			float farPlane;
 			float nearPlane;
 			float fov;

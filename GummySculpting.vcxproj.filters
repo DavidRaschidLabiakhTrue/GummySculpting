@@ -110,12 +110,6 @@
     <Filter Include="Data Structures\Graphics Structures\Lists">
       <UniqueIdentifier>{b2cf5b61-47df-4795-810e-5015655c9fba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data Structures\Graphics Structures\Lists\VertexList">
-      <UniqueIdentifier>{250672a9-f7ff-4521-8a37-eda69cff4b9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics Structures\Lists\IndiceList">
-      <UniqueIdentifier>{9f350489-f819-4fa6-b6f2-1d3cd6cf6f72}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data Structures\Graphics Structures\Indices">
       <UniqueIdentifier>{0091298a-7b52-4d31-9452-95ef97628db8}</UniqueIdentifier>
     </Filter>
@@ -143,6 +137,18 @@
     <Filter Include="Data Structures\Graphics And Search Structure\IndexedTriangle">
       <UniqueIdentifier>{60e67002-3371-445d-af0d-97db70d3ede5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mechanics\Ray Casting">
+      <UniqueIdentifier>{0602a549-3604-4cf2-b5f4-0745409d68ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Lists\Triangle List">
+      <UniqueIdentifier>{9f350489-f819-4fa6-b6f2-1d3cd6cf6f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Lists\Vertex List">
+      <UniqueIdentifier>{250672a9-f7ff-4521-8a37-eda69cff4b9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Lists\Indice List">
+      <UniqueIdentifier>{6c642001-9be2-4c14-84f9-1c45c727db21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -164,10 +170,10 @@
       <Filter>Data Structures\Graphics Structures\Indices</Filter>
     </ClCompile>
     <ClCompile Include="VertexList.cpp">
-      <Filter>Data Structures\Graphics Structures\Lists\VertexList</Filter>
+      <Filter>Data Structures\Graphics Structures\Lists\Vertex List</Filter>
     </ClCompile>
     <ClCompile Include="TriangleList.cpp">
-      <Filter>Data Structures\Graphics Structures\Lists\IndiceList</Filter>
+      <Filter>Data Structures\Graphics Structures\Lists\Triangle List</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsBufferObjects.cpp">
       <Filter>Graphics\BufferObjects</Filter>
@@ -214,7 +220,15 @@
     <ClCompile Include="MeshFileLoader.cpp">
       <Filter>FileOps\Mesh File Loading</Filter>
     </ClCompile>
-    <ClCompile Include="IndexedTriangle.cpp" />
+    <ClCompile Include="IndexedTriangle.cpp">
+      <Filter>Data Structures\Graphics And Search Structure\IndexedTriangle</Filter>
+    </ClCompile>
+    <ClCompile Include="RayCasting.cpp">
+      <Filter>Mechanics\Ray Casting</Filter>
+    </ClCompile>
+    <ClCompile Include="IndiceList.cpp">
+      <Filter>Data Structures\Graphics Structures\Lists\Indice List</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -239,10 +253,10 @@
       <Filter>Data Structures\Graphics Structures\Indices</Filter>
     </ClInclude>
     <ClInclude Include="VertexList.hpp">
-      <Filter>Data Structures\Graphics Structures\Lists\VertexList</Filter>
+      <Filter>Data Structures\Graphics Structures\Lists\Vertex List</Filter>
     </ClInclude>
     <ClInclude Include="TriangleList.hpp">
-      <Filter>Data Structures\Graphics Structures\Lists\IndiceList</Filter>
+      <Filter>Data Structures\Graphics Structures\Lists\Triangle List</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsData.hpp">
       <Filter>Data Structures\Graphics Structures\GraphicsData</Filter>
@@ -294,6 +308,12 @@
     </ClInclude>
     <ClInclude Include="IndexedTriangle.hpp">
       <Filter>Data Structures\Graphics And Search Structure\IndexedTriangle</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCasting.hpp">
+      <Filter>Mechanics\Ray Casting</Filter>
+    </ClInclude>
+    <ClInclude Include="IndiceList.hpp">
+      <Filter>Data Structures\Graphics Structures\Lists\Indice List</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
