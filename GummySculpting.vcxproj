@@ -166,6 +166,7 @@
     <ClCompile Include="IndiceList.cpp" />
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
+    <ClCompile Include="TopologyComputation.cpp" />
     <ClCompile Include="TriangleList.cpp" />
     <ClCompile Include="Indices.cpp" />
     <ClCompile Include="KeyInput.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="ShaderPosition.cpp" />
     <ClCompile Include="V3D.cpp" />
     <ClCompile Include="VertexList.cpp" />
+    <ClCompile Include="VertexLookUp.cpp" />
     <ClCompile Include="Window_API.cpp" />
     <ClCompile Include="Window_Class.cpp" />
   </ItemGroup>
@@ -194,6 +196,7 @@
     <ClInclude Include="IndiceList.hpp" />
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />
+    <ClInclude Include="TopologyComputation.hpp" />
     <ClInclude Include="TriangleList.hpp" />
     <ClInclude Include="Indices.hpp" />
     <ClInclude Include="KeyInput.hpp" />
@@ -211,6 +214,7 @@
     <ClInclude Include="ShaderPosition.hpp" />
     <ClInclude Include="V3D.hpp" />
     <ClInclude Include="VertexList.hpp" />
+    <ClInclude Include="VertexLookUp.hpp" />
     <ClInclude Include="Window_Class.hpp" />
     <ClInclude Include="Window_API.hpp" />
   </ItemGroup>

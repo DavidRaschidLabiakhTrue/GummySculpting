@@ -46,13 +46,14 @@ RayCast::~RayCast()
 
 }
 
-void RayCastDefinition::RayCast::cast()
+bool RayCastDefinition::RayCast::cast()
 {
 	if (CheckMousePressed(GLFW_MOUSE_BUTTON_LEFT))
 	{
-		say "Casting Ray" done;
 		screenToWorld();
+		return true;
 	}
+	return false;
 }
 
 void RayCast::bindRay()

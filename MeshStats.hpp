@@ -3,6 +3,7 @@
 
 #include "GraphicsData.hpp"
 
+
 namespace MeshStatsDefinition
 {
 	Usage GraphicsDataDefinition;

@@ -110,7 +110,7 @@ void MainProgram::generateMaps()
 void MainProgram::queryMechanics()
 {
 	queryCamera();
-	sampler.queryRay();
+	sampler.queryRay(renderer.getActiveMesh());
 
 }
 void MainProgram::queryCamera()

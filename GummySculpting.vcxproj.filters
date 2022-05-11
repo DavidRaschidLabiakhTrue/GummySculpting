@@ -149,6 +149,12 @@
     <Filter Include="Mechanics\Sampling\Ray Casting">
       <UniqueIdentifier>{0602a549-3604-4cf2-b5f4-0745409d68ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math\Topology">
+      <UniqueIdentifier>{abbad5a0-66ce-431d-9532-2f342fd3e3f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp">
+      <UniqueIdentifier>{263aad85-0741-41f9-a916-628a948af3ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -231,6 +237,12 @@
     </ClCompile>
     <ClCompile Include="Sampler.cpp">
       <Filter>Mechanics\Sampling</Filter>
+    </ClCompile>
+    <ClCompile Include="TopologyComputation.cpp">
+      <Filter>Math\Topology</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexLookUp.cpp">
+      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -320,6 +332,12 @@
     </ClInclude>
     <ClInclude Include="Sampler.hpp">
       <Filter>Mechanics\Sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="TopologyComputation.hpp">
+      <Filter>Math\Topology</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexLookUp.hpp">
+      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

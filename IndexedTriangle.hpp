@@ -23,6 +23,8 @@ namespace IndexedTriangleDefinition
 			KeyData indice[3];
 	};
 
+	typedef IndexedTriangle& RIndexTriangle;
+
 }
 
 #endif

@@ -1,5 +1,6 @@
 #include "MeshFileLoader.hpp"
 
+using namespace MeshDefinition;
 
 // the call implementation
 void MeshFileLoader::loadGumFile(string filepath, Mesh& mesh)
@@ -50,6 +51,7 @@ namespace MeshFileLoader::GumLoading
 
 		return;
 	}
+
 #ifdef IMPLEMENT_LINEAR_INDICES
 	// UNIMPLEMENTED - COLLAPSE
 	void readIndice(FILE** file, string& str, Mesh& mesh)

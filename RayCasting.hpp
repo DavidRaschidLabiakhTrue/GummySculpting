@@ -19,7 +19,7 @@ namespace RayCastDefinition
 			RayCast(bool trueConstruct);
 			~RayCast();
 
-			void cast(); // fire out a ray cast if clicking and collect ray data
+			bool cast(); // fire out a ray cast if clicking and collect ray data
 
 
 			void drawRay();

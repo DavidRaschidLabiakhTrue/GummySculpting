@@ -29,6 +29,7 @@ namespace TriangleListDefinition
 
 			const int triangleCountAsindiceCount(); // number of triangles * 3 == number of indices used to render
 			const int triangleMemorySize(); // returns the memory size of triangles allocated
+			const int totalTriangles();
 			IndexedTriangles triangles;
 
 

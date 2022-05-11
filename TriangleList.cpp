@@ -25,6 +25,11 @@ const int TriangleList::triangleMemorySize()
 	return triangles.size() * sizeof(IndexedTriangle);
 }
 
+const int TriangleListDefinition::TriangleList::totalTriangles()
+{
+    return triangles.size();
+}
+
 void TriangleList::printTriangleListToConsole()
 {
 	forall(tri, triangles)

@@ -36,6 +36,16 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 	
 }
 
+MeshPTR Mesh_Manager_Definition::Mesh_Manager::getActiveMesh()
+{
+	if (activeMesh == UnassignedPTR)
+	{
+		say "Assign the Mesh Dumb Ass" done;
+		return UnassignedPTR;
+	}
+	return activeMesh;
+}
+
 void Mesh_Manager::bindAllMeshes()
 {
 	say "Binding All Meshes" done;

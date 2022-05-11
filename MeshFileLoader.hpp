@@ -2,6 +2,7 @@
 #define MeshFileLoader_HPP
 
 #include "Mesh.hpp"
+#include "GraphicsData.hpp"
 #include <fstream>
 #include <string>
 #include <cstdio>
@@ -9,7 +10,7 @@
 namespace MeshFileLoader
 {
 	using std::string;
-	using MeshDefinition::Mesh;
+	using namespace MeshDefinition;
 	void loadGumFile(string filepath, Mesh& mesh);
 }
 

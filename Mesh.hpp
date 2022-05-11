@@ -2,17 +2,23 @@
 #define Mesh_HPP
 
 #include "GraphicsData.hpp"
+#include "TopologyComputation.hpp"
 #include "MeshStats.hpp"
 
 namespace MeshDefinition
 {
-	Usage GraphicsDataDefinition;
-	Usage MeshStatsDefinition;
+	using namespace GraphicsDataDefinition;
+	using namespace MeshStatsDefinition;
+	using namespace TopologyComputationDefinition;
+
 	class Mesh : public MeshStats
 	{
 		public:
 			Construct Mesh();
 			Deconstruct ~Mesh();
+
+			KeyData searchLinear(rv3 direction, rv3 origin);
+
 		// slot for edges
 		// slot for Octree
 		// slot for triangles
