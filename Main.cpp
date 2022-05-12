@@ -60,15 +60,15 @@ int MainProgram::ProgramCycle()
 {
     while (shouldNotClose())
     {
-		clearBuffer();
-
-		queryMechanics();
-
-		draw3D();
 		
+		beginDrawFrame(); // refresh all draw buffers
+
+		queryMechanics(); // query for input
+		draw3D(); // drawing meshes
+		draw2D();
 
 
-		eventQuery();
+		eventQuery(); // update glfw in conjunction with opengl 
 
     }
 
@@ -123,7 +123,18 @@ void MainProgram::draw3D()
 	renderer.draw();
 	sampler.drawRay();
 }
+void MainProgram::draw2D()
+{
+	gui.buildGuiFrame();
+	gui.renderGui();
+}
 void MainProgram::loadResources()
 {
 	ShaderDefinition::compileGlobalShaders();
+}
+
+void MainProgram::beginDrawFrame()
+{
+	gui.newGuiFrame();
+	clearBuffer();
 }

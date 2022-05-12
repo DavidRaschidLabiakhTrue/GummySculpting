@@ -1,6 +1,7 @@
 #include "GUI.hpp"
 
 using namespace GuiDefinition;
+using namespace TopBarDefinition;
 
 
 GUI::GUI()
@@ -20,15 +21,20 @@ GUI::~GUI()
 
 void GuiDefinition::GUI::newGuiFrame()
 {
-
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
 }
 
 void GuiDefinition::GUI::buildGuiFrame()
 {
+	topBar.build();
 }
 
 void GuiDefinition::GUI::renderGui()
 {
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 

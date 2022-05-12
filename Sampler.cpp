@@ -34,7 +34,7 @@ void SamplerDefinition::Sampler::queryRay(MeshPTR currentMesh)
 		}
 		else
 		{
-			say "Impossible Key Found" done;
+			// Impossible Key Found
 		}
 	}
 	

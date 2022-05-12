@@ -43,12 +43,14 @@ class MainProgram
 		void parseCommandLineArguments(StringList& arguments);
 
 		void loadResources();
+        void beginDrawFrame();
 		void bindGraphicsDataToGPU();
 		void generateMaps();
 		void queryMechanics();
 		void queryCamera();
 
-		void draw3D();
+		void draw3D(); // drawing meshes
+		void draw2D(); // draw gui and other 2d components
 
 		Window win;
 		Camera cam;

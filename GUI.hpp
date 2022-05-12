@@ -2,11 +2,13 @@
 #define Gui_HPP
 
 #include "Window_API.hpp"
+#include "TopBar.hpp"
 
 
 namespace GuiDefinition
 {
 	using namespace Window_API;
+	using namespace TopBarDefinition;
 
 	ImGuiIO& InitializeImGUI();
 
@@ -24,6 +26,8 @@ namespace GuiDefinition
 			void renderGui();
 
 			ImGuiIO imguiIO;
+
+			TopBar topBar;
 	};
 }
 

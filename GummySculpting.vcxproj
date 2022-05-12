@@ -173,6 +173,7 @@
     <ClCompile Include="IndiceList.cpp" />
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
+    <ClCompile Include="TopBar.cpp" />
     <ClCompile Include="TopologyComputation.cpp" />
     <ClCompile Include="TriangleList.cpp" />
     <ClCompile Include="Indices.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="IndiceList.hpp" />
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />
+    <ClInclude Include="TopBar.hpp" />
     <ClInclude Include="TopologyComputation.hpp" />
     <ClInclude Include="TriangleList.hpp" />
     <ClInclude Include="Indices.hpp" />

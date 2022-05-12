@@ -167,6 +167,9 @@
     <Filter Include="Window And GUI\GUI\MainGUI">
       <UniqueIdentifier>{411c42f5-cf17-42e2-91fc-0505cb572f57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Window And GUI\GUI\TopBar">
+      <UniqueIdentifier>{390b313d-543e-4062-80f6-b2e09102d1c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -276,6 +279,9 @@
     </ClCompile>
     <ClCompile Include="GUI.cpp">
       <Filter>Window And GUI\GUI\MainGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TopBar.cpp">
+      <Filter>Window And GUI\GUI\TopBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -398,6 +404,9 @@
     </ClInclude>
     <ClInclude Include="GUI.hpp">
       <Filter>Window And GUI\GUI\MainGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TopBar.hpp">
+      <Filter>Window And GUI\GUI\TopBar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
