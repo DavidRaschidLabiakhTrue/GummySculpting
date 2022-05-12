@@ -6,13 +6,24 @@
 
 namespace GuiDefinition
 {
-	Usage Window_API;
+	using namespace Window_API;
+
+	ImGuiIO& InitializeImGUI();
 
 	class GUI
 	{
 		public:
-			Construct GUI();
-			Deconstruct ~GUI();
+			GUI();
+			GUI(bool trueConstructor);
+			~GUI();
+
+			void newGuiFrame();
+
+			void buildGuiFrame();
+
+			void renderGui();
+
+			ImGuiIO imguiIO;
 	};
 }
 

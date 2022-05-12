@@ -13,6 +13,9 @@
 #include "Sampler.hpp"
 
 
+#include "GUI.hpp"
+
+
 using namespace MathTypeDefinitions;
 using namespace Window_Class;
 
@@ -21,6 +24,8 @@ using namespace CameraDefinition;
 using namespace RendererDefinition;
 
 using namespace SamplerDefinition;
+
+using namespace GuiDefinition;
 
 class MainProgram
 {
@@ -51,6 +56,8 @@ class MainProgram
 		Renderer renderer;
 
 		Sampler sampler;
+
+		GUI gui;
 
 
 };

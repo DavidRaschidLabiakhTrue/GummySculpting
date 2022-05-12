@@ -33,7 +33,7 @@ MainProgram::MainProgram(StringList& arguments)
 {
     win = Window(TrueConstructor); // load GLFW and OpenGL.
     Window_Class::WindowGlobal::ActiveWindow = &win; // set up window linkage.
-
+	gui = GUI(TrueConstructor);
 	CameraDefinition::GlobalCamera = &cam; // set up camera linkage
 	sampler = Sampler(TrueConstructor);
     preprocess(arguments);

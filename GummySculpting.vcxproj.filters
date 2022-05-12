@@ -155,6 +155,18 @@
     <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp">
       <UniqueIdentifier>{263aad85-0741-41f9-a916-628a948af3ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Window And GUI\GUI\ImGUI Impl">
+      <UniqueIdentifier>{65e635db-a968-4b0c-9930-f17beda1ef38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI\ImGUI Impl\src">
+      <UniqueIdentifier>{010a7b22-f79b-4e5a-86c1-e36fb4009041}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI\ImGUI Impl\header">
+      <UniqueIdentifier>{18d6e7af-d2db-4349-b314-c74b49aa065b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI\MainGUI">
+      <UniqueIdentifier>{411c42f5-cf17-42e2-91fc-0505cb572f57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -211,9 +223,6 @@
     <ClCompile Include="Mesh_Manager.cpp">
       <Filter>Data Structures\Management\Mesh_Manager</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Window And GUI\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="MeshStats.cpp">
       <Filter>Data Structures\Search Structures\MeshStats</Filter>
     </ClCompile>
@@ -243,6 +252,30 @@
     </ClCompile>
     <ClCompile Include="VertexLookUp.cpp">
       <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_demo.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_draw.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_impl_glfw.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_impl_opengl3.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_tables.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_widgets.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Window And GUI\GUI\MainGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -306,9 +339,6 @@
     <ClInclude Include="Mesh_Manager.hpp">
       <Filter>Data Structures\Management\Mesh_Manager</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.hpp">
-      <Filter>Window And GUI\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="MeshStats.hpp">
       <Filter>Data Structures\Search Structures\MeshStats</Filter>
     </ClInclude>
@@ -338,6 +368,36 @@
     </ClInclude>
     <ClInclude Include="VertexLookUp.hpp">
       <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imconfig.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_impl_glfw.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_impl_opengl3.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_impl_opengl3_loader.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_internal.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imstb_rectpack.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imstb_textedit.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imstb_truetype.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.hpp">
+      <Filter>Window And GUI\GUI\MainGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
