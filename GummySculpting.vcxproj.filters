@@ -170,6 +170,15 @@
     <Filter Include="Window And GUI\GUI\TopBar">
       <UniqueIdentifier>{390b313d-543e-4062-80f6-b2e09102d1c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3D Objects">
+      <UniqueIdentifier>{c466cc75-5def-4bb1-b599-a08949eff210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Spacial Grid">
+      <UniqueIdentifier>{61100c27-eafe-4eb5-8e63-74fb538ce63b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Visual Objects">
+      <UniqueIdentifier>{6380adda-d889-481d-8538-b9627bddcaea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -282,6 +291,12 @@
     </ClCompile>
     <ClCompile Include="TopBar.cpp">
       <Filter>Window And GUI\GUI\TopBar</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>3D Objects\Spacial Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualObjects.cpp">
+      <Filter>3D Objects\Visual Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -407,6 +422,12 @@
     </ClInclude>
     <ClInclude Include="TopBar.hpp">
       <Filter>Window And GUI\GUI\TopBar</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.hpp">
+      <Filter>3D Objects\Spacial Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualObjects.hpp">
+      <Filter>3D Objects\Visual Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

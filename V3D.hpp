@@ -23,6 +23,7 @@ namespace VertexDefinition
 	{
 		public:
 		Construct V3D();
+		V3D(v3 pos);
 		Construct V3D(float x, float y, float z);
 		Construct V3D(float x, float y, float z, float r, float g, float b);
 		Deconstruct ~V3D();
@@ -43,7 +44,10 @@ namespace VertexDefinition
 
 		void loadColorAs255(int r, int g, int b);
 	
+		void printPosition();
+		void printColor();
 
+		void printSlots(); // print all slot data.
 
 
 		v3 position;

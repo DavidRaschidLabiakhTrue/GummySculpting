@@ -15,6 +15,8 @@
 
 #include "GUI.hpp"
 
+#include "VisualObjects.hpp"
+
 
 using namespace MathTypeDefinitions;
 using namespace Window_Class;
@@ -26,6 +28,8 @@ using namespace RendererDefinition;
 using namespace SamplerDefinition;
 
 using namespace GuiDefinition;
+
+using namespace VisualObjectsDefinition;
 
 class MainProgram
 {
@@ -60,6 +64,8 @@ class MainProgram
 		Sampler sampler;
 
 		GUI gui;
+
+		VisualObjects visualObjects;
 
 
 };

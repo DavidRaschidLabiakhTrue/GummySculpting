@@ -36,6 +36,10 @@ MainProgram::MainProgram(StringList& arguments)
 	gui = GUI(TrueConstructor);
 	CameraDefinition::GlobalCamera = &cam; // set up camera linkage
 	sampler = Sampler(TrueConstructor);
+
+
+	visualObjects = VisualObjects(TrueConstructor);
+
     preprocess(arguments);
 }
 
@@ -122,6 +126,7 @@ void MainProgram::draw3D()
 {
 	renderer.draw();
 	sampler.drawRay();
+	visualObjects.drawVisualObjects();
 }
 void MainProgram::draw2D()
 {

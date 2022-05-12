@@ -160,6 +160,7 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="GraphicsBufferObjects.cpp" />
     <ClCompile Include="GraphicsData.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="include\glad\glad.c" />
     <ClCompile Include="include\IMGUI\imgui.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="V3D.cpp" />
     <ClCompile Include="VertexList.cpp" />
     <ClCompile Include="VertexLookUp.cpp" />
+    <ClCompile Include="VisualObjects.cpp" />
     <ClCompile Include="Window_API.cpp" />
     <ClCompile Include="Window_Class.cpp" />
   </ItemGroup>
@@ -199,6 +201,7 @@
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="GraphicsBufferObjects.hpp" />
     <ClInclude Include="GraphicsData.hpp" />
+    <ClInclude Include="Grid.hpp" />
     <ClInclude Include="GUI.hpp" />
     <ClInclude Include="include\IMGUI\imconfig.h" />
     <ClInclude Include="include\IMGUI\imgui.h" />
@@ -233,6 +236,7 @@
     <ClInclude Include="V3D.hpp" />
     <ClInclude Include="VertexList.hpp" />
     <ClInclude Include="VertexLookUp.hpp" />
+    <ClInclude Include="VisualObjects.hpp" />
     <ClInclude Include="Window_Class.hpp" />
     <ClInclude Include="Window_API.hpp" />
   </ItemGroup>

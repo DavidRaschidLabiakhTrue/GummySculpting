@@ -34,7 +34,7 @@ namespace Macros
 	
 	#define FileNotOpen NULL
 
-	#define say cout <<
+	#define say std::cout <<
 	#define spc << " " << 
 	#define done << '\n'
 	#define forall(item,items) for(auto &item: (items))
