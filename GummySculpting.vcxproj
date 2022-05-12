@@ -158,6 +158,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraParameters.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="EdgeList.cpp" />
     <ClCompile Include="GraphicsBufferObjects.cpp" />
     <ClCompile Include="GraphicsData.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -199,6 +201,8 @@
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="CameraParameters.hpp" />
     <ClInclude Include="Color.hpp" />
+    <ClInclude Include="Edge.hpp" />
+    <ClInclude Include="EdgeList.hpp" />
     <ClInclude Include="GraphicsBufferObjects.hpp" />
     <ClInclude Include="GraphicsData.hpp" />
     <ClInclude Include="Grid.hpp" />

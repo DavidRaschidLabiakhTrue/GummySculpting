@@ -7,6 +7,7 @@
 
 #include "VertexLookUp.hpp"
 
+#include "EdgeList.hpp"
 
 
 
@@ -16,11 +17,12 @@ namespace GraphicsDataDefinition
 	using namespace VertexListDefinition;
 	using namespace GraphicsBufferObjectsDefinition;
 	using namespace VertexLookUpDefinition;
+	using namespace EdgeListDefinition;
 	/*
 		*	Graphics Data - A graphics format meant specifically for interacting with the GPU.
 		*   Inherited by MeshStats -> Mesh
 	*/
-	class GraphicsData : protected GraphicsBufferObject, public VertexLookUp
+	class GraphicsData : protected GraphicsBufferObject, public EdgeList
 	{
 		public:
 			Construct GraphicsData();

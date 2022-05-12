@@ -179,6 +179,12 @@
     <Filter Include="3D Objects\Visual Objects">
       <UniqueIdentifier>{6380adda-d889-481d-8538-b9627bddcaea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Search Structures\EdgeList">
+      <UniqueIdentifier>{56aee3be-35d0-4046-b2a7-399b3894823c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\Edge">
+      <UniqueIdentifier>{00323994-3432-4dca-940c-eb69b8f6c85c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -298,6 +304,10 @@
     <ClCompile Include="VisualObjects.cpp">
       <Filter>3D Objects\Visual Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Edge.cpp">
+      <Filter>Data Structures\Search Structures\Edge</Filter>
+    </ClCompile>
+    <ClCompile Include="EdgeList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -428,6 +438,12 @@
     </ClInclude>
     <ClInclude Include="VisualObjects.hpp">
       <Filter>3D Objects\Visual Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.hpp">
+      <Filter>Data Structures\Search Structures\Edge</Filter>
+    </ClInclude>
+    <ClInclude Include="EdgeList.hpp">
+      <Filter>Data Structures\Search Structures\EdgeList</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
