@@ -63,3 +63,18 @@ void EdgeList::printAllEdges()
 	}
 
 }
+
+v3 EdgeListDefinition::EdgeList::averageAt(KeyData key)
+{
+	v3 res = v3(0);
+
+	auto& edge = edges[key].vertexEdges;
+
+	forall(element, edge)
+	{
+		res += vertices[element].position;
+	}
+	res /= (float)edge.size();
+	
+	return res;
+}

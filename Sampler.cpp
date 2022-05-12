@@ -28,9 +28,7 @@ void SamplerDefinition::Sampler::queryRay(MeshPTR currentMesh)
 
 			auto& foundPoint = currentMesh->vertices[key];
 
-			foundPoint += foundPoint.position * 0.01f;
-
-	
+			foundPoint = currentMesh->averageAt(key);
 
 			currentMesh->refresh();
 		}

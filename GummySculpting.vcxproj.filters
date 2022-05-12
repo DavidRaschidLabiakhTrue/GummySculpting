@@ -185,6 +185,9 @@
     <Filter Include="Data Structures\Search Structures\Edge">
       <UniqueIdentifier>{00323994-3432-4dca-940c-eb69b8f6c85c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mechanics\Sculpting\Smoothing">
+      <UniqueIdentifier>{ca982535-bb28-4d25-bcd2-62f0e425c371}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -446,6 +449,9 @@
     </ClInclude>
     <ClInclude Include="EdgeList.hpp">
       <Filter>Data Structures\Search Structures\EdgeList</Filter>
+    </ClInclude>
+    <ClInclude Include="Smoothing.hpp">
+      <Filter>Mechanics\Sculpting\Smoothing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

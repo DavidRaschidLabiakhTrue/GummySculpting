@@ -25,6 +25,8 @@ namespace EdgeListDefinition
 
 			void printAllEdges();
 
+			v3 averageAt(KeyData key); // 
+
 
 			
 

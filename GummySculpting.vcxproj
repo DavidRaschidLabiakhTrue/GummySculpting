@@ -220,6 +220,7 @@
     <ClInclude Include="IndiceList.hpp" />
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />
+    <ClInclude Include="Smoothing.hpp" />
     <ClInclude Include="TopBar.hpp" />
     <ClInclude Include="TopologyComputation.hpp" />
     <ClInclude Include="TriangleList.hpp" />
