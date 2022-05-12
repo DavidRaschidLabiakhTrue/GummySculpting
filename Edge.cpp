@@ -1,5 +1,7 @@
 #include "Edge.hpp"
 
+using namespace EdgeDefinition;
+
 EdgeDefinition::Edge::Edge()
 {
 }
@@ -25,5 +27,9 @@ void EdgeDefinition::Edge::cleanUp()
 
 void EdgeDefinition::Edge::printEdge()
 {
-	
+	forall(key, vertexEdges)
+	{
+		say key << ' ';
+	}
+	say "\n";
 }

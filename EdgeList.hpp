@@ -23,6 +23,7 @@ namespace EdgeListDefinition
 
 			void cleanUpEdges();
 
+			void printAllEdges();
 
 
 			
