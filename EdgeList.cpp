@@ -2,20 +2,20 @@
 
 using namespace EdgeListDefinition;
 
-EdgeListDefinition::EdgeList::EdgeList()
+EdgeList::EdgeList()
 {
 }
 
-EdgeListDefinition::EdgeList::~EdgeList()
+EdgeList::~EdgeList()
 {
 }
 
-EdgeReference EdgeListDefinition::EdgeList::getEdge(KeyData key)
+EdgeReference EdgeList::getEdge(KeyData key)
 {
 	return this->edges[key];
 }
 
-void EdgeListDefinition::EdgeList::generateEdges()
+void EdgeList::generateEdges()
 {
 	const auto countUniqueVertices = vertices.size();
 	edges.reserve(countUniqueVertices);
@@ -36,10 +36,11 @@ void EdgeListDefinition::EdgeList::generateEdges()
 		edges[tri[2]].vertexEdges.emplace_back(tri[1]);
 	}
 
-	cleanUpEdges();
+	this->cleanUpEdges();
+	printAllEdges();
 }
 
-void EdgeListDefinition::EdgeList::cleanUpEdges()
+void EdgeList::cleanUpEdges()
 {
 	const auto countofedges = edges.size();
 
@@ -47,4 +48,18 @@ void EdgeListDefinition::EdgeList::cleanUpEdges()
 	{
 		edges[i].cleanUp();
 	}
+}
+
+void EdgeList::printAllEdges()
+{
+	int tracker = 0;
+	const int edgeCount = edges.size();
+
+	for (int i = 0; i < edgeCount; i++)
+	{
+		say "id:" spc tracker << ":";
+		tracker++;
+		edges[i].printEdge();
+	}
+
 }

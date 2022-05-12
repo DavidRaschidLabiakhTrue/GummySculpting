@@ -38,10 +38,12 @@ GridDefinition::Grid::Grid(bool trueConstructor)
 		}
 	}
 
+	/*
 	forall(indexpos, indices)
 	{
 		vertices[indexpos].printPosition();
 	}
+	*/
 
 	vertices[0].loadColorAs255(225, 0, 0);
 	vertices[1].loadColorAs255(225, 0, 0);

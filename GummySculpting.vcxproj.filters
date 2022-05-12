@@ -307,7 +307,9 @@
     <ClCompile Include="Edge.cpp">
       <Filter>Data Structures\Search Structures\Edge</Filter>
     </ClCompile>
-    <ClCompile Include="EdgeList.cpp" />
+    <ClCompile Include="EdgeList.cpp">
+      <Filter>Data Structures\Search Structures\EdgeList</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">

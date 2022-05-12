@@ -24,6 +24,8 @@ void SamplerDefinition::Sampler::queryRay(MeshPTR currentMesh)
 		if (key != ImpossibleKey)
 		{
 
+			// say key done;
+
 			auto& foundPoint = currentMesh->vertices[key];
 
 			foundPoint += foundPoint.position * 0.01f;
