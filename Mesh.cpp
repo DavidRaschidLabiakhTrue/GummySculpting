@@ -28,7 +28,7 @@ KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
 			if (distance(testCoordinate, origin) < distance(storedCoordinate, origin))
 			{
 				storedCoordinate = testCoordinate;
-				result = findClosest(testCoordinate, tri[0], tri[1], tri[2]);
+				result = closest(testCoordinate, tri);
 			}
 			// there was a hit.
 		}

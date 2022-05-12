@@ -19,6 +19,8 @@ namespace SamplerDefinition
 			void queryRay(MeshPTR currentMesh);
 			void queryRay();
 
+			v3 currentDir = v3(0);
+
 		
 	};
 }
