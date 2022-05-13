@@ -37,7 +37,7 @@ void EdgeList::generateEdges()
 	}
 
 	this->cleanUpEdges();
-	printAllEdges();
+	//printAllEdges();
 }
 
 void EdgeList::cleanUpEdges()
