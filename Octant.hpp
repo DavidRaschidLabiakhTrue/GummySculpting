@@ -2,15 +2,23 @@
 #define Octant_HPP
 
 #include "MeshStats.hpp"
+#include "TriangleOctantKeyPairList.hpp"
+#include "MortonCode.hpp"
+
 
 namespace OctantDefinition
 {
 	using namespace MeshStatsDefinition;
+	using namespace TriangleOctantKeyPairListDefinition;
+	using namespace MortonCodeDefinition;
+
 	typedef int OctantIndex;
 	typedef int ChildArray;
 	typedef int OctantParent;
 
-	typedef vector<int> TriangleIDList;
+
+
+	
 
 	#define NoOctantParentSet -1
 
@@ -25,7 +33,7 @@ namespace OctantDefinition
 			~Octant();
 
 			OctantIndex octantIndex; // store octant index on the octant itself.
-			TriangleIDList triangleID; // references to positions within the triangle array
+			TriangleIDList triangleIDs; // references to positions within the triangle array
 			OctantParent parent = NoOctantParentSet; // integer id to parent within octant list
 			ChildArray children[8] = { -1, -1, -1, -1, -1, -1, -1, -1 }; // integer IDs to octant children within the OctantList
 
@@ -33,8 +41,12 @@ namespace OctantDefinition
 			v3 octantCenter; // center position of octant
 			int octantDepth; // octant depth level
 			int octantState = 2; // this needs to be enumerated
-			int octantLimit;
+			int octantLimit; // this should be a static member, octree member, or #define instead of per octant if every single octant gets this value.
+
+			bool insert(TriangleAndOctantPairList& list, TriangleID id); // insert a triangle by ID reference into the octree.
 	};
+
+
 
 
 

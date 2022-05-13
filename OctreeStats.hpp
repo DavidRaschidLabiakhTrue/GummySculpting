@@ -2,12 +2,14 @@
 #define OctreeStats_HPP
 
 #include "MeshStats.hpp"
+#include "TriangleOctantKeyPairList.hpp"
 
 namespace OctreeStatsDefinition
 {
 	using namespace MeshStatsDefinition;
+	using namespace TriangleOctantKeyPairListDefinition;
 
-	class OctreeStats : public MeshStats
+	class OctreeStats : public TriangleOctantKeyPairList
 	{
 		public:
 			OctreeStats();

@@ -19,9 +19,14 @@ namespace IndexedTriangleDefinition
 
 			void print(); // print the 3 indices in order to console
 			KeyData indice[3]; // the actual key components - these values are fed straight into opengl to draw meshes by indice
+
+
 	};
 
 	typedef IndexedTriangle& RIndexTriangle;
+
+	typedef int TriangleID;
+	typedef vector<int> TriangleIDList;
 
 }
 

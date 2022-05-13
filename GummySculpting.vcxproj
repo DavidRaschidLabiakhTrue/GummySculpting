@@ -175,6 +175,7 @@
     <ClCompile Include="include\IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="IndexedTriangle.cpp" />
     <ClCompile Include="IndiceList.cpp" />
+    <ClCompile Include="MortonCode.cpp" />
     <ClCompile Include="Octant.cpp" />
     <ClCompile Include="Octree.cpp" />
     <ClCompile Include="OctreeStats.cpp" />
@@ -195,6 +196,8 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderPosition.cpp" />
     <ClCompile Include="TriangleLookUp.cpp" />
+    <ClCompile Include="TriangleOctantKeyPair.cpp" />
+    <ClCompile Include="TriangleOctantKeyPairList.cpp" />
     <ClCompile Include="V3D.cpp" />
     <ClCompile Include="VertexList.cpp" />
     <ClCompile Include="VertexLookUp.cpp" />
@@ -224,6 +227,7 @@
     <ClInclude Include="include\IMGUI\imstb_truetype.h" />
     <ClInclude Include="IndexedTriangle.hpp" />
     <ClInclude Include="IndiceList.hpp" />
+    <ClInclude Include="MortonCode.hpp" />
     <ClInclude Include="Octant.hpp" />
     <ClInclude Include="Octree.hpp" />
     <ClInclude Include="OctreeStats.hpp" />
@@ -248,6 +252,8 @@
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="ShaderPosition.hpp" />
     <ClInclude Include="TriangleLookUp.hpp" />
+    <ClInclude Include="TriangleOctantKeyPair.hpp" />
+    <ClInclude Include="TriangleOctantKeyPairList.hpp" />
     <ClInclude Include="V3D.hpp" />
     <ClInclude Include="VertexList.hpp" />
     <ClInclude Include="VertexLookUp.hpp" />

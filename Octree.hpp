@@ -17,6 +17,8 @@ namespace OctreeDefinition
 		public:
 			Octree();
 			~Octree();
+
+			void buildOctree();
 			void printStats();
 	};
 

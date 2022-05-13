@@ -34,6 +34,8 @@ namespace TriangleListDefinition
 
 
 	};
+
+	typedef int IndexedTrianglePosition; // value meant to refer to a position in the IndexedTriangle List.
 }
 
 #endif // TriangleList_HPP

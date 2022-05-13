@@ -20,6 +20,14 @@ OctantDefinition::Octant::~Octant()
 {
 }
 
+bool OctantDefinition::Octant::insert(TriangleAndOctantPairList& list, TriangleID id)
+{
+	this->triangleIDs.emplace_back(id);
+	list[id].octantIndex = this->octantIndex;
+	return triangleIDs.size() > octantLimit;
+}
+
+
 
 
 
@@ -155,5 +163,4 @@ vector<v3> Octant::generateMesh()
 }
 
 */
-
 

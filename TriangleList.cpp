@@ -17,12 +17,12 @@ TriangleList::~TriangleList()
 
 const int TriangleList::triangleCountAsindiceCount()
 {
-    return triangles.size() * 3;
+    return (triangles.size()) * 3;
 }
 
 const int TriangleList::triangleMemorySize()
 {
-	return triangles.size() * sizeof(IndexedTriangle);
+	return triangles.size() * (sizeof(IndexedTriangle));
 }
 
 const int TriangleListDefinition::TriangleList::totalTriangles()

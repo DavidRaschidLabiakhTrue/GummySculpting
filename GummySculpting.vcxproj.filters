@@ -212,6 +212,12 @@
     <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers">
       <UniqueIdentifier>{2e8c40a5-fb0d-4cb1-81a4-1c3c10ec91de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList">
+      <UniqueIdentifier>{cafb1551-484a-45ba-8e0b-dd1e230c9839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList\TriangleOctantKeyPair">
+      <UniqueIdentifier>{d33a8261-6dcb-46ad-a78e-9de8b323c2f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -352,6 +358,13 @@
     <ClCompile Include="OctreeStats.cpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\OctreeStats</Filter>
     </ClCompile>
+    <ClCompile Include="TriangleOctantKeyPair.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList\TriangleOctantKeyPair</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleOctantKeyPairList.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList</Filter>
+    </ClCompile>
+    <ClCompile Include="MortonCode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -506,6 +519,15 @@
     </ClInclude>
     <ClInclude Include="OctreeStats.hpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\OctreeStats</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleOctantKeyPair.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList\TriangleOctantKeyPair</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleOctantKeyPairList.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList</Filter>
+    </ClInclude>
+    <ClInclude Include="MortonCode.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

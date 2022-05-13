@@ -11,6 +11,11 @@ OctreeDefinition::Octree::~Octree()
 {
 }
 
+void OctreeDefinition::Octree::buildOctree()
+{
+	TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
+}
+
 void OctreeDefinition::Octree::printStats()
 {
 }
