@@ -11,9 +11,9 @@ namespace Macros
 {
 	using namespace std;
 	// specify deconstructor
-	#define Deconstruct 
+	#define Deconstruct
 	// specify Constructor
-	#define Construct 
+	#define Construct
 	// specify Empty Constructor to silence C++
 	#define Empty_Construct
 
@@ -31,13 +31,14 @@ namespace Macros
 	#define eif(x) else if((x))
 
 	#define TrueConstructor true
-	
+
 	#define FileNotOpen NULL
 
 	#define say cout <<
-	#define spc << " " << 
+	#define spc << " " <<
 	#define done << '\n'
 	#define forall(item,items) for(auto &item: (items))
+	#define foreach(item,items) for(auto &item: (items))
 }
 
 
