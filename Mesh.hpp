@@ -11,17 +11,22 @@ namespace MeshDefinition
 	using namespace MeshStatsDefinition;
 	using namespace TopologyComputationDefinition;
 
+	// a wrapper and container for all graphics and search structures used in the mesh.
+	// contains graphics data for drawing
+	// contains graphs and maps for searching.
+	// meant as a final container for all 3d classes used for managing vertices and triangles ultimately.
+
 	class Mesh : public MeshStats
 	{
 		public:
-			Construct Mesh();
-			Deconstruct ~Mesh();
+			Mesh();
+			~Mesh();
 
 			KeyData searchLinear(rv3 direction, rv3 origin);
 
-		// slot for edges
-		// slot for Octree
-		// slot for triangles
+
+			// slot for Octree
+
 			string name;
 			
 

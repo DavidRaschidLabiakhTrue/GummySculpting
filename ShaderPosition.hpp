@@ -10,6 +10,7 @@ Usage Macros;
 namespace ShaderPositionDefinition
 {
 	using std::string;
+	// represents hard coded constants used for binding
 	class ShaderPosition
 	{
 		public:
@@ -27,6 +28,7 @@ namespace ShaderPositionDefinition
 		void loadModelMatrix(); // load model matrix shader data
 	};
 
+	// basically a global constant that contains all relevant data needed.
 	class ShaderPositionData
 	{
 		public:

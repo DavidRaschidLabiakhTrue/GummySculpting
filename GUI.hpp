@@ -11,7 +11,7 @@ namespace GuiDefinition
 	using namespace TopBarDefinition;
 
 	ImGuiIO& InitializeImGUI();
-
+	// GUI wrapper class that builds, draws, and renders frames. 
 	class GUI
 	{
 		public:

@@ -9,7 +9,7 @@
 
 #include "EdgeList.hpp"
 
-
+#include "TriangleLookUp.hpp"
 
 namespace GraphicsDataDefinition
 {
@@ -18,11 +18,12 @@ namespace GraphicsDataDefinition
 	using namespace GraphicsBufferObjectsDefinition;
 	using namespace VertexLookUpDefinition;
 	using namespace EdgeListDefinition;
+	using namespace TriangleLookUpDefinition;
 	/*
 		*	Graphics Data - A graphics format meant specifically for interacting with the GPU.
 		*   Inherited by MeshStats -> Mesh
 	*/
-	class GraphicsData : protected GraphicsBufferObject, public EdgeList
+	class GraphicsData : protected GraphicsBufferObject, public TriangleLookUp
 	{
 		public:
 			Construct GraphicsData();

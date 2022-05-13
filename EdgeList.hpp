@@ -11,6 +11,11 @@ namespace EdgeListDefinition
 
 	typedef vector<Edge> Edges;
 
+	// a class that contains a list of edges *by indice*
+	/*
+	*	edges[i] will return an edge that contains all *edges* to element i which also refers to the *vertex* in vertices[i]. It does not explicitly store the ID
+	*/
+
 	class EdgeList : public VertexLookUp
 	{
 		public:

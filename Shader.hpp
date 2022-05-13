@@ -9,6 +9,7 @@ namespace ShaderDefinition
 {
 	Usage ShaderPositionDefinition;
 
+	// shader class that enables meshes to be drawn on the GPU through a shader program
 	class Shader
 	{
 		public:
@@ -18,8 +19,8 @@ namespace ShaderDefinition
 			void use(); // load shader for usage on program load.
 			void compileShader(string vertexFilePath, string fragmentFilePath, string name); // compile a shader file.
 			
-			void compileStandardShader();
-			void compileWireFrameShader();
+			void compileStandardShader(); // hard coded compiling
+			void compileWireFrameShader(); // hard coded compiling
 
 			string name; // name of shader for debugging
 			

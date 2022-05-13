@@ -46,7 +46,7 @@ namespace Window_API
 	}
 
 
-
+	// what grants desired window data on call
 	struct WindowAPIData
 	{
 		public:

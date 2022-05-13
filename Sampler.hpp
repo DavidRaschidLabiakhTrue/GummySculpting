@@ -9,6 +9,7 @@ namespace SamplerDefinition
 	using namespace RayCastDefinition;
 	using namespace Mesh_Manager_Definition;
 
+	// mesh sampler that reads in a mesh and processes it directly from it's maps and graphs to perform sculpting actions on.
 	class Sampler: public RayCast
 	{
 		public:

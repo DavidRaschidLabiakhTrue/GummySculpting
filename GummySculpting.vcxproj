@@ -190,6 +190,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderPosition.cpp" />
+    <ClCompile Include="TriangleLookUp.cpp" />
     <ClCompile Include="V3D.cpp" />
     <ClCompile Include="VertexList.cpp" />
     <ClCompile Include="VertexLookUp.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="ShaderPosition.hpp" />
+    <ClInclude Include="TriangleLookUp.hpp" />
     <ClInclude Include="V3D.hpp" />
     <ClInclude Include="VertexList.hpp" />
     <ClInclude Include="VertexLookUp.hpp" />

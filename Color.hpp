@@ -3,6 +3,8 @@
 
 #include "MathDefinitions.hpp"
 
+// UNUSED
+
 namespace ColorDefinition
 {
 	Usage MathTypeDefinitions::CoordinateDefine;

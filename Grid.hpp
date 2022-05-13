@@ -12,6 +12,7 @@ namespace GridDefinition
 	using namespace CameraDefinition;
 	using namespace ShaderDefinition;
 
+	// visual 3D drawn grid
 	class Grid : public IndiceList, public GraphicsData
 	{
 		public:
@@ -19,8 +20,9 @@ namespace GridDefinition
 			Grid(bool trueConstructor);
 			~Grid();
 
-			void bindGrid();
-			void drawGrid();
+			void bindGrid(); // bind the grid to the gpu
+			void drawGrid(); // draw the grid
+
 			// no refresh method is required. It's a grid.
 
 			bool shouldDrawGrid = true;

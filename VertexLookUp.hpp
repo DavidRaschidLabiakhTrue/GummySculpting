@@ -12,6 +12,8 @@ namespace VertexLookUpDefinition
 	using namespace TriangleListDefinition;
 	using namespace TopologyComputationDefinition;
 
+
+	// a class that implements vertex look up mechanics that is inherited into mesh.
 	class VertexLookUp : public VertexList, public TriangleList
 	{
 		public:

@@ -3,6 +3,8 @@
 
 #include "Mesh.hpp"
 
+// unimplemented still
+
 namespace Sculpting::Smoothing
 {
 	using namespace MeshDefinition;

@@ -25,11 +25,11 @@ namespace TriangleListDefinition
 			TriangleList();
 			~TriangleList();
 
-			void printTriangleListToConsole();
+			void printTriangleListToConsole(); // accesses each triangle and prints it's indices to console - debugging only.
 
 			const int triangleCountAsindiceCount(); // number of triangles * 3 == number of indices used to render
 			const int triangleMemorySize(); // returns the memory size of triangles allocated
-			const int totalTriangles();
+			const int totalTriangles(); // a wrapper for triangles.size() as triangle.size() is ambiguous to read. 
 			IndexedTriangles triangles;
 
 

@@ -9,6 +9,7 @@ namespace TopBarDefinition
 {
 	using namespace Window_API;
 
+	// a gui class that enables a top bar in gummy
 	class TopBar
 	{
 		public:

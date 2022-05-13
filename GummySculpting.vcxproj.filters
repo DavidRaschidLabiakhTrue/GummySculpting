@@ -188,6 +188,12 @@
     <Filter Include="Mechanics\Sculpting\Smoothing">
       <UniqueIdentifier>{ca982535-bb28-4d25-bcd2-62f0e425c371}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp">
+      <UniqueIdentifier>{13aef099-b031-43c6-9fc7-8cbba508b862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp">
+      <UniqueIdentifier>{74b8e9ef-f944-4173-bdd0-97a721f8e598}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -271,9 +277,6 @@
     <ClCompile Include="TopologyComputation.cpp">
       <Filter>Math\Topology</Filter>
     </ClCompile>
-    <ClCompile Include="VertexLookUp.cpp">
-      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp</Filter>
-    </ClCompile>
     <ClCompile Include="include\IMGUI\imgui.cpp">
       <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
     </ClCompile>
@@ -312,6 +315,12 @@
     </ClCompile>
     <ClCompile Include="EdgeList.cpp">
       <Filter>Data Structures\Search Structures\EdgeList</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexLookUp.cpp">
+      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleLookUp.cpp">
+      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -402,9 +411,6 @@
     <ClInclude Include="TopologyComputation.hpp">
       <Filter>Math\Topology</Filter>
     </ClInclude>
-    <ClInclude Include="VertexLookUp.hpp">
-      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp</Filter>
-    </ClInclude>
     <ClInclude Include="include\IMGUI\imconfig.h">
       <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
     </ClInclude>
@@ -452,6 +458,12 @@
     </ClInclude>
     <ClInclude Include="Smoothing.hpp">
       <Filter>Mechanics\Sculpting\Smoothing</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexLookUp.hpp">
+      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleLookUp.hpp">
+      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

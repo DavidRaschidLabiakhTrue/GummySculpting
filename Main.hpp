@@ -43,15 +43,15 @@ class MainProgram
 
 	private:
 
-		void preprocess(StringList& arguments); 
-		void parseCommandLineArguments(StringList& arguments);
+		void preprocess(StringList& arguments); // begin preprocessing and setting up resources
+		void parseCommandLineArguments(StringList& arguments); // go through command line argument list and read all arguments.
 
-		void loadResources();
-        void beginDrawFrame();
-		void bindGraphicsDataToGPU();
-		void generateMaps();
-		void queryMechanics();
-		void queryCamera();
+		void loadResources(); // load resources into memory
+        void beginDrawFrame(); // begin a draw frame
+		void bindGraphicsDataToGPU(); // ensure all meshes are binded to GPU
+		void generateMaps(); // generate needed maps on all meshes
+		void queryMechanics(); // perform an action query from the user
+		void queryCamera(); // query for camera input from the user.
 
 		void draw3D(); // drawing meshes
 		void draw2D(); // draw gui and other 2d components

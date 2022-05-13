@@ -7,8 +7,8 @@
 
 namespace VertexListDefinition
 {
-	Usage VertexDefinition;
-	Usage IndicesDefinition;
+	using namespace VertexDefinition;
+	using namespace IndicesDefinition;
 
 	using std::vector;
 

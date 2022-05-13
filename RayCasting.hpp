@@ -12,6 +12,7 @@ namespace RayCastDefinition
 	using namespace IndiceListDefinition;
 	using namespace Window_API;
 
+	// implementation of a ray casting mechanic
 	class RayCast : protected GraphicsData, public IndiceList
 	{
 		public:

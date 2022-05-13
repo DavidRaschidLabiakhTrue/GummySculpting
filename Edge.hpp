@@ -10,13 +10,14 @@ namespace EdgeDefinition
 
 	typedef vector<KeyData> VertexEdges;
 
+	// container for Edge IDs that correspond to a vertex list.
 	struct Edge
 	{
 		public:
 			Edge();
 			~Edge();
 			void cleanUp(); // remove all duplicate edges that might occur during loading.
-			void printEdge();
+			void printEdge(); // print the edge to console
 			bool touched = false;
 			VertexEdges vertexEdges;
 	};
