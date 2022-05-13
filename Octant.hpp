@@ -13,6 +13,7 @@
 #include "GraphicsData.hpp"
 #include "MathDefinitions.hpp"
 #include "Point.hpp"
+#include "Octree.hpp"
 #include "Triangle.hpp"
 #include "Camera.hpp"
 // #include "Debug.hpp"
@@ -24,9 +25,10 @@
 using namespace MathTypeDefinitions::CoordinateDefine;
 using namespace GraphicsDataDefinition;
 using namespace VertexDefinition;
+using namespace MeshStatsDefinition;
 using std::vector;
 
-class Octant
+class Octant : public MeshStats
 {
     public:
         vector<int> tris;

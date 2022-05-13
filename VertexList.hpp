@@ -20,7 +20,8 @@ namespace VertexListDefinition
 		Construct VertexList();
 		Deconstruct ~VertexList();
 
-		RV3D getVertex(int index); // access element reference by index 
+		RV3D getVertex(int index); // access element reference by index
+		v3 getVertexPosition(int index); // access element position by index
 		void setVertex(RV3D element, int index); // set element by index
 
 		void colorDataUniformly(rv4 uniformColor);
@@ -29,7 +30,7 @@ namespace VertexListDefinition
 
 		int verticeCount(); // returns the count of vertices in the vertex list
 
-		Vertices vertices; // 
+		Vertices vertices; //
 
 		auto getVertexArray(); // get the underlying array component.
 	};

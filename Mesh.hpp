@@ -4,6 +4,7 @@
 #include "GraphicsData.hpp"
 #include "TopologyComputation.hpp"
 #include "MeshStats.hpp"
+#include "Octree.hpp"
 
 namespace MeshDefinition
 {
@@ -28,7 +29,7 @@ namespace MeshDefinition
 			// slot for Octree
 
 			string name;
-			
+
 
 	};
 	typedef Mesh& MeshReference;  // reference to a mesh

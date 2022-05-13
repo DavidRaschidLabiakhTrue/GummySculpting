@@ -51,3 +51,8 @@ RV3D VertexList::getVertex(int index)
 {
 	return vertices[index];
 }
+
+v3 VertexList::getVertexPosition(int index)
+{
+	return vertices[index].position;
+}

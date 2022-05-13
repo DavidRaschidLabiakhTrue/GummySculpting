@@ -23,7 +23,7 @@ bool Octant::inBounds(vector<int> &points)
 {
     foreach (p, points)
     {
-        v3 pos = VertexLookUp(p);
+        v3 pos = getVertexPosition(p);
         if (abs(center.x - pos.x) > halfsize + std::numeric_limits<float>::epsilon() ||
             abs(center.y - pos.y) > halfsize + std::numeric_limits<float>::epsilon() ||
             abs(center.z - pos.z) > halfsize + std::numeric_limits<float>::epsilon())

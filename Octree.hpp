@@ -20,6 +20,7 @@
 #include "Triangle.hpp"
 #include "Octant.hpp"
 #include "Macro.hpp"
+#include "MeshStats.hpp"
 #include "glad/glad.h"
 #include "glm/gtx/hash.hpp"
 
@@ -27,6 +28,7 @@
 using namespace MathTypeDefinitions::CoordinateDefine;
 using namespace GraphicsDataDefinition;
 using namespace VertexDefinition;
+using namespace MeshStatsDefinition;
 using namespace glm;
 using std::vector;
 
@@ -72,7 +74,7 @@ struct point_equal
         }
 };
 
-class Octree
+class Octree : public MeshStats
 {
     public:
         // EMPTY CONSTRUCTOR TO SILENCE C++.

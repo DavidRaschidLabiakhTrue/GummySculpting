@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "C/C++: msbuild build active file",
+			"command": "msbuild.exe && ${workspaceRoot}\\x64\\Debug\\GummySculpting.exe",
+			"args": [],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build",
+			"detail": "compiler: msvc"
+		}
+	]
+}

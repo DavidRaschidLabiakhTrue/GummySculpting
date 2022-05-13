@@ -201,7 +201,7 @@ vector<Point> Octree::collect(Collision &collision, double range)
         {
 
             // If distance to point is within range
-            if (distance(VertexLookUp(p.index), collision.pos) <= range)
+            if (distance(getVertexPosition(p.index), collision.pos) <= range)
             {
                 points.emplace_back(p);
                 // Add each point that is connected by an edge to this point
@@ -232,7 +232,7 @@ vector<Point> Octree::collect(Collision &collision, double range)
 
 void Octree::resize(int t)
 {
-    vector<v3> pts = {VertexLookUp(triangles[t].points[0]), VertexLookUp(triangles[t].points[1]), VertexLookUp(triangles[t].points[2])};
+    vector<v3> pts = {getVertexPosition(triangles[t].points[0]), getVertexPosition(triangles[t].points[1]), getVertexPosition(triangles[t].points[2])};
     v3 centroid = (pts[0] + pts[1] + pts[2])/v3(3);
     v3 direction(1);
     while(!octants[0].inBounds(triangles[t].points)) {
@@ -301,10 +301,10 @@ int Octree::findOctant(int t)
 int Octree::getNext(int o, int t)
 {
     Octant oct = octants[o];
-    int next = morton(VertexLookUp(triangles[t].points[0]), oct.center);
+    int next = morton(getVertexPosition(triangles[t].points[0]), oct.center);
 
     // If triangle points are not in the same octant...
-    if (morton(VertexLookUp(triangles[t].points[1]), oct.center) != next || morton(VertexLookUp(triangles[t].points[2]), oct.center) != next)
+    if (morton(getVertexPosition(triangles[t].points[1]), oct.center) != next || morton(getVertexPosition(triangles[t].points[2]), oct.center) != next)
     {
         return o;
     }
@@ -455,7 +455,7 @@ Collision Octree::rayIntersection(v3 &origin, v3 direction)
         foreach (t, o.tris)
         {
             vec2 baryPosition;
-            if (intersectRayTriangle(origin, direction, VertexLookUp(triangles[t].points[0]), VertexLookUp(triangles[t].points[1]), VertexLookUp(triangles[t].points[2]), baryPosition, distance))
+            if (intersectRayTriangle(origin, direction, getVertexPosition(triangles[t].points[0]), getVertexPosition(triangles[t].points[1]), getVertexPosition(triangles[t].points[2]), baryPosition, distance))
             {
                 if (distance < collision.distance)
                 {
