@@ -74,12 +74,6 @@
     <Filter Include="Mechanics\Sampling">
       <UniqueIdentifier>{fa6c5a62-b994-4775-bf20-805638ce0e28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mechanics\Sampling\Octree">
-      <UniqueIdentifier>{bc091c26-9894-488e-a07f-2018d1e720cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sampling\Sculpting">
-      <UniqueIdentifier>{5d014eee-9bba-462e-b03e-628a4ae5b2a9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Rendering\Camera\CameraParameters">
       <UniqueIdentifier>{8af3d975-e8a3-4ac8-8479-54db1a746031}</UniqueIdentifier>
     </Filter>
@@ -110,12 +104,6 @@
     <Filter Include="Data Structures\Graphics Structures\Lists">
       <UniqueIdentifier>{b2cf5b61-47df-4795-810e-5015655c9fba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data Structures\Graphics Structures\Lists\VertexList">
-      <UniqueIdentifier>{250672a9-f7ff-4521-8a37-eda69cff4b9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics Structures\Lists\IndiceList">
-      <UniqueIdentifier>{9f350489-f819-4fa6-b6f2-1d3cd6cf6f72}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data Structures\Graphics Structures\Indices">
       <UniqueIdentifier>{0091298a-7b52-4d31-9452-95ef97628db8}</UniqueIdentifier>
     </Filter>
@@ -143,6 +131,69 @@
     <Filter Include="Data Structures\Graphics And Search Structure\IndexedTriangle">
       <UniqueIdentifier>{60e67002-3371-445d-af0d-97db70d3ede5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Lists\Triangle List">
+      <UniqueIdentifier>{9f350489-f819-4fa6-b6f2-1d3cd6cf6f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Lists\Vertex List">
+      <UniqueIdentifier>{250672a9-f7ff-4521-8a37-eda69cff4b9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Structures\Lists\Indice List">
+      <UniqueIdentifier>{6c642001-9be2-4c14-84f9-1c45c727db21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Camera\Camera Implementation">
+      <UniqueIdentifier>{c7690ac4-fa02-4feb-b305-90b048ea7557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting">
+      <UniqueIdentifier>{5d014eee-9bba-462e-b03e-628a4ae5b2a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sampling\Ray Casting">
+      <UniqueIdentifier>{0602a549-3604-4cf2-b5f4-0745409d68ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\Topology">
+      <UniqueIdentifier>{abbad5a0-66ce-431d-9532-2f342fd3e3f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp">
+      <UniqueIdentifier>{263aad85-0741-41f9-a916-628a948af3ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI\ImGUI Impl">
+      <UniqueIdentifier>{65e635db-a968-4b0c-9930-f17beda1ef38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI\ImGUI Impl\src">
+      <UniqueIdentifier>{010a7b22-f79b-4e5a-86c1-e36fb4009041}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI\ImGUI Impl\header">
+      <UniqueIdentifier>{18d6e7af-d2db-4349-b314-c74b49aa065b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI\MainGUI">
+      <UniqueIdentifier>{411c42f5-cf17-42e2-91fc-0505cb572f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI\TopBar">
+      <UniqueIdentifier>{390b313d-543e-4062-80f6-b2e09102d1c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects">
+      <UniqueIdentifier>{c466cc75-5def-4bb1-b599-a08949eff210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Spacial Grid">
+      <UniqueIdentifier>{61100c27-eafe-4eb5-8e63-74fb538ce63b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Visual Objects">
+      <UniqueIdentifier>{6380adda-d889-481d-8538-b9627bddcaea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\EdgeList">
+      <UniqueIdentifier>{56aee3be-35d0-4046-b2a7-399b3894823c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\Edge">
+      <UniqueIdentifier>{00323994-3432-4dca-940c-eb69b8f6c85c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Smoothing">
+      <UniqueIdentifier>{ca982535-bb28-4d25-bcd2-62f0e425c371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp">
+      <UniqueIdentifier>{13aef099-b031-43c6-9fc7-8cbba508b862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp">
+      <UniqueIdentifier>{74b8e9ef-f944-4173-bdd0-97a721f8e598}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -164,10 +215,10 @@
       <Filter>Data Structures\Graphics Structures\Indices</Filter>
     </ClCompile>
     <ClCompile Include="VertexList.cpp">
-      <Filter>Data Structures\Graphics Structures\Lists\VertexList</Filter>
+      <Filter>Data Structures\Graphics Structures\Lists\Vertex List</Filter>
     </ClCompile>
-    <ClCompile Include="IndiceList.cpp">
-      <Filter>Data Structures\Graphics Structures\Lists\IndiceList</Filter>
+    <ClCompile Include="TriangleList.cpp">
+      <Filter>Data Structures\Graphics Structures\Lists\Triangle List</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsBufferObjects.cpp">
       <Filter>Graphics\BufferObjects</Filter>
@@ -180,9 +231,6 @@
     </ClCompile>
     <ClCompile Include="OpenGLWrapper.cpp">
       <Filter>Graphics\OpenGLWrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Rendering\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CameraParameters.cpp">
       <Filter>Rendering\Camera\CameraParameters</Filter>
@@ -202,9 +250,6 @@
     <ClCompile Include="Mesh_Manager.cpp">
       <Filter>Data Structures\Management\Mesh_Manager</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Window And GUI\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="MeshStats.cpp">
       <Filter>Data Structures\Search Structures\MeshStats</Filter>
     </ClCompile>
@@ -214,7 +259,69 @@
     <ClCompile Include="MeshFileLoader.cpp">
       <Filter>FileOps\Mesh File Loading</Filter>
     </ClCompile>
-    <ClCompile Include="IndexedTriangle.cpp" />
+    <ClCompile Include="IndexedTriangle.cpp">
+      <Filter>Data Structures\Graphics And Search Structure\IndexedTriangle</Filter>
+    </ClCompile>
+    <ClCompile Include="RayCasting.cpp">
+      <Filter>Mechanics\Sampling\Ray Casting</Filter>
+    </ClCompile>
+    <ClCompile Include="IndiceList.cpp">
+      <Filter>Data Structures\Graphics Structures\Lists\Indice List</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Rendering\Camera\Camera Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Sampler.cpp">
+      <Filter>Mechanics\Sampling</Filter>
+    </ClCompile>
+    <ClCompile Include="TopologyComputation.cpp">
+      <Filter>Math\Topology</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_demo.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_draw.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_impl_glfw.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_impl_opengl3.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_tables.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_widgets.cpp">
+      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Window And GUI\GUI\MainGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TopBar.cpp">
+      <Filter>Window And GUI\GUI\TopBar</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>3D Objects\Spacial Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualObjects.cpp">
+      <Filter>3D Objects\Visual Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Edge.cpp">
+      <Filter>Data Structures\Search Structures\Edge</Filter>
+    </ClCompile>
+    <ClCompile Include="EdgeList.cpp">
+      <Filter>Data Structures\Search Structures\EdgeList</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexLookUp.cpp">
+      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleLookUp.cpp">
+      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -239,10 +346,10 @@
       <Filter>Data Structures\Graphics Structures\Indices</Filter>
     </ClInclude>
     <ClInclude Include="VertexList.hpp">
-      <Filter>Data Structures\Graphics Structures\Lists\VertexList</Filter>
+      <Filter>Data Structures\Graphics Structures\Lists\Vertex List</Filter>
     </ClInclude>
-    <ClInclude Include="IndiceList.hpp">
-      <Filter>Data Structures\Graphics Structures\Lists\IndiceList</Filter>
+    <ClInclude Include="TriangleList.hpp">
+      <Filter>Data Structures\Graphics Structures\Lists\Triangle List</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsData.hpp">
       <Filter>Data Structures\Graphics Structures\GraphicsData</Filter>
@@ -255,9 +362,6 @@
     </ClInclude>
     <ClInclude Include="OpenGLWrapper.hpp">
       <Filter>Graphics\OpenGLWrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.hpp">
-      <Filter>Rendering\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CameraParameters.hpp">
       <Filter>Rendering\Camera\CameraParameters</Filter>
@@ -280,9 +384,6 @@
     <ClInclude Include="Mesh_Manager.hpp">
       <Filter>Data Structures\Management\Mesh_Manager</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.hpp">
-      <Filter>Window And GUI\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="MeshStats.hpp">
       <Filter>Data Structures\Search Structures\MeshStats</Filter>
     </ClInclude>
@@ -294,6 +395,75 @@
     </ClInclude>
     <ClInclude Include="IndexedTriangle.hpp">
       <Filter>Data Structures\Graphics And Search Structure\IndexedTriangle</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCasting.hpp">
+      <Filter>Mechanics\Sampling\Ray Casting</Filter>
+    </ClInclude>
+    <ClInclude Include="IndiceList.hpp">
+      <Filter>Data Structures\Graphics Structures\Lists\Indice List</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Rendering\Camera\Camera Implementation</Filter>
+    </ClInclude>
+    <ClInclude Include="Sampler.hpp">
+      <Filter>Mechanics\Sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="TopologyComputation.hpp">
+      <Filter>Math\Topology</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imconfig.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_impl_glfw.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_impl_opengl3.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_impl_opengl3_loader.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_internal.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imstb_rectpack.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imstb_textedit.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imstb_truetype.h">
+      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.hpp">
+      <Filter>Window And GUI\GUI\MainGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TopBar.hpp">
+      <Filter>Window And GUI\GUI\TopBar</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.hpp">
+      <Filter>3D Objects\Spacial Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualObjects.hpp">
+      <Filter>3D Objects\Visual Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.hpp">
+      <Filter>Data Structures\Search Structures\Edge</Filter>
+    </ClInclude>
+    <ClInclude Include="EdgeList.hpp">
+      <Filter>Data Structures\Search Structures\EdgeList</Filter>
+    </ClInclude>
+    <ClInclude Include="Smoothing.hpp">
+      <Filter>Mechanics\Sculpting\Smoothing</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexLookUp.hpp">
+      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleLookUp.hpp">
+      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

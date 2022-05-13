@@ -2,20 +2,31 @@
 #define Mesh_HPP
 
 #include "GraphicsData.hpp"
+#include "TopologyComputation.hpp"
 #include "MeshStats.hpp"
 
 namespace MeshDefinition
 {
-	Usage GraphicsDataDefinition;
-	Usage MeshStatsDefinition;
+	using namespace GraphicsDataDefinition;
+	using namespace MeshStatsDefinition;
+	using namespace TopologyComputationDefinition;
+
+	// a wrapper and container for all graphics and search structures used in the mesh.
+	// contains graphics data for drawing
+	// contains graphs and maps for searching.
+	// meant as a final container for all 3d classes used for managing vertices and triangles ultimately.
+
 	class Mesh : public MeshStats
 	{
 		public:
-			Construct Mesh();
-			Deconstruct ~Mesh();
-		// slot for edges
-		// slot for Octree
-		// slot for triangles
+			Mesh();
+			~Mesh();
+
+			KeyData searchLinear(rv3 direction, rv3 origin);
+
+
+			// slot for Octree
+
 			string name;
 			
 

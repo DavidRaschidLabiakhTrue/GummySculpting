@@ -18,6 +18,7 @@
 
 #include "glm/fwd.hpp"
 
+// container wrapper for numerous glm functions. Also heavily reduces compile time by including only what's needed by header
 namespace LinearAlgebra
 {
 	using glm::all;

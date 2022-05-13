@@ -45,7 +45,7 @@ Window_API::WindowAPIData::~WindowAPIData()
 {
 }
 
-Window_API_Structures::ScreenData Window_API::WindowAPIData::reload()
+Window_API_Structures::ScreenData& Window_API::WindowAPIData::reload()
 {
 	screendata = Window_API_Structures::ScreenData(); // refreshes the data by constructor.
 	return screendata;

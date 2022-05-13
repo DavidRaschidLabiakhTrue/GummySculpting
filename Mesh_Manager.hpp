@@ -18,13 +18,15 @@ namespace Mesh_Manager_Definition
 			Deconstruct ~Mesh_Manager();
 
 			MeshList meshes;
-			MeshPTR activeMesh; // likely need to make global.
+			MeshPTR activeMesh = UnassignedPTR; // likely need to make global.
 
 			void makeLastMeshActive();
 			void loadMeshFromFile(string meshFilePath); // load in a mesh from a file
 			void bindAllMeshes();
 
-		protected:
+			MeshPTR getActiveMesh();
+
+
 			
 
 			

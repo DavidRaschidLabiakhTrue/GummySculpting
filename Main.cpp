@@ -33,8 +33,12 @@ MainProgram::MainProgram(StringList& arguments)
 {
     win = Window(TrueConstructor); // load GLFW and OpenGL.
     Window_Class::WindowGlobal::ActiveWindow = &win; // set up window linkage.
-
+	gui = GUI(TrueConstructor);
 	CameraDefinition::GlobalCamera = &cam; // set up camera linkage
+	sampler = Sampler(TrueConstructor);
+
+
+	visualObjects = VisualObjects(TrueConstructor);
 
     preprocess(arguments);
 }
@@ -60,14 +64,15 @@ int MainProgram::ProgramCycle()
 {
     while (shouldNotClose())
     {
-		clearBuffer();
+		
+		beginDrawFrame(); // refresh all draw buffers
 
-		queryCamera();
+		queryMechanics(); // query for input
+		draw3D(); // drawing meshes
+		draw2D();
 
-		renderer.draw();
 
-
-		eventQuery();
+		eventQuery(); // update glfw in conjunction with opengl 
 
     }
 
@@ -106,12 +111,35 @@ void MainProgram::generateMaps()
 {
 
 }
+void MainProgram::queryMechanics()
+{
+	queryCamera();
+	sampler.queryRay(renderer.getActiveMesh());
+
+}
 void MainProgram::queryCamera()
 {
 	cam.checkInput();
 	cam.updateMatrix();
 }
+void MainProgram::draw3D()
+{
+	renderer.draw();
+	sampler.drawRay();
+	visualObjects.drawVisualObjects();
+}
+void MainProgram::draw2D()
+{
+	gui.buildGuiFrame();
+	gui.renderGui();
+}
 void MainProgram::loadResources()
 {
 	ShaderDefinition::compileGlobalShaders();
+}
+
+void MainProgram::beginDrawFrame()
+{
+	gui.newGuiFrame();
+	clearBuffer();
 }

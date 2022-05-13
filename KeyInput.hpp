@@ -5,6 +5,8 @@
 
 Usage Window_API;
 
+// macros are the main export. Nothing else is used for now. this is just if we want to expand custom key binding *later*
+
 namespace KeyInputDefinition
 {
 

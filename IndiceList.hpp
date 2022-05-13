@@ -2,43 +2,25 @@
 #define IndiceList_HPP
 
 #include "Indices.hpp"
-#include "IndexedTriangle.hpp"
 
+// Indices are to be used for PURELY LINEAR DRAWN STRUCTURES - such as rays and grids
 namespace IndiceListDefinition
 {
 	using namespace IndicesDefinition;
-	using namespace IndexedTriangleDefinition;
-
-	using std::vector;
 
 	typedef vector<KeyData> Indices;
-	
-	// Container for Indices - Will be expanded into Faces.
-	// Inherited by GraphicsData->MeshStats->Mesh
+
+	// Container for Indices and indices *only*
+	// NOT TO BE USED IN MESH, ONLY FOR LINEAR STRUCTURES SUCH AS GRID AND RAY
 	class IndiceList
 	{
-		public:
-			Construct IndiceList();
-			Construct ~IndiceList();
+	public:
+		Construct IndiceList();
+		Construct ~IndiceList();
 
-			Indices indices;
-	};
+		const int indicesMemorySize(); // return the size of the indices container * the size of the data type it contains.
 
-
-
-	typedef vector<IndexedTriangle> IndexedTriangles;
-
-	class TriangleList
-	{
-		public:
-			TriangleList();
-			~TriangleList();
-
-			void printTriangleListToConsole();
-
-			IndexedTriangles triangles;
-
-
+		Indices indices;
 	};
 }
 

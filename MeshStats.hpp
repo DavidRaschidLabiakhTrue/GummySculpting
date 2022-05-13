@@ -3,12 +3,13 @@
 
 #include "GraphicsData.hpp"
 
+
 namespace MeshStatsDefinition
 {
 	Usage GraphicsDataDefinition;
 
 	/*
-	*	A collection of Mesh Stats
+	*	A collection of Mesh Stats - data collection purposes
 	*   Inherited by Mesh
 	*/
 	class MeshStats : public GraphicsData
@@ -17,7 +18,7 @@ namespace MeshStatsDefinition
 			Construct MeshStats();
 			Deconstruct ~MeshStats();
 
-			void collectStats();
+			void collectStats(); // unimplemented, need to add ryan and jiahao's code here.
 
 			v3 limMax = v3(0);
 			v3 limMin = v3(0);

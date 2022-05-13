@@ -23,25 +23,31 @@ namespace VertexDefinition
 	{
 		public:
 		Construct V3D();
+		V3D(v3 pos);
 		Construct V3D(float x, float y, float z);
 		Construct V3D(float x, float y, float z, float r, float g, float b);
 		Deconstruct ~V3D();
 
 
-		void operator=(v3 newPosition);
-		void operator=(rv3 newPosition);
-		void operator=(v4 newColor);
-		void operator=(rv4 newColor);
+		void operator=(v3 newPosition); // can be used to load a position directly into the vertex
+		void operator=(rv3 newPosition); // can be used to load a position directly into the vertex
+		void operator=(v4 newColor); // can be used to load a color directly into the vertex
+		void operator=(rv4 newColor); // can be used to load a color directly into the vertex
 
-		void operator +=(v3 positionOffset);
-		void operator -=(v3 positionOffset);
+		void operator +=(v3 positionOffset); // shift vertices
+		void operator -=(v3 positionOffset); // shift vertices
 
-		void operator +=(v4 addColor);
-		void operator -=(rv4 subtractColor);
+		void operator +=(v4 addColor); // shift colot
+		void operator -=(rv4 subtractColor); // shift colot
 
+		void setPositionToCenter(); // forces the position to go to (0,0,0) - debugging only.
 
+		void loadColorAs255(int r, int g, int b); // load in a color by a 255 color scale(easier to understand wtf is happening)
 	
+		void printPosition(); // print position to console
+		void printColor(); // print color to console - excludes alpha which is assumed 1.0
 
+		void printSlots(); // print all slot data.
 
 
 		v3 position;

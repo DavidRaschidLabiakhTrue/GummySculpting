@@ -21,6 +21,7 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 
 	if (fileType == ".gum" )
 	{
+		//mesh.loadTriangleTest();
 		MeshFileLoader::loadGumFile(meshFilePath, mesh);
 		meshes.push_back(mesh);
 		return;
@@ -35,12 +36,23 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 	
 }
 
+MeshPTR Mesh_Manager_Definition::Mesh_Manager::getActiveMesh()
+{
+	if (activeMesh == UnassignedPTR)
+	{
+		say "Assign the Mesh Dumb Ass" done;
+		return UnassignedPTR;
+	}
+	return activeMesh;
+}
+
 void Mesh_Manager::bindAllMeshes()
 {
 	say "Binding All Meshes" done;
 
 	forall(mesh, meshes)
 	{
+		mesh.generateEdges();
 		mesh.bind();
 	}
 

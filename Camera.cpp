@@ -144,4 +144,11 @@ void CameraDefinition::Camera::checkMouseInput()
 		// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
 		setMousePosition((double)winDim.width / 2, (double)winDim.height / 2); // this is the center of the screen.
 	}
+	eif(CheckMouseReleased(GLFW_MOUSE_BUTTON_MIDDLE))
+	{
+		// Unhides cursor since camera is not looking around anymore
+		// Makes sure the next time the camera looks around it doesn't jump
+		firstClick = true;
+		return;
+	}
 }

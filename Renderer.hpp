@@ -13,7 +13,7 @@ namespace RendererDefinition
 	Usage Mesh_Manager_Definition;
 	Usage ShaderDefinition;
 	
-
+	// the class that draws meshes to the screen. in gummy, the renderer is what technically controls meshes as well.
 	class Renderer : public Mesh_Manager
 	{
 		public:

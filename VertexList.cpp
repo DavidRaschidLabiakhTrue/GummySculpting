@@ -13,8 +13,11 @@ void VertexList::setVertex(RV3D element, int index)
 {
 	vertices[index] = element;
 }
-
-void VertexList::colorDataUniformly(v4& uniformColor)
+const int VertexList::verticesMemorySize()
+{
+	return vertices.size() * sizeof(V3D);
+}
+void VertexList::colorDataUniformly(rv4 uniformColor)
 {
 	int countOfVertices = vertices.size();
 	if (countOfVertices == 0)

@@ -1,22 +1,29 @@
 #ifndef GraphicsData_HPP
 #define GraphicsData_HPP
 
-#include "IndiceList.hpp"
-#include "VertexList.hpp"
+#include "TriangleList.hpp"
+
 #include "GraphicsBufferObjects.hpp"
 
-Usage IndiceListDefinition;
-Usage VertexListDefinition;
-Usage GraphicsBufferObjectsDefinition;
+#include "VertexLookUp.hpp"
 
+#include "EdgeList.hpp"
+
+#include "TriangleLookUp.hpp"
 
 namespace GraphicsDataDefinition
 {
+	using namespace TriangleListDefinition;
+	using namespace VertexListDefinition;
+	using namespace GraphicsBufferObjectsDefinition;
+	using namespace VertexLookUpDefinition;
+	using namespace EdgeListDefinition;
+	using namespace TriangleLookUpDefinition;
 	/*
 		*	Graphics Data - A graphics format meant specifically for interacting with the GPU.
 		*   Inherited by MeshStats -> Mesh
 	*/
-	class GraphicsData : protected GraphicsBufferObject, public VertexList, public IndiceList, public TriangleList
+	class GraphicsData : protected GraphicsBufferObject, public TriangleLookUp
 	{
 		public:
 			Construct GraphicsData();

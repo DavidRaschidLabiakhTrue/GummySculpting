@@ -1,6 +1,6 @@
 #include "IndiceList.hpp"
 
-Usage IndiceListDefinition;
+using namespace IndiceListDefinition;
 
 IndiceList::IndiceList()
 {
@@ -10,21 +10,7 @@ IndiceList::~IndiceList()
 {
 }
 
-TriangleList::TriangleList()
+const int IndiceListDefinition::IndiceList::indicesMemorySize()
 {
+	return indices.size() * sizeof(KeyData);
 }
-
-TriangleList::~TriangleList()
-{
-}
-
-void TriangleList::printTriangleListToConsole()
-{
-	forall(tri, triangles)
-	{
-		tri.print();
-	}
-	say "\n";
-}
-
-

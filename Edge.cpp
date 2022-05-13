@@ -1,31 +1,35 @@
 #include "Edge.hpp"
 
-Edge::Edge() {
+using namespace EdgeDefinition;
 
-}
-
-Edge::Edge(int p1, int p2)
-{
-    this->points.emplace_back(p1);
-    this->points.emplace_back(p2);
-}
-
-Edge::~Edge()
+EdgeDefinition::Edge::Edge()
 {
 }
 
-int Edge::getOtherPoint(int p)
+EdgeDefinition::Edge::~Edge()
 {
-    return p == points[0] ? points[1] : points[0];
 }
 
-bool Edge::operator==(const Edge &otherEdge) const
+void EdgeDefinition::Edge::cleanUp()
 {
-    return (otherEdge.points[0] == points[0] && otherEdge.points[1] == points[1]) ||
-           (otherEdge.points[0] == points[1] && otherEdge.points[1] == points[0]);
+	using std::set;
+
+	set<KeyData> keys;
+	const auto sizeofedges = this->vertexEdges.size();
+
+	for (int i = 0; i < sizeofedges; i++)
+	{
+		keys.insert(this->vertexEdges[i]);
+	}
+	vertexEdges.assign(keys.begin(), keys.end());
+
 }
 
-const void Edge::addTriangle(int t) const
+void EdgeDefinition::Edge::printEdge()
 {
-    this->triangles.emplace_back(t);
+	forall(key, vertexEdges)
+	{
+		say key << ' ';
+	}
+	say "\n";
 }

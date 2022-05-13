@@ -1,37 +1,30 @@
-#pragma once
-#ifndef GEdge_HPP
-#define GEdge_HPP
-#include "GraphicsData.hpp"
-#include "Point.hpp"
-#include "Triangle.hpp"
+#ifndef Edge_HPP
+#define Edge_HPP
 
-using std::vector;
-class Triangle;
-class Point;
+#include "VertexLookUp.hpp"
+#include <set>
 
-class Edge
+namespace EdgeDefinition
 {
-    public:
-        Edge();
-        Edge(int p1, int p2);
-        ~Edge();
+	using namespace VertexLookUpDefinition;
 
-        mutable int index = -1;
-        vector<int> points;
-        mutable vector<int> triangles;
-        int midpoint;
-        const void addTriangle(int t) const;
-        int getOtherPoint(int p);
-        bool operator==(const Edge &otherEdge) const;
-};
+	typedef vector<KeyData> VertexEdges;
 
-typedef vector<Edge> Edge_List;
-class EdgeMap
-{
-    public:
-        EdgeMap();
-        ~EdgeMap();
-        Edge_List edges;
-};
+	// container for Edge IDs that correspond to a vertex list.
+	struct Edge
+	{
+		public:
+			Edge();
+			~Edge();
+			void cleanUp(); // remove all duplicate edges that might occur during loading.
+			void printEdge(); // print the edge to console
+			bool touched = false;
+			VertexEdges vertexEdges;
+	};
 
-#endif // !GEdge_HPP
+	typedef Edge& EdgeReference; // edge reference
+
+
+}
+
+#endif

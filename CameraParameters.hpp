@@ -8,12 +8,12 @@ Usage Window_API;
 
 namespace CameraParametersDefinition
 {
+	// container for numerous camera parameters. Allows for fine tuning to occur.
 	struct CameraParameters
 	{
 		public:
 			Construct CameraParameters();
 			Deconstruct ~CameraParameters();
-		protected:
 			float farPlane;
 			float nearPlane;
 			float fov;

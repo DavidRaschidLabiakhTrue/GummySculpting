@@ -10,14 +10,16 @@ Usage MathTypeDefinitions::MatrixDefine;
 namespace CameraDefinition
 {
 	Usage CameraParametersDefinition;
-	class Camera : protected CameraParameters
+
+	// Camera class that enables 3D rendering.
+	class Camera : public CameraParameters
 	{
 		public:
 			Camera();
 			~Camera();
 
-			void checkInput();
-			void updateMatrix();
+			void checkInput(); // checks for use rinput
+			void updateMatrix(); // updates the matrix sent out.
 
 			m4 cameraMatrix;
 			m4 view;
@@ -29,10 +31,10 @@ namespace CameraDefinition
 			v3 up;
 
 		protected:
-			void checkKeyInput();
-			void checkMouseInput();
+			void checkKeyInput(); // checks for user key input
+			void checkMouseInput(); // checks for mouse input from the user
 
-			bool firstClick = true;
+			bool firstClick = false;
 
 	};
 	typedef Camera* CameraPTR;
