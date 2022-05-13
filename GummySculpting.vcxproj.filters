@@ -322,6 +322,9 @@
     <ClCompile Include="TriangleLookUp.cpp">
       <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp</Filter>
     </ClCompile>
+    <ClCompile Include="GEdge.cpp">
+      <Filter>Data Structures\Search Structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -464,6 +467,9 @@
     </ClInclude>
     <ClInclude Include="TriangleLookUp.hpp">
       <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp</Filter>
+    </ClInclude>
+    <ClInclude Include="GEdge.hpp">
+      <Filter>Data Structures\Search Structures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
