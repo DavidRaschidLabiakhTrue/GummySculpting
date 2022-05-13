@@ -194,6 +194,24 @@
     <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp">
       <UniqueIdentifier>{74b8e9ef-f944-4173-bdd0-97a721f8e598}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Search Structures\GEdge">
+      <UniqueIdentifier>{a57afe84-eca6-4d4f-b19c-4c7c53bae901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation">
+      <UniqueIdentifier>{3262abad-47cc-4235-84b1-3b7efae5ec23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\OctreeStats">
+      <UniqueIdentifier>{0ff7b123-bcfb-4ee6-8cfb-11d3a34a468b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree">
+      <UniqueIdentifier>{534e2f94-f03d-43bd-b539-f97fb2a48a5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octant">
+      <UniqueIdentifier>{6ca5ace5-5a13-4ca5-ba54-a2d346059f8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers">
+      <UniqueIdentifier>{2e8c40a5-fb0d-4cb1-81a4-1c3c10ec91de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -323,7 +341,16 @@
       <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp</Filter>
     </ClCompile>
     <ClCompile Include="GEdge.cpp">
-      <Filter>Data Structures\Search Structures</Filter>
+      <Filter>Data Structures\Search Structures\GEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="Octant.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octant</Filter>
+    </ClCompile>
+    <ClCompile Include="Octree.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeStats.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\OctreeStats</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -469,7 +496,16 @@
       <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp</Filter>
     </ClInclude>
     <ClInclude Include="GEdge.hpp">
-      <Filter>Data Structures\Search Structures</Filter>
+      <Filter>Data Structures\Search Structures\GEdge</Filter>
+    </ClInclude>
+    <ClInclude Include="Octant.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octant</Filter>
+    </ClInclude>
+    <ClInclude Include="Octree.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
+    </ClInclude>
+    <ClInclude Include="OctreeStats.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\OctreeStats</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

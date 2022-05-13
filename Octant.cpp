@@ -1,5 +1,36 @@
 #include "Octant.hpp"
 
+using namespace OctantDefinition;
+
+
+OctantDefinition::Octant::Octant()
+{
+}
+
+OctantDefinition::Octant::Octant(v3 center, double halfsize, int limit, int index)
+{
+	octantLimit = limit;
+	octantIndex = index;
+	octantCenter = center;
+	octantHalfSize = halfsize;
+
+}
+
+OctantDefinition::Octant::~Octant()
+{
+}
+
+
+
+
+
+
+
+
+/*
+* 
+#include "Octant.hpp"
+
 Octant::Octant(v3 center, double halfsize, int limit, int index)
 {
     this->center = center;
@@ -81,7 +112,8 @@ inline int morton(v3 point, v3 center)
     float z = ((point.z == 0.0f) && std::signbit(point.z)) ? 0.0f : point.z;
     return ((x >= center.x) << 2) | ((y >= center.y) << 1) | ((z >= center.z));
 }
-
+*/
+/*
 vector<v3> Octant::generateMesh()
 {
     /**
@@ -94,6 +126,7 @@ vector<v3> Octant::generateMesh()
      *  0-----1
      *
      */
+/*
     vector<v3> corners = {
         v3(center.x - halfsize, center.y - halfsize, center.z - halfsize),
         v3(center.x + halfsize, center.y - halfsize, center.z - halfsize),
@@ -120,3 +153,7 @@ vector<v3> Octant::generateMesh()
 
     return verts;
 }
+
+*/
+
+

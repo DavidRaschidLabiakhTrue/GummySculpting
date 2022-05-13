@@ -11,13 +11,14 @@ namespace MeshDefinition
 	using namespace GraphicsDataDefinition;
 	using namespace MeshStatsDefinition;
 	using namespace TopologyComputationDefinition;
+	using namespace OctreeDefinition;
 
 	// a wrapper and container for all graphics and search structures used in the mesh.
 	// contains graphics data for drawing
 	// contains graphs and maps for searching.
 	// meant as a final container for all 3d classes used for managing vertices and triangles ultimately.
 
-	class Mesh : public MeshStats
+	class Mesh : public Octree
 	{
 		public:
 			Mesh();

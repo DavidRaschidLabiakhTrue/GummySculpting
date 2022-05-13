@@ -18,6 +18,8 @@
 
 #include "glm/fwd.hpp"
 
+#include "glm/gtx/hash.hpp"
+
 // container wrapper for numerous glm functions. Also heavily reduces compile time by including only what's needed by header
 namespace LinearAlgebra
 {

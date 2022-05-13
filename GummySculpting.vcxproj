@@ -175,6 +175,9 @@
     <ClCompile Include="include\IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="IndexedTriangle.cpp" />
     <ClCompile Include="IndiceList.cpp" />
+    <ClCompile Include="Octant.cpp" />
+    <ClCompile Include="Octree.cpp" />
+    <ClCompile Include="OctreeStats.cpp" />
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="TopBar.cpp" />
@@ -221,6 +224,9 @@
     <ClInclude Include="include\IMGUI\imstb_truetype.h" />
     <ClInclude Include="IndexedTriangle.hpp" />
     <ClInclude Include="IndiceList.hpp" />
+    <ClInclude Include="Octant.hpp" />
+    <ClInclude Include="Octree.hpp" />
+    <ClInclude Include="OctreeStats.hpp" />
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />
     <ClInclude Include="Smoothing.hpp" />

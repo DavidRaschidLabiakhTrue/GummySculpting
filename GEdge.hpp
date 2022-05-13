@@ -1,3 +1,7 @@
+
+// UNUSED
+
+/*
 #pragma once
 #ifndef GEdge_HPP
 #define GEdge_HPP
@@ -35,3 +39,5 @@ public:
 };
 
 #endif // !GEdge_HPP
+
+*/

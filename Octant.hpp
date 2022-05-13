@@ -1,3 +1,50 @@
+#ifndef Octant_HPP
+#define Octant_HPP
+
+#include "MeshStats.hpp"
+
+namespace OctantDefinition
+{
+	using namespace MeshStatsDefinition;
+	typedef int OctantIndex;
+	typedef int ChildArray;
+	typedef int OctantParent;
+
+	typedef vector<int> TriangleIDList;
+
+	#define NoOctantParentSet -1
+
+	/*
+	*	To be used in Octree - Data Container for 3d data
+	*/
+	class Octant
+	{
+		public:
+			Octant();
+			Octant(v3 center, double halfsize, int limit, int index);
+			~Octant();
+
+			OctantIndex octantIndex; // store octant index on the octant itself.
+			TriangleIDList triangleID; // references to positions within the triangle array
+			OctantParent parent = NoOctantParentSet; // integer id to parent within octant list
+			ChildArray children[8] = { -1, -1, -1, -1, -1, -1, -1, -1 }; // integer IDs to octant children within the OctantList
+
+			float octantHalfSize;
+			v3 octantCenter; // center position of octant
+			int octantDepth; // octant depth level
+			int octantState = 2; // this needs to be enumerated
+			int octantLimit;
+	};
+
+
+
+}
+
+#endif // !Octant_HPP
+
+
+
+/*
 #pragma once
 #ifndef GOctant_HPP
 #define GOctant_HPP
@@ -55,3 +102,4 @@ class Octant : public MeshStats
 inline extern int morton(v3 point, v3 center);
 
 #endif
+*/

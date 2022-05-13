@@ -1,3 +1,38 @@
+#ifndef Octree_HPP
+#define Octree_HPP
+
+#include "MeshStats.hpp"
+#include "OctreeStats.hpp"
+
+#include "Octant.hpp"
+
+namespace OctreeDefinition
+{
+	using namespace MeshStatsDefinition; // this is all that's needed as it auto includes everything it needs and uses
+	using namespace OctreeStatsDefinition; // decoupling
+	using namespace OctantDefinition;
+
+	class Octree : public OctreeStats
+	{
+		public:
+			Octree();
+			~Octree();
+			void printStats();
+	};
+
+}
+
+#endif
+
+
+
+
+
+
+
+// Fixing
+
+/*
 #pragma once
 #ifndef GOctree_HPP
 #define GOctree_HPP
@@ -114,3 +149,4 @@ class Octree : public MeshStats
 };
 
 #endif
+*/

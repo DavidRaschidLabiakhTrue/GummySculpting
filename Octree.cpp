@@ -1,5 +1,30 @@
 #include "Octree.hpp"
 
+using namespace OctreeDefinition;
+
+OctreeDefinition::Octree::Octree()
+{
+
+}
+
+OctreeDefinition::Octree::~Octree()
+{
+}
+
+void OctreeDefinition::Octree::printStats()
+{
+}
+
+
+
+
+
+
+
+
+/*
+#include "Octree.hpp"
+
 Octree::Octree(vector<v3> &verts, vector<int> &indices)
 {
 
@@ -502,3 +527,6 @@ void Octree::generateMesh(bool trianglesOnly) {
         }
     }
 }
+*/
+
+

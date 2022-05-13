@@ -1,3 +1,4 @@
+/*
 #include "GEdge.hpp"
 
 GEdge::GEdge() {
@@ -29,3 +30,4 @@ const void GEdge::addTriangle(int t) const
 {
     this->triangles.emplace_back(t);
 }
+*/
