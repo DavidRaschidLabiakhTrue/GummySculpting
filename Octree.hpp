@@ -15,7 +15,7 @@
 #include "GraphicsData.hpp"
 #include "MathDefinitions.hpp"
 
-#include "Edge.hpp"
+#include "GEdge.hpp"
 #include "Point.hpp"
 #include "Triangle.hpp"
 #include "Octant.hpp"
@@ -39,7 +39,7 @@ struct Collision
 
 struct edge_hash
 {
-        std::size_t operator()(const Edge &e) const
+        std::size_t operator()(const GEdge &e) const
         {
             return std::hash<int>()(e.points[0]) ^ std::hash<int>()(e.points[1]);
         }
@@ -47,7 +47,7 @@ struct edge_hash
 
 struct edge_equal
 {
-        bool operator()(const Edge &e1, const Edge &e2) const
+        bool operator()(const GEdge &e1, const GEdge &e2) const
         {
             return (e1.points[0] == e2.points[0] && e1.points[1] == e2.points[1]) ||
                    (e1.points[0] == e2.points[1] && e1.points[1] == e2.points[0]);
@@ -89,14 +89,14 @@ class Octree
         vector<Octant> octants;
         unordered_set<int> leaves;
         vector<Point> points;
-        vector<Edge> edges;
-        unordered_set<Edge, edge_hash, edge_equal> edgeset;
+        vector<GEdge> edges;
+        unordered_set<GEdge, edge_hash, edge_equal> edgeset;
         vector<Triangle> triangles;
         vector<v3> octreeVertices;
-        Indices octreeIndices;
+        vector<int> octreeIndices;
 
 
-        Octree(vector<v3> &verts, Indices &indices);
+        Octree(vector<v3> &verts, vector<int> &indices);
         int findOctant(int t);
         int getNext(int o, int t);
         bool insert(int t);

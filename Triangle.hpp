@@ -5,7 +5,7 @@
 
 #include "GraphicsData.hpp"
 #include "MathDefinitions.hpp"
-#include "Edge.hpp"
+#include "GEdge.hpp"
 #include "Point.hpp"
 
 using std::vector;
@@ -13,7 +13,7 @@ using namespace MathTypeDefinitions::CoordinateDefine;
 using namespace GraphicsDataDefinition;
 
 class Point;
-class Edge;
+class GEdge;
 
 class Triangle
 {

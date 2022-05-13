@@ -9,7 +9,7 @@
 using std::vector;
 using namespace MathTypeDefinitions::CoordinateDefine;
 class Triangle;
-class Edge;
+class GEdge;
 
 class Point
 {

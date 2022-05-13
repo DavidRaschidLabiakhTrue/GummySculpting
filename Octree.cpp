@@ -1,6 +1,6 @@
 #include "Octree.hpp"
 
-Octree::Octree(vector<v3> &verts, Indices &indices)
+Octree::Octree(vector<v3> &verts, vector<int> &indices)
 {
 
     auto start = chrono::steady_clock::now();
@@ -54,9 +54,9 @@ Octree::Octree(vector<v3> &verts, Indices &indices)
         p2.addTriangle(triIndex);
 
         // Add edges to triangle, inserting into octree edge set to guarantee uniqueness.
-        auto edge0 = edgeset.insert(Edge(p0.index, p1.index));
-        auto edge1 = edgeset.insert(Edge(p1.index, p2.index));
-        auto edge2 = edgeset.insert(Edge(p2.index, p0.index));
+        auto edge0 = edgeset.insert(GEdge(p0.index, p1.index));
+        auto edge1 = edgeset.insert(GEdge(p1.index, p2.index));
+        auto edge2 = edgeset.insert(GEdge(p2.index, p0.index));
 
         // If edges were inserted to set (i.e. edge is new)
         // Set index of edge
@@ -93,7 +93,7 @@ Octree::Octree(vector<v3> &verts, Indices &indices)
         triIndex++;
     }
 
-    edges = vector<Edge>(edgeset.size());
+    edges = vector<GEdge>(edgeset.size());
     foreach (e, edgeset)
     {
         edges[e.index] = e;
@@ -207,7 +207,7 @@ vector<Point> Octree::collect(Collision &collision, double range)
                 // Add each point that is connected by an edge to this point
                 foreach (edge, p.edges)
                 {
-                    Edge temp = edges[edge];
+                    GEdge temp = edges[edge];
                     Point otherPoint = temp.getOtherPoint(p.index);
 
                     // Check if point was checked
