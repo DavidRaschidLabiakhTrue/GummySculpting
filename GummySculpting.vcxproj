@@ -257,6 +257,7 @@
     <ClInclude Include="TriangleOctantKeyPair.hpp" />
     <ClInclude Include="TriangleOctantKeyPairList.hpp" />
     <ClInclude Include="V3D.hpp" />
+    <ClInclude Include="VertexIDHashing.hpp" />
     <ClInclude Include="VertexList.hpp" />
     <ClInclude Include="VertexLookUp.hpp" />
     <ClInclude Include="VisualObjects.hpp" />

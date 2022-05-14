@@ -37,6 +37,10 @@ namespace OctreeDefinition
 			const int octantsTotal();
 			const int octantsLeavesTotal();
 
+			auto collect(OctreeCollision& collision, double range); // auto return until return type is determined
+
+	
+
             OctantList octants;
 			OctantLeavesList leaves;
 

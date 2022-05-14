@@ -1,6 +1,10 @@
 #include "Octree.hpp"
 
+#include "VertexIDHashing.hpp"
+
+
 using namespace OctreeDefinition;
+using namespace VertexIDHashingDefinition;
 
 OctreeDefinition::Octree::Octree()
 {
@@ -45,7 +49,7 @@ void OctreeDefinition::Octree::octreePrintStats()
 		if (o.octantTotalTriangles()) 
 		{
 			owt++;
-			if (o.octantState == 1) // this really needs to be enumerated to say what is going on.
+			if (o.octantState == OctantState::OctantNotEmptyInternal) // this really needs to be enumerated to say what is going on.
 			{
 				tip++;
 			}
@@ -70,13 +74,13 @@ void OctreeDefinition::Octree::octreePrintStats()
 
 bool OctreeDefinition::Octree::octantPointsInBound(RIndexTriangle tri, OctantIndex octantID)
 {
-	OctantReference oct = octants[octantID];
+	OctantReference oct = octants[octantID]; // retrieve the current processed octant
+
 	for (int i = 0; i < 3; i++)
 	{
 		rv3 pos = vertices[tri[i]].position;
-		if (abs(oct.octantCenter.x - pos.x) > oct.octantHalfSize + std::numeric_limits<float>::epsilon() ||
-			abs(oct.octantCenter.y - pos.y) > oct.octantHalfSize + std::numeric_limits<float>::epsilon() ||
-			abs(oct.octantCenter.z - pos.z) > oct.octantHalfSize + std::numeric_limits<float>::epsilon())
+		// what is this supposed to be doing?
+		if (oct.octantHalfSizeCenterComparison(pos))
 		{
 			return false;
 		}
@@ -94,6 +98,17 @@ const int OctreeDefinition::Octree::octantsLeavesTotal()
 	return leaves.size();
 }
 
+auto OctreeDefinition::Octree::collect(OctreeCollision& collision, double range)
+{
+	// this code is not properly structured
+
+	std::unordered_set<KeyData, point_hash, point_equal> unchecked; // needs commenting
+	std::unordered_set<KeyData, point_hash, point_equal> tempUnchecked;  // needs commenting
+	std::unordered_set<KeyData, point_hash, point_equal> checked;  // needs commenting - what is checked
+
+
+	return;
+}
 
 
 
@@ -221,9 +236,9 @@ Octree::Octree(vector<v3> &verts, vector<int> &indices)
 vector<Point> Octree::collect(Collision &collision, double range)
 {
     vector<Point> points;
-    std::unordered_set<Point, point_hash, point_equal> unchecked;
-    std::unordered_set<Point, point_hash, point_equal> tempUnchecked;
-    std::unordered_set<Point, point_hash, point_equal> checked;
+    std::unordered_set<Point, point_hash, point_equal> unchecked; // needs commenting
+    std::unordered_set<Point, point_hash, point_equal> tempUnchecked;  // needs commenting
+    std::unordered_set<Point, point_hash, point_equal> checked;  // needs commenting - what is checked
 
     // Insert intersected triangle's points into unchecked
     foreach (p, triangles[collision.triangle].points)

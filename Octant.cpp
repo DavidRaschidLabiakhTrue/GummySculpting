@@ -56,6 +56,14 @@ OctantList Octant::subdivide(OctantIndex octantsIndex, double looseness)
 	return newOctants;
 }
 
+bool OctantDefinition::Octant::octantHalfSizeCenterComparison(rv3 testPoint)
+{
+	// what is this doing?
+	return abs(octantCenter.x - testPoint.x) > octantHalfSize + std::numeric_limits<float>::epsilon() ||
+		   abs(octantCenter.y - testPoint.y) > octantHalfSize + std::numeric_limits<float>::epsilon() ||
+		   abs(octantCenter.z - testPoint.z) > octantHalfSize + std::numeric_limits<float>::epsilon();
+}
+
 const int OctantDefinition::Octant::octantTotalTriangles()
 {
 	return triangleIDs.size();

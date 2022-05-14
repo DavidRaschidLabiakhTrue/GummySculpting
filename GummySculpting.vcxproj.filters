@@ -224,6 +224,9 @@
     <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\Morton Code">
       <UniqueIdentifier>{8565cf13-3a47-44ac-a1e7-7b73d790b95c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\VertexIDHashing">
+      <UniqueIdentifier>{cde618c8-2420-44e9-a50b-2acf7bcd8807}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -540,6 +543,9 @@
     </ClInclude>
     <ClInclude Include="MortonCode.hpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\Morton Code</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexIDHashing.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\VertexIDHashing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

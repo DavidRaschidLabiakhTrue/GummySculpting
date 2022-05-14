@@ -18,7 +18,7 @@ namespace OctantDefinition
 
 	class Octant;
 
-	// ^ This is forward declared to allow for this below typedef
+	// ^ This is forward declare to allow for this below typedef which is used in Octant::subdivide
 
 	typedef vector<Octant> OctantList; // list of octants
 
@@ -26,6 +26,8 @@ namespace OctantDefinition
 
 
 	#define NoOctantParentSet -1
+
+	enum OctantState{OctantEmptyInternal = 0, OctantNotEmptyInternal = 1, OctantLeaf = 2};
 
 	/*
 	*	To be used in Octree - Data Container for 3d data
@@ -45,7 +47,7 @@ namespace OctantDefinition
 			float octantHalfSize;
 			v3 octantCenter; // center position of octant
 			int octantDepth; // octant depth level
-			int octantState = 2; // this needs to be enumerated
+			OctantState octantState = OctantLeaf; // this needs to be enumerated
 			int octantLimit; // this should be a static member, octree member, or #define instead of per octant if every single octant gets this value.
 
 			bool insert(TriangleAndOctantPairList& list, TriangleID id); // insert a triangle by ID reference into the octree.
@@ -53,6 +55,8 @@ namespace OctantDefinition
 
             int contains(int t);
             bool remove(int t);
+
+			bool octantHalfSizeCenterComparison(rv3 testPoint);
 
 			const int octantTotalTriangles();
 	};

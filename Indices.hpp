@@ -19,7 +19,7 @@ namespace IndicesDefinition
 
 	extern const KeyData ImpossibleKey; // Impossible key value for any mesh.
 
-
+	typedef vector<KeyData> KeyList; // list of keys returned for sculpting...I think?
 }
 
 
