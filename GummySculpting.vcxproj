@@ -178,6 +178,7 @@
     <ClCompile Include="MortonCode.cpp" />
     <ClCompile Include="Octant.cpp" />
     <ClCompile Include="Octree.cpp" />
+    <ClCompile Include="OctreeCollision.cpp" />
     <ClCompile Include="OctreeStats.cpp" />
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="MortonCode.hpp" />
     <ClInclude Include="Octant.hpp" />
     <ClInclude Include="Octree.hpp" />
+    <ClInclude Include="OctreeCollision.hpp" />
     <ClInclude Include="OctreeStats.hpp" />
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />

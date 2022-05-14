@@ -15,11 +15,11 @@ namespace OctreeStatsDefinition
 			OctreeStats();
 			~OctreeStats();
 
-			int limit = 1000;
-			int depthLimit = 10;
-			int depth = 0;
-			double looseness = 0.2;
-			int currentDepth = 0;
+			int octreeLimit = 1000;
+			int octreeDepthLimit = 10;
+			int octreeDepth = 0;
+			double octreeLooseness = 0.2;
+			int octreeCurrentDepth = 0;
 
 
 	};

@@ -53,6 +53,8 @@ namespace OctantDefinition
 
             int contains(int t);
             bool remove(int t);
+
+			const int octantTotalTriangles();
 	};
 
 	typedef Octant& OctantReference;

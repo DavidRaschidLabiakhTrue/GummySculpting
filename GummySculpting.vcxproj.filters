@@ -218,6 +218,12 @@
     <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList\TriangleOctantKeyPair">
       <UniqueIdentifier>{d33a8261-6dcb-46ad-a78e-9de8b323c2f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeCollision">
+      <UniqueIdentifier>{ced1ed22-05d2-4f29-bcc4-2495bd67a2e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\Morton Code">
+      <UniqueIdentifier>{8565cf13-3a47-44ac-a1e7-7b73d790b95c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -365,6 +371,9 @@
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList</Filter>
     </ClCompile>
     <ClCompile Include="MortonCode.cpp" />
+    <ClCompile Include="OctreeCollision.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeCollision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -526,8 +535,11 @@
     <ClInclude Include="TriangleOctantKeyPairList.hpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList</Filter>
     </ClInclude>
+    <ClInclude Include="OctreeCollision.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeCollision</Filter>
+    </ClInclude>
     <ClInclude Include="MortonCode.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers</Filter>
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\Morton Code</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

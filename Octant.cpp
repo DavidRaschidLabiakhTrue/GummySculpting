@@ -56,6 +56,11 @@ OctantList Octant::subdivide(OctantIndex octantsIndex, double looseness)
 	return newOctants;
 }
 
+const int OctantDefinition::Octant::octantTotalTriangles()
+{
+	return triangleIDs.size();
+}
+
 // NOTE: untested octant functions - Ryan
 // Finds index of triangle in tris vector if it is contained
 // Otherwise returns -1 if it is not contained

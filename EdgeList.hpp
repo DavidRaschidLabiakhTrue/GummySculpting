@@ -30,6 +30,8 @@ namespace EdgeListDefinition
 
 			void printAllEdges();
 
+			const int edgesTotal();
+
 			v3 averageAt(KeyData key); // 
 
 

@@ -16,8 +16,56 @@ void OctreeDefinition::Octree::buildOctree()
 	TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
 }
 
-void OctreeDefinition::Octree::printStats()
+void OctreeDefinition::Octree::octreePrintStats()
 {
+	say "Octree Debug" done;
+	say "\tPoint Limit:" spc octreeLimit done;
+	say "\tDepth Limit:" spc octreeDepthLimit done;
+	say "\tDepth:" spc octreeDepth done;
+	// say "\tPoints: " << points.size() done; - need to reimplement
+	say "\tEdges:" spc edgesTotal() done;
+	say "\tTriangles:" spc totalTriangles() done;
+	say "\tOctants:" spc octantsTotal() done;
+	say "\tLeaves:" spc leaves.size() done;
+
+	say "\tCenter:" spc to_string(octants[0].octantCenter) done;
+	say "\tHalfsize:" spc octants[0].octantHalfSize done;
+	say "\tTriangles in Root:" spc octants[0].octantTotalTriangles() done;
+
+	int count = 0;
+	int owt = 0;
+	int tip = 0;
+	foreach(o, octants)
+	{
+		if (o.octantState)
+		{
+			count++;
+		}
+		
+		if (o.octantTotalTriangles()) 
+		{
+			owt++;
+			if (o.octantState == 1) // this really needs to be enumerated to say what is going on.
+			{
+				tip++;
+			}
+				
+		}
+	}
+
+	say "\tActive Octants:" spc count done;
+	say "\tOctants with Triangles:" spc owt done;
+	say "\tPsuedo-Leaves w/ Traingles:" spc tip done;
+
+	// Not implementing for now.
+	/*
+	say "Octree Mesh:" done;
+    say "\tVertices: " << octreeVertices.size() done;
+    say "\tIndices: " << octreeIndices.size() done;
+	*/
+
+
+
 }
 
 bool OctreeDefinition::Octree::octantPointsInBound(RIndexTriangle tri, OctantIndex octantID)
@@ -36,6 +84,16 @@ bool OctreeDefinition::Octree::octantPointsInBound(RIndexTriangle tri, OctantInd
 	return true;
 }
 
+const int OctreeDefinition::Octree::octantsTotal()
+{
+	return octants.size();
+}
+
+const int OctreeDefinition::Octree::octantsLeavesTotal()
+{
+	return leaves.size();
+}
+
 
 
 
@@ -49,7 +107,7 @@ bool OctreeDefinition::Octree::octantPointsInBound(RIndexTriangle tri, OctantInd
 Octree::Octree(vector<v3> &verts, vector<int> &indices)
 {
 
-    auto start = chrono::steady_clock::now();
+    
     points.reserve(verts.size());
     triangles = vector<Triangle>(indices.size() / 3);
     edges.reserve((int)ceil(indices.size() / 2));
@@ -157,74 +215,9 @@ Octree::Octree(vector<v3> &verts, vector<int> &indices)
     generateMesh(false);
     octreeDebug();
 }
+*/
 
-Octree::~Octree()
-{
-}
-
-void Octree::octreeDebug()
-{
-    say "Octree Debug" done;
-    say "\tPoint Limit: " << limit done;
-    say "\tDepth Limit: " << depthLimit done;
-    say "\tDepth: " << depth done;
-    say "\tPoints: " << points.size() done;
-    say "\tEdges: " << edges.size() done;
-    say "\tTriangles: " << triangles.size() done;
-    say "\tOctants: " << octants.size() done;
-    say "\tLeaves: " << leaves.size() done;
-    say "\tCenter: " << glm::to_string(octants[0].center) done;
-    say "\tHalfsize: " << octants[0].halfsize done;
-    say "\tTriangles in Root: " << octants[0].tris.size() done;
-
-    int count = 0;
-    int owt = 0;
-    int tip = 0;
-    foreach (o, octants)
-    {
-        if (o.state)
-            count++;
-        if (o.tris.size()) {
-            owt++;
-            if(o.state == 1)
-                tip++;
-        }
-    }
-    say "\tActive Octants: " << count done;
-    say "\tOctants with Triangles: " << owt done;
-    say "\tPsuedo-Leaves w/ Traingles: " << tip done;
-
-    say "Octree Mesh:" done;
-    say "\tVertices: " << octreeVertices.size() done;
-    say "\tIndices: " << octreeIndices.size() done;
-
-    // say "\t----Triangles----" done;
-    // foreach (t, triangles)
-    // {
-    //     say "\tTriangle: " << t.index done;
-    //     say "\t  Points: " << t.points[0] << " " << t.points[1] << " " << t.points[2] done;
-    //     say "\t  Edges: " << t.edges[0] << " " << t.edges[1] << " " << t.edges[2] done;
-    // }
-
-    // say "\t----Edges----" done;
-    // foreach (e, edges)
-    // {
-    //     say "\tEdge " << e.index done;
-    //     say "\t  Points: " << e.points[0] << "-" << e.points[1] done;
-    //     say "\t  Triangles: < " << e.triangles[0] << " | " << e.triangles[1] << " >" done;
-    // }
-
-    // say "\t----Points----" done;
-    // foreach(p, points) {
-    //     say "\tPoint " << p.index << ": " done;
-    //     say "\t  Edges: ";
-    //     foreach(e, p.edges) {
-    //         say e << " ";
-    //     }
-    //     say endl;
-    // }
-}
-
+/*
 vector<Point> Octree::collect(Collision &collision, double range)
 {
     vector<Point> points;

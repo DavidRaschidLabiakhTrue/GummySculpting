@@ -5,12 +5,20 @@
 #include "OctreeStats.hpp"
 
 #include "Octant.hpp"
+#include "OctreeCollision.hpp"
+
+#include <unordered_set>
 
 namespace OctreeDefinition
 {
     using namespace MeshStatsDefinition;   // this is all that's needed as it auto includes everything it needs and uses
     using namespace OctreeStatsDefinition; // decoupling
     using namespace OctantDefinition;
+	using namespace OctreeCollisionDefinition; // I am using collision
+	using std::unordered_set;
+
+	typedef unordered_set<OctantIndex> OctantLeavesList;
+
 
     class Octree : public OctreeStats
     {
@@ -19,14 +27,19 @@ namespace OctreeDefinition
             ~Octree();
 
             void buildOctree();
-            void printStats();
+            void octreePrintStats();
 
             bool octantPointsInBound(RIndexTriangle tri, OctantIndex octantID);
 
-            void update(int t);
-            void update(vector<int> tris);
+            void octreeUpdate(int t);
+            void octreeUpdate(TriangleList& tris);
+
+			const int octantsTotal();
+			const int octantsLeavesTotal();
 
             OctantList octants;
+			OctantLeavesList leaves;
+
     };
 
 } // namespace OctreeDefinition
@@ -36,64 +49,8 @@ namespace OctreeDefinition
 // Fixing
 
 /*
-#pragma once
-#ifndef GOctree_HPP
-#define GOctree_HPP
 
-#include <algorithm>
-#include <atomic>
-#include <chrono>
-#include <execution>
-#include <iostream>
-#include <random>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-
-#include "GraphicsData.hpp"
-#include "MathDefinitions.hpp"
-
-#include "GEdge.hpp"
-#include "Macro.hpp"
-#include "MeshStats.hpp"
-#include "Octant.hpp"
-#include "Point.hpp"
-#include "Triangle.hpp"
-#include "glad/glad.h"
-#include "glm/gtx/hash.hpp"
-
-
-using namespace MathTypeDefinitions::CoordinateDefine;
-using namespace GraphicsDataDefinition;
-using namespace VertexDefinition;
-using namespace MeshStatsDefinition;
-using namespace glm;
-using std::vector;
-
-struct Collision
-{
-        int triangle;
-        float distance;
-        v3 pos;
-};
-
-struct edge_hash
-{
-        std::size_t operator()(const GEdge &e) const
-        {
-            return std::hash<int>()(e.points[0]) ^ std::hash<int>()(e.points[1]);
-        }
-};
-
-struct edge_equal
-{
-        bool operator()(const GEdge &e1, const GEdge &e2) const
-        {
-            return (e1.points[0] == e2.points[0] && e1.points[1] == e2.points[1]) ||
-                   (e1.points[0] == e2.points[1] && e1.points[1] == e2.points[0]);
-        }
-};
-
+//David: Obscure Action occuring - Ignoring 
 struct point_hash
 {
         std::size_t operator()(const Point &p) const
@@ -103,7 +60,7 @@ struct point_hash
             // return (size_t)((int)(pos.x * 1000) ^ (int)(pos.y * 100) ^ (int)(pos.z * 10));
         }
 };
-
+//David: Obscure Action occuring - Ignoring
 struct point_equal
 {
         bool operator()(const Point &p1, const Point &p2) const
@@ -111,7 +68,10 @@ struct point_equal
             return p1.index == p2.index;
         }
 };
+*/
 
+
+/*
 class Octree : public MeshStats
 {
     public:

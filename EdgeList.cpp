@@ -64,6 +64,11 @@ void EdgeList::printAllEdges()
 
 }
 
+const int EdgeListDefinition::EdgeList::edgesTotal()
+{
+    return edges.size();
+}
+
 v3 EdgeListDefinition::EdgeList::averageAt(KeyData key)
 {
 	v3 res = v3(0);
