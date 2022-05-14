@@ -6,7 +6,7 @@ TriangleOctantKeyPairDefinition::TriangleOctantKeyPair::TriangleOctantKeyPair()
 {
 }
 
-TriangleOctantKeyPairDefinition::TriangleOctantKeyPair::TriangleOctantKeyPair(IndexedTrianglePosition triPosition, OctantIndex octIndex)
+TriangleOctantKeyPairDefinition::TriangleOctantKeyPair::TriangleOctantKeyPair(IndexedTriangleID triPosition, OctantIndex octIndex)
 {
 	this->triangleIndex = triPosition;
 	this->octantIndex = octIndex;

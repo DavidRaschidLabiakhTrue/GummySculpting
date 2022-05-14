@@ -13,7 +13,7 @@ TriangleLookUpDefinition::TriangleLookUp::~TriangleLookUp()
 {
 }
 
-v3 TriangleLookUpDefinition::TriangleLookUp::getTriangleNormal(KeyData key)
+v3 TriangleLookUpDefinition::TriangleLookUp::getTriangleNormal(IndexedTriangleID key)
 {
 	const auto v0 = vertices[triangles[key][0]].position;
 	const auto v1 = vertices[triangles[key][1]].position;
@@ -26,4 +26,9 @@ v3 TriangleLookUpDefinition::TriangleLookUp::getTriangleNormal(KeyData key)
 		return res / leng; // basically normalizes the resulant vector
 	}
 	return v3(0); // improper normal
+}
+
+v3 TriangleLookUpDefinition::TriangleLookUp::getTriangleCentroid(IndexedTriangleID key)
+{
+	return (vertices[triangles[key][0]].position + vertices[triangles[key][1]].position + vertices[triangles[key][0]].position) / 3.0f; // average
 }

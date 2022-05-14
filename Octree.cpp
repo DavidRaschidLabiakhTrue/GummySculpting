@@ -20,6 +20,22 @@ void OctreeDefinition::Octree::printStats()
 {
 }
 
+bool OctreeDefinition::Octree::octantPointsInBound(RIndexTriangle tri, OctantIndex octantID)
+{
+	OctantReference oct = octants[octantID];
+	for (int i = 0; i < 3; i++)
+	{
+		rv3 pos = vertices[tri[i]].position;
+		if (abs(oct.octantCenter.x - pos.x) > oct.octantHalfSize + std::numeric_limits<float>::epsilon() ||
+			abs(oct.octantCenter.y - pos.y) > oct.octantHalfSize + std::numeric_limits<float>::epsilon() ||
+			abs(oct.octantCenter.z - pos.z) > oct.octantHalfSize + std::numeric_limits<float>::epsilon())
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 
 
 

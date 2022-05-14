@@ -12,6 +12,7 @@ namespace OctreeDefinition
 	using namespace OctreeStatsDefinition; // decoupling
 	using namespace OctantDefinition;
 
+	
 	class Octree : public OctreeStats
 	{
 		public:
@@ -20,6 +21,10 @@ namespace OctreeDefinition
 
 			void buildOctree();
 			void printStats();
+
+			bool octantPointsInBound(RIndexTriangle tri, OctantIndex octantID);
+
+			OctantList octants;
 	};
 
 }

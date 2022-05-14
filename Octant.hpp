@@ -12,10 +12,15 @@ namespace OctantDefinition
 	using namespace TriangleOctantKeyPairListDefinition;
 	using namespace MortonCodeDefinition;
 
-	typedef int OctantIndex;
+
 	typedef int ChildArray;
 	typedef int OctantParent;
 
+	class Octant; 
+
+	// ^ This is forward declared to allow for this below typedef
+
+	typedef vector<Octant> OctantList; // list of octants
 
 
 	
@@ -44,7 +49,12 @@ namespace OctantDefinition
 			int octantLimit; // this should be a static member, octree member, or #define instead of per octant if every single octant gets this value.
 
 			bool insert(TriangleAndOctantPairList& list, TriangleID id); // insert a triangle by ID reference into the octree.
+			OctantList subdivide(OctantIndex octantsIndex, double looseness); // Subdivide Octant by adding 8 children
+
 	};
+	
+	typedef Octant& OctantReference;
+
 
 
 

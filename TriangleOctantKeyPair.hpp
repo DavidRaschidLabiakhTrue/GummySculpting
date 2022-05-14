@@ -13,11 +13,11 @@ namespace TriangleOctantKeyPairDefinition
 	{
 		public:
 			TriangleOctantKeyPair();
-			TriangleOctantKeyPair(IndexedTrianglePosition triPosition, OctantIndex octIndex);
+			TriangleOctantKeyPair(IndexedTriangleID triPosition, OctantIndex octIndex);
 
 			~TriangleOctantKeyPair();
 
-			IndexedTrianglePosition triangleIndex;
+			IndexedTriangleID triangleIndex;
 			OctantIndex octantIndex;
 	};
 }
