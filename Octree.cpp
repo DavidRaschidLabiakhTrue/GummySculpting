@@ -421,7 +421,9 @@ int Octree::getNext(int o, int t)
 // in octants list, find position for t, and insert t with respect to the octants list.
 bool Octree::insert(int t)
 {
-    // resize(t);
+    if(!octants[0].inBounds(t)){
+        // resize(t);
+    }
     int o = findOctant(t);
     bool doSubdivision = octants[o].insert(t);
     leaves.insert(o);
