@@ -8,34 +8,30 @@
 
 namespace OctreeDefinition
 {
-	using namespace MeshStatsDefinition; // this is all that's needed as it auto includes everything it needs and uses
-	using namespace OctreeStatsDefinition; // decoupling
-	using namespace OctantDefinition;
+    using namespace MeshStatsDefinition;   // this is all that's needed as it auto includes everything it needs and uses
+    using namespace OctreeStatsDefinition; // decoupling
+    using namespace OctantDefinition;
 
-	
-	class Octree : public OctreeStats
-	{
-		public:
-			Octree();
-			~Octree();
+    class Octree : public OctreeStats
+    {
+        public:
+            Octree();
+            ~Octree();
 
-			void buildOctree();
-			void printStats();
+            void buildOctree();
+            void printStats();
 
-			bool octantPointsInBound(RIndexTriangle tri, OctantIndex octantID);
+            bool octantPointsInBound(RIndexTriangle tri, OctantIndex octantID);
 
-			OctantList octants;
-	};
+            void update(int t);
+            void update(vector<int> tris);
 
-}
+            OctantList octants;
+    };
+
+} // namespace OctreeDefinition
 
 #endif
-
-
-
-
-
-
 
 // Fixing
 
@@ -50,19 +46,19 @@ namespace OctreeDefinition
 #include <execution>
 #include <iostream>
 #include <random>
-#include <unordered_set>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 #include "GraphicsData.hpp"
 #include "MathDefinitions.hpp"
 
 #include "GEdge.hpp"
-#include "Point.hpp"
-#include "Triangle.hpp"
-#include "Octant.hpp"
 #include "Macro.hpp"
 #include "MeshStats.hpp"
+#include "Octant.hpp"
+#include "Point.hpp"
+#include "Triangle.hpp"
 #include "glad/glad.h"
 #include "glm/gtx/hash.hpp"
 

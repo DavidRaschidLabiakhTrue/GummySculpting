@@ -56,7 +56,31 @@ OctantList Octant::subdivide(OctantIndex octantsIndex, double looseness)
 	return newOctants;
 }
 
+// NOTE: untested octant functions - Ryan
+// Finds index of triangle in tris vector if it is contained
+// Otherwise returns -1 if it is not contained
+// int Octant::contains(int t)
+// {
+//     for(int i = 0; i < tris.size(); i++)
+//     {
+//         if(tris[i] == t)
+//         {
+//             return i;
+//         }
+//     }
+//     return -1;
+// }
 
+// bool Octant::remove(int t)
+// {
+//     int tix = contains(t);
+//     if(tix != -1)
+//     {
+//         tris.erase(tris.begin() + tix);
+//         return true;
+//     }
+//     return false;
+// }
 
 
 
@@ -65,7 +89,7 @@ OctantList Octant::subdivide(OctantIndex octantsIndex, double looseness)
 
 
 /*
-* 
+*
 #include "Octant.hpp"
 
 

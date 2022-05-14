@@ -16,14 +16,14 @@ namespace OctantDefinition
 	typedef int ChildArray;
 	typedef int OctantParent;
 
-	class Octant; 
+	class Octant;
 
 	// ^ This is forward declared to allow for this below typedef
 
 	typedef vector<Octant> OctantList; // list of octants
 
 
-	
+
 
 	#define NoOctantParentSet -1
 
@@ -51,8 +51,10 @@ namespace OctantDefinition
 			bool insert(TriangleAndOctantPairList& list, TriangleID id); // insert a triangle by ID reference into the octree.
 			OctantList subdivide(OctantIndex octantsIndex, double looseness); // Subdivide Octant by adding 8 children
 
+            int contains(int t);
+            bool remove(int t);
 	};
-	
+
 	typedef Octant& OctantReference;
 
 

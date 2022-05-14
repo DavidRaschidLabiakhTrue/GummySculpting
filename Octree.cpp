@@ -312,6 +312,63 @@ void Octree::resize(int t)
     }
 }
 
+// NOTE: untested new resize, not adjusted yet for project revision - Ryan
+void Octree::resize(int t)
+{
+    Triangle tri = triangles[t];
+    Octant oldRoot = octants[0];
+    vector<V3> pts = {VertexLookUp(tri.points[0]), VertexLookUp(tri.points[1]), VertexLookUp(tri.points[2])};
+
+    // Direction to grow octree
+    V3 direction(1);
+
+    // Resize until triangle is in bounds
+    while(!octants[0].inBounds(triangles[t].points)) {
+        // Morton code of the current root inside the new root
+        int rootCode = 0;
+
+        // Calculates the direction the octree must grow
+        if(tri.centroid.x < oldRoot.center.x) {
+            direction.x = -1;
+            rootCode += 4;
+        }
+        if(tri.centroid.y < oldRoot.center.y) {
+            direction.y = -1;
+            rootCode += 2;
+        }
+        if(tri.centroid.z < oldRoot.center.z) {
+            direction.z = -1;
+            rootCode++;
+        }
+
+        // Adjusted halfsize
+        float adjustedHalfSize = (oldRoot.halfsize / (1 + looseness));
+        float newHalfsize = adjustedHalfSize * 2;
+
+        // Adjusted root center
+        V3 adjustedCenter = oldRoot.center + (-1.0f * direction) * (oldRoot.halfsize - adjustedHalfSize);
+        V3 newCenter = adjustedCenter + direction * adjustedHalfSize;
+
+        // Create New root octant, set its state, and set as root
+        Octant newRoot = Octant(newCenter, newHalfsize, limit, 0);
+        newRoot.state = 0;
+        octants[0] = newRoot;
+
+        // Subdivide the new root
+        subdivideOctant(0);
+
+        // Place the old root in the appropriate position as child of new root and in the octant array
+        int oldRootNewPosition = octants[0].children[rootCode];
+        octants[oldRootNewPosition] = oldRoot;
+
+        // Update parent value of old root's children to its new position in octants array
+        octants[oldRootNewPosition].parent = 0;
+        foreach(child, oldRoot.children) {
+            octants[oldRoot.children[child]].parent = oldRootNewPosition;
+        }
+    }
+}
+
 // Find the octant which fully encapsulates the given triangle
 // Stops when a leaf node is reached
 int Octree::findOctant(int t)
@@ -546,6 +603,26 @@ void Octree::generateMesh(bool trianglesOnly) {
         } else {
             octreeIndices.push_back(vertMap[*res.first]);
         }
+    }
+}
+
+
+// NOTE: untested update functions - Ryan
+// Remove and reinsert triangle
+void Octree::update(int t)
+{
+    if (octants[triangles[t].octant].remove(t))
+    {
+        insert(t);
+    }
+}
+
+// Remove and reinsert triangles
+void Octree::update(vector<int> tris)
+{
+    foreach (tri, tris)
+    {
+        update(tri);
     }
 }
 */
