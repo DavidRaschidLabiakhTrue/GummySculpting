@@ -3,3 +3,7 @@
 SamplerPayloadDefinition::SamplerPayload::SamplerPayload()
 {
 }
+
+SamplerPayloadDefinition::SamplerPayload::~SamplerPayload()
+{
+}

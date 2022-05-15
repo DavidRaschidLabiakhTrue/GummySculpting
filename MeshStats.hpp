@@ -23,7 +23,7 @@ namespace MeshStatsDefinition
 			v3 limMax = v3(0);
 			v3 limMin = v3(0);
 			v3 center = v3(0);
-			float halfSize = 0; // only a default computed value.
+
 	};
 }
 

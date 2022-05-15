@@ -230,6 +230,27 @@
     <Filter Include="Mechanics\Sampling\SamplerPayload">
       <UniqueIdentifier>{1e574261-b2a5-4808-9dc5-e4e0628badd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Search Structures\ITree">
+      <UniqueIdentifier>{da970e6c-3f06-4d72-a20f-67a51de71a74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\ITree\node">
+      <UniqueIdentifier>{29319acd-f417-4810-a998-e2b62f9face7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\ITree\stats">
+      <UniqueIdentifier>{0c9d0e8f-e69f-4b4d-a88e-40d3f2400874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\ITree\impl">
+      <UniqueIdentifier>{afad5917-e438-4ed9-ac66-426254904956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\ITree\node list">
+      <UniqueIdentifier>{728df663-73e4-4916-a6fc-520149d91dc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\ITree\node\Box">
+      <UniqueIdentifier>{3bb7aeb6-5073-4419-9056-cbc419c8a851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\ITree\node\INodeMortonCode">
+      <UniqueIdentifier>{36776766-54ce-4879-b118-4a70aa7dc496}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -384,6 +405,24 @@
     </ClCompile>
     <ClCompile Include="MortonCode.cpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\Morton Code</Filter>
+    </ClCompile>
+    <ClCompile Include="INode.cpp">
+      <Filter>Data Structures\Search Structures\ITree\node</Filter>
+    </ClCompile>
+    <ClCompile Include="ITreeStats.cpp">
+      <Filter>Data Structures\Search Structures\ITree\stats</Filter>
+    </ClCompile>
+    <ClCompile Include="ITree.cpp">
+      <Filter>Data Structures\Search Structures\ITree\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexNodeList.cpp">
+      <Filter>Data Structures\Search Structures\ITree\node list</Filter>
+    </ClCompile>
+    <ClCompile Include="INodeBox.cpp">
+      <Filter>Data Structures\Search Structures\ITree\node\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="INodeMortonCode.cpp">
+      <Filter>Data Structures\Search Structures\ITree\node\INodeMortonCode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -558,6 +597,21 @@
     <ClInclude Include="SamplerPayload.hpp">
       <Filter>Mechanics\Sampling\SamplerPayload</Filter>
     </ClInclude>
+    <ClInclude Include="INode.hpp">
+      <Filter>Data Structures\Search Structures\ITree\node</Filter>
+    </ClInclude>
+    <ClInclude Include="ITreeStats.hpp">
+      <Filter>Data Structures\Search Structures\ITree\stats</Filter>
+    </ClInclude>
+    <ClInclude Include="ITree.hpp">
+      <Filter>Data Structures\Search Structures\ITree\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="INodeBox.hpp">
+      <Filter>Data Structures\Search Structures\ITree\node\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="INodeMortonCode.hpp">
+      <Filter>Data Structures\Search Structures\ITree\node\INodeMortonCode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WireFrameShader.vert">
@@ -577,6 +631,9 @@
     </None>
     <None Include="sphere.gum">
       <Filter>3D Models\.gum files</Filter>
+    </None>
+    <None Include="IndexNodeList.hpp">
+      <Filter>Data Structures\Search Structures\ITree\node list</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -174,7 +174,13 @@
     <ClCompile Include="include\IMGUI\imgui_tables.cpp" />
     <ClCompile Include="include\IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="IndexedTriangle.cpp" />
+    <ClCompile Include="IndexNodeList.cpp" />
     <ClCompile Include="IndiceList.cpp" />
+    <ClCompile Include="INode.cpp" />
+    <ClCompile Include="INodeBox.cpp" />
+    <ClCompile Include="INodeMortonCode.cpp" />
+    <ClCompile Include="ITree.cpp" />
+    <ClCompile Include="ITreeStats.cpp" />
     <ClCompile Include="MortonCode.cpp" />
     <ClCompile Include="Octant.cpp" />
     <ClCompile Include="Octree.cpp" />
@@ -229,6 +235,11 @@
     <ClInclude Include="include\IMGUI\imstb_truetype.h" />
     <ClInclude Include="IndexedTriangle.hpp" />
     <ClInclude Include="IndiceList.hpp" />
+    <ClInclude Include="INode.hpp" />
+    <ClInclude Include="INodeBox.hpp" />
+    <ClInclude Include="INodeMortonCode.hpp" />
+    <ClInclude Include="ITree.hpp" />
+    <ClInclude Include="ITreeStats.hpp" />
     <ClInclude Include="MortonCode.hpp" />
     <ClInclude Include="Octant.hpp" />
     <ClInclude Include="Octree.hpp" />
@@ -268,6 +279,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cube.gum" />
+    <None Include="IndexNodeList.hpp" />
     <None Include="sphere.gum" />
     <None Include="StandardShader.frag" />
     <None Include="StandardShader.vert" />
