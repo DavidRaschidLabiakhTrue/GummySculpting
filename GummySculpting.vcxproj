@@ -180,7 +180,9 @@
     <ClCompile Include="INodeBox.cpp" />
     <ClCompile Include="INodeMortonCode.cpp" />
     <ClCompile Include="ITree.cpp" />
+    <ClCompile Include="ItreeDrawContainer.cpp" />
     <ClCompile Include="ITreeStats.cpp" />
+    <ClCompile Include="ITreeVisualization.cpp" />
     <ClCompile Include="LinearAlgebra.cpp" />
     <ClCompile Include="MortonCode.cpp" />
     <ClCompile Include="Octant.cpp" />
@@ -240,7 +242,9 @@
     <ClInclude Include="INodeBox.hpp" />
     <ClInclude Include="INodeMortonCode.hpp" />
     <ClInclude Include="ITree.hpp" />
+    <ClInclude Include="ItreeDrawContainer.hpp" />
     <ClInclude Include="ITreeStats.hpp" />
+    <ClInclude Include="ITreeVisualization.hpp" />
     <ClInclude Include="MortonCode.hpp" />
     <ClInclude Include="Octant.hpp" />
     <ClInclude Include="Octree.hpp" />

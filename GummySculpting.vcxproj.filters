@@ -251,6 +251,12 @@
     <Filter Include="Data Structures\Search Structures\ITree\node\INodeMortonCode">
       <UniqueIdentifier>{36776766-54ce-4879-b118-4a70aa7dc496}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Search Structures\ITree\ITreeVisualization">
+      <UniqueIdentifier>{92b20465-d8e3-4808-ae5c-43ee011f6956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search Structures\ITree\ITreeVisualization\ITreeDrawContainer">
+      <UniqueIdentifier>{b0b1f840-63cb-4f58-b27e-f64fc956f680}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -426,6 +432,12 @@
     </ClCompile>
     <ClCompile Include="LinearAlgebra.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="ITreeVisualization.cpp">
+      <Filter>Data Structures\Search Structures\ITree\ITreeVisualization</Filter>
+    </ClCompile>
+    <ClCompile Include="ItreeDrawContainer.cpp">
+      <Filter>Data Structures\Search Structures\ITree\ITreeVisualization\ITreeDrawContainer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -614,6 +626,12 @@
     </ClInclude>
     <ClInclude Include="INodeMortonCode.hpp">
       <Filter>Data Structures\Search Structures\ITree\node\INodeMortonCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ITreeVisualization.hpp">
+      <Filter>Data Structures\Search Structures\ITree\ITreeVisualization</Filter>
+    </ClInclude>
+    <ClInclude Include="ItreeDrawContainer.hpp">
+      <Filter>Data Structures\Search Structures\ITree\ITreeVisualization\ITreeDrawContainer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
