@@ -21,10 +21,9 @@ namespace INodeDefinition
 
 	typedef int INodeParent;
 	typedef int INodeChildren;
-
 	typedef int INodeDepth;
-
 	typedef int INodeID;
+
 
 	#define INodeLimit 100
 

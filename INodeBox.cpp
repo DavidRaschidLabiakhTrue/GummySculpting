@@ -55,3 +55,8 @@ v3 INodeBoxDefinition::INodeBox::boxBottomBackRight()
 {
 	return v3(boxCenter.x + boxHalfSize, boxCenter.y - boxHalfSize, boxCenter.z - boxHalfSize);
 }
+
+float INodeBoxDefinition::INodeBox::halfOfBoxHalfSize()
+{
+    return this->boxHalfSize * 0.5f;
+}

@@ -22,6 +22,33 @@ void ITreeDefinition::ITree::inodeSubdivide(INodeID id)
 {
 	INodeReference ref = inodes[id];
 
+	INodeList newNodes;
+
+	int nodeLevel = inodesTotal(); // 0 elements makes size 0, 1 element makes size 1, with element at 0 - Therefore, the next element is this value from subdivision logic
+
+	for (int i = 0; i < 8; i++)
+	{
+		ref.children[i] = nodeLevel; // set the child index of the parent to this value.
+		nodeLevel++; // raise it so the next child added also fills this slot.
+		inodes.emplace_back(INode());
+		INodeReference noderef = inodes.back();
+		noderef.parent = id;
+		noderef.inodeState = INodeState::INodeBody;
+		noderef.inodeDepth = ref.inodeDepth + 1;
+	}
+	const int lastDepthAdded = inodes.back().inodeDepth; // this checks the last added element which should be the latest iteration of subdivision. If it's greater than the tree's depth, update the tree's depth to it.
+	if (lastDepthAdded > itreeCurrentDepth)
+	{
+		itreeCurrentDepth = lastDepthAdded;
+	}
+
+	// now the center of each box must be computed.
+	// assuming uniform box construction because dynamic box construction has proven to be a failure to develop for efficiently.
+
+
+
+
+
 
 }
 

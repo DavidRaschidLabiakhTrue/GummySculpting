@@ -1,5 +1,5 @@
 #include "MeshStats.hpp"
-Usage MeshStatsDefinition;
+using namespace MeshStatsDefinition;
 
 MeshStats::MeshStats()
 {

@@ -29,7 +29,7 @@ namespace INodeBoxDefinition
 			v3 boxBottomBackLeft();
 			v3 boxBottomBackRight();
 
-			
+			float halfOfBoxHalfSize();
 			
 
 			v3 boxCenter = v3(0,0,0);
