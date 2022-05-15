@@ -22,13 +22,14 @@ namespace ITreeDrawContainerDefinition
 			void drawContainer();
 
 
-			IndiceList itreeDrawIndices;
+			Indices itreeDrawIndices;
 			VertexList itreeDrawVertex;
 
 			GraphicsBufferObject gboITreeDrawContainer;
 
 			bool shoulddraw = true;
 	};
+
 }
 
 #endif

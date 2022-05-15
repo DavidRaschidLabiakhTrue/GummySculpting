@@ -12,6 +12,14 @@ Mesh::~Mesh()
 {
 }
 
+void MeshDefinition::Mesh::generateGraphsAndTrees()
+{
+	this->generateEdges();
+	this->itreeGenerate();
+	this->generateITreeVisualization();
+	
+}
+
 KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
 {
 	const int trianglecount = totalTriangles();

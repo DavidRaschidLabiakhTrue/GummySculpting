@@ -85,7 +85,7 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 	string parser = "";
 	if (arguments.size() == 0)
 	{
-		arguments.emplace_back("sphere.gum"); // default argument
+		arguments.emplace_back("cube.gum"); // default argument
 	}
 
 	forall(strArg, arguments)

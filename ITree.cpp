@@ -17,6 +17,8 @@ void ITreeDefinition::ITree::itreeGenerate()
 	collectStats(); // get the maximum extention data
 	itreeGenerateRoot();
 	inodeSubdivide(0); // subdivide the root to get the iTree started up.
+
+
 }
 
 

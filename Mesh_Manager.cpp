@@ -52,8 +52,8 @@ void Mesh_Manager::bindAllMeshes()
 
 	forall(mesh, meshes)
 	{
-		mesh.generateEdges();
 		mesh.bind();
+		mesh.generateGraphsAndTrees();
 	}
 
 	this->makeLastMeshActive();

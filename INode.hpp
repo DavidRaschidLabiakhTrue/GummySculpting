@@ -9,10 +9,19 @@
 
 #include <unordered_set>
 
+#include "VertexList.hpp"
+#include "IndiceList.hpp"
+#include <utility>
+
 namespace INodeDefinition
 {
 	using namespace MeshStatsDefinition;
 	using namespace SamplerPayloadDefinition;
+
+	using namespace VertexListDefinition;
+	using namespace IndiceListDefinition;
+	using std::pair;
+	using std::make_pair;
 	using std::unordered_set;
 
 	using namespace INodeBoxDefinition;
@@ -57,6 +66,8 @@ namespace INodeDefinition
 			INodeID inodeID = UnassignedINodeID;
 			INodeState inodeState = INodeState::INodeUnset;
 
+			pair<Vertices, Indices> generateVisualVertices(int& counter); // generate Visual Vertices
+			
 
 	};
 

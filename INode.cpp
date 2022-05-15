@@ -59,16 +59,62 @@ v3 INodeDefinition::INode::assignChildNodeCenter(INodeMortonCodePosition iterato
 	}
 
 }
-/*
-		TopFrontLeft = 0,
-		TopFrontRight = 2,
 
-		TopBackRight = 3,
-		TopBackLeft = 1,
+pair<Vertices, Indices> INodeDefinition::INode::generateVisualVertices(int& counter)
+{
+	pair< Vertices, Indices> res;
+	Vertices vertices;
+	Indices indices;
+	// these values **are not** MortonCode Values
+	// these are just commenting on the way indices are ordered to draw a cube. **Nothing more**.
+	vertices.emplace_back(V3D(boxTopFrontLeft())); // 0
+	vertices.emplace_back(V3D(boxTopFrontRight())); // 1
 
-		BottomFrontLeft = 4,
-		BottomFrontRight = 6,
+	vertices.emplace_back(V3D(boxBottomFrontRight())); // 2
+	vertices.emplace_back(V3D(boxBottomFrontLeft())); // 3
 
-		BottomBackRight = 7,
-		BottomBackLeft = 5
-*/
+	vertices.emplace_back(V3D(boxBottomBackLeft())); // 4
+	vertices.emplace_back(V3D(boxBottomBackRight())); // 5
+
+	vertices.emplace_back(V3D(boxTopBackRight())); // 6
+	vertices.emplace_back(V3D(boxTopBackRight())); // 7
+
+
+	// counter is synced up as counter == 0 // assuming the first box starts at 0 and ends at 7, then the next box is in that sequence
+
+	int topfrontleft = ++counter;
+	int topfrontright = ++counter;
+
+	int bottomfrontright = ++counter;
+	int bottomfrontleft = ++counter;
+
+	int bottombackleft = ++counter;
+	int bottombackright = ++counter;
+
+	int topbackright = ++counter;
+	int topbackleft = ++counter;
+
+	// BEGINNING OF FRONT FACE
+	
+	indices.emplace_back(topfrontleft);
+	indices.emplace_back(topfrontright);
+
+	indices.emplace_back(topfrontright);
+	indices.emplace_back(bottomfrontright);
+
+	indices.emplace_back(bottomfrontright);
+	indices.emplace_back(bottomfrontleft);
+
+	indices.emplace_back(bottomfrontleft);
+	indices.emplace_back(topfrontleft);
+
+	// END OF FRONT FACE
+		
+
+	indices.emplace_back();
+
+	res.first = vertices;
+	res.second = indices;
+	
+	return res;
+}

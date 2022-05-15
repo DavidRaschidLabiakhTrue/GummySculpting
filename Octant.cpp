@@ -148,8 +148,9 @@ vector<v3> Octant::generateMesh()
         v3(center.x - halfsize, center.y - halfsize, center.z + halfsize),
         v3(center.x + halfsize, center.y - halfsize, center.z + halfsize),
         v3(center.x + halfsize, center.y + halfsize, center.z + halfsize),
-        v3(center.x - halfsize, center.y + halfsize, center.z + halfsize)};
-
+        v3(center.x - halfsize, center.y + halfsize, center.z + halfsize)}; 
+		// why weren't these corners labeled in a coherent manner? how is anyone supposed to read what these points refer to undocumented? - it certainly doesn't coherently match the picture in order
+		
     vector<v3> verts = {
         corners[0], corners[1],
         corners[1], corners[2],
@@ -162,7 +163,7 @@ vector<v3> Octant::generateMesh()
         corners[0], corners[4],
         corners[1], corners[5],
         corners[2], corners[6],
-        corners[3], corners[7]};
+        corners[3], corners[7]}; 
 
     return verts;
 }
