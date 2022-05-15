@@ -61,6 +61,8 @@ namespace LinearAlgebra
 
 	using glm::intersectLineTriangle;
 	using glm::intersectRayTriangle;
+
+	glm::vec3 midpointFromV3(glm::vec3& p1, glm::vec3& p2);
 }
 
 #endif 

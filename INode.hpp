@@ -48,6 +48,8 @@ namespace INodeDefinition
 			const int inodeTotalElements();
 			void initializeAsRoot(float halfWidth, rv3 center);
 
+			v3 assignChildNodeCenter(INodeMortonCodePosition iteratorID); // take in an morton code value and returns an subdivided INode center
+
 			NodeElements elements; // unordered set of elements to allow for faster removal of elements
 			INodeParent parent = UnassignedINodeParent;
 			INodeChildren children[8] = { UnassignedINodeChild };

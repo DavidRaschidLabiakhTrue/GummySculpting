@@ -15,6 +15,8 @@ ITreeDefinition::ITree::~ITree()
 void ITreeDefinition::ITree::itreeGenerate()
 {
 	collectStats(); // get the maximum extention data
+	itreeGenerateRoot();
+	inodeSubdivide(0); // subdivide the root to get the iTree started up.
 }
 
 
@@ -25,30 +27,24 @@ void ITreeDefinition::ITree::inodeSubdivide(INodeID id)
 	INodeList newNodes;
 
 	int nodeLevel = inodesTotal(); // 0 elements makes size 0, 1 element makes size 1, with element at 0 - Therefore, the next element is this value from subdivision logic
-
+	const float newHalfWidth = currentOctantRef.boxHalfSize * 0.5f;
 	for (int i = 0; i < 8; i++)
 	{
 		currentOctantRef.children[i] = nodeLevel; // set the child index of the parent to this value.
 		nodeLevel++; // raise it so the next child added also fills this slot.
-		inodes.emplace_back(INode());
-		INodeReference currentNodeRef = inodes.back();
+		INodeReference currentNodeRef = inodes.emplace_back(INode());
 		currentNodeRef.parent = id;
 		currentNodeRef.inodeState = INodeState::INodeBody;
 		currentNodeRef.inodeDepth = currentOctantRef.inodeDepth + 1;
+		currentNodeRef.boxHalfSize = newHalfWidth;
+
+		currentNodeRef.boxCenter = currentOctantRef.assignChildNodeCenter((INodeMortonCodePosition)i); // casted.
 	}
 	const int lastDepthAdded = inodes.back().inodeDepth; // this checks the last added element which should be the latest iteration of subdivision. If it's greater than the tree's depth, update the tree's depth to it.
 	if (lastDepthAdded > itreeCurrentDepth)
 	{
 		itreeCurrentDepth = lastDepthAdded;
 	}
-
-	// now the center of each box must be computed.
-	// assuming uniform box construction because dynamic box construction has proven to be a failure to develop for efficiently.
-
-
-
-
-
 
 }
 

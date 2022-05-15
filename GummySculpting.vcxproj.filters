@@ -424,6 +424,9 @@
     <ClCompile Include="INodeMortonCode.cpp">
       <Filter>Data Structures\Search Structures\ITree\node\INodeMortonCode</Filter>
     </ClCompile>
+    <ClCompile Include="LinearAlgebra.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">

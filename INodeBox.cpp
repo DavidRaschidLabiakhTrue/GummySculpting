@@ -28,7 +28,7 @@ v3 INodeBoxDefinition::INodeBox::boxTopFrontRight()
 
 v3 INodeBoxDefinition::INodeBox::boxTopBackLeft()
 {
-	return v3(boxCenter.x - boxHalfSize, boxCenter.y + boxHalfSize, boxCenter.z - boxHalfSize);;
+	return v3(boxCenter.x - boxHalfSize, boxCenter.y + boxHalfSize, boxCenter.z - boxHalfSize);
 }
 
 v3 INodeBoxDefinition::INodeBox::boxTopBackRight()

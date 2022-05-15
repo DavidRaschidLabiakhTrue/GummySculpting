@@ -181,6 +181,7 @@
     <ClCompile Include="INodeMortonCode.cpp" />
     <ClCompile Include="ITree.cpp" />
     <ClCompile Include="ITreeStats.cpp" />
+    <ClCompile Include="LinearAlgebra.cpp" />
     <ClCompile Include="MortonCode.cpp" />
     <ClCompile Include="Octant.cpp" />
     <ClCompile Include="Octree.cpp" />
