@@ -12,9 +12,9 @@ namespace OctreeCollisionDefinition
 	{
 		OctreeCollision();
 		~OctreeCollision();
-		TriangleID triangle; // triangle id the collision occurs
+		TriangleID triangleID; // triangle id the collision occurs
 		float distance; // distance from start to collision point.
-		v3 pos; // of collision
+		v3 position; // of collision
 	};
 }
 

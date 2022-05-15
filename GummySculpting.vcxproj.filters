@@ -227,6 +227,9 @@
     <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\VertexIDHashing">
       <UniqueIdentifier>{cde618c8-2420-44e9-a50b-2acf7bcd8807}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mechanics\Sampling\SamplerPayload">
+      <UniqueIdentifier>{1e574261-b2a5-4808-9dc5-e4e0628badd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -373,9 +376,14 @@
     <ClCompile Include="TriangleOctantKeyPairList.cpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList</Filter>
     </ClCompile>
-    <ClCompile Include="MortonCode.cpp" />
     <ClCompile Include="OctreeCollision.cpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="SamplerPayload.cpp">
+      <Filter>Mechanics\Sampling\SamplerPayload</Filter>
+    </ClCompile>
+    <ClCompile Include="MortonCode.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\Morton Code</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -546,6 +554,9 @@
     </ClInclude>
     <ClInclude Include="VertexIDHashing.hpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\VertexIDHashing</Filter>
+    </ClInclude>
+    <ClInclude Include="SamplerPayload.hpp">
+      <Filter>Mechanics\Sampling\SamplerPayload</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

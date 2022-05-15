@@ -102,10 +102,39 @@ auto OctreeDefinition::Octree::collect(OctreeCollision& collision, double range)
 {
 	// this code is not properly structured
 
+	KeyList results; // list of keys returned from collecting method
+
 	std::unordered_set<KeyData, point_hash, point_equal> unchecked; // needs commenting
 	std::unordered_set<KeyData, point_hash, point_equal> tempUnchecked;  // needs commenting
 	std::unordered_set<KeyData, point_hash, point_equal> checked;  // needs commenting - what is checked
 
+	for (int i = 0; i < 3; i++)
+	{
+		unchecked.insert(triangles[collision.triangleID][i]);
+	}
+
+	while (!unchecked.empty())
+	{
+		tempUnchecked = unchecked; // this seems extremely performance inefficient to copy over containers like this.
+
+		// for each element in unchecked
+		foreach(uncheckedElement, unchecked)
+		{
+			// if distance between the collision and unchecked element is less than or equal to the range
+			if (distance(vertices[uncheckedElement].position, collision.position) <= range)
+			{
+				// load the unchecked element into results
+				results.emplace_back(uncheckedElement);
+				// now check the elements edges
+				// Add each point that is connected by an edge to this point
+				foreach(vertexEdge, edges[uncheckedElement].vertexEdges)
+				{
+					// Left OFF Here - Need to figure out what is going on with this logic. - I shouldn't try and remake the structure but all of these additional helper structures are a mess.
+				}
+			}
+		}
+
+	}
 
 	return;
 }
@@ -246,6 +275,7 @@ vector<Point> Octree::collect(Collision &collision, double range)
         unchecked.insert(p);
     }
 
+
     // While unchecked is not empty
     while (!unchecked.empty())
     {
@@ -261,8 +291,9 @@ vector<Point> Octree::collect(Collision &collision, double range)
                 // Add each point that is connected by an edge to this point
                 foreach (edge, p.edges)
                 {
+					// oddly programmed - what is occuring here logically?
                     GEdge temp = edges[edge];
-                    Point otherPoint = temp.getOtherPoint(p.index);
+                    Point otherPoint = temp.getOtherPoint(p.index); 
 
                     // Check if point was checked
                     if (!checked.contains(otherPoint))

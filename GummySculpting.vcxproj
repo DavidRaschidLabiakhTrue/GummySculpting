@@ -182,6 +182,7 @@
     <ClCompile Include="OctreeStats.cpp" />
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
+    <ClCompile Include="SamplerPayload.cpp" />
     <ClCompile Include="TopBar.cpp" />
     <ClCompile Include="TopologyComputation.cpp" />
     <ClCompile Include="TriangleList.cpp" />
@@ -235,6 +236,7 @@
     <ClInclude Include="OctreeStats.hpp" />
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />
+    <ClInclude Include="SamplerPayload.hpp" />
     <ClInclude Include="Smoothing.hpp" />
     <ClInclude Include="TopBar.hpp" />
     <ClInclude Include="TopologyComputation.hpp" />
