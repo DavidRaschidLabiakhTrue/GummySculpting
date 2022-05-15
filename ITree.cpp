@@ -20,7 +20,7 @@ void ITreeDefinition::ITree::itreeGenerate()
 
 void ITreeDefinition::ITree::inodeSubdivide(INodeID id)
 {
-	INodeReference ref = inodes[id];
+	INodeReference currentOctantRef = inodes[id];
 
 	INodeList newNodes;
 
@@ -28,13 +28,13 @@ void ITreeDefinition::ITree::inodeSubdivide(INodeID id)
 
 	for (int i = 0; i < 8; i++)
 	{
-		ref.children[i] = nodeLevel; // set the child index of the parent to this value.
+		currentOctantRef.children[i] = nodeLevel; // set the child index of the parent to this value.
 		nodeLevel++; // raise it so the next child added also fills this slot.
 		inodes.emplace_back(INode());
-		INodeReference noderef = inodes.back();
-		noderef.parent = id;
-		noderef.inodeState = INodeState::INodeBody;
-		noderef.inodeDepth = ref.inodeDepth + 1;
+		INodeReference currentNodeRef = inodes.back();
+		currentNodeRef.parent = id;
+		currentNodeRef.inodeState = INodeState::INodeBody;
+		currentNodeRef.inodeDepth = currentOctantRef.inodeDepth + 1;
 	}
 	const int lastDepthAdded = inodes.back().inodeDepth; // this checks the last added element which should be the latest iteration of subdivision. If it's greater than the tree's depth, update the tree's depth to it.
 	if (lastDepthAdded > itreeCurrentDepth)
