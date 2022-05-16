@@ -6,6 +6,12 @@ INodeDefinition::INode::INode()
 {
 }
 
+INodeDefinition::INode::INode(v3 subdividedCenter, float subdividedHalfSize)
+{
+	this->boxCenter = subdividedCenter;
+	this->boxHalfSize = subdividedHalfSize;
+}
+
 INodeDefinition::INode::~INode()
 {
 }
@@ -22,6 +28,8 @@ void INodeDefinition::INode::initializeAsRoot(float halfWidth, rv3 center)
 	this->parent = -1; // there is no parent to the root
 	this->inodeState = INodeState::INodeRoot;
 	this->inodeDepth = 0; // root depth is 0.
+
+	this->boxCenter = center;
 }
 
 // this format allows for iteration
@@ -75,7 +83,7 @@ void INodeDefinition::INode::generateVisualVertices(Vertices& vertices, Indices&
 	vertices.emplace_back(V3D(boxBottomBackRight())); // 5
 
 	vertices.emplace_back(V3D(boxTopBackRight())); // 6
-	vertices.emplace_back(V3D(boxTopBackRight())); // 7
+	vertices.emplace_back(V3D(boxTopBackLeft())); // 7
 
 
 	// counter is synced up as counter == 0 // assuming the first box starts at 0 and ends at 7, then the next box is in that sequence
@@ -137,7 +145,7 @@ void INodeDefinition::INode::generateVisualVertices(Vertices& vertices, Indices&
 	// BEGINNING OF LEFT FACE
 
 	indices.emplace_back(topbackleft);
-	indices.emplace_back(topfrontright);
+	indices.emplace_back(topfrontleft);
 
 	indices.emplace_back(bottombackleft);
 	indices.emplace_back(bottomfrontleft);

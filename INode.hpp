@@ -53,6 +53,7 @@ namespace INodeDefinition
 	{
 		public:
 			INode();
+			INode(v3 subdividedCenter, float subdividedHalfSize);
 			~INode();
 			const int inodeTotalElements();
 			void initializeAsRoot(float halfWidth, rv3 center);
@@ -61,7 +62,7 @@ namespace INodeDefinition
 
 			NodeElements elements; // unordered set of elements to allow for faster removal of elements
 			INodeParent parent = UnassignedINodeParent;
-			INodeChildren children[8] = { UnassignedINodeChild };
+			INodeChildren children[8] = { UnassignedINodeChild, UnassignedINodeChild, UnassignedINodeChild, UnassignedINodeChild, UnassignedINodeChild, UnassignedINodeChild, UnassignedINodeChild, UnassignedINodeChild};
 			INodeDepth inodeDepth = UninitializedINodeDepth;
 			INodeID inodeID = UnassignedINodeID;
 			INodeState inodeState = INodeState::INodeUnset;

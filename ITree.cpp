@@ -24,30 +24,35 @@ void ITreeDefinition::ITree::itreeGenerate()
 
 void ITreeDefinition::ITree::inodeSubdivide(INodeID id)
 {
-	INodeReference currentOctantRef = inodes[id];
 
-	INodeList newNodes;
 
-	int nodeLevel = inodesTotal(); // 0 elements makes size 0, 1 element makes size 1, with element at 0 - Therefore, the next element is this value from subdivision logic
-	const float newHalfWidth = currentOctantRef.boxHalfSize * 0.5f;
+	int nodeLevel = inodesTotal() - 1; // 0 elements makes size 0, 1 element makes size 1, with element at 0 - Therefore, the next element is this value from subdivision logic
+	const float newHalfWidth = inodes[id].boxHalfSize * 0.5f;
+
+
 	for (int i = 0; i < 8; i++)
 	{
-		currentOctantRef.children[i] = nodeLevel; // set the child index of the parent to this value.
+		inodes[id].children[i] = nodeLevel; // set the child index of the parent to this value.
 		nodeLevel++; // raise it so the next child added also fills this slot.
-		INodeReference currentNodeRef = inodes.emplace_back(INode());
-		currentNodeRef.parent = id;
-		currentNodeRef.inodeState = INodeState::INodeBody;
-		currentNodeRef.inodeDepth = currentOctantRef.inodeDepth + 1;
-		currentNodeRef.boxHalfSize = newHalfWidth;
+		INode newNode = INode(inodes[id].assignChildNodeCenter((INodeMortonCodePosition)i), newHalfWidth);
+		newNode.parent = id;
+		newNode.inodeState = INodeState::INodeBody;
+		newNode.inodeDepth = inodes[id].inodeDepth + 1;
 
-		currentNodeRef.boxCenter = currentOctantRef.assignChildNodeCenter((INodeMortonCodePosition)i); // casted.
+		inodes.push_back(newNode);
 	}
-	const int lastDepthAdded = inodes.back().inodeDepth; // this checks the last added element which should be the latest iteration of subdivision. If it's greater than the tree's depth, update the tree's depth to it.
+
+
+
+	const int lastDepthAdded = inodes[nodeLevel].inodeDepth; // this checks the last added element which should be the latest iteration of subdivision. If it's greater than the tree's depth, update the tree's depth to it.
 	if (lastDepthAdded > itreeCurrentDepth)
 	{
+		say "New Divided depth:" spc lastDepthAdded done;
 		itreeCurrentDepth = lastDepthAdded;
 	}
 
+	say "Octree Subdivided, total ictants:" spc inodes.size() done;
+	say "currentDepth:" spc itreeCurrentDepth done;
 }
 
 
