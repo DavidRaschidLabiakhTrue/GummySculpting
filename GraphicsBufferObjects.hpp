@@ -22,7 +22,6 @@ namespace GraphicsBufferObjectsDefinition
 
 		void bindVAO(); // bind the VAO to the GPU to call it'd ID and begin rendering it.
 
-		protected:
 		BufferID vao = 0; // vertex array buffer
 		BufferID vbo = 0; // vertex buffer
 		BufferID ebo = 0; // vertex element buffer

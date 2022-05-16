@@ -60,11 +60,9 @@ v3 INodeDefinition::INode::assignChildNodeCenter(INodeMortonCodePosition iterato
 
 }
 
-pair<Vertices, Indices> INodeDefinition::INode::generateVisualVertices(int& counter)
+void INodeDefinition::INode::generateVisualVertices(Vertices& vertices, Indices& indices, int& counter)
 {
-	pair< Vertices, Indices> res;
-	Vertices vertices;
-	Indices indices;
+
 	// these values **are not** MortonCode Values
 	// these are just commenting on the way indices are ordered to draw a cube. **Nothing more**.
 	vertices.emplace_back(V3D(boxTopFrontLeft())); // 0
@@ -95,7 +93,7 @@ pair<Vertices, Indices> INodeDefinition::INode::generateVisualVertices(int& coun
 	int topbackleft = ++counter;
 
 	// BEGINNING OF FRONT FACE
-	
+
 	indices.emplace_back(topfrontleft);
 	indices.emplace_back(topfrontright);
 
@@ -109,12 +107,43 @@ pair<Vertices, Indices> INodeDefinition::INode::generateVisualVertices(int& coun
 	indices.emplace_back(topfrontleft);
 
 	// END OF FRONT FACE
-		
 
-	indices.emplace_back();
+	// BEGINNING OF RIGHT FACE
 
-	res.first = vertices;
-	res.second = indices;
-	
-	return res;
+	indices.emplace_back(topfrontright);
+	indices.emplace_back(topbackright);
+
+	indices.emplace_back(topbackright);
+	indices.emplace_back(bottombackright);
+
+	indices.emplace_back(bottombackright);
+	indices.emplace_back(bottomfrontright);
+
+	// END OF RIGHT FACE
+
+	// BEGINNING OF BACK FACE
+
+	indices.emplace_back(topbackright);
+	indices.emplace_back(topbackleft);
+
+	indices.emplace_back(topbackleft);
+	indices.emplace_back(bottombackleft);
+
+	indices.emplace_back(bottombackleft);
+	indices.emplace_back(bottombackright);
+
+	// END OF BACK FACE
+
+	// BEGINNING OF LEFT FACE
+
+	indices.emplace_back(topbackleft);
+	indices.emplace_back(topfrontright);
+
+	indices.emplace_back(bottombackleft);
+	indices.emplace_back(bottomfrontleft);
+
+	// END OF LEFT FACE
+
+
+	return;
 }

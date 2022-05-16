@@ -23,7 +23,7 @@ namespace ITreeDrawContainerDefinition
 
 
 			Indices itreeDrawIndices;
-			VertexList itreeDrawVertex;
+			Vertices itreeDrawVertex;
 
 			GraphicsBufferObject gboITreeDrawContainer;
 

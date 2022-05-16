@@ -27,6 +27,8 @@ namespace RendererDefinition
 
 		protected:
 
+			bool drawingITreeContainer = true;
+
 			bool shouldDrawWire = true;
 
 			inline void drawStandard();

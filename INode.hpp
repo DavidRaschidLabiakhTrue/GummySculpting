@@ -66,7 +66,7 @@ namespace INodeDefinition
 			INodeID inodeID = UnassignedINodeID;
 			INodeState inodeState = INodeState::INodeUnset;
 
-			pair<Vertices, Indices> generateVisualVertices(int& counter); // generate Visual Vertices
+			void generateVisualVertices(Vertices& vertices, Indices& indices, int& counter); // generate Visual Vertices
 			
 
 	};
