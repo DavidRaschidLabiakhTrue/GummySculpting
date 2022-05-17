@@ -24,10 +24,11 @@ const int INodeDefinition::INode::inodeTotalElements()
 void INodeDefinition::INode::initializeAsRoot(float halfWidth, rv3 center)
 {
 
-
 	this->parent = -1; // there is no parent to the root
 	this->inodeState = INodeState::INodeRoot;
 	this->inodeDepth = 0; // root depth is 0.
+
+	this->boxHalfSize = halfWidth * 3.0f;
 
 	this->boxCenter = center;
 }

@@ -93,7 +93,6 @@ void ITreeDefinition::ITree::itreeGenerateRoot()
 		halfWidth = abs(maxExtent);
 	}
 
-	halfWidth *= 1.5f; // raise it 50% to provide some spacing
 
 	rootNode.initializeAsRoot(halfWidth, this->center); // the root should generally always be empty.
 	this->inodes.push_back(rootNode);
