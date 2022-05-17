@@ -15,13 +15,12 @@ namespace OctreeStatsDefinition
 			OctreeStats();
 			~OctreeStats();
 
-			int octreeLimit = 1000;
+			int octantTriangleLimit = 1000;
 			int octreeDepthLimit = 10;
 			int octreeDepth = 0;
 			double octreeLooseness = 0.2;
 			int octreeCurrentDepth = 0;
-
-
+			OctantIndex root = 0;
 	};
 }
 

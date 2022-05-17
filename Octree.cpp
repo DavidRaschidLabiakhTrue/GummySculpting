@@ -13,26 +13,24 @@ OctreeDefinition::Octree::~Octree()
 {
 }
 
-void OctreeDefinition::Octree::buildOctree()
-{
-    TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
-}
-
+/**
+ * @brief Print octree information for debugging.
+ */
 void OctreeDefinition::Octree::octreePrintStats()
 {
     say "Octree Debug" done;
-    say "\tPoint Limit:" spc octreeLimit done;
+    say "\tPoint Limit:" spc octantTriangleLimit done;
     say "\tDepth Limit:" spc octreeDepthLimit done;
     say "\tDepth:" spc octreeDepth done;
     // say "\tPoints: " << points.size() done; - need to reimplement
     say "\tEdges:" spc edgesTotal() done;
     say "\tTriangles:" spc totalTriangles() done;
-    say "\tOctants:" spc octantsTotal() done;
+    say "\tOctants:" spc octants.size() done;
     say "\tLeaves:" spc leaves.size() done;
 
-    say "\tCenter:" spc to_string(octants[0].octantCenter) done;
-    say "\tHalfsize:" spc octants[0].octantHalfSize done;
-    say "\tTriangles in Root:" spc octants[0].octantTotalTriangles() done;
+    say "\tCenter:" spc to_string(octants[root].octantCenter) done;
+    say "\tHalfsize:" spc octants[root].octantHalfSize done;
+    say "\tTriangles in Root:" spc octants[root].triangleIDs.size() done;
 
     int count = 0;
     int owt = 0;
@@ -44,7 +42,7 @@ void OctreeDefinition::Octree::octreePrintStats()
             count++;
         }
 
-        if (o.octantTotalTriangles())
+        if (o.triangleIDs.size())
         {
             owt++;
             if (o.octantState == OctantState::OctantNotEmptyInternal) // this really needs to be enumerated to say what is going on.
@@ -66,76 +64,14 @@ void OctreeDefinition::Octree::octreePrintStats()
     */
 }
 
-bool OctreeDefinition::Octree::octantPointsInBound(RIndexTriangle tri, OctantIndex octantID)
-{
-    OctantReference oct = octants[octantID]; // retrieve the current processed octant
-
-    for (int i = 0; i < 3; i++)
-    {
-        rv3 pos = vertices[tri[i]].position;
-        // what is this supposed to be doing?
-        if (oct.octantHalfSizeCenterComparison(pos))
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-const int OctreeDefinition::Octree::octantsTotal()
-{
-    return octants.size();
-}
-
-const int OctreeDefinition::Octree::octantsLeavesTotal()
-{
-    return leaves.size();
-}
-
-// auto OctreeDefinition::Octree::collect(OctreeCollision &collision, double range)
-// {
-//     // this code is not properly structured
-
-//     KeyList results; // list of keys returned from collecting method
-
-//     std::unordered_set<KeyData, point_hash, point_equal> unchecked;     // needs commenting
-//     std::unordered_set<KeyData, point_hash, point_equal> tempUnchecked; // needs commenting
-//     std::unordered_set<KeyData, point_hash, point_equal> checked;       // needs commenting - what is checked
-
-//     for (int i = 0; i < 3; i++)
-//     {
-//         unchecked.insert(triangles[collision.triangleID][i]);
-//     }
-
-//     while (!unchecked.empty())
-//     {
-//         tempUnchecked = unchecked; // this seems extremely performance inefficient to copy over containers like this.
-
-//         // for each element in unchecked
-//         foreach (uncheckedElement, unchecked)
-//         {
-//             // if distance between the collision and unchecked element is less than or equal to the range
-//             if (distance(vertices[uncheckedElement].position, collision.position) <= range)
-//             {
-//                 // load the unchecked element into results
-//                 results.emplace_back(uncheckedElement);
-//                 // now check the elements edges
-//                 // Add each point that is connected by an edge to this point
-//                 foreach (vertexEdge, edges[uncheckedElement].vertexEdges)
-//                 {
-//                     // Left OFF Here - Need to figure out what is going on with this logic. - I shouldn't try and remake the structure but all of these additional helper structures are a mess.
-//                 }
-//             }
-//         }
-//     }
-
-//     return;
-// }
-
-
-// Rewritten to avoid copying the entire unchecked set.
-// Collect all vertices within a given range of the collision
-auto OctreeDefinition::Octree::collect(OctreeCollision &collision, double range)
+/**
+ * @brief Collect all vertices within a given range of the collision
+ *
+ * @param collision
+ * @param range
+ * @return KeyList
+ */
+KeyList OctreeDefinition::Octree::collect(OctreeCollision &collision, double range)
 {
     KeyList results; // list of keys returned from collecting method
 
@@ -161,7 +97,7 @@ auto OctreeDefinition::Octree::collect(OctreeCollision &collision, double range)
             results.emplace_back(element); // Add the element to the results list
 
             // Add each vertex that is connected by an edge to this vertex
-            // and that has not already been checked
+            // and has not already been checked.
             // Using unordered set allows us to insert into unchecked whether or not it already exists.
             foreach (vertex, edges[element].vertexEdges)
             {
@@ -176,577 +112,444 @@ auto OctreeDefinition::Octree::collect(OctreeCollision &collision, double range)
     return results;
 }
 
-// vector<Point> Octree::collect(Collision &collision, double range)
-// {
-//     vector<Point> points;
-//     std::unordered_set<Point, point_hash, point_equal> unchecked; // needs commenting
-//     std::unordered_set<Point, point_hash, point_equal> tempUnchecked;  // needs commenting
-//     std::unordered_set<Point, point_hash, point_equal> checked;  // needs commenting - what is checked
-
-//     // Insert intersected triangle's points into unchecked
-//     foreach (p, triangles[collision.triangle].points)
-//     {
-//         unchecked.insert(p);
-//     }
-
-//     // While unchecked is not empty
-//     while (!unchecked.empty())
-//     {
-//         tempUnchecked = unchecked;
-//         // For each unchecked point
-//         foreach (p, unchecked)
-//         {
-
-//             // If distance to point is within range
-//             if (distance(getVertexPosition(p.index), collision.pos) <= range)
-//             {
-//                 points.emplace_back(p);
-//                 // Add each point that is connected by an edge to this point
-//                 foreach (edge, p.edges)
-//                 {
-// 					// oddly programmed - what is occuring here logically?
-//                     GEdge temp = edges[edge];
-//                     Point otherPoint = temp.getOtherPoint(p.index);
-
-//                     // Check if point was checked
-//                     if (!checked.contains(otherPoint))
-//                     {
-//                         // If not add to tempUnchecked
-//                         tempUnchecked.insert(otherPoint);
-//                     }
-//                 }
-//             }
-
-//             // Add to checked and remove from unchecked
-//             checked.insert(p);
-//             tempUnchecked.erase(p);
-//         }
-
-//         unchecked = tempUnchecked;
-//     }
-
-//     return points;
-// }
-
-/*
-#include "Octree.hpp"
-
-Octree::Octree(vector<v3> &verts, vector<int> &indices)
+/**
+ * @brief Build the octree by inserting all triangles of the mesh into the octree.
+ * Initializes the root octant.
+ */
+void OctreeDefinition::Octree::buildOctree()
 {
+    TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
 
+    // Adjust the extents of the mesh vertices wrt the center
+    float maxExtent = compMax(abs(this->center - limMax));
+    float minExtent = compMin(abs(this->center - limMin));
 
-    points.reserve(verts.size());
-    triangles = vector<Triangle>(indices.size() / 3);
-    edges.reserve((int)ceil(indices.size() / 2));
-    edgeset.reserve((int)ceil(indices.size() / 2));
+    // Create root octant with appropriate center and half size
+    Octant rootOctant;
+    rootOctant.octantIndex = 0;
+    rootOctant.octantCenter = this->center;
+    rootOctant.octantHalfSize = glm::max(maxExtent, minExtent);
+    octants.emplace_back(rootOctant);
 
-    // Calculate center and halfsize of the octree.
-    v3 maxDist = v3(0);
-    float halfsize = 0;
-    v3 center = v3(0);
-    int i = 0;
-    foreach (v, verts)
+    // Insert all triangles into the octree
+    int triangleCount = totalTriangles();
+    for (int i = 0; i < triangleCount; i++)
     {
-        center += v;
-        points.emplace_back(Point(i++));
-
-        maxDist.x = glm::max(maxDist.x, abs(v.x));
-        maxDist.y = glm::max(maxDist.y, abs(v.y));
-        maxDist.z = glm::max(maxDist.z, abs(v.z));
-    }
-
-    center /= verts.size();
-    // center += v3(std::numeric_limits<float>::epsilon());
-
-    halfsize = (float)1.0001 * glm::max(maxDist.x, glm::max(maxDist.y, maxDist.z)); // Add padding
-
-    say "Center and Halfsize time: " << chrono::duration<double, milli>(chrono::steady_clock::now() - start).count() << " ms" done;
-
-    // Triangle limit per octant is 5% of total triangles in mesh
-    // limit = (int)ceil((0.05 * indices.size() / 3));
-
-    // Initialize octants with root node
-    octants.emplace_back(Octant(center, halfsize, limit, 0));
-    leaves.insert(0);
-
-    int edgeIndex = 0;
-    int triIndex = 0;
-
-    start = chrono::steady_clock::now();
-    // Generate triangles
-    for (int i = 0; i < indices.size(); i += 3)
-    {
-        Point &p0 = points[indices[i]];
-        Point &p1 = points[indices[i + 1]];
-        Point &p2 = points[indices[i + 2]];
-        Triangle t = Triangle(p0.index, p1.index, p2.index, triIndex);
-        p0.addTriangle(triIndex);
-        p1.addTriangle(triIndex);
-        p2.addTriangle(triIndex);
-
-        // Add edges to triangle, inserting into octree edge set to guarantee uniqueness.
-        auto edge0 = edgeset.insert(GEdge(p0.index, p1.index));
-        auto edge1 = edgeset.insert(GEdge(p1.index, p2.index));
-        auto edge2 = edgeset.insert(GEdge(p2.index, p0.index));
-
-        // If edges were inserted to set (i.e. edge is new)
-        // Set index of edge
-        // Add edge to points
-        if (edge0.second)
-        {
-            edge0.first->index = edgeIndex;
-            p0.addEdge(edgeIndex);
-            p1.addEdge(edgeIndex++);
-        }
-        if (edge1.second)
-        {
-            edge1.first->index = edgeIndex;
-            p1.addEdge(edgeIndex);
-            p2.addEdge(edgeIndex++);
-        }
-        if (edge2.second)
-        {
-            edge2.first->index = edgeIndex;
-            p0.addEdge(edgeIndex);
-            p2.addEdge(edgeIndex++);
-        }
-
-        t.addEdge(edge0.first->index);
-        t.addEdge(edge1.first->index);
-        t.addEdge(edge2.first->index);
-
-        // Add triangle to each edge
-        edge0.first->addTriangle(triIndex);
-        edge1.first->addTriangle(triIndex);
-        edge2.first->addTriangle(triIndex);
-
-        triangles[triIndex] = t;
-        triIndex++;
-    }
-
-    edges = vector<GEdge>(edgeset.size());
-    foreach (e, edgeset)
-    {
-        edges[e.index] = e;
-    }
-
-    say "Triangle/Edge gen time: " << chrono::duration<double, milli>(chrono::steady_clock::now() - start).count() << " ms" done;
-
-    start = chrono::steady_clock::now();
-    for (int i = 0; i < triIndex; i++)
-    // for (int i = 0; i < 100; i++)
-    {
-        insert(i);
-    }
-    say "Insertion time: " << chrono::duration<double, milli>(chrono::steady_clock::now() - start).count() << " ms" done;
-    generateMesh(false);
-    octreeDebug();
-}
-*/
-
-/*
-vector<Point> Octree::collect(Collision &collision, double range)
-{
-    vector<Point> points;
-    std::unordered_set<Point, point_hash, point_equal> unchecked; // needs commenting
-    std::unordered_set<Point, point_hash, point_equal> tempUnchecked;  // needs commenting
-    std::unordered_set<Point, point_hash, point_equal> checked;  // needs commenting - what is checked
-
-    // Insert intersected triangle's points into unchecked
-    foreach (p, triangles[collision.triangle].points)
-    {
-        unchecked.insert(p);
-    }
-
-
-    // While unchecked is not empty
-    while (!unchecked.empty())
-    {
-        tempUnchecked = unchecked;
-        // For each unchecked point
-        foreach (p, unchecked)
-        {
-
-            // If distance to point is within range
-            if (distance(getVertexPosition(p.index), collision.pos) <= range)
-            {
-                points.emplace_back(p);
-                // Add each point that is connected by an edge to this point
-                foreach (edge, p.edges)
-                {
-                    // oddly programmed - what is occuring here logically?
-                    GEdge temp = edges[edge];
-                    Point otherPoint = temp.getOtherPoint(p.index);
-
-                    // Check if point was checked
-                    if (!checked.contains(otherPoint))
-                    {
-                        // If not add to tempUnchecked
-                        tempUnchecked.insert(otherPoint);
-                    }
-                }
-            }
-
-            // Add to checked and remove from unchecked
-            checked.insert(p);
-            tempUnchecked.erase(p);
-        }
-
-        unchecked = tempUnchecked;
-    }
-
-    return points;
-}
-
-void Octree::resize(int t)
-{
-    vector<v3> pts = {getVertexPosition(triangles[t].points[0]), getVertexPosition(triangles[t].points[1]), getVertexPosition(triangles[t].points[2])};
-    v3 centroid = (pts[0] + pts[1] + pts[2])/v3(3);
-    v3 direction(1);
-    while(!octants[0].inBounds(triangles[t].points)) {
-        int rootCode = 0;
-        if(centroid.x < octants[0].center.x) {
-            direction.x = -1;
-            rootCode += 4;
-        }
-        if(centroid.y < octants[0].center.y) {
-            direction.y = -1;
-            rootCode += 2;
-        }
-        if(centroid.z < octants[0].center.z) {
-            direction.z = -1;
-            rootCode++;
-        }
-        float newHalfsize = octants[0].halfsize * 2;
-        v3 newCenter = octants[0].center + direction * octants[0].halfsize;
-        Octant newRoot = Octant(newCenter, newHalfsize, limit, 0);
-        Octant oldRoot = octants[0];
-        newRoot.state = 0;
-        octants[0] = newRoot;
-        subdivideOctant(0);
-        int oldRootNewPosition = octants[0].children[rootCode];
-        octants[oldRootNewPosition] = oldRoot;
-        // Update parents
-        octants[oldRootNewPosition].parent = 0;
-        foreach(child, oldRoot.children) {
-            octants[oldRoot.children[child]].parent = oldRootNewPosition;
-        }
+        Octree::insertTriangle(i);
     }
 }
 
-// NOTE: untested new resize, not adjusted yet for project revision - Ryan
-void Octree::resize(int t)
+/**
+ * @brief Search octree for octant which encloses triangle. Standard Traversal.
+ *
+ * @param triangle
+ * @return OctantIndex
+ */
+OctantIndex OctreeDefinition::Octree::findOctantForTriangle(TriangleID triangle)
 {
-    Triangle tri = triangles[t];
-    Octant oldRoot = octants[0];
-    vector<V3> pts = {VertexLookUp(tri.points[0]), VertexLookUp(tri.points[1]), VertexLookUp(tri.points[2])};
+    octreeCurrentDepth = 0;                              // Set the current depth to 0
+    v3 triangleCentroid = getTriangleCentroid(triangle); // get the triangle centroid, used for morton code
+    OctantIndex currOctant = root;                       // Track the current octant index, start at root
 
-    // Direction to grow octree
-    V3 direction(1);
+    // Calculate and track the next octant
+    OctantIndex nextOctant = octants[currOctant].children[mortonCodeHash(triangleCentroid, octants[currOctant].octantCenter)];
 
-    // Resize until triangle is in bounds
-    while(!octants[0].inBounds(triangles[t].points)) {
-        // Morton code of the current root inside the new root
-        int rootCode = 0;
+    // While the next octant exists and the triangle is within its bounds
+    while (nextOctant != NoOctantChildSet && isTriangleInOctantBounds(triangle, nextOctant))
+    {
+        // Set the current octant to the next octant
+        currOctant = nextOctant;
 
-        // Calculates the direction the octree must grow
-        if(tri.centroid.x < oldRoot.center.x) {
-            direction.x = -1;
-            rootCode += 4;
-        }
-        if(tri.centroid.y < oldRoot.center.y) {
-            direction.y = -1;
-            rootCode += 2;
-        }
-        if(tri.centroid.z < oldRoot.center.z) {
-            direction.z = -1;
-            rootCode++;
-        }
+        // Calculate the next octant
+        nextOctant = octants[currOctant].children[mortonCodeHash(triangleCentroid, octants[currOctant].octantCenter)];
 
-        // Adjusted halfsize
-        float adjustedHalfSize = (oldRoot.halfsize / (1 + looseness));
-        float newHalfsize = adjustedHalfSize * 2;
-
-        // Adjusted root center
-        V3 adjustedCenter = oldRoot.center + (-1.0f * direction) * (oldRoot.halfsize - adjustedHalfSize);
-        V3 newCenter = adjustedCenter + direction * adjustedHalfSize;
-
-        // Create New root octant, set its state, and set as root
-        Octant newRoot = Octant(newCenter, newHalfsize, limit, 0);
-        newRoot.state = 0;
-        octants[0] = newRoot;
-
-        // Subdivide the new root
-        subdivideOctant(0);
-
-        // Place the old root in the appropriate position as child of new root and in the octant array
-        int oldRootNewPosition = octants[0].children[rootCode];
-        octants[oldRootNewPosition] = oldRoot;
-
-        // Update parent value of old root's children to its new position in octants array
-        octants[oldRootNewPosition].parent = 0;
-        foreach(child, oldRoot.children) {
-            octants[oldRoot.children[child]].parent = oldRootNewPosition;
-        }
+        // increment the current depth
+        octreeCurrentDepth++;
     }
+
+    return currOctant;
 }
 
-// Find the octant which fully encapsulates the given triangle
-// Stops when a leaf node is reached
-int Octree::findOctant(int t)
+/**
+ * @brief Insert triangle into octree, using the triangleID. Corrects state and subdivides if necessary.
+ *
+ * @param tri
+ * @return true
+ * @return false
+ */
+bool OctreeDefinition::Octree::insertTriangle(TriangleID tri)
 {
-    // currentDepth = 0;
-    // int o = 0;
-    // int next = getNext(o, t);
-
-    // // next is 0 when a leaf node is reached
-    // while (next != o)
-    // {
-    //     currentDepth++;
-    //     o = next;
-    //     next = getNext(o, t);
-    // }
-    // return o;
-
-    currentDepth = 0;
-    int o = 0;
-    int next = octants[o].children[morton(triangles[t].centroid, octants[o].center)];
-
-    while(next != 0 && octants[next].inBounds(triangles[t].points)) {
-        currentDepth++;
-        o = next;
-        next = octants[o].children[morton(triangles[t].centroid, octants[o].center)];
-    }
-    return o;
-}
-
-// Calculate the next octant the given triangle
-// TODO: Handle cases with 0
-// MAYBE: base of centroid
-int Octree::getNext(int o, int t)
-{
-    Octant oct = octants[o];
-    int next = morton(getVertexPosition(triangles[t].points[0]), oct.center);
-
-    // If triangle points are not in the same octant...
-    if (morton(getVertexPosition(triangles[t].points[1]), oct.center) != next || morton(getVertexPosition(triangles[t].points[2]), oct.center) != next)
+    // Check if the triangle is in the octree
+    if (!Octree::isTriangleInOctantBounds(tri, root))
     {
-        return o;
+        resizeOctree(tri);
     }
 
-    // Get index of the next octant from children
-    next = oct.children[next];
-    // If child doesn't exist, return o
-    return next == 0 ? o : next;
-}
+    OctantIndex oix = findOctantForTriangle(tri); // Find the octant which encloses the triangle
+    OctantReference octant = octants[oix];        // Get the octant reference
+    octant.triangleIDs.emplace_back(tri);         // Add the triangle to the octant's triangle list
+    triangleToOctantList[tri].octantIndex = oix;  // Set triangle's octant index to the new octant index
 
-// in octants list, find position for t, and insert t with respect to the octants list.
-bool Octree::insert(int t)
-{
-    if(!octants[0].inBounds(t)){
-        // resize(t);
-    }
-    int o = findOctant(t);
-    bool doSubdivision = octants[o].insert(t);
-    leaves.insert(o);
-    triangles[t].octant = o;
-
-    if (octants[o].state == 0)
+    // If octant is internal and empty, change state to not empty internal
+    if (octant.octantState == OctantEmptyInternal)
     {
-        octants[o].state = 1;
+        octant.octantState = OctantNotEmptyInternal;
+        // TODO: Add octant to NotEmptyOctantList?
     }
-    else if (octants[o].state == 2 && currentDepth < depthLimit && doSubdivision)
+
+    // Else If octant is a leaf, check depth and subdivide if # of triangles held exceeds limit
+    else if (octant.octantState == OctantLeaf && octreeCurrentDepth < octreeDepthLimit && octant.triangleIDs.size() > octantTriangleLimit)
     {
-        subdivideOctant(o);
+        subdivideOctant(oix);
     }
 
     return true;
 }
 
-void Octree::subdivideOctant(int o)
+/**
+ * @brief Subdivide the given octant. Adds the children to the octant and octants list.
+ * Can recurse if child octant needs to subdivide.
+ *
+ * @param oix
+ */
+void OctreeDefinition::Octree::subdivideOctant(OctantIndex oix)
 {
-    if(currentDepth == depth) depth++;
-    for(int i = 0; i < 8; i++) {
-        leaves.insert((int) octants.size() + i);
-    }
-    // Subdivide octant and place children into octants list
-    foreach (octant, octants[o].subdivide((int)octants.size(), looseness))
+    OctantReference octant = octants[oix];
+
+    // Update the current depth value of the octree if subdivision increases it
+    if (octreeCurrentDepth == octreeDepth)
     {
-        octants.emplace_back(octant);
+        octreeDepth++;
+    }
+
+    octreeCurrentDepth++; // Child octants are at the next depth of the octant being subdivided
+
+    // Create this octants children
+    for (int i = 0; i < 8; i++)
+    {
+        createChildOctant((OctantPosition)i, oix);
     }
 
     // Reinsert triangles into children if they fit entirely inside
     // Reverse order to preserve positions on removal
-    for (int i = (int)octants[o].tris.size() - 1; i >= 0; i--)
+    for (int i = octant.triangleIDs.size(); i >= 0; i--)
     {
-        Triangle &t = triangles[octants[o].tris[i]];
+        TriangleID tri = octant.triangleIDs[i];
+        v3 triangleCentroid = getTriangleCentroid(tri);
+        OctantIndex childOctant = octant.children[mortonCodeHash(triangleCentroid, octant.octantCenter)];
 
-        // base on centroid
-        int next = octants[o].children[morton(t.centroid, octants[o].center)];
-
-        if (octants[next].inBounds(t.points))
+        // If triangle fits in child octant, insert it
+        if (isTriangleInOctantBounds(tri, childOctant))
         {
-            bool isFull = octants[next].insert(t.index);
-            t.octant = next;
+            octants[childOctant].triangleIDs.emplace_back(tri);
+            octant.triangleIDs.erase(octant.triangleIDs.begin() + i);
+        }
+    }
 
-            // If child octant becomes full, subdivide it
-            if(isFull && currentDepth < depthLimit) {
-                subdivideOctant(next);
+    // Subdivide any child octants if necessary
+    for (int i = 0; i < 8; i++)
+    {
+        OctantIndex childOctant = octant.children[i]; // Avoiding nested [] operators for clarity
+        if (octreeCurrentDepth < octreeDepthLimit && octants[childOctant].triangleIDs.size() > octantTriangleLimit)
+        {
+            subdivideOctant(childOctant);
+        }
+    }
+
+    // Set state of subdivided octant
+    // Checks if octant contains any triangles ands sets state accordingly
+    if (octant.triangleIDs.size() == 0)
+    {
+        octant.octantState = OctantEmptyInternal;
+    }
+    else
+    {
+        octant.octantState = OctantNotEmptyInternal;
+    }
+}
+
+/**
+ * @brief Creates a child octant for the octant at the given index.
+ * Adds the child to the octant list.
+ * Adjusts the center and halfsize of the child octant according to the looseness of the octree.
+ *
+ * NOTE: Can be optimized by calculating the unadjusted and loose halfsizes before hand since
+ * those are shared between all children of an octant.
+ *
+ * @param octantPosition
+ * @param parentIndex
+ */
+void OctreeDefinition::Octree::createChildOctant(OctantPosition octantPosition, OctantIndex parentIndex)
+{
+    Octant childOctant;                                  // Empty octant
+    OctantReference parentOctant = octants[parentIndex]; // Get the parent octant reference
+
+    float unadjustedHalfSize = parentOctant.octantHalfSize / 2.0f; // Unadjusted half size for child octant
+    float looseHalfSize = octreeLooseness * unadjustedHalfSize;    // Looseness adjusted half size for child octant
+    float halfSizeDifference = looseHalfSize - unadjustedHalfSize; // Difference between the two half sizes
+
+    v3 positionVector = octantPositionVectors[octantPosition]; // Position vector for child octant
+
+    // Unadjusted child center, based on parent center and unadjusted half size
+    v3 unadjustedChildCenter = parentOctant.octantCenter + v3(unadjustedHalfSize) * positionVector;
+
+    // Set child center, adjusted for looseness
+    // Subtraction used to reverse direction of position vector
+    // Moves the child's center towards the parent's center based on the half size difference
+    childOctant.octantCenter = unadjustedChildCenter - v3(halfSizeDifference) * positionVector;
+    childOctant.octantHalfSize = looseHalfSize; // Set half size of child octant, adjusted for looseness
+    childOctant.octantIndex = octants.size();   // Set octants index to the next available index
+    childOctant.parent = parentIndex;           // Set parent of child octant
+
+    // Set the parent's child at the octant position to the child's index in the octants vector
+    parentOctant.children[octantPosition] = childOctant.octantIndex;
+
+    octants.emplace_back(childOctant); // Add child octant to octants list
+}
+
+/**
+ * @brief Checks if each vertex of the triangle is within the octant's bounds
+ *
+ * @param tri
+ * @param octantID
+ * @return true
+ * @return false
+ */
+bool OctreeDefinition::Octree::isTriangleInOctantBounds(TriangleID tri, OctantIndex octantID)
+{
+    OctantReference oct = octants[octantID];                                            // retrieve the current processed octant
+    IndexedTriangle triangle = triangles[tri];                                          // retrieve the current processed triangle
+    v3 halfSizeVector = v3(oct.octantHalfSize + std::numeric_limits<float>::epsilon()); // Half size vec3 for comparison
+
+    // Component-wiser check if the difference between each vertex and the octant's center is less than the octant's half size
+    return all(lessThanEqual(abs(oct.octantCenter - vertices[triangle[0]].position), halfSizeVector)) &&
+           all(lessThanEqual(abs(oct.octantCenter - vertices[triangle[1]].position), halfSizeVector)) &&
+           all(lessThanEqual(abs(oct.octantCenter - vertices[triangle[2]].position), halfSizeVector));
+}
+
+/**
+ * @brief Resize octree to fit the given triangle by creating a new root
+ * octant and placing the old root as a child
+ *
+ * @param tri
+ */
+void OctreeDefinition::Octree::resizeOctree(TriangleID tri)
+{
+    // If the depth limit is currently reached, increase limit to allow resizing
+    if(octreeDepth == octreeDepthLimit) {
+        octreeDepth++;
+        octreeDepthLimit++;
+    }
+
+    v3 triangleCentroid = getTriangleCentroid(tri); // Get the triangle's centroid
+
+    // Continuously resize until triangle fits into the root octant
+    while (!isTriangleInOctantBounds(tri, root))
+    {
+        OctantReference oldRoot = octants[root]; // Save oldRoot to replace one of the new root's children
+
+        // Get morton code of triangle centroid to determine direction to grow octree
+        OctantPosition newRootDirection = (OctantPosition)mortonCodeHash(triangleCentroid, oldRoot.octantCenter);
+        v3 newRootPositionVector = octantPositionVectors[newRootDirection]; // Vector from old root to new root
+
+        // Adjusted halfsize removing looseness
+        // New Root's halfsize, already loose no need for adjustment
+        float oldRootAdjustedHalfSize = (oldRoot.octantHalfSize / (1 + octreeLooseness));
+        float newRootHalfsize = oldRootAdjustedHalfSize * 2;
+
+        // Adjusted old root center, based on old root's center and adjusted half size
+        // New Root's Center based on old root's center and adjusted half size
+        v3 oldRootAdjustedCenter = oldRoot.octantCenter - newRootPositionVector * (oldRoot.octantHalfSize - oldRootAdjustedHalfSize);
+        v3 newRootCenter = oldRootAdjustedCenter + newRootPositionVector * oldRootAdjustedHalfSize;
+
+        // Create new root octant, set its values accordingly
+        Octant newRoot;
+        newRoot.octantState = OctantEmptyInternal;
+        newRoot.octantHalfSize = newRootHalfsize;
+        newRoot.octantCenter = newRootCenter;
+        newRoot.octantIndex = root;
+        octants[root] = newRoot;
+
+        // Subdivide the new root to add missing child octants
+        subdivideOctant(root);
+
+        oldRoot.parent = root; // Set the old root's parent to the new root
+
+        // Get the position where the old root will reside in the new root's children
+        // Then get the index of child to replace
+        // Then replace octant at the index with the old root
+        OctantPosition oldRootNewPosition = (OctantPosition)mortonCodeHash(oldRootAdjustedCenter, newRootCenter);
+        OctantIndex oldRootNewIndex = octants[root].children[oldRootNewPosition];
+        octants[oldRootNewIndex] = oldRoot;
+
+        // Adjust the parent values of the old roots children to point to its new index
+        if (oldRoot.octantState != OctantLeaf)
+        {
+            foreach (child, oldRoot.children)
+            {
+                octants[oldRoot.children[child]].parent = oldRootNewIndex;
             }
-
-            // Remove triangle from parent octant
-            octants[o].tris.erase(octants[o].tris.begin() + i);
-        }
-
-        // set state of octant
-        if (octants[o].tris.size() == 0)
-        {
-            leaves.erase(o);
-            octants[o].state = 0;
-        }
-        else
-        {
-            octants[o].state = 1;
         }
     }
 }
 
-bool Octree::contains(Triangle t)
+/**
+ * @brief Remove triangle from octree
+ *
+ * @param tri
+ * @return true
+ * @return false
+ */
+bool OctreeDefinition::Octree::removeTriangleFromOctree(TriangleID tri)
 {
-    return true;
+    // Get octant that triangle is in
+    OctantIndex oix = triangleToOctantList[tri].octantIndex;
+
+    // If triangle is not in an octant, return false
+    if (oix == NonExistentOctantIndex)
+    {
+        return false;
+    }
+
+    OctantReference octantRef = octants[oix]; // Get the octant reference for clarity
+
+    // Search through the octants triangle list for the triangle
+    for (int i = 0; i < octantRef.triangleIDs.size(); i++)
+    {
+        // If the triangle was found, remove it from the octant's list and return true
+        if (octantRef.triangleIDs[i] == tri)
+        {
+            octantRef.triangleIDs.erase(octantRef.triangleIDs.begin() + i);
+            return true;
+        }
+    }
+
+    return false; // Triangle was not found in the octant
 }
 
-bool Octree::remove(Triangle &t)
+/**
+ * @brief Remove triangle from octree and reinsert it
+ * Remove is O(1) due to saving the triangles' octant
+ * Reinsertion is O(log n)? due to standard octree traversal
+ *
+ * @param tri
+ * @return true
+ * @return false
+ */
+bool OctreeDefinition::Octree::updateTriangleInOctree(TriangleID tri)
 {
-    return true;
+    if (removeTriangleFromOctree(tri))
+    {
+        insertTriangle(tri);
+        return true;
+    }
+    return false;
 }
 
-Collision Octree::rayIntersection(v3 &origin, v3 direction)
+/**
+ * @brief Updates a list of triangles in the octree.
+ * Returns false if any update has failed, but continues to update the list.
+ *
+ * @param tris
+ * @return true
+ * @return false
+ */
+bool OctreeDefinition::Octree::updateTrianglesInOctree(TriangleIDList tris)
 {
-    Collision collision;
+    bool updateSuccessful = true;
+    foreach (tri, tris)
+    {
+        updateSuccessful = updateSuccessful && updateTriangleInOctree(tri);
+    }
+    return updateSuccessful;
+}
+
+/**
+ * @brief Tests every octant that has triangles for intersection with the given ray.
+ * Skips octants that do not have triangles.
+ * Written to be easily parallelizable if needed, also avoids handling loose bounds.
+ *
+ * @param origin
+ * @param direction
+ * @return OctreeCollision
+ */
+OctreeCollision OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction)
+{
+    // Create a new octree collision object and set distance to max float value
+    OctreeCollision collision;
     collision.distance = std::numeric_limits<float>::max();
 
-    float tmpDist = 0;
     float distance = std::numeric_limits<float>::max();
-    v3 planeNormals[] = {
-        {0, 0, 1}, // xy plane
-        {1, 0, 0}, // yz plane
-        {0, 1, 0}  // xz plane
-    };
 
-    // Check intersetion on every leaf octant
-    // Then check intersection on each
-    foreach (o, octants)
+    foreach (octant, octants)
     {
-        if (!o.state)
-            continue;
-
-        // Get nearest corner of octant
-        v3 corner = o.center;
-        for (int i = 0; i < 3; ++i)
+        // If octant has no triangles, continue
+        if (octant.octantState == OctantEmptyInternal || octant.triangleIDs.size() == 0)
         {
-            if (origin[i] < o.center[i])
-            {
-                corner[i] -= o.halfsize;
-            }
-            else
-            {
-                corner[i] += o.halfsize;
-            }
+            continue;
         }
 
+        // Get nearest corner of octant
+        // Uses the morton code to determine which corner is nearest and gets the corresponding vector
+        // Then calculates the position of the corner
+        v3 originDirectionVector = octantPositionVectors[mortonCodeHash(origin, octant.octantCenter)];
+        v3 corner = octant.octantCenter + originDirectionVector * octant.octantHalfSize;
+
+        // Calculate the intersection of the ray with each face of the octant
+        // TODO: Should have better naming for vector components
         for (int i = 0; i < 3; i++)
         {
-            if (intersectRayPlane(origin, direction, corner, planeNormals[i], tmpDist))
-            {
-                // intersection point
-                v3 point = origin + direction * tmpDist;
-                int j = (i + 2) % 3;
+            float tempDistance = std::numeric_limits<float>::max(); // temp distance value for intersection below
 
-                if (abs(o.center[i] - point[i]) <= o.halfsize && abs(o.center[j] - point[j]) <= o.halfsize)
+            // If the plane is intersected
+            if (intersectRayPlane(origin, direction, corner, planeNormals[i], tempDistance))
+            {
+                v3 point = origin + direction * tempDistance; // Calculate the intersection point
+                int j = (i + 2) % 3;                          // Determine the second component of the plane to test
+
+                // Check if the intersection point is within the octant's face
+                // and if the distance is closer than the current recorded distance
+                if (abs(octant.octantCenter[i] - point[i]) <= octant.octantHalfSize &&
+                    abs(octant.octantCenter[j] - point[j]) <= octant.octantHalfSize &&
+                    tempDistance < distance)
                 {
-                    if (tmpDist < distance)
-                    {
-                        distance = tmpDist;
-                    }
+                    distance = tempDistance; // Set the current distance to the new distance
                 }
             }
         }
 
-        // Skip octant if intersect distance is < current collision or no intersection
+        // Skip octant if intersect distance is greater than current collision or there is no intersection
         if (distance > collision.distance || distance == std::numeric_limits<float>::max())
         {
             continue;
         }
 
-        foreach (t, o.tris)
+        // Checks each triangle in the octant for collision with the ray
+        // Records the closest collision, replacing the current collision when necessary
+        foreach (tri, octant.triangleIDs)
         {
-            vec2 baryPosition;
-            if (intersectRayTriangle(origin, direction, getVertexPosition(triangles[t].points[0]), getVertexPosition(triangles[t].points[1]), getVertexPosition(triangles[t].points[2]), baryPosition, distance))
+            IndexedTriangle triangle = triangles[tri]; // Indexed triangle for clarity
+            v2 unusedBaryPosition;                     // Unused variable to pass into the intersection function
+
+            // If the ray intersects the triangle and the distance is less than the current collision,
+            // update the collision with the new intersected triangle, distance, and position
+            // Long ass function call formatted wierdly to make it easier to read
+            if (intersectRayTriangle(
+                    origin,
+                    direction,
+                    vertices[triangle[0]].position,
+                    vertices[triangle[1]].position,
+                    vertices[triangle[2]].position,
+                    unusedBaryPosition,
+                    distance) &&
+                distance < collision.distance)
             {
-                if (distance < collision.distance)
-                {
-                    collision.triangle = t;
-                    collision.distance = distance;
-                    collision.pos = origin + direction * distance;
-                }
+                collision.triangleID = tri;
+                collision.distance = distance;
+                collision.position = origin + direction * distance;
             }
         }
     }
 
     return collision;
 }
-
-void Octree::generateMesh(bool trianglesOnly) {
-    octreeVertices.clear();
-    octreeIndices.clear();
-
-    // Gather all vertices from octants
-    vector<v3> tempVertices;
-    foreach(o, octants) {
-        if(trianglesOnly && !o.tris.size()){
-            continue;
-        }
-
-        foreach(v, o.generateMesh()) {
-            tempVertices.push_back(v);
-        }
-    }
-
-    // Convert to indexed list
-    unordered_set<v3> vertSet;
-    unordered_map<v3, int> vertMap;
-    int index = 0;
-    foreach(v, tempVertices) {
-        auto res = vertSet.insert(v);
-
-        if(res.second) {
-            octreeVertices.push_back(v);
-            vertMap[v] = index;
-            octreeIndices.push_back(index++);
-        } else {
-            octreeIndices.push_back(vertMap[*res.first]);
-        }
-    }
-}
-
-
-// NOTE: untested update functions - Ryan
-// Remove and reinsert triangle
-void Octree::update(int t)
-{
-    if (octants[triangles[t].octant].remove(t))
-    {
-        insert(t);
-    }
-}
-
-// Remove and reinsert triangles
-void Octree::update(vector<int> tris)
-{
-    foreach (tri, tris)
-    {
-        update(tri);
-    }
-}
-*/

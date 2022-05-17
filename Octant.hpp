@@ -2,134 +2,74 @@
 #define Octant_HPP
 
 #include "MeshStats.hpp"
-#include "TriangleOctantKeyPairList.hpp"
 #include "MortonCode.hpp"
-
+#include "TriangleOctantKeyPairList.hpp"
 
 namespace OctantDefinition
 {
-	using namespace MeshStatsDefinition;
-	using namespace TriangleOctantKeyPairListDefinition;
-	using namespace MortonCodeDefinition;
+    using namespace MeshStatsDefinition;
+    using namespace TriangleOctantKeyPairListDefinition;
+    using namespace MortonCodeDefinition;
 
+    typedef int ChildArray;
+    typedef int OctantParent;
 
-	typedef int ChildArray;
-	typedef int OctantParent;
+    class Octant;
 
-	class Octant;
+    // ^ This is forward declare to allow for this below typedef which is used in Octant::subdivide
 
-	// ^ This is forward declare to allow for this below typedef which is used in Octant::subdivide
+    typedef vector<Octant> OctantList;                  // list of octants
+    typedef unordered_set<OctantIndex> OctantIndexList; // list of octant IDs
 
-	typedef vector<Octant> OctantList; // list of octants
+#define NoOctantParentSet -1
+#define NoOctantChildSet -1
+#define NonExistentOctantIndex -1
 
+    enum OctantState
+    {
+        OctantEmptyInternal = 0,
+        OctantNotEmptyInternal = 1,
+        OctantLeaf = 2
+    };
 
+    enum OctantPosition
+    {
+        BottomBackLeft = 0,
+        BottomFrontLeft = 1,
+        TopBackLeft = 2,
+        TopFrontLeft = 3,
+        BottomBackRight = 4,
+        BottomFrontRight = 5,
+        TopBackRight = 6,
+        TopFrontRight = 7
+    };
 
+    const vector<v3> octantPositionVectors = {
+        v3(-1, -1, -1), // BottomBackLeft
+        v3(-1, -1, 1),  // BottomFrontLeft
+        v3(-1, 1, -1),  // TopBackLeft
+        v3(-1, 1, 1),   // TopFrontLeft
+        v3(1, -1, -1),  // BottomBackRight
+        v3(1, -1, 1),   // BottomFrontRight
+        v3(1, 1, -1),   // TopBackRight
+        v3(1, 1, 1)};   // TopFrontRight
 
-	#define NoOctantParentSet -1
+    /*
+     *	To be used in Octree - Data Container for 3d data
+     */
+    struct Octant
+    {
+            OctantIndex octantIndex;                     // store octant index on the octant itself.
+            TriangleIDList triangleIDs;                  // references to positions within the triangle array
+            OctantParent parent = NoOctantParentSet;     // integer id to parent within octant list
+            ChildArray children[8] = {NoOctantChildSet}; // integer IDs to octant children within the OctantList
+            float octantHalfSize;                        // HalfSize of the octant
+            v3 octantCenter;                             // center position of octant
+            OctantState octantState = OctantLeaf;        // State of the octant. Default = OctantLeaf
+    };
 
-	enum OctantState{OctantEmptyInternal = 0, OctantNotEmptyInternal = 1, OctantLeaf = 2};
+    typedef Octant &OctantReference;
 
-	/*
-	*	To be used in Octree - Data Container for 3d data
-	*/
-	class Octant
-	{
-		public:
-			Octant();
-			Octant(v3 center, double halfsize, int limit, int index);
-			~Octant();
-
-			OctantIndex octantIndex; // store octant index on the octant itself.
-			TriangleIDList triangleIDs; // references to positions within the triangle array
-			OctantParent parent = NoOctantParentSet; // integer id to parent within octant list
-			ChildArray children[8] = { -1, -1, -1, -1, -1, -1, -1, -1 }; // integer IDs to octant children within the OctantList
-
-			float octantHalfSize;
-			v3 octantCenter; // center position of octant
-			int octantDepth; // octant depth level
-			OctantState octantState = OctantLeaf; // this needs to be enumerated
-			int octantLimit; // this should be a static member, octree member, or #define instead of per octant if every single octant gets this value.
-
-			bool insert(TriangleAndOctantPairList& list, TriangleID id); // insert a triangle by ID reference into the octree.
-			OctantList subdivide(OctantIndex octantsIndex, double looseness); // Subdivide Octant by adding 8 children
-
-            int contains(int t);
-            bool remove(int t);
-
-			bool octantHalfSizeCenterComparison(rv3 testPoint);
-
-			const int octantTotalTriangles();
-	};
-
-	typedef Octant& OctantReference;
-
-
-
-
-
-
-}
+} // namespace OctantDefinition
 
 #endif // !Octant_HPP
-
-
-
-/*
-#pragma once
-#ifndef GOctant_HPP
-#define GOctant_HPP
-#include <algorithm>
-#include <atomic>
-#include <chrono>
-#include <execution>
-#include <iostream>
-#include <random>
-#include <vector>
-#include <cmath>
-
-#include "GraphicsData.hpp"
-#include "MathDefinitions.hpp"
-#include "Point.hpp"
-#include "Octree.hpp"
-#include "Triangle.hpp"
-#include "Camera.hpp"
-// #include "Debug.hpp"
-#include "Shader.hpp"
-#include "Macro.hpp"
-#include "glad/glad.h"
-
-// using namespace GDebug;
-using namespace MathTypeDefinitions::CoordinateDefine;
-using namespace GraphicsDataDefinition;
-using namespace VertexDefinition;
-using namespace MeshStatsDefinition;
-using std::vector;
-
-class Octant : public MeshStats
-{
-    public:
-        vector<int> tris;
-        int index;
-        float halfsize;
-        v3 center;
-        int children[8] = {0};
-        int state = 2;
-        int parent = -1;
-        int depth = 0;
-
-        Octant();
-        Octant(v3 center, double halfsize, int limit, int index);
-        ~Octant();
-
-        int limit;
-        bool contains(int t);
-        bool inBounds(vector<int> &points);
-        bool insert(int t);
-        vector<Octant> subdivide(int octantsIndex, double looseness);
-        vector<v3> generateMesh();
-};
-
-inline extern int morton(v3 point, v3 center);
-
-#endif
-*/

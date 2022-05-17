@@ -19,6 +19,12 @@ namespace OctreeDefinition
 
 	typedef unordered_set<OctantIndex> OctantLeavesList;
 
+    // Plane normals may be wrong here, need to double check
+    v3 planeNormals[] = {
+        {0, 0, 1}, // xy plane
+        {1, 0, 0}, // yz plane
+        {0, 1, 0}  // xz plane
+    };
 
     class Octree : public OctreeStats
     {
@@ -28,22 +34,24 @@ namespace OctreeDefinition
 
             void buildOctree();
             void octreePrintStats();
+            void resizeOctree(TriangleID tri);
+            bool insertTriangle(TriangleID tri);
+            void subdivideOctant(OctantIndex octantID);
+            OctantIndex findOctantForTriangle(TriangleID tri);
+            void createChildOctant(OctantPosition octantPosition, OctantIndex parentIndex);
+            bool isTriangleInOctantBounds(TriangleID tri, OctantIndex octantID);
+			KeyList collect(OctreeCollision& collision, double range);
+            bool updateTriangleInOctree(TriangleID tri);
+            bool updateTrianglesInOctree(TriangleIDList tri);
+            bool removeTriangleFromOctree(TriangleID tri);
+            OctreeCollision octreeRayIntersection(v3 origin, v3 direction);
 
-            bool octantPointsInBound(RIndexTriangle tri, OctantIndex octantID);
+            // List of octants which contain triangles
+            OctantIndexList activeOctants;
 
-            void octreeUpdate(int t);
-            void octreeUpdate(TriangleList& tris);
-
-			const int octantsTotal();
-			const int octantsLeavesTotal();
-
-			auto collect(OctreeCollision& collision, double range); // auto return until return type is determined
-
-	
 
             OctantList octants;
-			OctantLeavesList leaves;
-
+			OctantList leaves;
     };
 
 } // namespace OctreeDefinition
@@ -54,7 +62,7 @@ namespace OctreeDefinition
 
 /*
 
-//David: Obscure Action occuring - Ignoring 
+//David: Obscure Action occuring - Ignoring
 struct point_hash
 {
         std::size_t operator()(const Point &p) const
