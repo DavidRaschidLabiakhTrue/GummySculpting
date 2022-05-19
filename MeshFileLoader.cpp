@@ -137,6 +137,9 @@ namespace MeshFileLoader::GumLoading
 		}
 		MeshFileLoader::Util::skipFileLines(file, 4);
 
+		mesh.vertices.reserve(vertexLim);
+		mesh.triangles.reserve(indiceLim / 3);
+
 		string message;
 		char parser;
 		while ((parser = fgetc(file)) != ' ')

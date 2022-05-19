@@ -17,10 +17,13 @@ void EdgeDefinition::Edge::cleanUp()
 	set<KeyData> keys;
 	const auto sizeofedges = this->vertexEdges.size();
 
+
+
 	for (int i = 0; i < sizeofedges; i++)
 	{
 		keys.insert(this->vertexEdges[i]);
 	}
+	vertexEdges.reserve(keys.size());
 	vertexEdges.assign(keys.begin(), keys.end());
 
 }

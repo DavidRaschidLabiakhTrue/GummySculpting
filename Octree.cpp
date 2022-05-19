@@ -116,7 +116,7 @@ void OctreeDefinition::Octree::buildOctree()
     say "Initializing Octree...";
 
     TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
-
+	
     // Adjust the extents of the mesh vertices wrt the center
     float maxExtent = compMax(abs(this->center - limMax));
     float minExtent = compMin(abs(this->center - limMin));

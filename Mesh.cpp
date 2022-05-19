@@ -14,8 +14,9 @@ Mesh::~Mesh()
 void MeshDefinition::Mesh::generateGraphsAndTrees()
 {
     this->generateEdges();
-    this->itreeGenerate();
-    this->generateITreeVisualization();
+	collectStats();
+    //this->itreeGenerate();
+    //this->generateITreeVisualization();
 
     // Debugging/Testing Octree
     this->buildOctree();
