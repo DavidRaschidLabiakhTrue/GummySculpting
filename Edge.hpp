@@ -18,6 +18,7 @@ namespace EdgeDefinition
 			~Edge();
 			void cleanUp(); // remove all duplicate edges that might occur during loading.
 			void printEdge(); // print the edge to console
+
 			bool touched = false;
 			VertexEdges vertexEdges;
 	};

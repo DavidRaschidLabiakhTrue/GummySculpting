@@ -184,6 +184,8 @@
     <ClCompile Include="ITreeStats.cpp" />
     <ClCompile Include="ITreeVisualization.cpp" />
     <ClCompile Include="LinearAlgebra.cpp" />
+    <ClCompile Include="MeshChangeLog.cpp" />
+    <ClCompile Include="MeshHistory.cpp" />
     <ClCompile Include="MortonCode.cpp" />
     <ClCompile Include="Octree.cpp" />
     <ClCompile Include="OctreeCollision.cpp" />
@@ -248,6 +250,8 @@
     <ClInclude Include="ItreeDrawContainer.hpp" />
     <ClInclude Include="ITreeStats.hpp" />
     <ClInclude Include="ITreeVisualization.hpp" />
+    <ClInclude Include="MeshChangeLog.hpp" />
+    <ClInclude Include="MeshHistory.hpp" />
     <ClInclude Include="MortonCode.hpp" />
     <ClInclude Include="Octant.hpp" />
     <ClInclude Include="Octree.hpp" />

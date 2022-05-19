@@ -24,11 +24,15 @@ void SamplerDefinition::Sampler::queryRay(MeshPTR currentMesh)
 		if (key != ImpossibleKey)
 		{
 
-			// say key done;
-
 			auto& foundPoint = currentMesh->vertices[key];
 
 			foundPoint = currentMesh->averageAt(key);
+
+
+			forall(edge, currentMesh->edges[key].vertexEdges)
+			{
+				currentMesh->vertices[edge] = currentMesh->averageAt(key);
+			}
 
 			currentMesh->refresh();
 		}

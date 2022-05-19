@@ -263,6 +263,12 @@
     <Filter Include="Mechanics\Sculpting\Subdivision">
       <UniqueIdentifier>{05073a2e-f2c5-4fd8-b3bb-41d1094e6cc6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Management\MeshChangeLog">
+      <UniqueIdentifier>{64eb83b6-39c1-41f2-a86e-a003df151d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Management\MeshChangeLog\Mesh History">
+      <UniqueIdentifier>{d2ffc55d-e413-4968-aeba-d5cfaedabca0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -453,6 +459,12 @@
     </ClCompile>
     <ClCompile Include="SubdivisionSurface.cpp">
       <Filter>Mechanics\Sculpting\Subdivision</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshChangeLog.cpp">
+      <Filter>Data Structures\Management\MeshChangeLog</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshHistory.cpp">
+      <Filter>Data Structures\Management\MeshChangeLog\Mesh History</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -653,6 +665,12 @@
     </ClInclude>
     <ClInclude Include="SubdivisionSurface.hpp">
       <Filter>Mechanics\Sculpting\Subdivision</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshChangeLog.hpp">
+      <Filter>Data Structures\Management\MeshChangeLog</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshHistory.hpp">
+      <Filter>Data Structures\Management\MeshChangeLog\Mesh History</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
