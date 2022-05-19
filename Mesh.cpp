@@ -19,51 +19,7 @@ void MeshDefinition::Mesh::generateGraphsAndTrees()
 
     // Debugging/Testing Octree
     this->buildOctree();
-    this->octreePrintStats();
-
-	// Testing Intersection and Collection
-    v3 rayOrigin(0, 0, 3);
-    v3 rayDirection(0, 0, -1);
-    OctreeCollision collision = this->octreeRayIntersection(rayOrigin, rayDirection);
-    if (collision.isCollision)
-    {
-        say "Collision: " done;
-        say "\tRay Origin: " << to_string(rayOrigin) done;
-        say "\tRay Direction: " << to_string(rayDirection) done;
-        say "\tIntersected Triangle: "
-            << collision.triangleID << "\n\t\t< "
-            << glm::to_string(vertices[triangles[collision.triangleID][0]].position) << ", "
-            << glm::to_string(vertices[triangles[collision.triangleID][1]].position) << ", "
-            << glm::to_string(vertices[triangles[collision.triangleID][2]].position) << " >" done;
-        say "\tIntersection Point: " << glm::to_string(collision.position) done;
-        double collectRange = glm::sqrt(2)/8;
-        KeyList verticesCollected = collectVerticesAroundCollision(collision, collectRange);
-        say "\tVertices Around Collision (Range " << collectRange << "): " << verticesCollected.size();
-        for (int i = 0; i < verticesCollected.size(); i++)
-        {
-			say (i%20 == 0 ? "\n\t\t" : "") << verticesCollected[i] << " ";
-        }
-        say endl;
-    }
-
-	// Testing removal
-	int count = 0;
-	foreach(octant, octants) {
-		count += (int) octant.triangleIDs.size();
-	}
-	say "Triangles in Octree: " << count done;
-	say "Triangles in Mesh (should be same ^^): " << totalTriangles() done;
-
-	for(int i = 0; i < totalTriangles(); i++)
-	{
-		removeTriangleFromOctree(i);
-	}
-
-	count = 0;
-	foreach(octant, octants) {
-		count += (int) octant.triangleIDs.size();
-	}
-	say "Triangles in Octree after Removal: " << count done;
+	this->testOctree();
 	// End Debugging/Testing Octree
 }
 

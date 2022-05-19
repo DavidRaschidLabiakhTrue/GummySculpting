@@ -6,23 +6,23 @@
 
 namespace OctreeStatsDefinition
 {
-	using namespace MeshStatsDefinition;
-	using namespace TriangleOctantKeyPairListDefinition;
+    using namespace MeshStatsDefinition;
+    using namespace TriangleOctantKeyPairListDefinition;
 
-	class OctreeStats : public TriangleOctantKeyPairList
-	{
-		public:
-			OctreeStats();
-			~OctreeStats();
+    class OctreeStats : public TriangleOctantKeyPairList
+    {
+        public:
+            OctreeStats();
+            ~OctreeStats();
 
-			int octantTriangleLimit = 1000;
-			int octreeDepthLimit = 10;
-			int octreeDepth = 0;
-			float octreeBuffer = 1.5;
-			double octreeLooseness = 1.2;
-			int octreeCurrentDepth = 0;
-			OctantIndex root = 0;
-	};
-}
+            int octantTriangleLimit = 1000; // Max triangles per octant
+            int octreeDepthLimit = 10;      // Max depth of octree
+            int octreeDepth = 0;            // Depth of octree
+            float octreeBuffer = 1.5;       // Adds buffer to root bounds
+            double octreeLooseness = 1.2;   // Looseness of octant bounds to allow overlap at borders
+            int octreeCurrentDepth = 0;     // Temp value to track current depth functions operate at
+            OctantIndex root = 0;           // Root octant index (Always 0, should define or make constant)
+    };
+} // namespace OctreeStatsDefinition
 
 #endif

@@ -28,8 +28,11 @@ namespace OctreeDefinition
         public:
             // Octree.cpp
             void buildOctree();
+            void testOctree();
             void octreePrintStats();
             void resizeOctree(TriangleID tri);
+            void clearOctree();
+            void rebuildOctree();
 
             // OctreeOctant.cpp
             void subdivideOctant(OctantIndex octantID);
