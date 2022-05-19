@@ -36,7 +36,7 @@ void MeshDefinition::Mesh::generateGraphsAndTrees()
             << glm::to_string(vertices[triangles[collision.triangleID][1]].position) << ", "
             << glm::to_string(vertices[triangles[collision.triangleID][2]].position) << " >" done;
         say "\tIntersection Point: " << glm::to_string(collision.position) done;
-        double collectRange = glm::sqrt(2);
+        double collectRange = glm::sqrt(2)/8;
         KeyList verticesCollected = collectVerticesAroundCollision(collision, collectRange);
         say "\tVertices Around Collision (Range " << collectRange << "): " << verticesCollected.size();
         for (int i = 0; i < verticesCollected.size(); i++)
@@ -52,11 +52,13 @@ void MeshDefinition::Mesh::generateGraphsAndTrees()
 		count += (int) octant.triangleIDs.size();
 	}
 	say "Triangles in Octree: " << count done;
+	say "Triangles in Mesh (should be same ^^): " << totalTriangles() done;
 
 	for(int i = 0; i < totalTriangles(); i++)
 	{
 		removeTriangleFromOctree(i);
 	}
+
 	count = 0;
 	foreach(octant, octants) {
 		count += (int) octant.triangleIDs.size();

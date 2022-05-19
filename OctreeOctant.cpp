@@ -17,9 +17,10 @@ OctantIndex OctreeDefinition::Octree::findOctantForTriangle(TriangleID triangle)
     OctantIndex nextOctant = octants[currOctant].children[mortonCodeHash(triangleCentroid, octants[currOctant].octantCenter)];
 
     // While the next octant exists and the triangle is within its bounds
-    while(nextOctant != NoOctantChildSet && isTriangleInOctantBounds(triangle, nextOctant))
+    while (nextOctant != NoOctantChildSet && isTriangleInOctantBounds(triangle, nextOctant))
     {
-        if(triangle == 100) {
+        if (triangle == 100)
+        {
             say "here" done;
         }
         // Set the current octant to the next octant
@@ -65,7 +66,7 @@ void OctreeDefinition::Octree::subdivideOctant(OctantIndex oix)
 
     // Reinsert triangles into children if they fit entirely inside
     // Reverse order to preserve positions on removal
-    for (int i = (int) octants[oix].triangleIDs.size()-1; i >= 0; i--)
+    for (int i = (int)octants[oix].triangleIDs.size() - 1; i >= 0; i--)
     {
         TriangleID tri = octants[oix].triangleIDs[i];
         v3 triangleCentroid = getTriangleCentroid(tri);
@@ -73,8 +74,9 @@ void OctreeDefinition::Octree::subdivideOctant(OctantIndex oix)
         // If triangle fits in child octant, insert it
         if (isTriangleInOctantBounds(tri, childOctant))
         {
-            octants[childOctant].triangleIDs.emplace_back(tri);
-            octants[oix].triangleIDs.erase(octants[oix].triangleIDs.begin() + i);
+            octants[childOctant].triangleIDs.emplace_back(tri);                   // Insert triangle into child octant
+            triangleToOctantList[tri].octantIndex = childOctant;                  // Correct the triangle - octant mapping
+            octants[oix].triangleIDs.erase(octants[oix].triangleIDs.begin() + i); // Remove triangle from the parent octant
         }
     }
 
@@ -121,7 +123,7 @@ void OctreeDefinition::Octree::createChildOctant(OctantPosition octantPosition, 
     float looseHalfSize = (float)octreeLooseness * unadjustedHalfSize; // Looseness adjusted half size for child octant
     float halfSizeDifference = looseHalfSize - unadjustedHalfSize;     // Difference between the two half sizes
 
-    v3 positionVector = octantPositionVectors[(int) octantPosition]; // Position vector for child octant
+    v3 positionVector = octantPositionVectors[(int)octantPosition]; // Position vector for child octant
 
     // Unadjusted child center, based on parent center and unadjusted half size
     v3 unadjustedChildCenter = parentOctant.octantCenter + v3(unadjustedHalfSize) * positionVector;
@@ -135,7 +137,7 @@ void OctreeDefinition::Octree::createChildOctant(OctantPosition octantPosition, 
     childOctant.parent = parentIndex;              // Set parent of child octant
 
     // Set the parent's child at the octant position to the child's index in the octants vector
-    parentOctant.children[(int) octantPosition] = childOctant.octantIndex;
+    parentOctant.children[(int)octantPosition] = childOctant.octantIndex;
 
     octants.emplace_back(childOctant); // Add child octant to octants list
 }
