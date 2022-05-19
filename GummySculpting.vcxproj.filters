@@ -257,6 +257,12 @@
     <Filter Include="Data Structures\Search Structures\ITree\ITreeVisualization\ITreeDrawContainer">
       <UniqueIdentifier>{b0b1f840-63cb-4f58-b27e-f64fc956f680}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeIntersection">
+      <UniqueIdentifier>{12c025a3-475e-4374-a0ef-c73f90c2feef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Subdivision">
+      <UniqueIdentifier>{05073a2e-f2c5-4fd8-b3bb-41d1094e6cc6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -388,9 +394,6 @@
     <ClCompile Include="GEdge.cpp">
       <Filter>Data Structures\Search Structures\GEdge</Filter>
     </ClCompile>
-    <ClCompile Include="Octant.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octant</Filter>
-    </ClCompile>
     <ClCompile Include="Octree.cpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
     </ClCompile>
@@ -438,6 +441,18 @@
     </ClCompile>
     <ClCompile Include="ItreeDrawContainer.cpp">
       <Filter>Data Structures\Search Structures\ITree\ITreeVisualization\ITreeDrawContainer</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeIntersection.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeIntersection</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeElements.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeOctant.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
+    </ClCompile>
+    <ClCompile Include="SubdivisionSurface.cpp">
+      <Filter>Mechanics\Sculpting\Subdivision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -632,6 +647,12 @@
     </ClInclude>
     <ClInclude Include="ItreeDrawContainer.hpp">
       <Filter>Data Structures\Search Structures\ITree\ITreeVisualization\ITreeDrawContainer</Filter>
+    </ClInclude>
+    <ClInclude Include="OctreeIntersection.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeIntersection</Filter>
+    </ClInclude>
+    <ClInclude Include="SubdivisionSurface.hpp">
+      <Filter>Mechanics\Sculpting\Subdivision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

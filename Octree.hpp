@@ -1,11 +1,12 @@
+#pragma once
 #ifndef Octree_HPP
 #define Octree_HPP
 
 #include "MeshStats.hpp"
-#include "OctreeStats.hpp"
-
 #include "Octant.hpp"
 #include "OctreeCollision.hpp"
+#include "OctreeStats.hpp"
+#include "VertexIDHashing.hpp"
 
 #include <unordered_set>
 
@@ -14,51 +15,55 @@ namespace OctreeDefinition
     using namespace MeshStatsDefinition;   // this is all that's needed as it auto includes everything it needs and uses
     using namespace OctreeStatsDefinition; // decoupling
     using namespace OctantDefinition;
-	using namespace OctreeCollisionDefinition; // I am using collision
-	using std::unordered_set;
+    using namespace OctreeCollisionDefinition; // I am using collision
+    using namespace VertexIDHashingDefinition;
+    using std::unordered_set;
 
-	typedef unordered_set<OctantIndex> OctantLeavesList;
+    typedef unordered_set<OctantIndex> OctantLeavesList;
 
-    // Plane normals may be wrong here, need to double check
-    v3 planeNormals[] = {
-        {0, 0, 1}, // xy plane
-        {1, 0, 0}, // yz plane
-        {0, 1, 0}  // xz plane
-    };
+#define MortonCodeConvert_Safe(MortonCodeVertexPosition, MortonCodeCenterPosition) (((((MortonCodeVertexPosition) == 0.0f) && std::signbit((MortonCodeVertexPosition))) ? 0.0f : (MortonCodeVertexPosition)) >= (MortonCodeCenterPosition))
 
     class Octree : public OctreeStats
     {
         public:
-            Octree();
-            ~Octree();
-
+            // Octree.cpp
             void buildOctree();
             void octreePrintStats();
             void resizeOctree(TriangleID tri);
-            bool insertTriangle(TriangleID tri);
+
+            // OctreeOctant.cpp
             void subdivideOctant(OctantIndex octantID);
-            OctantIndex findOctantForTriangle(TriangleID tri);
             void createChildOctant(OctantPosition octantPosition, OctantIndex parentIndex);
+            OctantIndex findOctantForTriangle(TriangleID tri);
             bool isTriangleInOctantBounds(TriangleID tri, OctantIndex octantID);
-			KeyList collect(OctreeCollision& collision, double range);
+
+            // OctreeElements.cpp
+            bool insertTriangle(TriangleID tri);
             bool updateTriangleInOctree(TriangleID tri);
             bool updateTrianglesInOctree(TriangleIDList tri);
             bool removeTriangleFromOctree(TriangleID tri);
+
+            // OctreeIntersection.cpp
+            KeyList collectVerticesAroundCollision(OctreeCollision collision, double range);
             OctreeCollision octreeRayIntersection(v3 origin, v3 direction);
 
-            // List of octants which contain triangles
-            OctantIndexList activeOctants;
+            int mortonCodeHash(v3 point, v3 center); // returns the morton code position with respect to octant
 
+            // List of octants which contain triangles
+            // OctantIndexList activeOctants;
 
             OctantList octants;
-			OctantList leaves;
+            OctantList leaves;
+
+            // Plane normals may be wrong here, need to double check
+            v3 planeNormals[3] = {
+                {0, 0, 1}, // xy plane
+                {1, 0, 0}, // yz plane
+                {0, 1, 0}  // xz plane
+            };
     };
 
 } // namespace OctreeDefinition
-
-#endif
-
-// Fixing
 
 /*
 
@@ -81,47 +86,4 @@ struct point_equal
         }
 };
 */
-
-
-/*
-class Octree : public MeshStats
-{
-    public:
-        // EMPTY CONSTRUCTOR TO SILENCE C++.
-        Octree();
-        ~Octree();
-
-        double tempLooseVal = 0;
-
-        int limit = 1000;
-        int depthLimit = 10;
-        int depth = 0;
-        double looseness = 0.2;
-        int currentDepth = 0;
-        vector<Octant> octants;
-        unordered_set<int> leaves;
-        vector<Point> points;
-        vector<GEdge> edges;
-        unordered_set<GEdge, edge_hash, edge_equal> edgeset;
-        vector<Triangle> triangles;
-        vector<v3> octreeVertices;
-        vector<int> octreeIndices;
-
-
-        Octree(vector<v3> &verts, vector<int> &indices);
-        int findOctant(int t);
-        int getNext(int o, int t);
-        bool insert(int t);
-        bool contains(Triangle t);
-        bool remove(Triangle &t);
-        vector<Point> collect(Collision &collision, double range);
-        void resize(int t);
-        Octant createParent(vec3 direction);
-        Collision rayIntersection(v3 &origin, v3 direction);
-        void octreeDebug();
-        void subdivideOctant(int o);
-        void generateMesh(bool trianglesOnly);
-};
-
-#endif
-*/
+#endif // Octree_HPP

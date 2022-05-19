@@ -7,7 +7,9 @@
 
 #include "ITreeVisualization.hpp"
 
-// #include "Octree.hpp" // too many issues 
+#include "Octree.hpp"
+
+// #include "Octree.hpp" // too many issues
 
 namespace MeshDefinition
 {
@@ -16,12 +18,14 @@ namespace MeshDefinition
 	using namespace TopologyComputationDefinition;
 	using namespace ITreeVisualizationDefinition;
 
+	using namespace OctreeDefinition;
+
 	// a wrapper and container for all graphics and search structures used in the mesh.
 	// contains graphics data for drawing
 	// contains graphs and maps for searching.
 	// meant as a final container for all 3d classes used for managing vertices and triangles ultimately.
 
-	class Mesh : public ITreeVisualization
+	class Mesh : public Octree //public ITreeVisualization
 	{
 		public:
 			Mesh();

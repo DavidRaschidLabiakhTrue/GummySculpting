@@ -18,7 +18,8 @@ namespace OctreeStatsDefinition
 			int octantTriangleLimit = 1000;
 			int octreeDepthLimit = 10;
 			int octreeDepth = 0;
-			double octreeLooseness = 0.2;
+			float octreeBuffer = 1.5;
+			double octreeLooseness = 1.2;
 			int octreeCurrentDepth = 0;
 			OctantIndex root = 0;
 	};

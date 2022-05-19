@@ -15,7 +15,7 @@ int main(int argc, char** argv)
     StringList arguments(argv + 1, argv + argc); // loads the arguments as a string vector.
 
     MainProgram mainProgram = MainProgram(arguments);
-    
+
 
 
 
@@ -50,7 +50,7 @@ MainProgram::~MainProgram()
 void MainProgram::preprocess(StringList& arguments)
 {
 	StringList meshArgument;
-	
+
 
 	parseCommandLineArguments(meshArgument);
 
@@ -64,7 +64,7 @@ int MainProgram::ProgramCycle()
 {
     while (shouldNotClose())
     {
-		
+
 		beginDrawFrame(); // refresh all draw buffers
 
 		queryMechanics(); // query for input
@@ -72,7 +72,7 @@ int MainProgram::ProgramCycle()
 		draw2D();
 
 
-		eventQuery(); // update glfw in conjunction with opengl 
+		eventQuery(); // update glfw in conjunction with opengl
 
     }
 
@@ -85,7 +85,7 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 	string parser = "";
 	if (arguments.size() == 0)
 	{
-		arguments.emplace_back("cube.gum"); // default argument
+		arguments.emplace_back("sphere.gum"); // default argument
 	}
 
 	forall(strArg, arguments)
@@ -94,10 +94,10 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 		{
 			parser = strArg.substr(strArg.size() - 4, strArg.size());
 
-			if(parser == ".gum") 
-			{ 
+			if(parser == ".gum")
+			{
 				renderer.loadMeshFromFile(strArg);
-			} 
+			}
 			parser.clear();
 		}
 
