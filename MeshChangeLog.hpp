@@ -42,7 +42,7 @@ namespace MeshChangeLogDefinition
 			ChangeLogLevel currentLevelIndex(); // used to access current level out of class
 
 
-
+			HistoryKeyVertexMap currentChangeLog;
 			HistoryChangeList changeList; // store changes in mesh history onto a stack.
 
 			bool sealChange = true;
