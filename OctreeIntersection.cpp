@@ -51,6 +51,19 @@ KeyList OctreeDefinition::Octree::collectVerticesAroundCollision(OctreeCollision
 }
 
 /**
+ * @brief Collects all triangles within the given range of the collision.
+ * Includes triangles that have one or more vertices within the range.
+ *
+ * @param collision
+ * @param range
+ * @return TriangleIDList
+ */
+TriangleIDList OctreeDefinition::Octree::collectTrianglesAroundCollision(OctreeCollision collision, double range)
+{
+    return getTrianglesFromVertices(collectVerticesAroundCollision(collision, range));
+}
+
+/**
  * @brief Tests every octant that has triangles for intersection with the given ray.
  * Skips octants that do not have triangles.
  * Written to be easily parallelizable if needed, also avoids handling loose bounds.

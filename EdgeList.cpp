@@ -53,7 +53,7 @@ void EdgeList::cleanUpEdges()
 void EdgeList::printAllEdges()
 {
 	int tracker = 0;
-	const int edgeCount = edges.size();
+	const int edgeCount = (const int) edges.size();
 
 	for (int i = 0; i < edgeCount; i++)
 	{
@@ -66,7 +66,7 @@ void EdgeList::printAllEdges()
 
 const int EdgeListDefinition::EdgeList::edgesTotal()
 {
-    return edges.size();
+    return (const int) edges.size();
 }
 
 v3 EdgeListDefinition::EdgeList::averageAt(KeyData key)
@@ -80,6 +80,6 @@ v3 EdgeListDefinition::EdgeList::averageAt(KeyData key)
 		res += vertices[element].position;
 	}
 	res /= (float)edge.size();
-	
+
 	return res;
 }

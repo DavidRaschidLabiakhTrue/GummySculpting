@@ -12,5 +12,5 @@ IndexNodeListDefinition::IndexNodeList::~IndexNodeList()
 
 const int IndexNodeListDefinition::IndexNodeList::inodesTotal()
 {
-	return inodes.size();
+	return (const int) inodes.size();
 }

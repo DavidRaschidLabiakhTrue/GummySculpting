@@ -12,9 +12,6 @@ namespace OctreeStatsDefinition
     class OctreeStats : public TriangleOctantKeyPairList
     {
         public:
-            OctreeStats();
-            ~OctreeStats();
-
             int octantTriangleLimit = 1000; // Max triangles per octant
             int octreeDepthLimit = 10;      // Max depth of octree
             int octreeDepth = 0;            // Depth of octree

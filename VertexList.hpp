@@ -3,6 +3,7 @@
 
 #include "V3D.hpp"
 #include "Indices.hpp"
+#include <unordered_set>
 
 
 namespace VertexListDefinition
@@ -21,7 +22,7 @@ namespace VertexListDefinition
 		Deconstruct ~VertexList();
 
 		RV3D getVertex(int index); // access element reference by index
-		v3 getVertexPosition(int index); // access element position by index
+
 		void setVertex(RV3D element, int index); // set element by index
 
 		void colorDataUniformly(rv4 uniformColor);
@@ -33,6 +34,8 @@ namespace VertexListDefinition
 		Vertices vertices; //
 
 		auto getVertexArray(); // get the underlying array component.
+
+		vector<int> getTrianglesFromVertices(KeyList vertexIDs); // Get all triangles that contain any of the given vertices
 	};
 
 }

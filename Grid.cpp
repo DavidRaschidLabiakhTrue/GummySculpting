@@ -96,7 +96,7 @@ void GridDefinition::Grid::drawGrid()
 	{
 		StandardShader.use();
 		bindVAO();
-		glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, NULL);
+		glDrawElements(GL_LINES, (GLsizei) indices.size(), GL_UNSIGNED_INT, NULL);
 		unbindActiveVAO();
 	}
 }

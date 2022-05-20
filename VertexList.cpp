@@ -15,11 +15,11 @@ void VertexList::setVertex(RV3D element, int index)
 }
 const int VertexList::verticesMemorySize()
 {
-	return vertices.size() * sizeof(V3D);
+	return (const int) vertices.size() * sizeof(V3D);
 }
 void VertexList::colorDataUniformly(rv4 uniformColor)
 {
-	int countOfVertices = vertices.size();
+	int countOfVertices = (int) vertices.size();
 	if (countOfVertices == 0)
 	{
 		// throw error, there are no vertices to color.
@@ -36,7 +36,7 @@ void VertexList::colorDataUniformly(rv4 uniformColor)
 
 int VertexList::verticeCount()
 {
-	return vertices.size();
+	return (int) vertices.size();
 }
 
 // returns the underlying vector array component.
@@ -52,7 +52,14 @@ RV3D VertexList::getVertex(int index)
 	return vertices[index];
 }
 
-v3 VertexList::getVertexPosition(int index)
+vector<int> VertexList::getTrianglesFromVertices(KeyList vertexIDs)
 {
-	return vertices[index].position;
+	unordered_set<int> triangleIDs;
+	foreach(vertex, vertexIDs) {
+		foreach(triangle, vertices[vertex].triangleIDs) {
+			triangleIDs.insert(triangle);
+		}
+	}
+
+	return vector<int>(triangleIDs.begin(), triangleIDs.end());
 }

@@ -20,8 +20,12 @@ void MeshDefinition::Mesh::generateGraphsAndTrees()
 
     // Debugging/Testing Octree
     this->buildOctree();
-	this->testOctree();
+	// this->testOctree();
 	// End Debugging/Testing Octree
+
+	// Subdivision Test
+	// this->subdivisionTest();
+	// End Subdivision Test
 }
 
 KeyData Mesh::searchLinear(rv3 direction, rv3 origin)

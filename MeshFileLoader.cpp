@@ -89,8 +89,12 @@ namespace MeshFileLoader::GumLoading
 		tri[2] = readTriangleIndice(file, str);
 		str.clear();
 
-		mesh.triangles.push_back(tri);
+		TriangleID triangleID = (TriangleID) mesh.triangles.size();
+		mesh.vertices[tri[0]].triangleIDs.emplace_back(triangleID);
+		mesh.vertices[tri[1]].triangleIDs.emplace_back(triangleID);
+		mesh.vertices[tri[2]].triangleIDs.emplace_back(triangleID);
 
+		mesh.triangles.push_back(tri);
 	}
 
 
@@ -167,7 +171,7 @@ namespace MeshFileLoader::GumLoading
 		str.clear();
 		auto uniformcolor = v4(0.5, 0.5, 0.5, 1.0);
 		mesh.colorDataUniformly(uniformcolor);
-		
+
 		fclose(file);
 
 		return;

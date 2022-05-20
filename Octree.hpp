@@ -48,6 +48,7 @@ namespace OctreeDefinition
 
             // OctreeIntersection.cpp
             KeyList collectVerticesAroundCollision(OctreeCollision collision, double range);
+            TriangleIDList collectTrianglesAroundCollision(OctreeCollision collision, double range);
             OctreeCollision octreeRayIntersection(v3 origin, v3 direction);
 
             int mortonCodeHash(v3 point, v3 center); // returns the morton code position with respect to octant
@@ -68,25 +69,4 @@ namespace OctreeDefinition
 
 } // namespace OctreeDefinition
 
-/*
-
-//David: Obscure Action occuring - Ignoring
-struct point_hash
-{
-        std::size_t operator()(const Point &p) const
-        {
-            return std::hash<int>()(p.index);
-            // V3 pos = VertexLookUp(p.index);
-            // return (size_t)((int)(pos.x * 1000) ^ (int)(pos.y * 100) ^ (int)(pos.z * 10));
-        }
-};
-//David: Obscure Action occuring - Ignoring
-struct point_equal
-{
-        bool operator()(const Point &p1, const Point &p2) const
-        {
-            return p1.index == p2.index;
-        }
-};
-*/
 #endif // Octree_HPP

@@ -186,13 +186,10 @@
     <ClCompile Include="LinearAlgebra.cpp" />
     <ClCompile Include="MeshChangeLog.cpp" />
     <ClCompile Include="MeshHistory.cpp" />
-    <ClCompile Include="MortonCode.cpp" />
     <ClCompile Include="Octree.cpp" />
-    <ClCompile Include="OctreeCollision.cpp" />
     <ClCompile Include="OctreeElements.cpp" />
     <ClCompile Include="OctreeIntersection.cpp" />
     <ClCompile Include="OctreeOctant.cpp" />
-    <ClCompile Include="OctreeStats.cpp" />
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="SamplerPayload.cpp" />
@@ -252,7 +249,6 @@
     <ClInclude Include="ITreeVisualization.hpp" />
     <ClInclude Include="MeshChangeLog.hpp" />
     <ClInclude Include="MeshHistory.hpp" />
-    <ClInclude Include="MortonCode.hpp" />
     <ClInclude Include="Octant.hpp" />
     <ClInclude Include="Octree.hpp" />
     <ClInclude Include="OctreeCollision.hpp" />

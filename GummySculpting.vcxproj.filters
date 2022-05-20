@@ -221,9 +221,6 @@
     <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeCollision">
       <UniqueIdentifier>{ced1ed22-05d2-4f29-bcc4-2495bd67a2e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\Morton Code">
-      <UniqueIdentifier>{8565cf13-3a47-44ac-a1e7-7b73d790b95c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\VertexIDHashing">
       <UniqueIdentifier>{cde618c8-2420-44e9-a50b-2acf7bcd8807}</UniqueIdentifier>
     </Filter>
@@ -403,23 +400,14 @@
     <ClCompile Include="Octree.cpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
     </ClCompile>
-    <ClCompile Include="OctreeStats.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\OctreeStats</Filter>
-    </ClCompile>
     <ClCompile Include="TriangleOctantKeyPair.cpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList\TriangleOctantKeyPair</Filter>
     </ClCompile>
     <ClCompile Include="TriangleOctantKeyPairList.cpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList</Filter>
     </ClCompile>
-    <ClCompile Include="OctreeCollision.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeCollision</Filter>
-    </ClCompile>
     <ClCompile Include="SamplerPayload.cpp">
       <Filter>Mechanics\Sampling\SamplerPayload</Filter>
-    </ClCompile>
-    <ClCompile Include="MortonCode.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\Morton Code</Filter>
     </ClCompile>
     <ClCompile Include="INode.cpp">
       <Filter>Data Structures\Search Structures\ITree\node</Filter>
@@ -629,9 +617,6 @@
     </ClInclude>
     <ClInclude Include="OctreeCollision.hpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeCollision</Filter>
-    </ClInclude>
-    <ClInclude Include="MortonCode.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\Morton Code</Filter>
     </ClInclude>
     <ClInclude Include="VertexIDHashing.hpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\VertexIDHashing</Filter>

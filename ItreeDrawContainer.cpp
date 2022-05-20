@@ -42,7 +42,7 @@ void ITreeDrawContainerDefinition::ItreeDrawContainer::drawContainer()
 	{
 		StandardShader.use();
 		gboITreeDrawContainer.bindVAO();
-		glDrawElements(GL_LINES, itreeDrawIndices.size(), GL_UNSIGNED_INT, NULL);
+		glDrawElements(GL_LINES, (GLsizei) itreeDrawIndices.size(), GL_UNSIGNED_INT, NULL);
 		unbindActiveVAO();
 	}
 }

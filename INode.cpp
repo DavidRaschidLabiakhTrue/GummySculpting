@@ -18,7 +18,7 @@ INodeDefinition::INode::~INode()
 
 const int INodeDefinition::INode::inodeTotalElements()
 {
-    return elements.size();
+    return (const int) elements.size();
 }
 
 void INodeDefinition::INode::initializeAsRoot(float halfWidth, rv3 center)
