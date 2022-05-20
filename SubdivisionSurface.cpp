@@ -20,11 +20,11 @@ void SubdivisionSurface::simpleSubdivision4to1()
         vertices[vertexID].triangleIDs.clear();
     }
 
-    int vertexOffset = (int) vertices.size();    // Offset to where new vertices are placed in the vertices vector.
-    int vertexIndex = vertexOffset;        // Index for new vertices.
-    int triangleOffset = (int) triangles.size(); // Offset to where new triangles are placed in the triangles vector.
-    int triangleIndex = triangleOffset;    // Index for new triangles.
-    unordered_map<v3, int> midpointMap;    // Map of midpoints to their index in the vertices vector.
+    int vertexOffset = (int)vertices.size();    // Offset to where new vertices are placed in the vertices vector.
+    int vertexIndex = vertexOffset;             // Index for new vertices.
+    int triangleOffset = (int)triangles.size(); // Offset to where new triangles are placed in the triangles vector.
+    int triangleIndex = triangleOffset;         // Index for new triangles.
+    unordered_map<v3, int> midpointMap;         // Map of midpoints to their index in the vertices vector.
 
     // For every original triangle in the mesh
     for (TriangleID tri = 0; tri < triangleOffset; tri++)
@@ -35,7 +35,7 @@ void SubdivisionSurface::simpleSubdivision4to1()
             getEdgeMidpoint(triangles[tri][1], triangles[tri][2]),
             getEdgeMidpoint(triangles[tri][2], triangles[tri][0])};
 
-        KeyList vKeys(3);
+        KeyList vKeys;
 
         // For every midpoint of the triangle's edges
         // Fill out vKeys
@@ -64,7 +64,7 @@ void SubdivisionSurface::simpleSubdivision4to1()
         for (int i = 0; i < 3; i++)
         {
             KeyData vertexID = vKeys[i];
-            int stepAhead = (i + 1) % 3;
+            int stepAhead = (i + 2) % 3; // Two steps ahead, see triangle diagram
 
             // Connect Edges for midpoint
             edges[vertexID].vertexEdges.emplace_back(triangles[tri][i]);         // Add first vertex edge
@@ -102,6 +102,7 @@ void SubdivisionSurface::simpleSubdivision4to1()
             vertices[newTriangle[1]].triangleIDs.emplace_back(triangleIndex);
             vertices[newTriangle[2]].triangleIDs.emplace_back(triangleIndex);
 
+            // newTriangles.emplace_back(newTriangle); // Add new triangle to the triangles vector
             triangles.emplace_back(newTriangle); // Add new triangle to the triangles vector
             triangleIndex++;
         }
@@ -112,9 +113,9 @@ void SubdivisionSurface::simpleSubdivision4to1()
         triangles[tri][2] = vKeys[2];
 
         // Add middle triangle to vertices
-        vertices[vKeys[0]].triangleIDs.emplace_back(tri);
-        vertices[vKeys[1]].triangleIDs.emplace_back(tri);
-        vertices[vKeys[2]].triangleIDs.emplace_back(tri);
+        vertices[vKeys[0]].triangleIDs.emplace_back(triangleIndex);
+        vertices[vKeys[1]].triangleIDs.emplace_back(triangleIndex);
+        vertices[vKeys[2]].triangleIDs.emplace_back(triangleIndex);
 
         // Add edges between midpoints
         edges[vKeys[0]].vertexEdges.emplace_back(vKeys[1]);
@@ -125,6 +126,7 @@ void SubdivisionSurface::simpleSubdivision4to1()
         edges[vKeys[2]].vertexEdges.emplace_back(vKeys[1]);
     }
 
+    // triangles = newTriangles;
     rebuildOctree();
     refresh();
 }
@@ -138,7 +140,9 @@ void SubdivisionSurface::loopSubdivision()
 {
 }
 
-void SubdivisionSurface::subdivisionTest(){
+void SubdivisionSurface::subdivisionTest()
+{
     simpleSubdivision4to1();
-        octreePrintStats();
+    // simpleSubdivision4to1();
+    octreePrintStats();
 }

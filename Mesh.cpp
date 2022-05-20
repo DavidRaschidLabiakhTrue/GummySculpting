@@ -24,7 +24,7 @@ void MeshDefinition::Mesh::generateGraphsAndTrees()
 	// End Debugging/Testing Octree
 
 	// Subdivision Test
-	// this->subdivisionTest();
+	this->subdivisionTest();
 	// End Subdivision Test
 }
 
