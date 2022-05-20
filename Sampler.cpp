@@ -1,4 +1,5 @@
 #include "Sampler.hpp"
+#include "KeyInput.hpp"
 
 SamplerDefinition::Sampler::Sampler()
 {
@@ -16,31 +17,47 @@ SamplerDefinition::Sampler::~Sampler()
 
 void SamplerDefinition::Sampler::queryRay(MeshPTR currentMesh)
 {
-	if (cast() && direction != currentDir)
+	// this logic is faulty and needs revised for proper state mechanics
+	if (cast())
 	{
-		currentDir = direction;
-		auto key = currentMesh->searchLinear(direction, vertices[0].position);
+		currentMesh->history.sealChange = false;
 
-		if (key != ImpossibleKey)
+		if (direction != currentDir)
 		{
+			currentDir = direction;
+			auto key = currentMesh->searchLinear(direction, vertices[0].position);
 
-			auto& foundPoint = currentMesh->vertices[key];
-
-			foundPoint = currentMesh->averageAt(key);
-
-
-			forall(edge, currentMesh->edges[key].vertexEdges)
+			if (key != ImpossibleKey)
 			{
-				currentMesh->vertices[edge] = currentMesh->averageAt(key);
-			}
 
-			currentMesh->refresh();
-		}
-		else
-		{
-			// Impossible Key Found
+				auto& foundPoint = currentMesh->vertices[key];
+
+				foundPoint = currentMesh->averageAt(key);
+
+
+				forall(edge, currentMesh->edges[key].vertexEdges)
+				{
+					currentMesh->vertices[edge] = currentMesh->averageAt(key);
+				}
+
+				currentMesh->refresh();
+				return;
+			}
+			else
+			{
+				// Impossible Key Found
+				return;
+			}
 		}
 	}
+
+	else if (currentMesh->history.sealChange == false && CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		currentMesh->history.sealChange = true;
+		say "Sampler Sealed off" done;
+	}
+
+
 	
 }
 

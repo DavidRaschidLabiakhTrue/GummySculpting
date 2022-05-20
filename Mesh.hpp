@@ -9,6 +9,8 @@
 
 #include "Octree.hpp"
 
+#include "MeshChangeLog.hpp"
+
 // #include "Octree.hpp" // too many issues
 
 namespace MeshDefinition
@@ -19,6 +21,8 @@ namespace MeshDefinition
 	using namespace ITreeVisualizationDefinition;
 
 	using namespace OctreeDefinition;
+	using namespace MeshChangeLogDefinition;
+
 
 	// a wrapper and container for all graphics and search structures used in the mesh.
 	// contains graphics data for drawing
@@ -35,6 +39,16 @@ namespace MeshDefinition
 
 			KeyData searchLinear(rv3 direction, rv3 origin);
 
+			void revertHistory();
+
+			void forwardHistory();
+
+			void cullHistory(ChangeLogLevel levelsUpwardToCull);
+
+			
+
+
+			ChangeLog history; // mesh reversion history.
 
 			// slot for Octree
 
