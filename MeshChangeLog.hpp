@@ -15,7 +15,7 @@ namespace MeshChangeLogDefinition
 	using std::unordered_map;
 
 	typedef vector<HistoryKeyVertexMap> HistoryChangeList; // vector of maps that contain key based changes.
-
+	typedef int ChangeLogLevel;
 	/*
 	*	Contains a mesh's change history. Stored in Mesh.
 	*	Sampler/Brush Operate on this class directly used it to store vertices changes.
@@ -28,9 +28,25 @@ namespace MeshChangeLogDefinition
 			ChangeLog();
 			~ChangeLog();
 
+			ChangeLogLevel currentLevel = 0;
+			ChangeLogLevel maxLevel = 0;
+
+			void adjustLevelUp();
+
+			void adjustLevelDown();
+
+			void cullLevelsUpward();
+
+			HistoryKeyVertexMap& getCurrentLevel();
+
+			ChangeLogLevel currentLevelIndex(); // used to access current level out of class
 
 
+			HistoryKeyVertexMap currentChangeLog;
 			HistoryChangeList changeList; // store changes in mesh history onto a stack.
+
+			bool sealChange = true;
+
 	};
 }
 

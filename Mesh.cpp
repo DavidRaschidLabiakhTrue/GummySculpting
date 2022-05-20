@@ -52,3 +52,49 @@ KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
 
     return result;
 }
+
+void MeshDefinition::Mesh::revertHistory()
+{
+	if (history.changeList.size() == 0 or history.currentLevel == 0)
+	{
+		return; // there are no changes.
+	}
+	else
+	{
+		HistoryKeyVertexMap& cHistory = history.getCurrentLevel();
+
+		forall(historyData, cHistory)
+		{
+			vertices[historyData.first] = historyData.second;
+		}
+		history.adjustLevelDown();
+
+		refresh();
+	}
+	return;
+
+
+}
+
+void MeshDefinition::Mesh::forwardHistory()
+{
+	if (history.currentLevel < history.maxLevel)
+	{
+		HistoryKeyVertexMap& cHistory = history.changeList[history.currentLevelIndex() + 1];
+
+		forall(historyData, cHistory)
+		{
+			vertices[historyData.first] = historyData.second;
+		}
+		history.adjustLevelUp();
+		refresh();
+
+	}
+	return;
+}
+
+void MeshDefinition::Mesh::cullHistory(ChangeLogLevel levelsUpwardToCull)
+{
+}
+
+

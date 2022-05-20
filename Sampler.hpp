@@ -17,7 +17,7 @@ namespace SamplerDefinition
 			Sampler(bool trueConstructor);
 			~Sampler();
 
-			void queryRay(MeshPTR currentMesh);
+			void queryRay(MeshPTR cMesh);
 			void queryRay();
 
 			v3 currentDir = v3(0);
