@@ -185,9 +185,6 @@
     <Filter Include="Data Structures\Search Structures\Edge">
       <UniqueIdentifier>{00323994-3432-4dca-940c-eb69b8f6c85c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mechanics\Sculpting\Smoothing">
-      <UniqueIdentifier>{ca982535-bb28-4d25-bcd2-62f0e425c371}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp">
       <UniqueIdentifier>{13aef099-b031-43c6-9fc7-8cbba508b862}</UniqueIdentifier>
     </Filter>
@@ -257,14 +254,20 @@
     <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeIntersection">
       <UniqueIdentifier>{12c025a3-475e-4374-a0ef-c73f90c2feef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mechanics\Sculpting\Subdivision">
-      <UniqueIdentifier>{05073a2e-f2c5-4fd8-b3bb-41d1094e6cc6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data Structures\Management\MeshChangeLog">
       <UniqueIdentifier>{64eb83b6-39c1-41f2-a86e-a003df151d02}</UniqueIdentifier>
     </Filter>
     <Filter Include="Data Structures\Management\MeshChangeLog\Mesh History">
       <UniqueIdentifier>{d2ffc55d-e413-4968-aeba-d5cfaedabca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Subdivision">
+      <UniqueIdentifier>{05073a2e-f2c5-4fd8-b3bb-41d1094e6cc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculptor">
+      <UniqueIdentifier>{f1d5abb0-4ef4-4801-b339-c36853441a61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculptor\Smooth">
+      <UniqueIdentifier>{ca982535-bb28-4d25-bcd2-62f0e425c371}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -446,13 +449,19 @@
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
     </ClCompile>
     <ClCompile Include="SubdivisionSurface.cpp">
-      <Filter>Mechanics\Sculpting\Subdivision</Filter>
+      <Filter>Mechanics\Subdivision</Filter>
     </ClCompile>
     <ClCompile Include="MeshChangeLog.cpp">
       <Filter>Data Structures\Management\MeshChangeLog</Filter>
     </ClCompile>
     <ClCompile Include="MeshHistory.cpp">
       <Filter>Data Structures\Management\MeshChangeLog\Mesh History</Filter>
+    </ClCompile>
+    <ClCompile Include="Smoothing.cpp">
+      <Filter>Mechanics\Sculpting\Sculptor\Smooth</Filter>
+    </ClCompile>
+    <ClCompile Include="SculptBrush.cpp">
+      <Filter>Mechanics\Sculpting\Sculptor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -589,7 +598,7 @@
       <Filter>Data Structures\Search Structures\EdgeList</Filter>
     </ClInclude>
     <ClInclude Include="Smoothing.hpp">
-      <Filter>Mechanics\Sculpting\Smoothing</Filter>
+      <Filter>Mechanics\Sculpting\Sculptor\Smooth</Filter>
     </ClInclude>
     <ClInclude Include="VertexLookUp.hpp">
       <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp</Filter>
@@ -649,13 +658,16 @@
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeIntersection</Filter>
     </ClInclude>
     <ClInclude Include="SubdivisionSurface.hpp">
-      <Filter>Mechanics\Sculpting\Subdivision</Filter>
+      <Filter>Mechanics\Subdivision</Filter>
     </ClInclude>
     <ClInclude Include="MeshChangeLog.hpp">
       <Filter>Data Structures\Management\MeshChangeLog</Filter>
     </ClInclude>
     <ClInclude Include="MeshHistory.hpp">
       <Filter>Data Structures\Management\MeshChangeLog\Mesh History</Filter>
+    </ClInclude>
+    <ClInclude Include="SculptBrush.hpp">
+      <Filter>Mechanics\Sculpting\Sculptor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

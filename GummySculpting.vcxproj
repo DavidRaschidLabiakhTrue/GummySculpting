@@ -144,6 +144,9 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -193,6 +196,8 @@
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="SamplerPayload.cpp" />
+    <ClCompile Include="SculptBrush.cpp" />
+    <ClCompile Include="Smoothing.cpp" />
     <ClCompile Include="SubdivisionSurface.cpp" />
     <ClCompile Include="TopBar.cpp" />
     <ClCompile Include="TopologyComputation.cpp" />
@@ -257,6 +262,7 @@
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />
     <ClInclude Include="SamplerPayload.hpp" />
+    <ClInclude Include="SculptBrush.hpp" />
     <ClInclude Include="Smoothing.hpp" />
     <ClInclude Include="SubdivisionSurface.hpp" />
     <ClInclude Include="TopBar.hpp" />

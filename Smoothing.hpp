@@ -9,6 +9,8 @@ namespace Sculpting::Smoothing
 {
 	using namespace MeshDefinition;
 
+	void sculptSmoothing(MeshPTR cMesh);
+
 
 }
 
