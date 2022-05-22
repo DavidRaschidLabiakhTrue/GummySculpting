@@ -266,8 +266,17 @@
     <Filter Include="Mechanics\Sculpting\Sculptor">
       <UniqueIdentifier>{f1d5abb0-4ef4-4801-b339-c36853441a61}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mechanics\Sculpting\Sculptor\Smooth">
+    <Filter Include="Mechanics\Sculpting\SculptPayload">
+      <UniqueIdentifier>{16fc882b-d0b7-4f77-b579-a934b0a1d167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculptor\imple">
+      <UniqueIdentifier>{a2473f7d-ce68-4ed7-9210-6b29ad6eb030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculptor\Sculpt Smooth">
       <UniqueIdentifier>{ca982535-bb28-4d25-bcd2-62f0e425c371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculptor\Sculpt Color">
+      <UniqueIdentifier>{99cdd20b-569e-4d27-9413-78930113b1b1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -458,10 +467,16 @@
       <Filter>Data Structures\Management\MeshChangeLog\Mesh History</Filter>
     </ClCompile>
     <ClCompile Include="Smoothing.cpp">
-      <Filter>Mechanics\Sculpting\Sculptor\Smooth</Filter>
+      <Filter>Mechanics\Sculpting\Sculptor\Sculpt Smooth</Filter>
     </ClCompile>
     <ClCompile Include="SculptBrush.cpp">
-      <Filter>Mechanics\Sculpting\Sculptor</Filter>
+      <Filter>Mechanics\Sculpting\Sculptor\imple</Filter>
+    </ClCompile>
+    <ClCompile Include="Coloring.cpp">
+      <Filter>Mechanics\Sculpting\Sculptor\Sculpt Color</Filter>
+    </ClCompile>
+    <ClCompile Include="SculptPayload.cpp">
+      <Filter>Mechanics\Sculpting\SculptPayload</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -598,7 +613,7 @@
       <Filter>Data Structures\Search Structures\EdgeList</Filter>
     </ClInclude>
     <ClInclude Include="Smoothing.hpp">
-      <Filter>Mechanics\Sculpting\Sculptor\Smooth</Filter>
+      <Filter>Mechanics\Sculpting\Sculptor\Sculpt Smooth</Filter>
     </ClInclude>
     <ClInclude Include="VertexLookUp.hpp">
       <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp</Filter>
@@ -666,8 +681,14 @@
     <ClInclude Include="MeshHistory.hpp">
       <Filter>Data Structures\Management\MeshChangeLog\Mesh History</Filter>
     </ClInclude>
+    <ClInclude Include="SculptPayload.hpp">
+      <Filter>Mechanics\Sculpting\SculptPayload</Filter>
+    </ClInclude>
     <ClInclude Include="SculptBrush.hpp">
-      <Filter>Mechanics\Sculpting\Sculptor</Filter>
+      <Filter>Mechanics\Sculpting\Sculptor\imple</Filter>
+    </ClInclude>
+    <ClInclude Include="Coloring.hpp">
+      <Filter>Mechanics\Sculpting\Sculptor\Sculpt Color</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

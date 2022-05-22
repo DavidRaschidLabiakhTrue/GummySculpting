@@ -3,7 +3,7 @@
 
 #include "RayCasting.hpp"
 #include "Mesh_Manager.hpp"
-
+#include "KeyInput.hpp"
 namespace SamplerDefinition
 {
 	using namespace RayCastDefinition;

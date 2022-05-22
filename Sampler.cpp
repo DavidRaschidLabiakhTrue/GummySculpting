@@ -15,6 +15,7 @@ SamplerDefinition::Sampler::~Sampler()
 {
 }
 
+
 void SamplerDefinition::Sampler::queryRay(MeshReference cMesh)
 {
 	// this logic is faulty and needs revised for proper state mechanics

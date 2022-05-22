@@ -36,16 +36,18 @@ namespace MeshFileLoader::GumLoading
 	{
 		char buffer;
 		int lim = 0;
+
 		while (lim != 3)
 		{
 			while ((buffer = fgetc(*file)) != ' ')
 			{
-				str += buffer;
+				str.push_back(buffer);
 			}
-			str += ' ';
+			str.push_back(' ');
 			lim++;
 		}
 		V3D vert;
+		
 		sscanf(str.c_str(), "%f %f %f", &vert.position.x, &vert.position.y, &vert.position.z); // load the vertex from the string.
 		mesh.vertices.push_back(vert);
 
@@ -73,7 +75,7 @@ namespace MeshFileLoader::GumLoading
 		{
 			if (parser == '\n')
 				break;
-			str += parser;
+			str.push_back(parser);
 		}
 		return (KeyData)stoi(str);
 	}
