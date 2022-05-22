@@ -149,8 +149,11 @@ void MainProgram::generateMaps()
 }
 void MainProgram::queryMechanics()
 {
+	DebuggingConsoleDefinition::console.drawConsole("DEBUG CONSOLE", &showDebugConsole);
 	queryCamera();
 	brush.querySculpt(renderer.getActiveMeshReference());
+
+	
 
 }
 void MainProgram::queryCamera()
