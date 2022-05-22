@@ -28,11 +28,11 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 	if (cast())
 	{
 		cMesh.history.sealChange = false;
-		payload.direction = this->currentDir;
+		payload.direction = this->direction;
 		payload.origin = this->origin().position;
 		if (direction != currentDir)
 		{
-
+			currentDir = direction;
 			switch (this->currentState)
 			{
 				case BrushState::BrushStateSmooth :
@@ -59,7 +59,7 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 	{
 		cMesh.history.sealChange = true;
 		cMesh.history.adjustLevelUp();
-		say "Sampler Sealed off" done;
+		//say "Sampler Sealed off" done;
 
 
 	}

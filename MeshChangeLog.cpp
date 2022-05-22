@@ -17,7 +17,7 @@ void MeshChangeLogDefinition::ChangeLog::adjustLevelUp()
 	currentLevel++;
 	if (maxLevel < currentLevel)
 	{
-		say "Adding new History Level" done;
+		//say "Adding new History Level" done;
 		maxLevel = currentLevel;
 		this->changeList.emplace_back(HistoryKeyVertexMap());
 	}
@@ -28,13 +28,13 @@ void MeshChangeLogDefinition::ChangeLog::adjustLevelDown()
 	if (currentLevel - 1 != 0)
 	{
 		currentLevel--; // shift down 1
-		say "Shifted down a history Level" done;
+		//say "Shifted down a history Level" done;
 		return;
 	}
 	eif(currentLevel - 1 == 0)
 	{
 		currentLevel = 0;
-		say "Returned to Base reversion Level" done;
+		//say "Returned to Base reversion Level" done;
 	}
 	else
 	{
