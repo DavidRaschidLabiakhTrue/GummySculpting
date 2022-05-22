@@ -3,12 +3,13 @@
 
 #include "VertexLookUp.hpp"
 #include <set>
+#include <unordered_set>
 
 namespace EdgeDefinition
 {
 	using namespace VertexLookUpDefinition;
 
-	typedef vector<KeyData> VertexEdges;
+	typedef unordered_set<KeyData> VertexEdges;
 
 	// container for Edge IDs that correspond to a vertex list.
 	struct Edge

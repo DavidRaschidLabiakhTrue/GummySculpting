@@ -100,7 +100,7 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 	string parser = "";
 	if (arguments.size() == 0)
 	{
-		arguments.emplace_back("sphere.gum"); // default argument
+		arguments.emplace_back("tetrahedron.gum"); // default argument
 	}
 	else
 	{
