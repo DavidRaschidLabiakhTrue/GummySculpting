@@ -26,17 +26,17 @@ void EdgeList::generateEdges()
 
 	forall(tri, triangles)
 	{
-		edges[tri[0]].vertexEdges.emplace_back(tri[1]);
-		edges[tri[0]].vertexEdges.emplace_back(tri[2]);
+		edges[tri[0]].vertexEdges.insert(tri[1]);
+		edges[tri[0]].vertexEdges.insert(tri[2]);
 
-		edges[tri[1]].vertexEdges.emplace_back(tri[0]);
-		edges[tri[1]].vertexEdges.emplace_back(tri[2]);
+		edges[tri[1]].vertexEdges.insert(tri[0]);
+		edges[tri[1]].vertexEdges.insert(tri[2]);
 
-		edges[tri[2]].vertexEdges.emplace_back(tri[0]);
-		edges[tri[2]].vertexEdges.emplace_back(tri[1]);
+		edges[tri[2]].vertexEdges.insert(tri[0]);
+		edges[tri[2]].vertexEdges.insert(tri[1]);
 	}
 
-	this->cleanUpEdges();
+	// this->cleanUpEdges();
 	//printAllEdges();
 }
 
@@ -46,7 +46,7 @@ void EdgeList::cleanUpEdges()
 
 	for (int i = 0; i < countofedges; i++)
 	{
-		edges[i].cleanUp();
+		// edges[i].cleanUp();
 	}
 }
 
