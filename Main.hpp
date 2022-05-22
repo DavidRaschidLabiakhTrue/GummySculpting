@@ -36,7 +36,8 @@ using namespace VisualObjectsDefinition;
 
 using namespace SculptBrushDefinition;
 
-using DebuggingConsoleDefinition::console;
+using DebugConsoleDefinition::debug;
+
 
 class MainProgram
 {

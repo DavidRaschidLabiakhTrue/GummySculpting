@@ -50,7 +50,8 @@ MainProgram::MainProgram(StringList& arguments)
     win = Window(TrueConstructor); // load GLFW and OpenGL.
     Window_Class::WindowGlobal::ActiveWindow = &win; // set up window linkage.
 	gui = GUI(TrueConstructor);
-	console = DebuggingConsoleDefinition::DebuggingConsole(TrueConstructor);
+	debug = DebugConsoleDefinition::DebugConsole(TrueConstructor);
+	//console = DebuggingConsoleDefinition::DebuggingConsole(TrueConstructor);
 	CameraDefinition::GlobalCamera = &cam; // set up camera linkage
 	brush = SculptBrush(TrueConstructor);
 
@@ -149,7 +150,7 @@ void MainProgram::generateMaps()
 }
 void MainProgram::queryMechanics()
 {
-	DebuggingConsoleDefinition::console.drawConsole("DEBUG CONSOLE", &showDebugConsole);
+	debug.Draw(&showDebugConsole);
 	queryCamera();
 	brush.querySculpt(renderer.getActiveMeshReference());
 
