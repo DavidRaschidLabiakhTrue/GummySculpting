@@ -6,11 +6,11 @@ using namespace Sculpting::Smoothing;
 
 void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadReference payload)
 {
-	auto key = cMesh.searchLinear(payload.direction,payload.origin);
-
-
-	auto res = cMesh.octreeRayIntersection(payload.direction, payload.origin);
-	if (res.isCollision == false)
+	auto oPayload = cMesh.octreeRayIntersection(payload.origin, payload.direction);
+	auto& cHistory = cMesh.history.currentChangeLog;
+	HistoryKeyVertexMap apply;
+	
+	if (oPayload.isCollision == false)
 	{
 		return; // there was no collision with the octree
 	}
@@ -18,29 +18,29 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 	{
 		
 		//say "There was collision with the octree" done;
-		say res.triangleID spc "was hit at distance" spc res.distance spc "with position" spc to_string(res.position) done;
-	}
+		// say oPayload.triangleID spc "was hit at distance" spc oPayload.distance spc "with position" spc to_string(oPayload.position) done;
 
-	if (key == ImpossibleKey)
+	}
+	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, 0.5);
+
+
+
+	forall(element, list)
 	{
-		return;
+		forall(id, cMesh.triangles[element].indice)
+		{
+			apply[id] = cHistory[id] = cMesh.vertices[id];
+		}
+	
 	}
-	cMesh.history.changeList[cMesh.history.currentLevelIndex()][key] = V3D(cMesh.averageAt(key));
-	cMesh.history.currentChangeLog[key] = V3D(cMesh.averageAt(key));
 
-	forall(edge, cMesh.edges[key].vertexEdges)
+	forall(element, apply)
 	{
-		cMesh.history.changeList[cMesh.history.currentLevelIndex()][edge] = V3D(cMesh.averageAt(edge));
-		cMesh.history.currentChangeLog[edge] = V3D(cMesh.averageAt(edge));
-
+		cMesh.vertices[element.first] = cMesh.averageAt(element.first);
 	}
 
-	// apply changes
 
-	forall(change, cMesh.history.currentChangeLog)
-	{
-		cMesh.vertices[change.first] = change.second;
-	}
+	cMesh.updateTrianglesInOctree(list);
 
 	cMesh.history.currentChangeLog.clear();
 
