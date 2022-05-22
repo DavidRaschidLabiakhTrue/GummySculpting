@@ -46,6 +46,11 @@ MeshPTR Mesh_Manager_Definition::Mesh_Manager::getActiveMesh()
 	return activeMesh;
 }
 
+MeshReference Mesh_Manager_Definition::Mesh_Manager::getActiveMeshReference()
+{
+    return *activeMesh;
+}
+
 void Mesh_Manager::bindAllMeshes()
 {
 	say "Binding All Meshes" done;

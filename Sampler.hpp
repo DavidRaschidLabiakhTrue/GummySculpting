@@ -3,7 +3,7 @@
 
 #include "RayCasting.hpp"
 #include "Mesh_Manager.hpp"
-
+#include "KeyInput.hpp"
 namespace SamplerDefinition
 {
 	using namespace RayCastDefinition;
@@ -17,8 +17,12 @@ namespace SamplerDefinition
 			Sampler(bool trueConstructor);
 			~Sampler();
 
-			void queryRay(MeshPTR cMesh);
+			void queryRay(MeshReference cMesh);
 			void queryRay();
+
+
+			void dispatchSculptingEffect(MeshReference cMesh);
+
 
 			v3 currentDir = v3(0);
 

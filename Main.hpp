@@ -17,6 +17,7 @@
 
 #include "VisualObjects.hpp"
 
+#include "SculptBrush.hpp"
 
 using namespace MathTypeDefinitions;
 using namespace Window_Class;
@@ -30,6 +31,8 @@ using namespace SamplerDefinition;
 using namespace GuiDefinition;
 
 using namespace VisualObjectsDefinition;
+
+using namespace SculptBrushDefinition;
 
 class MainProgram
 {
@@ -61,7 +64,7 @@ class MainProgram
 
 		Renderer renderer;
 
-		Sampler sampler;
+		SculptBrush brush;
 
 		GUI gui;
 

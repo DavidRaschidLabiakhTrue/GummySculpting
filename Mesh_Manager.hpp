@@ -8,6 +8,7 @@ namespace Mesh_Manager_Definition
 	Usage MeshDefinition;
 	Usage MeshFileLoader;
 	typedef vector<Mesh> MeshList;
+	typedef int MeshLevel;
 	// manages an array list of meshes
 	// binds to GPU
 	// Inherited by Renderer
@@ -18,6 +19,7 @@ namespace Mesh_Manager_Definition
 			Deconstruct ~Mesh_Manager();
 
 			MeshList meshes;
+
 			MeshPTR activeMesh = UnassignedPTR; // likely need to make global.
 
 			void makeLastMeshActive();
@@ -25,6 +27,8 @@ namespace Mesh_Manager_Definition
 			void bindAllMeshes();
 
 			MeshPTR getActiveMesh();
+
+			MeshReference getActiveMeshReference();
 
 
 			

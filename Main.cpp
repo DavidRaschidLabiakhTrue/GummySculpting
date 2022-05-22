@@ -14,6 +14,20 @@ int main(int argc, char** argv)
 {
     StringList arguments(argv + 1, argv + argc); // loads the arguments as a string vector.
 
+	say "Command Line Arguments:\n\t";
+	if (arguments.size() == 0)
+	{
+		say "No Supplied Arguments, loading defaults\n" done;
+	}
+	else
+	{
+		forall(arg, arguments)
+		{
+			say arg + " ";
+		}
+
+	}
+
     MainProgram mainProgram = MainProgram(arguments);
 
 
@@ -35,7 +49,7 @@ MainProgram::MainProgram(StringList& arguments)
     Window_Class::WindowGlobal::ActiveWindow = &win; // set up window linkage.
 	gui = GUI(TrueConstructor);
 	CameraDefinition::GlobalCamera = &cam; // set up camera linkage
-	sampler = Sampler(TrueConstructor);
+	brush = SculptBrush(TrueConstructor);
 
 
 	visualObjects = VisualObjects(TrueConstructor);
@@ -55,6 +69,7 @@ void MainProgram::preprocess(StringList& arguments)
 	parseCommandLineArguments(meshArgument);
 
 	loadResources();
+
 	generateMaps();
 	bindGraphicsDataToGPU();
 
@@ -87,6 +102,22 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 	{
 		arguments.emplace_back("tetrahedron.gum"); // default argument
 	}
+	else
+	{
+		foreach(arg, arguments)
+		{
+			int argSize = arg.size();
+
+			if (argSize < 4)
+			{
+				continue;
+			}
+			else
+			{
+				
+			}
+		}
+	}
 
 	forall(strArg, arguments)
 	{ // check if string can even be a .gum or .obj
@@ -109,12 +140,12 @@ void MainProgram::bindGraphicsDataToGPU()
 }
 void MainProgram::generateMaps()
 {
-
+	// redundant need to remove
 }
 void MainProgram::queryMechanics()
 {
 	queryCamera();
-	sampler.queryRay(renderer.getActiveMesh());
+	brush.querySculpt(renderer.getActiveMeshReference());
 
 }
 void MainProgram::queryCamera()
@@ -125,7 +156,7 @@ void MainProgram::queryCamera()
 void MainProgram::draw3D()
 {
 	renderer.draw();
-	sampler.drawRay();
+	brush.drawRay();
 	visualObjects.drawVisualObjects();
 }
 void MainProgram::draw2D()
