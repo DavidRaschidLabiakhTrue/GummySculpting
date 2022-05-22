@@ -5,6 +5,7 @@
 
 #include "Window_API.hpp"
 
+
 Usage Window_API::Window_API_Functions;
 
 
@@ -45,15 +46,17 @@ MainProgram::MainProgram()
 
 MainProgram::MainProgram(StringList& arguments)
 {
+
     win = Window(TrueConstructor); // load GLFW and OpenGL.
     Window_Class::WindowGlobal::ActiveWindow = &win; // set up window linkage.
 	gui = GUI(TrueConstructor);
+	console = DebuggingConsoleDefinition::DebuggingConsole(TrueConstructor);
 	CameraDefinition::GlobalCamera = &cam; // set up camera linkage
 	brush = SculptBrush(TrueConstructor);
 
 
 	visualObjects = VisualObjects(TrueConstructor);
-
+	
     preprocess(arguments);
 }
 
@@ -77,6 +80,7 @@ void MainProgram::preprocess(StringList& arguments)
 
 int MainProgram::ProgramCycle()
 {
+
     while (shouldNotClose())
     {
 
@@ -84,6 +88,7 @@ int MainProgram::ProgramCycle()
 
 		queryMechanics(); // query for input
 		draw3D(); // drawing meshes
+
 		draw2D();
 
 
@@ -100,7 +105,7 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 	string parser = "";
 	if (arguments.size() == 0)
 	{
-		arguments.emplace_back("tetrahedron.gum"); // default argument
+		arguments.emplace_back("sphere.gum"); // default argument
 	}
 	else
 	{

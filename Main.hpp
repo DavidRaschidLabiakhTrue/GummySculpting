@@ -19,6 +19,8 @@
 
 #include "SculptBrush.hpp"
 
+#include "DebuggingConsole.hpp"
+
 using namespace MathTypeDefinitions;
 using namespace Window_Class;
 
@@ -33,6 +35,8 @@ using namespace GuiDefinition;
 using namespace VisualObjectsDefinition;
 
 using namespace SculptBrushDefinition;
+
+using DebuggingConsoleDefinition::console;
 
 class MainProgram
 {
@@ -67,6 +71,8 @@ class MainProgram
 		SculptBrush brush;
 
 		GUI gui;
+
+		bool showDebugConsole = true;
 
 		VisualObjects visualObjects;
 

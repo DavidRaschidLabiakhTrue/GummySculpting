@@ -317,6 +317,6 @@ v3 SubdivisionSurface::sumNeighbors(unordered_set<KeyData> neighbors)
 
 void SubdivisionSurface::subdivisionTest()
 {
-    loopSubdivision(5, true);
+    loopSubdivision(2, true);
     octreePrintStats();
 }

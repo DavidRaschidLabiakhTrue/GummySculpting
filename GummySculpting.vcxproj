@@ -162,6 +162,7 @@
     <ClCompile Include="CameraParameters.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Coloring.cpp" />
+    <ClCompile Include="DebuggingConsole.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeList.cpp" />
     <ClCompile Include="GEdge.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="CameraParameters.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="Coloring.hpp" />
+    <ClInclude Include="DebuggingConsole.hpp" />
     <ClInclude Include="Edge.hpp" />
     <ClInclude Include="EdgeList.hpp" />
     <ClInclude Include="GEdge.hpp" />

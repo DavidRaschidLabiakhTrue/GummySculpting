@@ -278,6 +278,12 @@
     <Filter Include="Mechanics\Sculpting\Sculptor\Sculpt Color">
       <UniqueIdentifier>{99cdd20b-569e-4d27-9413-78930113b1b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Window And GUI\GUI\DebuggingConsole">
+      <UniqueIdentifier>{5baad93a-797b-4346-bc83-6be8cde42699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI\DebuggingConsole\Main Directive">
+      <UniqueIdentifier>{8097ee4d-52f4-4d05-b7ec-6a6f3f83b524}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -477,6 +483,9 @@
     </ClCompile>
     <ClCompile Include="SculptPayload.cpp">
       <Filter>Mechanics\Sculpting\SculptPayload</Filter>
+    </ClCompile>
+    <ClCompile Include="DebuggingConsole.cpp">
+      <Filter>Window And GUI\GUI\DebuggingConsole</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -689,6 +698,9 @@
     </ClInclude>
     <ClInclude Include="Coloring.hpp">
       <Filter>Mechanics\Sculpting\Sculptor\Sculpt Color</Filter>
+    </ClInclude>
+    <ClInclude Include="DebuggingConsole.hpp">
+      <Filter>Window And GUI\GUI\DebuggingConsole</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
