@@ -57,7 +57,7 @@ MainProgram::MainProgram(StringList& arguments)
 
 
 	visualObjects = VisualObjects(TrueConstructor);
-	
+
     preprocess(arguments);
 }
 
@@ -106,7 +106,7 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 	string parser = "";
 	if (arguments.size() == 0)
 	{
-		arguments.emplace_back("sphere.gum"); // default argument
+		arguments.emplace_back("4star.gum"); // default argument
 	}
 	else
 	{
@@ -154,7 +154,7 @@ void MainProgram::queryMechanics()
 	queryCamera();
 	brush.querySculpt(renderer.getActiveMeshReference());
 
-	
+
 
 }
 void MainProgram::queryCamera()
