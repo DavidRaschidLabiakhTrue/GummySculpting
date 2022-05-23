@@ -160,12 +160,10 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraParameters.cpp" />
-    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Coloring.cpp" />
     <ClCompile Include="DebuggingConsole.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeList.cpp" />
-    <ClCompile Include="GEdge.cpp" />
     <ClCompile Include="GraphicsBufferObjects.cpp" />
     <ClCompile Include="GraphicsData.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -179,15 +177,7 @@
     <ClCompile Include="include\IMGUI\imgui_tables.cpp" />
     <ClCompile Include="include\IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="IndexedTriangle.cpp" />
-    <ClCompile Include="IndexNodeList.cpp" />
     <ClCompile Include="IndiceList.cpp" />
-    <ClCompile Include="INode.cpp" />
-    <ClCompile Include="INodeBox.cpp" />
-    <ClCompile Include="INodeMortonCode.cpp" />
-    <ClCompile Include="ITree.cpp" />
-    <ClCompile Include="ItreeDrawContainer.cpp" />
-    <ClCompile Include="ITreeStats.cpp" />
-    <ClCompile Include="ITreeVisualization.cpp" />
     <ClCompile Include="LinearAlgebra.cpp" />
     <ClCompile Include="MainDirective.cpp" />
     <ClCompile Include="MeshChangeLog.cpp" />
@@ -231,12 +221,10 @@
   <ItemGroup>
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="CameraParameters.hpp" />
-    <ClInclude Include="Color.hpp" />
     <ClInclude Include="Coloring.hpp" />
     <ClInclude Include="DebuggingConsole.hpp" />
     <ClInclude Include="Edge.hpp" />
     <ClInclude Include="EdgeList.hpp" />
-    <ClInclude Include="GEdge.hpp" />
     <ClInclude Include="GraphicsBufferObjects.hpp" />
     <ClInclude Include="GraphicsData.hpp" />
     <ClInclude Include="Grid.hpp" />
@@ -252,20 +240,12 @@
     <ClInclude Include="include\IMGUI\imstb_truetype.h" />
     <ClInclude Include="IndexedTriangle.hpp" />
     <ClInclude Include="IndiceList.hpp" />
-    <ClInclude Include="INode.hpp" />
-    <ClInclude Include="INodeBox.hpp" />
-    <ClInclude Include="INodeMortonCode.hpp" />
-    <ClInclude Include="ITree.hpp" />
-    <ClInclude Include="ItreeDrawContainer.hpp" />
-    <ClInclude Include="ITreeStats.hpp" />
-    <ClInclude Include="ITreeVisualization.hpp" />
     <ClInclude Include="MainDirective.hpp" />
     <ClInclude Include="MeshChangeLog.hpp" />
     <ClInclude Include="MeshHistory.hpp" />
     <ClInclude Include="Octant.hpp" />
     <ClInclude Include="Octree.hpp" />
     <ClInclude Include="OctreeCollision.hpp" />
-    <ClInclude Include="OctreeIntersection.hpp" />
     <ClInclude Include="OctreeStats.hpp" />
     <ClInclude Include="OctreeVisualization.hpp" />
     <ClInclude Include="RayCasting.hpp" />
@@ -305,7 +285,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cube.gum" />
-    <None Include="IndexNodeList.hpp" />
     <None Include="sphere.gum" />
     <None Include="StandardShader.frag" />
     <None Include="StandardShader.vert" />
