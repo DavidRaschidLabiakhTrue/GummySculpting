@@ -111,6 +111,17 @@ void DebugConsoleDefinition::DebugConsole::ExecCommand(const char *command_line)
 
 		case RENDERER:
 
+		case DEBUG:
+
+		case TOGGLE:
+
+		case UNDO:
+
+		case REDO:
+
+		case DEMO:
+
+
 		case SCULPTOR: 
 		{
 			vector<string> directive;
@@ -137,67 +148,7 @@ void DebugConsoleDefinition::DebugConsole::ExecCommand(const char *command_line)
 
 	self->ScrollToBottom = true;
 
-    //     // Process command
-    // if (Game_Stricmp(command_line, "CLEAR") == 0 || Game_Stricmp(command_line, "CLS") == 0)
-    // {
-    //     CleanConsole();
-    // }
-    // else if (Game_Stricmp(command_line, "HELP") == 0)
-    // {
-    //     AddLog("Commands:");
-    //     for (int i = 0; i < self->Commands.Size; i++)
-    //         AddLog("- %s", self->Commands[i]);
-    // }
-    // else if (Game_Stricmp(command_line, "HISTORY") == 0)
-    // {
-    //     int first = self->History.Size - 10;
-    //     for (int i = first > 0 ? first : 0; i < self->History.Size; i++)
-    //         AddLog("%3d: %s\n", i, self->History[i]);
-    // }
-    // else if (messagevar == "EasterEgg")
-    // {
-    //     AddLog("GCO:-> Eat shit.");
-    // }
-    // else if(ConsoleMatch(0, "showme"))
-    // {
-    // 	if (strvec.size() == 1)
-    // 	{
-    // 		AddLog("Console:-> Show you what? Usage: 'date', 'time', 'stats', 'total memory in use'");
-    // 	}
 
-    // }
-    // else if (ConsoleMatch(0, "exit"))
-    // {
-    // 	exit(0);
-    // }
-    // else if (ConsoleMatch(0, "octree") or ConsoleMatch(0, "mesh") or ConsoleMatch(0, "renderer") or ConsoleMatch(0, "sculptor"))
-    // {
-    // 	vector<string> directive;
-
-    // 	forall(element, strvec)
-    // 	{
-    // 		directive.push_back(element);
-    // 	}
-    // 	if (directive.size() > 1)
-    // 	{
-    // 		string buildMessage = "Main Directive Issued -> ";
-    // 		forall(directiveelement, directive)
-    // 		{
-    // 			buildMessage += directiveelement + ' ';
-    // 		}
-    // 		AddLog(buildMessage.c_str());
-    // 	}
-    // 	MainDirectiveDefinition::Directives.push_back(directive);
-
-    // }
-
-    // else
-    // {
-    // 	AddLog("[err]:-> Unknown Command: '%s'\n", command_line);
-    // }
-
-    // On command input, we scroll to bottom even if AutoScroll==false
-    // self->ScrollToBottom = true;
 }
 
 bool DebugConsoleDefinition::DebugConsole::execCommandLine(const char *command_line)

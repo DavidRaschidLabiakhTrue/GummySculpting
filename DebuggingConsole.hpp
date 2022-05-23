@@ -71,6 +71,9 @@ namespace DebugConsoleDefinition
 		PRINT,
 		SET,
 		DEBUG,
+		UNDO,
+		REDO,
+		DEMO, 
 
     };
 
@@ -90,7 +93,10 @@ namespace DebugConsoleDefinition
 		{"simplesubdivide", SIMPLESUBDIVIDE},
 		{"print", PRINT},
 		{"set", SET},
-		{"debug", DEBUG}
+		{"debug", DEBUG},
+		{"undo", UNDO},
+		{"redo", REDO},
+		{"demo", DEMO}
 	};
 
     static CONSOLECOMMAND getCommand(string command)
