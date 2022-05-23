@@ -278,6 +278,9 @@
     <Filter Include="Mechanics\Sculpting\Sculptor\Sculpt Color">
       <UniqueIdentifier>{99cdd20b-569e-4d27-9413-78930113b1b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization">
+      <UniqueIdentifier>{80847cc9-f7a2-45a6-9450-35529eef9b03}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Window And GUI\GUI\DebuggingConsole">
       <UniqueIdentifier>{5baad93a-797b-4346-bc83-6be8cde42699}</UniqueIdentifier>
     </Filter>
@@ -486,6 +489,9 @@
     </ClCompile>
     <ClCompile Include="SculptPayload.cpp">
       <Filter>Mechanics\Sculpting\SculptPayload</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeVisualization.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization</Filter>
     </ClCompile>
     <ClCompile Include="DebuggingConsole.cpp">
       <Filter>Window And GUI\GUI\DebuggingConsole</Filter>
@@ -705,6 +711,9 @@
     <ClInclude Include="Coloring.hpp">
       <Filter>Mechanics\Sculpting\Sculptor\Sculpt Color</Filter>
     </ClInclude>
+    <ClInclude Include="OctreeVisualization.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization</Filter>
+    </ClCompile>
     <ClInclude Include="DebuggingConsole.hpp">
       <Filter>Window And GUI\GUI\DebuggingConsole</Filter>
     </ClInclude>

@@ -19,10 +19,6 @@ OctantIndex OctreeDefinition::Octree::findOctantForTriangle(TriangleID triangle)
     // While the next octant exists and the triangle is within its bounds
     while (nextOctant != NoOctantChildSet && isTriangleInOctantBounds(triangle, nextOctant))
     {
-        if (triangle == 100)
-        {
-            say "here" done;
-        }
         // Set the current octant to the next octant
         currOctant = nextOctant;
 

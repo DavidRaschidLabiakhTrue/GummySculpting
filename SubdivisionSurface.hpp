@@ -2,17 +2,19 @@
 #define SubdivisionSurface_HPP
 #include "Octree.hpp"
 #include "MeshStats.hpp"
+#include "OctreeVisualization.hpp"
 #include <unordered_map>
 
 namespace Subdivision
 {
     using namespace OctreeDefinition;
     using namespace MeshStatsDefinition;
+    using namespace OctreeVisualizationDefinition;
 
     #define InfiniteCreaseAngle std::numeric_limits<float>::max()
     #define PI 3.141592f
     #define TWO_PI 6.283184f
-    class SubdivisionSurface : public Octree
+    class SubdivisionSurface : public OctreeVisualization
     {
         public:
             int simpleSubdivision4to1(int level, bool rebuildRefresh = true);
