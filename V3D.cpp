@@ -98,6 +98,11 @@ void V3D::loadColorAs255(int r, int g, int b)
 	color = v4((float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f, 1.0f);
 }
 
+void VertexDefinition::V3D::loadColorDirectly(rv4 colorVector)
+{
+	this->color = colorVector;
+}
+
 void VertexDefinition::V3D::printPosition()
 {
 	say "pos(" << position.x spc position.y spc position.z << ")" done;

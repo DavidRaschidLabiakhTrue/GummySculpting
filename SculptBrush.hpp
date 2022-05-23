@@ -21,7 +21,7 @@ namespace SculptBrushDefinition
 			void querySculpt(MeshReference cMesh);
 
 
-			BrushState currentState = BrushStateSmooth;
+			BrushState currentState = BrushStateColor;
 			bool shouldApplySymmetrically = false;
 		protected:
 			SculptPayload payload;

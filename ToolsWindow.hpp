@@ -9,7 +9,8 @@ namespace ToolsWindowDefinition
 {
 	using namespace Window_API;
 
-	// a gui class that enables a top bar in gummy
+
+	// a gui class that enables a tool window in gummy.
 	class ToolsWindow
 	{
 	public:
@@ -18,8 +19,9 @@ namespace ToolsWindowDefinition
 
 		void build();
 
-
 	};
+
+	extern v4 ColorSlider_Color_Values;
 }
 
 #endif // !ToolsWindow_HPP

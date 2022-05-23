@@ -43,7 +43,7 @@ namespace VertexDefinition
 		void setPositionToCenter(); // forces the position to go to (0,0,0) - debugging only.
 
 		void loadColorAs255(int r, int g, int b); // load in a color by a 255 color scale(easier to understand wtf is happening)
-
+		void loadColorDirectly(rv4 colorVector);
 		void printPosition(); // print position to console
 		void printColor(); // print color to console - excludes alpha which is assumed 1.0
 
