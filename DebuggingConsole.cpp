@@ -121,6 +121,12 @@ void DebugConsoleDefinition::DebugConsole::ExecCommand(const char *command_line)
 
 		case DEMO:
 
+		case SMOOTH:
+
+		case STROKE:
+
+		case COLOR:
+				
 
 		case SCULPTOR: 
 		{

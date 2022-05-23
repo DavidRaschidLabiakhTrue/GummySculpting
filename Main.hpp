@@ -67,6 +67,8 @@ class MainProgram
 		void processMeshCommand(StringList& arguments, int numArgs); // process mesh command
 		void processVariableCommand(StringList& arguments, int numArgs); // process variable command
 
+		void processSculptorCommand(StringList& arguments, int numArgs);
+
 		void processDebugCommand(StringList& arguments, int numArgs);
 
 		void loadResources(); // load resources into memory

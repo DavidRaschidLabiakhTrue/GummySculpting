@@ -74,6 +74,9 @@ namespace DebugConsoleDefinition
 		UNDO,
 		REDO,
 		DEMO, 
+		SMOOTH,
+		STROKE,
+		COLOR
 
     };
 
@@ -96,7 +99,10 @@ namespace DebugConsoleDefinition
 		{"debug", DEBUG},
 		{"undo", UNDO},
 		{"redo", REDO},
-		{"demo", DEMO}
+		{"demo", DEMO},
+		{"smooth", SMOOTH},
+		{"color", COLOR},
+		{"stroke", STROKE}
 	};
 
     static CONSOLECOMMAND getCommand(string command)

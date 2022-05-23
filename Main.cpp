@@ -116,6 +116,8 @@ void MainProgram::processDirectives()
 			break;
 		case DEBUG:
 			processDebugCommand(arguments, numArgs);
+		case SCULPTOR:
+			processSculptorCommand(arguments, numArgs);
 			break;
 
     }
@@ -235,6 +237,27 @@ void MainProgram::processVariableCommand(StringList &arguments, int numArgs)
 	{
 		int& variable = get<reference_wrapper<int>>(variableRef->second);
 		variable = stoi(arguments[2]);
+	}
+}
+
+void MainProgram::processSculptorCommand(StringList& arguments, int numArgs)
+{
+	using namespace DebugConsoleDefinition;
+	if (numArgs != 2)
+	{
+		return;
+	}
+	switch (getCommand(arguments[1]))
+	{
+		case SMOOTH:
+			brush.currentState = BrushState::BrushStateSmooth;
+			break;
+		case COLOR:
+			brush.currentState = BrushState::BrushStateColor;
+			break;
+		case STROKE:
+			brush.currentState = BrushState::BrushStateStroke;
+			break;
 	}
 }
 
