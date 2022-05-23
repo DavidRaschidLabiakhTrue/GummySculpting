@@ -21,7 +21,7 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 		// say oPayload.triangleID spc "was hit at distance" spc oPayload.distance spc "with position" spc to_string(oPayload.position) done;
 
 	}
-	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, 0.5);
+	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, 0.5f);
 
 
 
@@ -41,6 +41,7 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 	{
 		cMesh.vertices[element.first] = cMesh.averageAt(element.first);
 	}
+
 
 
 	cMesh.updateTrianglesInOctree(list);

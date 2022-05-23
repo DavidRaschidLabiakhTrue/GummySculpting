@@ -5,6 +5,7 @@
 
 #include "Window_API.hpp"
 
+
 Usage Window_API::Window_API_Functions;
 
 
@@ -45,15 +46,18 @@ MainProgram::MainProgram()
 
 MainProgram::MainProgram(StringList& arguments)
 {
+
     win = Window(TrueConstructor); // load GLFW and OpenGL.
     Window_Class::WindowGlobal::ActiveWindow = &win; // set up window linkage.
 	gui = GUI(TrueConstructor);
+	debug = DebugConsoleDefinition::DebugConsole(TrueConstructor);
+	//console = DebuggingConsoleDefinition::DebuggingConsole(TrueConstructor);
 	CameraDefinition::GlobalCamera = &cam; // set up camera linkage
 	brush = SculptBrush(TrueConstructor);
 
 
 	visualObjects = VisualObjects(TrueConstructor);
-
+	
     preprocess(arguments);
 }
 
@@ -77,6 +81,7 @@ void MainProgram::preprocess(StringList& arguments)
 
 int MainProgram::ProgramCycle()
 {
+
     while (shouldNotClose())
     {
 
@@ -84,6 +89,7 @@ int MainProgram::ProgramCycle()
 
 		queryMechanics(); // query for input
 		draw3D(); // drawing meshes
+
 		draw2D();
 
 
@@ -144,8 +150,11 @@ void MainProgram::generateMaps()
 }
 void MainProgram::queryMechanics()
 {
+	debug.Draw(&showDebugConsole);
 	queryCamera();
 	brush.querySculpt(renderer.getActiveMeshReference());
+
+	
 
 }
 void MainProgram::queryCamera()

@@ -100,7 +100,12 @@ bool OctreeDefinition::Octree::updateTriangleInOctree(TriangleID tri)
  */
 bool OctreeDefinition::Octree::updateTrianglesInOctree(TriangleIDList tris)
 {
-    bool updateSuccessful = true;
+	bool updateSuccessful = true;
+	if (tris.size() == 0)
+	{
+		return updateSuccessful;
+	}
+    
     foreach (tri, tris)
     {
         updateSuccessful = updateSuccessful && updateTriangleInOctree(tri);

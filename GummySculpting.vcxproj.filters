@@ -281,6 +281,12 @@
     <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization">
       <UniqueIdentifier>{80847cc9-f7a2-45a6-9450-35529eef9b03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Window And GUI\GUI\DebuggingConsole">
+      <UniqueIdentifier>{5baad93a-797b-4346-bc83-6be8cde42699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window And GUI\GUI\DebuggingConsole\Main Directive">
+      <UniqueIdentifier>{8097ee4d-52f4-4d05-b7ec-6a6f3f83b524}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -483,6 +489,9 @@
     </ClCompile>
     <ClCompile Include="OctreeVisualization.cpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization</Filter>
+    </ClCompile>
+    <ClCompile Include="DebuggingConsole.cpp">
+      <Filter>Window And GUI\GUI\DebuggingConsole</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -698,6 +707,9 @@
     </ClInclude>
     <ClInclude Include="OctreeVisualization.hpp">
       <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization</Filter>
+    </ClCompile>
+    <ClInclude Include="DebuggingConsole.hpp">
+      <Filter>Window And GUI\GUI\DebuggingConsole</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
