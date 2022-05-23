@@ -5,7 +5,7 @@
 #include "TopologyComputation.hpp"
 #include "MeshStats.hpp"
 
-#include "ITreeVisualization.hpp"
+
 
 #include "Octree.hpp"
 #include "SubdivisionSurface.hpp"
@@ -22,7 +22,7 @@ namespace MeshDefinition
 	using namespace GraphicsDataDefinition;
 	using namespace MeshStatsDefinition;
 	using namespace TopologyComputationDefinition;
-	using namespace ITreeVisualizationDefinition;
+
 
 	using namespace OctreeDefinition;
 	using namespace Subdivision;
@@ -56,11 +56,11 @@ namespace MeshDefinition
 
 			ChangeLog history; // mesh reversion history.
 
-			// slot for Octree
+		
 
 			string name;
 
-			unordered_map<string, variant<reference_wrapper<int>, reference_wrapper<float>>> meshVariables;
+			unordered_map<string, variant<reference_wrapper<int>, reference_wrapper<float>>> meshVariables; // this is suspect.
 
 	};
 	typedef Mesh& MeshReference;  // reference to a mesh
