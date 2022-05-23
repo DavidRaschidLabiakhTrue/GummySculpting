@@ -22,6 +22,8 @@ namespace RendererDefinition
 			
 			void draw(); // draw all meshes to GPU
 
+			void toggleWireFrame();
+
 			void setDrawWireOn();
 			void setDrawWireOff();
 

@@ -121,7 +121,7 @@ void DebugConsoleDefinition::DebugConsole::ExecCommand(const char* command_line)
 	{
 		exit(0);
 	}
-	else if (ConsoleMatch(0, "octree"))
+	else if (ConsoleMatch(0, "octree") or ConsoleMatch(0, "mesh") or ConsoleMatch(0, "renderer") or ConsoleMatch(0, "sculptor"))
 	{
 		vector<string> directive;
 
@@ -131,12 +131,17 @@ void DebugConsoleDefinition::DebugConsole::ExecCommand(const char* command_line)
 		}
 		if (directive.size() > 1)
 		{
-			string buildMessage = "Main Directive Issued -> " + directive[0] + ' ' + directive[1];
+			string buildMessage = "Main Directive Issued -> ";
+			forall(directiveelement, directive)
+			{
+				buildMessage += directiveelement + ' ';
+			}
 			AddLog(buildMessage.c_str());
 		}
 		MainDirectiveDefinition::Directives.push_back(directive);
 		
 	}
+
 
 	else
 	{

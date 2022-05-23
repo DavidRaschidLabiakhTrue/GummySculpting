@@ -53,4 +53,9 @@ void Renderer::draw()
 	drawWireFrame();
 }
 
+void RendererDefinition::Renderer::toggleWireFrame()
+{
+	this->shouldDrawWire = !this->shouldDrawWire;// flip
+}
+
 

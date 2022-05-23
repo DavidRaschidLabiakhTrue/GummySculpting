@@ -78,14 +78,48 @@ void MainProgram::checkDirectives()
 
 void MainProgram::processDirectives()
 {
-	if (Directives[0][0] == "octree" && Directives[0].size() > 1)
+	const bool sizeGreaterThan1 = Directives[0].size() > 1; // we have 2 arguments
+	const bool sizeGreaterThan2 = Directives[0].size() > 2; // we have 3 arguments
+	const bool sizeGreaterThan3 = Directives[0].size() > 3; // we have 4 arguments
+
+	string firstArgument = Directives[0][0];
+	string secondArgument = (sizeGreaterThan1) ? Directives[0][1] : firstArgument;
+	string thirdArgument = (sizeGreaterThan2) ? Directives[0][2] : firstArgument;
+
+
+
+	if (sizeGreaterThan1)
 	{
-		if (Directives[0][1] == "rebuild")
+		if (firstArgument == "octree")
 		{
-			debug.AddLog("Main: Rebuilding Octree");
-			renderer.getActiveMesh()->rebuildOctree();
+			if (secondArgument == "rebuild")
+			{
+				debug.AddLog("Main: Rebuilding Octree");
+				renderer.getActiveMesh()->rebuildOctree();
+			}
+		}
+		if (firstArgument == "renderer")
+		{
+			if (secondArgument == "toggle" && sizeGreaterThan2)
+			{
+				if (thirdArgument == "wireframe")
+				{
+					debug.AddLog("Main: Toggling wireframe Renderer");
+					renderer.toggleWireFrame();
+				}
+			}
+			
+		}
+		if (firstArgument == "mesh")
+		{
+
+		}
+		if (firstArgument == "sculptor")
+		{
+
 		}
 	}
+
 }
 
 void MainProgram::preprocess(StringList& arguments)
