@@ -65,6 +65,29 @@ MainProgram::~MainProgram()
 {
 }
 
+void MainProgram::checkDirectives()
+{
+	if (Directives.size() != 0)
+	{
+		say "Directive Detected" done;
+		processDirectives();
+		Directives.clear();
+		say "Directive Exhausted" done;
+	}
+}
+
+void MainProgram::processDirectives()
+{
+	if (Directives[0][0] == "octree" && Directives[0].size() > 1)
+	{
+		if (Directives[0][1] == "rebuild")
+		{
+			debug.AddLog("Main: Rebuilding Octree");
+			renderer.getActiveMesh()->rebuildOctree();
+		}
+	}
+}
+
 void MainProgram::preprocess(StringList& arguments)
 {
 	StringList meshArgument;
@@ -87,10 +110,21 @@ int MainProgram::ProgramCycle()
 
 		beginDrawFrame(); // refresh all draw buffers
 
-		queryMechanics(); // query for input
-		draw3D(); // drawing meshes
+		checkDirectives();
 
+		checkDebugConsole();
+		
+		queryMechanics(); // query for input
+		
+		
+		
+
+		draw3D(); // drawing meshes
 		draw2D();
+
+		
+
+	
 
 
 		eventQuery(); // update glfw in conjunction with opengl
@@ -150,7 +184,9 @@ void MainProgram::generateMaps()
 }
 void MainProgram::queryMechanics()
 {
-	debug.Draw(&showDebugConsole);
+	
+
+
 	queryCamera();
 	brush.querySculpt(renderer.getActiveMeshReference());
 
@@ -170,9 +206,24 @@ void MainProgram::draw3D()
 }
 void MainProgram::draw2D()
 {
-	gui.buildGuiFrame();
 	gui.renderGui();
 }
+void MainProgram::checkDebugConsole()
+{
+	if (showDebugConsole)
+	{
+		debug.Draw(&showDebugConsole);
+	}
+	
+
+	if (showDemoDebugger)
+	{
+		ImGui::ShowDemoWindow(&this->showDemoDebugger);
+	}
+	
+	gui.buildGuiFrame();
+}
+
 void MainProgram::loadResources()
 {
 	ShaderDefinition::compileGlobalShaders();

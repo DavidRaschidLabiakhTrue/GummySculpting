@@ -48,7 +48,8 @@ RayCast::~RayCast()
 
 bool RayCastDefinition::RayCast::cast()
 {
-	if (CheckMousePressed(GLFW_MOUSE_BUTTON_LEFT))
+	auto& io = ImGui::GetIO();
+	if (!io.WantCaptureMouse && !CheckIfAnyKeyPressed() && CheckMousePressed(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		screenToWorld();
 		return true;

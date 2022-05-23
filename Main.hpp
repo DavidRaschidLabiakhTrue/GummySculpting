@@ -21,6 +21,8 @@
 
 #include "DebuggingConsole.hpp"
 
+#include "MainDirective.hpp"
+
 using namespace MathTypeDefinitions;
 using namespace Window_Class;
 
@@ -36,7 +38,11 @@ using namespace VisualObjectsDefinition;
 
 using namespace SculptBrushDefinition;
 
+
+
 using DebugConsoleDefinition::debug;
+
+using MainDirectiveDefinition::Directives; // command list main must execute
 
 
 class MainProgram
@@ -51,6 +57,8 @@ class MainProgram
 
 	private:
 
+		void checkDirectives();
+		void processDirectives();
 		void preprocess(StringList& arguments); // begin preprocessing and setting up resources
 		void parseCommandLineArguments(StringList& arguments); // go through command line argument list and read all arguments.
 
@@ -63,7 +71,10 @@ class MainProgram
 
 		void draw3D(); // drawing meshes
 		void draw2D(); // draw gui and other 2d components
+		void checkDebugConsole();
 
+		void buildGuiFrame();
+		
 		Window win;
 		Camera cam;
 
@@ -74,8 +85,9 @@ class MainProgram
 		GUI gui;
 
 		bool showDebugConsole = true;
-
+		bool showDemoDebugger = false;
 		VisualObjects visualObjects;
+
 
 
 };

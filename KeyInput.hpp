@@ -16,6 +16,8 @@ namespace KeyInputDefinition
 	#define CheckKeyReleased(x) glfwGetKey(WindowGlobal::ActiveWindowPTR, (x) ) == GLFW_RELEASE
 	#define CheckMouseReleased(x) glfwGetMouseButton(WindowGlobal::ActiveWindowPTR, (x) ) == GLFW_RELEASE
 
+	
+	bool CheckIfAnyKeyPressed();
 
 	enum KeyInputCode
 	{

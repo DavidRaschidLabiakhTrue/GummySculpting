@@ -21,6 +21,7 @@ namespace Window_Class
 {
 	Usage MathTypeDefinitions::CoordinateDefine;
 
+	
 	typedef GLFWwindow* WinPtr;
 
 	// Window Class
