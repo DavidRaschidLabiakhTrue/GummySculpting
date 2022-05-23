@@ -194,6 +194,7 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
     }
 }
 
+
 void MainProgram::processRendererCommand(StringList &arguments, int numArgs)
 {
     using namespace DebugConsoleDefinition;
