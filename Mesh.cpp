@@ -21,10 +21,12 @@ void MeshDefinition::Mesh::generateGraphsAndTrees()
     // Debugging/Testing Octree
     this->buildOctree();
 	// this->testOctree();
+	this->subdivisionTest();
+	this->generateOctreeVisualization(LeafOctants, EnableDepthColor);
 	// End Debugging/Testing Octree
 
 	// Subdivision Test
-	this->subdivisionTest();
+
 	// End Subdivision Test
 }
 

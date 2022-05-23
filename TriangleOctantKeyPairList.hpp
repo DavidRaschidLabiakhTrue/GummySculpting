@@ -2,16 +2,20 @@
 #define TriangleOctantKeyPairList_HPP
 
 #include "TriangleOctantKeyPair.hpp"
-#include "ITreeVisualization.hpp"
+#include "MeshStats.hpp"
+#include "VertexList.hpp"
+#include "IndiceList.hpp"
 
 namespace TriangleOctantKeyPairListDefinition
 {
 	using namespace TriangleOctantKeyPairDefinition;
-	using namespace ITreeVisualizationDefinition;
+	using namespace MeshStatsDefinition;
+	using namespace VertexListDefinition;
+	using namespace IndiceListDefinition;
 
 	typedef vector<TriangleOctantKeyPair> TriangleAndOctantPairList;
 
-	class TriangleOctantKeyPairList : public ITreeVisualization
+	class TriangleOctantKeyPairList : public MeshStats
 	{
 		public:
 			TriangleOctantKeyPairList();

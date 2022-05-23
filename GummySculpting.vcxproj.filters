@@ -278,6 +278,9 @@
     <Filter Include="Mechanics\Sculpting\Sculptor\Sculpt Color">
       <UniqueIdentifier>{99cdd20b-569e-4d27-9413-78930113b1b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization">
+      <UniqueIdentifier>{80847cc9-f7a2-45a6-9450-35529eef9b03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -477,6 +480,9 @@
     </ClCompile>
     <ClCompile Include="SculptPayload.cpp">
       <Filter>Mechanics\Sculpting\SculptPayload</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeVisualization.cpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -689,6 +695,9 @@
     </ClInclude>
     <ClInclude Include="Coloring.hpp">
       <Filter>Mechanics\Sculpting\Sculptor\Sculpt Color</Filter>
+    </ClInclude>
+    <ClInclude Include="OctreeVisualization.hpp">
+      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

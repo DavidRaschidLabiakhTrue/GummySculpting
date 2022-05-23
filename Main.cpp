@@ -100,13 +100,13 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 	string parser = "";
 	if (arguments.size() == 0)
 	{
-		arguments.emplace_back("tetrahedron.gum"); // default argument
+		arguments.emplace_back("sphere.gum"); // default argument
 	}
 	else
 	{
 		foreach(arg, arguments)
 		{
-			int argSize = arg.size();
+			int argSize = (int) arg.size();
 
 			if (argSize < 4)
 			{
@@ -114,7 +114,7 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 			}
 			else
 			{
-				
+
 			}
 		}
 	}

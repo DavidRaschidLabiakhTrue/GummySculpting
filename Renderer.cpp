@@ -25,7 +25,8 @@ inline void RendererDefinition::Renderer::drawStandard()
 	forall(mesh, meshes)
 	{
 		mesh.render();
-		mesh.itreeDrawContainer.drawContainer();
+		// mesh.itreeDrawContainer.drawContainer();
+		mesh.drawOctreeWireframe();
 	}
 }
 

@@ -194,6 +194,7 @@
     <ClCompile Include="OctreeElements.cpp" />
     <ClCompile Include="OctreeIntersection.cpp" />
     <ClCompile Include="OctreeOctant.cpp" />
+    <ClCompile Include="OctreeVisualization.cpp" />
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="SamplerPayload.cpp" />
@@ -262,6 +263,7 @@
     <ClInclude Include="OctreeCollision.hpp" />
     <ClInclude Include="OctreeIntersection.hpp" />
     <ClInclude Include="OctreeStats.hpp" />
+    <ClInclude Include="OctreeVisualization.hpp" />
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />
     <ClInclude Include="SamplerPayload.hpp" />
