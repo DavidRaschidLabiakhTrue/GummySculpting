@@ -92,40 +92,47 @@ void DebugConsoleDefinition::DebugConsole::ExecCommand(const char *command_line)
 	// Could put switch in the if but avoiding nesting right now.
     switch (getCommand(strvec[0]))
     {
-    case SHOWME:
-        if (strvec.size() == 1)
-        {
-            AddLog("Console:-> Show you what? Usage: 'date', 'time', 'stats', 'total memory in use'");
-        }
-        break;
-    case EXIT:
-        exit(0);
-        break;
-    case OCTREE:
-	case SET:
-    case MESH:
-    case RENDERER:
-    case SCULPTOR: {
-        vector<string> directive;
-        forall(element, strvec)
-        {
-            directive.push_back(element);
-        }
-        if (directive.size() > 1)
-        {
-            string buildMessage = "Main Directive Issued -> ";
-            forall(directiveelement, directive)
-            {
-                buildMessage += directiveelement + ' ';
-            }
-            AddLog(buildMessage.c_str());
-        }
-        MainDirectiveDefinition::Directives.push_back(directive);
-        break;
-    }
-    case UNKNOWN:
-    default:
-        AddLog("[err]:-> Unknown Command: '%s'\n", command_line);
+		case SHOWME:
+			if (strvec.size() == 1)
+			{
+				AddLog("Console:-> Show you what? Usage: 'date', 'time', 'stats', 'total memory in use'");
+			}
+			break;
+
+		case EXIT:
+			exit(0);
+			break;
+		// cases fall through
+		case OCTREE:
+
+		case SET:
+
+		case MESH:
+
+		case RENDERER:
+
+		case SCULPTOR: 
+		{
+			vector<string> directive;
+			forall(element, strvec)
+			{
+				directive.push_back(element);
+			}
+			if (directive.size() > 1)
+			{
+				string buildMessage = "Main Directive Issued -> ";
+				forall(directiveelement, directive)
+				{
+					buildMessage += directiveelement + ' ';
+				}
+				AddLog(buildMessage.c_str());
+			}
+			MainDirectiveDefinition::Directives.push_back(directive);
+			break;
+		}
+		case UNKNOWN:
+			default:
+				AddLog("[err]:-> Unknown Command: '%s'\n", command_line);
     }
 
 	self->ScrollToBottom = true;
@@ -283,12 +290,7 @@ void DebugConsoleDefinition::DebugConsole::Draw(bool *p_open)
         ImGui::EndPopup();
     }
 
-    // Options, Filter
-    if (ImGui::Button("Options"))
-        ImGui::OpenPopup("Options");
-    ImGui::SameLine();
-    self->Filter.Draw("Filter (\"incl,-excl\") (\"error\")", 180);
-    ImGui::Separator();
+
 
     // Reserve enough left-over height for 1 separator + 1 input text
     const float footer_height_to_reserve = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing();
@@ -301,29 +303,7 @@ void DebugConsoleDefinition::DebugConsole::Draw(bool *p_open)
     }
 
     // Display every line as a separate entry so we can change their color or add custom widgets.
-    // If you only want raw text you can use ImGui::TextUnformatted(log.begin(), log.end());
-    // NB- if you have thousands of entries this approach may be too inefficient and may require user-side clipping
-    // to only process visible items. The clipper will automatically measure the height of your first item and then
-    // "seek" to display only items in the visible area.
-    // To use the clipper we can replace your standard loop:
-    //      for (int i = 0; i < Items.Size; i++)
-    //   With:
-    //      ImGuiListClipper clipper;
-    //      clipper.Begin(Items.Size);
-    //      while (clipper.Step())
-    //         for (int i = clipper.DisplayStart; i < clipper.DisplayEnd; i++)
-    // - That your items are evenly spaced (same height)
-    // - That you have cheap random access to your elements (you can access them given their index,
-    //   without processing all the ones before)
-    // You cannot this code as-is if a filter is active because it breaks the 'cheap random-access' property.
-    // We would need random-access on the post-filtered list.
-    // A typical application wanting coarse clipping and filtering may want to pre-compute an array of indices
-    // or offsets of items that passed the filtering test, recomputing this array when user changes the filter,
-    // and appending newly elements as they are inserted. This is left as a task to the user until we can manage
-    // to improve this example code!
-    // If your items are of variable height:
-    // - Split them into same height items would be simpler and facilitate random-seeking into your list.
-    // - Consider using manual call to IsRectVisible() and skipping extraneous decoration from your items.
+
     ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 1)); // Tighten spacing
     if (copy_to_clipboard)
         ImGui::LogToClipboard();

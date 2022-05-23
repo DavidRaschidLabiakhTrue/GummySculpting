@@ -29,6 +29,29 @@ int main(int argc, char **argv)
     return mainProgram.ProgramCycle();
 }
 
+int MainProgram::ProgramCycle()
+{
+
+	while (shouldNotClose())
+	{
+
+		beginDrawFrame(); // refresh all draw buffers
+
+		checkDirectives();
+
+		checkDebugConsole();
+
+		queryMechanics(); // query for input
+
+		draw3D(); // drawing meshes
+		draw2D();
+
+		eventQuery(); // update glfw in conjunction with opengl
+	}
+
+	return 0;
+}
+
 MainProgram::MainProgram()
 {
 }
@@ -40,7 +63,6 @@ MainProgram::MainProgram(StringList &arguments)
     Window_Class::WindowGlobal::ActiveWindow = &win; // set up window linkage.
     gui = GUI(TrueConstructor);
     debug = DebugConsoleDefinition::DebugConsole(TrueConstructor);
-    // console = DebuggingConsoleDefinition::DebuggingConsole(TrueConstructor);
     CameraDefinition::GlobalCamera = &cam; // set up camera linkage
     brush = SculptBrush(TrueConstructor);
 
@@ -57,63 +79,22 @@ void MainProgram::checkDirectives()
 {
     if (Directives.size() != 0)
     {
-        say "Directive Detected" done;
+        //say "Directive Detected" done;
         processDirectives();
         Directives.clear();
-        say "Directive Exhausted" done;
+        //say "Directive Exhausted" done;
     }
 }
 
 void MainProgram::processDirectives()
 {
-    /*
-    // ytho
-    const bool sizeGreaterThan1 = Directives[0].size() > 1; // we have 2 arguments
-    const bool sizeGreaterThan2 = Directives[0].size() > 2; // we have 3 arguments
-    const bool sizeGreaterThan3 = Directives[0].size() > 3; // we have 4 arguments
 
-    // ^
-    string firstArgument = Directives[0][0];
-    string secondArgument = (sizeGreaterThan1) ? Directives[0][1] : firstArgument;
-    string thirdArgument = (sizeGreaterThan2) ? Directives[0][2] : firstArgument;
-
-    if (sizeGreaterThan1)
-    {
-        if (firstArgument == "octree")
-        {
-            if (secondArgument == "rebuild")
-            {
-                debug.AddLog("Main: Rebuilding Octree");
-                renderer.getActiveMesh()->rebuildOctree();
-            }
-        }
-        if (firstArgument == "renderer")
-        {
-            if (secondArgument == "toggle" && sizeGreaterThan2)
-            {
-                if (thirdArgument == "wireframe")
-                {
-                    debug.AddLog("Main: Toggling wireframe Renderer");
-                    renderer.toggleWireFrame();
-                }
-            }
-
-        }
-        if (firstArgument == "mesh")
-        {
-
-        }
-        if (firstArgument == "sculptor")
-        {
-
-        }
-    }
-    */
 
     using namespace DebugConsoleDefinition;
 
     vector<string> arguments = Directives[0];
     int numArgs = (int)arguments.size();
+
     if (numArgs == 0)
     {
         return;
@@ -121,18 +102,22 @@ void MainProgram::processDirectives()
 
     switch (getCommand(arguments[0]))
     {
-    case OCTREE:
-        processOctreeCommand(arguments, numArgs);
-        break;
-    case RENDERER:
-        processRendererCommand(arguments, numArgs);
-        break;
-    case MESH:
-        processMeshCommand(arguments, numArgs);
-        break;
-    case SET:
-        processVariableCommand(arguments, numArgs);
-        break;
+		case OCTREE:
+			processOctreeCommand(arguments, numArgs);
+			break;
+		case RENDERER:
+			processRendererCommand(arguments, numArgs);
+			break;
+		case MESH:
+			processMeshCommand(arguments, numArgs);
+			break;
+		case SET:
+			processVariableCommand(arguments, numArgs);
+			break;
+		case DEBUG:
+			processDebugCommand(arguments, numArgs);
+			break;
+
     }
 }
 
@@ -146,20 +131,20 @@ void MainProgram::processOctreeCommand(StringList &arguments, int numArgs)
 
     switch (getCommand(arguments[1]))
     {
-    case REBUILD:
-        debug.AddLog("Main: Rebuilding Octree");
-        renderer.getActiveMesh()->rebuildOctree();
-        break;
-    case VISUALIZE:
-        renderer.getActiveMesh()->visualizeOctree();
-        break;
-    case TOGGLEWIREFRAME:
-        renderer.getActiveMesh()->octreeWireframe.shouldDraw =
-            !renderer.getActiveMesh()->octreeWireframe.shouldDraw;
-        break;
-    case PRINT:
-        renderer.getActiveMesh()->octreePrintStats();
-        break;
+		case REBUILD:
+			debug.AddLog("Main: Rebuilding Octree");
+			renderer.getActiveMesh()->rebuildOctree();
+			break;
+		case VISUALIZE:
+			renderer.getActiveMesh()->visualizeOctree();
+			break;
+		case TOGGLEWIREFRAME:
+			renderer.getActiveMesh()->octreeWireframe.shouldDraw =
+				!renderer.getActiveMesh()->octreeWireframe.shouldDraw;
+			break;
+		case PRINT:
+			renderer.getActiveMesh()->octreePrintStats();
+			break;
     }
 }
 
@@ -173,38 +158,39 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 
     switch (getCommand(arguments[1]))
     {
-    case LOOPSUBDIVIDE:
-        if (numArgs < 3)
-        {
-            break;
-        }
-        // Make sure we have a valid integer
-        try
-        {
-            renderer.getActiveMesh()->loopSubdivision(stoi(arguments[2]));
-        }
-        catch (exception &e)
-        {
-            debug.AddLog("Main: Error: Bad Argument: %s", e.what());
-            break;
-        }
-        break;
-    case SIMPLESUBDIVIDE:
-        if (numArgs < 3)
-        {
-            break;
-        }
-        // Make sure we have a valid integer
-        try
-        {
-            renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
-        }
-        catch (exception &e)
-        {
-            debug.AddLog("Main: Error: Bad Argument: %s", e.what());
-            break;
-        }
-        break;
+		case LOOPSUBDIVIDE:
+			if (numArgs < 3)
+			{
+				break;
+			}
+			// Make sure we have a valid integer
+			try
+			{
+				renderer.getActiveMesh()->loopSubdivision(stoi(arguments[2]));
+			}
+			catch (exception &e)
+			{
+				debug.AddLog("Main: Error: Bad Argument: %s", e.what());
+				break;
+			}
+			break;
+
+		case SIMPLESUBDIVIDE:
+			if (numArgs < 3)
+			{
+				break;
+			}
+			// Make sure we have a valid integer
+			try
+			{
+				renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
+			}
+			catch (exception &e)
+			{
+				debug.AddLog("Main: Error: Bad Argument: %s", e.what());
+				break;
+			}
+			break;
     }
 }
 
@@ -218,20 +204,20 @@ void MainProgram::processRendererCommand(StringList &arguments, int numArgs)
 
     switch (getCommand(arguments[1]))
     {
-    case TOGGLE:
-        if (numArgs < 3)
-        {
-            break;
-        }
+		case TOGGLE:
+			if (numArgs < 3)
+			{
+				break;
+			}
 
-        switch (getCommand(arguments[2]))
-        {
-        case WIREFRAME:
-            debug.AddLog("Main: Toggling wireframe Renderer");
-            renderer.toggleWireFrame();
-            break;
-        }
-        break;
+			switch (getCommand(arguments[2]))
+			{
+				case WIREFRAME:
+					debug.AddLog("Main: Toggling wireframe Renderer");
+					renderer.toggleWireFrame();
+					break;
+			}
+			break;
     }
 }
 
@@ -243,11 +229,28 @@ void MainProgram::processVariableCommand(StringList &arguments, int numArgs)
         return;
     }
 
-    auto variableRef = renderer.getActiveMesh()->meshVariables.find(arguments[1]);
+    auto variableRef = renderer.getActiveMesh()->meshVariables.find(arguments[1]); // this seems unsafe 
 	if(variableRef != renderer.getActiveMesh()->meshVariables.end())
 	{
 		int& variable = get<reference_wrapper<int>>(variableRef->second);
 		variable = stoi(arguments[2]);
+	}
+}
+
+void MainProgram::processDebugCommand(StringList& arguments, int numArgs)
+{
+	using namespace DebugConsoleDefinition;
+	switch (getCommand(arguments[1]))
+	{
+		case TOGGLE:
+			if (numArgs > 2 or numArgs == 1 or numArgs < 1)
+			{
+				return;
+			}
+		debug.AddLog("Main: Toggling Debug");
+		this->showDebugConsole = !this->showDebugConsole;
+
+		break;
 	}
 }
 
@@ -263,28 +266,7 @@ void MainProgram::preprocess(StringList &arguments)
     bindGraphicsDataToGPU();
 }
 
-int MainProgram::ProgramCycle()
-{
 
-    while (shouldNotClose())
-    {
-
-        beginDrawFrame(); // refresh all draw buffers
-
-        checkDirectives();
-
-        checkDebugConsole();
-
-        queryMechanics(); // query for input
-
-        draw3D(); // drawing meshes
-        draw2D();
-
-        eventQuery(); // update glfw in conjunction with opengl
-    }
-
-    return 0;
-}
 
 void MainProgram::parseCommandLineArguments(StringList &arguments)
 {
