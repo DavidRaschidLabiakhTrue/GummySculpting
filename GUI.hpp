@@ -3,12 +3,14 @@
 
 #include "Window_API.hpp"
 #include "TopBar.hpp"
+#include "ToolsWindow.hpp"
 
 
 namespace GuiDefinition
 {
 	using namespace Window_API;
 	using namespace TopBarDefinition;
+	using namespace ToolsWindowDefinition;
 
 	ImGuiIO& InitializeImGUI();
 	// GUI wrapper class that builds, draws, and renders frames. 
@@ -28,6 +30,7 @@ namespace GuiDefinition
 			ImGuiIO imguiIO;
 
 			TopBar topBar;
+			ToolsWindow toolsWindow;
 	};
 }
 

@@ -178,6 +178,9 @@
     <ClCompile Include="VisualObjects.cpp">
       <Filter>3D Objects\Visual Objects</Filter>
     </ClCompile>
+    <ClCompile Include="ToolsWindow.cpp">
+      <Filter>GUI\Tools Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -368,6 +371,9 @@
     </ClInclude>
     <ClInclude Include="VertexIDHashing.hpp">
       <Filter>Data Structures\Search\Octree\Imple\Vertex Hash</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolsWindow.hpp">
+      <Filter>GUI\Tools Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -654,6 +660,9 @@
     </Filter>
     <Filter Include="Data Structures\Search\Octree\Imple\Vertex Hash">
       <UniqueIdentifier>{922e571a-1d0a-465a-93ff-b26c001d686c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Tools Window">
+      <UniqueIdentifier>{2a8cd5ca-aabe-47be-b825-1e17c459c2c3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

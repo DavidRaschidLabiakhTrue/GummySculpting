@@ -194,6 +194,7 @@
     <ClCompile Include="SculptPayload.cpp" />
     <ClCompile Include="Smoothing.cpp" />
     <ClCompile Include="SubdivisionSurface.cpp" />
+    <ClCompile Include="ToolsWindow.cpp" />
     <ClCompile Include="TopBar.cpp" />
     <ClCompile Include="TopologyComputation.cpp" />
     <ClCompile Include="TriangleList.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="SculptPayload.hpp" />
     <ClInclude Include="Smoothing.hpp" />
     <ClInclude Include="SubdivisionSurface.hpp" />
+    <ClInclude Include="ToolsWindow.hpp" />
     <ClInclude Include="TopBar.hpp" />
     <ClInclude Include="TopologyComputation.hpp" />
     <ClInclude Include="TriangleList.hpp" />
