@@ -17,8 +17,8 @@ namespace Subdivision
     class SubdivisionSurface : public OctreeVisualization
     {
         public:
-            int simpleSubdivision4to1(int level, bool rebuildRefresh = true);
-            void loopSubdivision(int level, bool rebuildRefresh = true);
+            int simpleSubdivision4to1(int level = 1, bool rebuildRefresh = true);
+            void loopSubdivision(int level = 1, bool rebuildRefresh = true);
             inline v3 getEdgeMidpoint(KeyData v1, KeyData v2);
             void subdivisionTest();
             float getBeta(int nEdges);

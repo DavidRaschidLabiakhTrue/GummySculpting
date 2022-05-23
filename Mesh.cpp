@@ -11,23 +11,17 @@ Mesh::~Mesh()
 {
 }
 
+void Mesh::createVariableMap()
+{
+    meshVariables.emplace("octreedepthlimit", ref(octreeDepthLimit));
+	meshVariables.emplace("octanttrianglelimit", ref(octantTriangleLimit));
+}
+
 void MeshDefinition::Mesh::generateGraphsAndTrees()
 {
     this->generateEdges();
-	collectStats();
-    //this->itreeGenerate();
-    //this->generateITreeVisualization();
-
-    // Debugging/Testing Octree
+    collectStats();
     this->buildOctree();
-	// this->testOctree();
-	this->subdivisionTest();
-	// this->generateOctreeVisualization(LeafOctants, EnableDepthColor);
-	// End Debugging/Testing Octree
-
-	// Subdivision Test
-
-	// End Subdivision Test
 }
 
 KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
@@ -57,46 +51,41 @@ KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
 
 void MeshDefinition::Mesh::revertHistory()
 {
-	if (history.changeList.size() == 0 or history.currentLevel == 0)
-	{
-		return; // there are no changes.
-	}
-	else
-	{
-		HistoryKeyVertexMap& cHistory = history.getCurrentLevel();
+    if (history.changeList.size() == 0 or history.currentLevel == 0)
+    {
+        return; // there are no changes.
+    }
+    else
+    {
+        HistoryKeyVertexMap &cHistory = history.getCurrentLevel();
 
-		forall(historyData, cHistory)
-		{
-			vertices[historyData.first] = historyData.second;
-		}
-		history.adjustLevelDown();
+        forall(historyData, cHistory)
+        {
+            vertices[historyData.first] = historyData.second;
+        }
+        history.adjustLevelDown();
 
-		refresh();
-	}
-	return;
-
-
+        refresh();
+    }
+    return;
 }
 
 void MeshDefinition::Mesh::forwardHistory()
 {
-	if (history.currentLevel < history.maxLevel)
-	{
-		HistoryKeyVertexMap& cHistory = history.changeList[history.currentLevelIndex() + 1];
+    if (history.currentLevel < history.maxLevel)
+    {
+        HistoryKeyVertexMap &cHistory = history.changeList[history.currentLevelIndex() + 1];
 
-		forall(historyData, cHistory)
-		{
-			vertices[historyData.first] = historyData.second;
-		}
-		history.adjustLevelUp();
-		refresh();
-
-	}
-	return;
+        forall(historyData, cHistory)
+        {
+            vertices[historyData.first] = historyData.second;
+        }
+        history.adjustLevelUp();
+        refresh();
+    }
+    return;
 }
 
 void MeshDefinition::Mesh::cullHistory(ChangeLogLevel levelsUpwardToCull)
 {
 }
-
-

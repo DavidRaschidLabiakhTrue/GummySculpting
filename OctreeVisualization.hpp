@@ -46,12 +46,12 @@ namespace OctreeVisualizationDefinition
     class OctreeVisualization : public Octree
     {
         public:
-            void generateOctreeVisualization(DrawMode = AllOctants, DepthColorMode = NoDepthColor);
-            void generateOCtantWireframe(OctantIndex octantID);
+            void visualizeOctree(DrawMode = LeafOctants, DepthColorMode = EnableDepthColor);
+            void generateOctantWireframe(OctantIndex octantID);
             void bindOctreeWireframe();
             void drawOctreeWireframe();
-            DrawMode drawMode = AllOctants;
-            DepthColorMode depthColorMode = NoDepthColor;
+            DrawMode drawMode = LeafOctants;
+            DepthColorMode depthColorMode = EnableDepthColor;
             OctreeWireframe octreeWireframe;
             GraphicsBufferObject gboOctreeWireframe;
 

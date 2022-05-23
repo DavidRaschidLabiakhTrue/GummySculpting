@@ -31,9 +31,9 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 		say "Error: cannot load .gum from Mesh_Manager::loadMeshFromFile" done;
 		// raise error
 	}
-	
-	
-	
+
+
+
 }
 
 MeshPTR Mesh_Manager_Definition::Mesh_Manager::getActiveMesh()
@@ -58,6 +58,7 @@ void Mesh_Manager::bindAllMeshes()
 	forall(mesh, meshes)
 	{
 		mesh.bind();
+		mesh.createVariableMap();
 		mesh.generateGraphsAndTrees();
 	}
 

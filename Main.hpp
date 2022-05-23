@@ -22,6 +22,7 @@
 #include "DebuggingConsole.hpp"
 
 #include "MainDirective.hpp"
+#include <variant>
 
 using namespace MathTypeDefinitions;
 using namespace Window_Class;
@@ -61,6 +62,10 @@ class MainProgram
 		void processDirectives();
 		void preprocess(StringList& arguments); // begin preprocessing and setting up resources
 		void parseCommandLineArguments(StringList& arguments); // go through command line argument list and read all arguments.
+		void processOctreeCommand(StringList& arguments, int numArgs); // process octree command
+		void processRendererCommand(StringList& arguments, int numArgs); // process renderer command
+		void processMeshCommand(StringList& arguments, int numArgs); // process mesh command
+		void processVariableCommand(StringList& arguments, int numArgs); // process variable command
 
 		void loadResources(); // load resources into memory
         void beginDrawFrame(); // begin a draw frame
@@ -74,7 +79,7 @@ class MainProgram
 		void checkDebugConsole();
 
 		void buildGuiFrame();
-		
+
 		Window win;
 		Camera cam;
 

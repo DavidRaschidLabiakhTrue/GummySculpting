@@ -2,10 +2,12 @@
 
 using namespace OctreeVisualizationDefinition;
 
-void OctreeVisualization::generateOctreeVisualization(DrawMode drawMode, DepthColorMode depthColorMode)
+void OctreeVisualization::visualizeOctree(DrawMode drawMode, DepthColorMode depthColorMode)
 {
     this->drawMode = drawMode;
     this->depthColorMode = depthColorMode;
+
+    octreeWireframe.shouldDraw = true;
     octreeWireframe.octreeVertices.clear();
     octreeWireframe.octreeIndices.clear();
 
@@ -14,11 +16,11 @@ void OctreeVisualization::generateOctreeVisualization(DrawMode drawMode, DepthCo
 
     foreach (octant, octants)
     {
-        generateOCtantWireframe(octant.octantIndex);
+        generateOctantWireframe(octant.octantIndex);
     }
 }
 
-void OctreeVisualization::generateOCtantWireframe(OctantIndex octantID)
+void OctreeVisualization::generateOctantWireframe(OctantIndex octantID)
 {
     Octant octant = octants[octantID];
     if (drawMode == LeafOctants && octant.triangleIDs.size() == 0)

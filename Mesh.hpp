@@ -11,6 +11,9 @@
 #include "SubdivisionSurface.hpp"
 
 #include "MeshChangeLog.hpp"
+#include <variant>
+#include <unordered_map>
+#include <functional>
 
 // #include "Octree.hpp" // too many issues
 
@@ -46,6 +49,7 @@ namespace MeshDefinition
 			void forwardHistory();
 
 			void cullHistory(ChangeLogLevel levelsUpwardToCull);
+			void createVariableMap();
 
 
 
@@ -56,6 +60,7 @@ namespace MeshDefinition
 
 			string name;
 
+			unordered_map<string, variant<reference_wrapper<int>, reference_wrapper<float>>> meshVariables;
 
 	};
 	typedef Mesh& MeshReference;  // reference to a mesh
