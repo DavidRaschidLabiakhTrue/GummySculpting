@@ -3,13 +3,15 @@
 
 #include "MathDefinitions.hpp"
 #include "CameraParameters.hpp"
+#include "MainStateMachine.hpp"
 
 Usage MathTypeDefinitions::CoordinateDefine;
 Usage MathTypeDefinitions::MatrixDefine;
 
 namespace CameraDefinition
 {
-	Usage CameraParametersDefinition;
+	using namespace CameraParametersDefinition;
+	using namespace MainStateMachineDefinition;
 
 	// Camera class that enables 3D rendering.
 	class Camera : public CameraParameters

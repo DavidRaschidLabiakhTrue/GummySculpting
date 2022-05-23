@@ -2,6 +2,7 @@
 #define DebuggingConsole_HPP
 
 #include "Window_API.hpp"
+#include "MainDirective.hpp"
 
 // this is the most cursed file in the entire project and I do not recommend touching it for any reason or trying to understand it. It's bad.
 
@@ -9,6 +10,7 @@ namespace DebugConsoleDefinition
 {
 	// C++ BLACK MAGIC DO NOT USE
 	#define DYNAMIC_DEBUG_CONSOLE_IMPLEMENTATION struct Impl; Impl* self;
+
 
 	// 
 	static int   Game_Stricmp(const char* s1, const char* s2) { int d; while ((d = toupper(*s2) - toupper(*s1)) == 0 && *s1) { s1++; s2++; } return d; }
@@ -31,12 +33,13 @@ namespace DebugConsoleDefinition
 
 			void Draw(bool* p_open);
 
-			static int TextEditCallbackStub(ImGuiInputTextCallbackData* data);
-			int TextEditCallback(ImGuiInputTextCallbackData* data);
-			void ExecCommand(const char* command_line);
+
 			
 
 		private:
+			static int TextEditCallbackStub(ImGuiInputTextCallbackData* data);
+			int TextEditCallback(ImGuiInputTextCallbackData* data);
+			void ExecCommand(const char* command_line);
 			const char* title = "Debug Console";
 			void implementDebugConsole(); // the actual allocator function
 			DYNAMIC_DEBUG_CONSOLE_IMPLEMENTATION; // DO NOT REPLICATE THIS CODE - IT'S WITCH CRAFT

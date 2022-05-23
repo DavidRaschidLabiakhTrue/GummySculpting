@@ -287,6 +287,9 @@
     <Filter Include="Window And GUI\GUI\DebuggingConsole\Main Directive">
       <UniqueIdentifier>{8097ee4d-52f4-4d05-b7ec-6a6f3f83b524}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\MainDirective">
+      <UniqueIdentifier>{41de77a8-fccb-4e44-be64-a6824931d733}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -492,6 +495,9 @@
     </ClCompile>
     <ClCompile Include="DebuggingConsole.cpp">
       <Filter>Window And GUI\GUI\DebuggingConsole</Filter>
+    </ClCompile>
+    <ClCompile Include="MainDirective.cpp">
+      <Filter>Main\MainDirective</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -710,6 +716,9 @@
     </ClCompile>
     <ClInclude Include="DebuggingConsole.hpp">
       <Filter>Window And GUI\GUI\DebuggingConsole</Filter>
+    </ClInclude>
+    <ClInclude Include="MainDirective.hpp">
+      <Filter>Main\MainDirective</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

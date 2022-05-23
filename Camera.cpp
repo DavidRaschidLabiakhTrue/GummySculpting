@@ -24,6 +24,7 @@ Camera::Camera()
 	pos = v3(0, 0, 2.0f);
 
 
+
 	view = m4(1.0);
 	projection = m4(1.0);
 	cameraMatrix = m4(1.0f);
@@ -62,54 +63,62 @@ void CameraDefinition::Camera::updateMatrix()
 
 void CameraDefinition::Camera::checkKeyInput()
 {
+	auto& io = ImGui::GetIO();
+	
 	// Handles key inputs
-	if (CheckKeyPressed(GLFW_KEY_W))
+	if(!io.WantCaptureMouse)
 	{
-		pos += speed * orientation;
+		if (CheckKeyPressed(GLFW_KEY_W))
+		{
+			pos += speed * orientation;
 
-	}
+		}
 
-	if (CheckKeyPressed(GLFW_KEY_A))
-	{
-		pos += speed * -glm::normalize(glm::cross(orientation, up));
+		if (CheckKeyPressed(GLFW_KEY_A))
+		{
+			pos += speed * -glm::normalize(glm::cross(orientation, up));
 
-	}
-	if (CheckKeyPressed(GLFW_KEY_S))
-	{
-		pos += speed * -orientation;
+		}
+		if (CheckKeyPressed(GLFW_KEY_S))
+		{
+			pos += speed * -orientation;
 
-	}
-	// this case consumes mouse scroll wheel input and moves the view forward or backwards. It uses a distance multiplier to also operate.
-	if (WindowGlobal::ActiveWindow->scroll_state != 0)
-	{
-		pos += (float)(WindowGlobal::ActiveWindow->scroll_state * 10 * speed) * orientation;
-		WindowGlobal::ActiveWindow->scroll_state = 0;
-	}
-	if (CheckKeyPressed(GLFW_KEY_D))
-	{
-		pos += speed * glm::normalize(glm::cross(orientation, up));
+		}
+		/*
+		* // Problematic system
+		// this case consumes mouse scroll wheel input and moves the view forward or backwards. It uses a distance multiplier to also operate.
+		if (WindowGlobal::ActiveWindow->scroll_state != 0)
+		{
+			pos += (float)(WindowGlobal::ActiveWindow->scroll_state * 10 * speed) * orientation;
+			WindowGlobal::ActiveWindow->scroll_state = 0;
+		}
+		*/
+		if (CheckKeyPressed(GLFW_KEY_D))
+		{
+			pos += speed * glm::normalize(glm::cross(orientation, up));
 
-	}
-	if (CheckKeyPressed(GLFW_KEY_R))
-	{
-		//resetViewAndPos(); // unimplemented
-	}
-	if (CheckKeyPressed(GLFW_KEY_SPACE))
-	{
-		pos += speed * up;
-	}
-	if (CheckKeyPressed(GLFW_KEY_LEFT_CONTROL))
-	{
-		pos += speed * -up;
-	}
-	// speed
-	if (CheckKeyPressed(GLFW_KEY_LEFT_SHIFT))
-	{
-		speed = 0.04f;
-	}
-	else
-	{
-		speed = 0.01f;
+		}
+		if (CheckKeyPressed(GLFW_KEY_R))
+		{
+			//resetViewAndPos(); // unimplemented
+		}
+		if (CheckKeyPressed(GLFW_KEY_SPACE))
+		{
+			pos += speed * up;
+		}
+		if (CheckKeyPressed(GLFW_KEY_LEFT_CONTROL))
+		{
+			pos += speed * -up;
+		}
+		// speed
+		if (CheckKeyPressed(GLFW_KEY_LEFT_SHIFT))
+		{
+			speed = 0.04f;
+		}
+		else
+		{
+			speed = 0.01f;
+		}
 	}
 }
 
