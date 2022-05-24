@@ -4,6 +4,7 @@
 #include "Window_API.hpp"
 #include "TopBar.hpp"
 
+#include "MainDirective.hpp"
 
 
 namespace ToolbarDefinition

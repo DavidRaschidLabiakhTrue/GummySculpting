@@ -19,6 +19,8 @@ void ToolbarDefinition::Toolbar::build()
 	ImGui::SetNextWindowPos(ImVec2(viewport->Pos.x, viewport->Pos.y + topBar.getHeight()));
 	ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, toolbarHeight));
 
+	vector<string> buildMessage;
+
 	ImGuiWindowFlags window_flags = 0
 		| ImGuiWindowFlags_NoTitleBar
 		| ImGuiWindowFlags_NoResize
@@ -31,12 +33,34 @@ void ToolbarDefinition::Toolbar::build()
 	ImGui::Begin("TOOLBAR", NULL, window_flags);
 	ImGui::PopStyleVar();
 
-	ImGui::Button("Color Brush", ImVec2(0, buttonHeight));
+	if (ImGui::Button("Color Brush", ImVec2(0, buttonHeight)))
+	{
+		buildMessage = { "sculptor", "color" };
+		MainDirectiveDefinition::Directives.push_back(buildMessage);
+	};
 	ImGui::SameLine();
-	ImGui::Button("Smooth Brush", ImVec2(0, buttonHeight));
+
+	if(ImGui::Button("Smooth Brush", ImVec2(0, buttonHeight)))
+	{
+		buildMessage = { "sculptor", "smooth" };
+		MainDirectiveDefinition::Directives.push_back(buildMessage);
+	};
 	ImGui::SameLine();
-	ImGui::Button("Stroke Brush", ImVec2(0, buttonHeight));
+	if (ImGui::Button("Stroke Brush", ImVec2(0, buttonHeight)))
+	{
+		buildMessage = { "sculptor", "stroke" };
+		MainDirectiveDefinition::Directives.push_back(buildMessage);
+	}
+
 	ImGui::SameLine();
+
+	if (ImGui::Button("Noise Brush", ImVec2(0, buttonHeight)))
+	{
+		buildMessage = { "sculptor", "noise" };
+		MainDirectiveDefinition::Directives.push_back(buildMessage);
+	}
+
+
 
 	ImGui::End();
 }
