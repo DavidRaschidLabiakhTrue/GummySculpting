@@ -60,6 +60,20 @@ void ToolbarDefinition::Toolbar::build()
 		MainDirectiveDefinition::Directives.push_back(buildMessage);
 	}
 
+	ImGui::SameLine();
+
+	if (ImGui::Button("Simple Subdivide", ImVec2(0, buttonHeight)))
+	{
+		buildMessage = { "mesh", "simplesubdivide", "1"};
+		MainDirectiveDefinition::Directives.push_back(buildMessage);
+	}
+	ImGui::SameLine();
+
+	if (ImGui::Button("Loop Subdivide", ImVec2(0, buttonHeight)))
+	{
+		buildMessage = { "mesh", "loopsubdivide", "1" };
+		MainDirectiveDefinition::Directives.push_back(buildMessage);
+	}
 
 
 	ImGui::End();
