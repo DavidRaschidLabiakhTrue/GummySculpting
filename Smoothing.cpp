@@ -7,6 +7,7 @@ using namespace Sculpting::Smoothing;
 void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadReference payload)
 {
 	auto oPayload = cMesh.octreeRayIntersection(payload.origin, payload.direction);
+
 	auto& cHistory = cMesh.history.currentChangeLog;
 	HistoryKeyVertexMap apply;
 	

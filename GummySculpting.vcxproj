@@ -194,6 +194,7 @@
     <ClCompile Include="SculptBrush.cpp" />
     <ClCompile Include="SculptPayload.cpp" />
     <ClCompile Include="Smoothing.cpp" />
+    <ClCompile Include="Stroking.cpp" />
     <ClCompile Include="SubdivisionSurface.cpp" />
     <ClCompile Include="Toolbar.cpp" />
     <ClCompile Include="ToolsWindow.cpp" />
@@ -258,6 +259,7 @@
     <ClInclude Include="SculptBrush.hpp" />
     <ClInclude Include="SculptPayload.hpp" />
     <ClInclude Include="Smoothing.hpp" />
+    <ClInclude Include="Stroking.hpp" />
     <ClInclude Include="SubdivisionSurface.hpp" />
     <ClInclude Include="Toolbar.hpp" />
     <ClInclude Include="ToolsWindow.hpp" />

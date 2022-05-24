@@ -187,6 +187,9 @@
     <ClCompile Include="Toolbar.cpp">
       <Filter>GUI\Toolbar</Filter>
     </ClCompile>
+    <ClCompile Include="Stroking.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Stroke</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -386,6 +389,9 @@
     </ClInclude>
     <ClInclude Include="Toolbar.hpp">
       <Filter>GUI\Toolbar</Filter>
+    </ClInclude>
+    <ClInclude Include="Stroking.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Stroke</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
