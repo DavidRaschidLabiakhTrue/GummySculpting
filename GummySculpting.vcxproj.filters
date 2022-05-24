@@ -181,6 +181,9 @@
     <ClCompile Include="ToolsWindow.cpp">
       <Filter>GUI\Tools Window</Filter>
     </ClCompile>
+    <ClCompile Include="Noise.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Noise</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -374,6 +377,9 @@
     </ClInclude>
     <ClInclude Include="ToolsWindow.hpp">
       <Filter>GUI\Tools Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Noise.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Noise</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -663,6 +669,9 @@
     </Filter>
     <Filter Include="GUI\Tools Window">
       <UniqueIdentifier>{2a8cd5ca-aabe-47be-b825-1e17c459c2c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Noise">
+      <UniqueIdentifier>{96014b26-996f-4437-8eab-7af4aef070c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

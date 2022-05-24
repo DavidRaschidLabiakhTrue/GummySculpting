@@ -76,7 +76,8 @@ namespace DebugConsoleDefinition
 		DEMO, 
 		SMOOTH,
 		STROKE,
-		COLOR
+		COLOR,
+		NOISE
 
     };
 
@@ -102,7 +103,8 @@ namespace DebugConsoleDefinition
 		{"demo", DEMO},
 		{"smooth", SMOOTH},
 		{"color", COLOR},
-		{"stroke", STROKE}
+		{"stroke", STROKE},
+		{"noise", NOISE}
 	};
 
     static CONSOLECOMMAND getCommand(string command)

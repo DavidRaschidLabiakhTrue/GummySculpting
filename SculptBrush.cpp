@@ -2,6 +2,7 @@
 
 #include "Smoothing.hpp"
 #include "Coloring.hpp"
+#include "Noise.hpp"
 
 
 using namespace SculptBrushDefinition;
@@ -42,6 +43,10 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 
 				case BrushState::BrushStateStroke :
 
+					break;
+
+				case BrushState::BrushStateNoise :
+					Noising::applyNoise(cMesh, payload);
 					break;
 
 				case BrushState::BrushStateColor :

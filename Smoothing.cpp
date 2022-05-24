@@ -17,8 +17,7 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 	else
 	{
 		
-		//say "There was collision with the octree" done;
-		// say oPayload.triangleID spc "was hit at distance" spc oPayload.distance spc "with position" spc to_string(oPayload.position) done;
+
 
 	}
 	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, 0.5f);

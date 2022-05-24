@@ -258,6 +258,9 @@ void MainProgram::processSculptorCommand(StringList& arguments, int numArgs)
 		case STROKE:
 			brush.currentState = BrushState::BrushStateStroke;
 			break;
+		case NOISE:
+			brush.currentState = BrushState::BrushStateNoise;
+			break;
 	}
 }
 
