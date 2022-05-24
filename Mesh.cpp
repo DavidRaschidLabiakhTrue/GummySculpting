@@ -17,7 +17,6 @@ void Mesh::createVariableMap()
 	meshVariables.emplace("octanttrianglelimit", ref(octantTriangleLimit));
 	meshVariables.emplace("octreebuffer", ref(octreeBuffer));
 	meshVariables.emplace("octreelooseness", ref(octreeLooseness));
-	meshVariables.emplace("testbool", ref(testBool));
 
 }
 

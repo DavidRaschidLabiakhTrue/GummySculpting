@@ -4,6 +4,9 @@
 #include "Window_Class.hpp"
 
 #include "Macro.hpp"
+
+#include "MainDirective.hpp"
+
 Usage Macros;
 
 

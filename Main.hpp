@@ -68,6 +68,10 @@ class MainProgram
 		void processVariableCommand(StringList& arguments, int numArgs); // process variable command
 		// pair< getVariable()
 
+		void processSculptorCommand(StringList& arguments, int numArgs);
+
+		void processDebugCommand(StringList& arguments, int numArgs);
+
 		void loadResources(); // load resources into memory
         void beginDrawFrame(); // begin a draw frame
 		void bindGraphicsDataToGPU(); // ensure all meshes are binded to GPU

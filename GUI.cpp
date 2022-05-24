@@ -2,6 +2,7 @@
 
 using namespace GuiDefinition;
 using namespace TopBarDefinition;
+using namespace ToolsWindowDefinition;
 
 
 GUI::GUI()
@@ -26,9 +27,11 @@ void GuiDefinition::GUI::newGuiFrame()
 	ImGui::NewFrame();
 }
 
+
 void GuiDefinition::GUI::buildGuiFrame()
 {
 	topBar.build();
+	toolsWindow.build();
 }
 
 void GuiDefinition::GUI::renderGui()
@@ -36,7 +39,6 @@ void GuiDefinition::GUI::renderGui()
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
-
 
 
 ImGuiIO& GuiDefinition::InitializeImGUI()

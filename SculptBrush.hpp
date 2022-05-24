@@ -9,7 +9,7 @@ namespace SculptBrushDefinition
 	using namespace SamplerDefinition;
 	using namespace SculptPayloadDefinition;
 
-	enum BrushState{BrushStateSmooth, BrushStateStroke, BrushStateColor};
+	enum BrushState{BrushStateSmooth, BrushStateStroke, BrushStateColor, BrushStateNoise};
 
 	class SculptBrush : public Sampler
 	{
@@ -21,7 +21,7 @@ namespace SculptBrushDefinition
 			void querySculpt(MeshReference cMesh);
 
 
-			BrushState currentState = BrushStateSmooth;
+			BrushState currentState = BrushStateColor;
 			bool shouldApplySymmetrically = false;
 		protected:
 			SculptPayload payload;

@@ -35,7 +35,12 @@ void TopBarDefinition::TopBar::build()
 	}
 	if (ImGui::BeginMenu("Help"))
 	{
-		ImGui::MenuItem("Debug Console");
+		if (ImGui::MenuItem("Debug Console"))
+		{
+			vector<string> debugToggleCommand = { "debug",  "toggle" };
+			MainDirectiveDefinition::Directives.push_back(debugToggleCommand);
+		}
+		
 		ImGui::MenuItem("Help Guide");
 		ImGui::EndMenu();
 	}

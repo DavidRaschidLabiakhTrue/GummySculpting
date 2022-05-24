@@ -1,747 +1,677 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Main">
-      <UniqueIdentifier>{28a414c9-0fc0-4bca-a397-3684d5a131e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Macro">
-      <UniqueIdentifier>{fd8eb3dc-5984-4914-8656-3238912814d1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{127f50a0-1af7-4073-9570-3625db938641}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics">
-      <UniqueIdentifier>{3a37fb95-7d5e-402d-97db-740ee0f8e0d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Debugger">
-      <UniqueIdentifier>{bc24fa46-7c5f-4ff6-a336-c06b60ed1574}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FileOps">
-      <UniqueIdentifier>{9d3667ad-c584-498e-8caa-cf66fe2380cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\GraphicsAPI_OpenGL">
-      <UniqueIdentifier>{da4d4b9d-a0e8-4a76-9648-e50caf7d9727}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\BufferObjects">
-      <UniqueIdentifier>{18dd77d4-6413-4f1e-9180-2b5fd02d97e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\Color">
-      <UniqueIdentifier>{63d73882-612e-428a-bc5f-8859313b203f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\OpenGLWrapper">
-      <UniqueIdentifier>{70830b1f-060c-417e-8894-48b8fcded691}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3D Models">
-      <UniqueIdentifier>{b5308a50-b6de-48a8-b54e-cb23862a6139}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3D Models\.obj files">
-      <UniqueIdentifier>{a5d4649b-ff37-4ef6-94ee-865f5a907753}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3D Models\.gum files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Rendering">
-      <UniqueIdentifier>{cd86fc62-28a6-4b81-94b2-128d5bdf7e89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Camera">
-      <UniqueIdentifier>{3fe5a1e1-de9b-4d45-9c63-50cbf0e82896}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Shaders">
-      <UniqueIdentifier>{bd53cc1e-ff3d-4b01-b621-e477ac6fe19d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Shaders\WireFrameShader">
-      <UniqueIdentifier>{b2f2ea3a-dd02-4b5c-a1f0-e22338c6a7ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Shaders\StandardShader">
-      <UniqueIdentifier>{3a7c4cfd-b519-4ec2-81f0-af392b75854e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI">
-      <UniqueIdentifier>{1a58b1f9-4ba5-4067-9f32-bcb9c563e96f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\Window">
-      <UniqueIdentifier>{4005758b-1f9d-4328-8264-4f6fda72bc37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\Window\Window Class">
-      <UniqueIdentifier>{a836530d-2b43-4336-b5a9-6b899ae67290}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\Window\Window API">
-      <UniqueIdentifier>{d12ab59c-407a-44ff-8ec7-b98e4d8b80d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics">
-      <UniqueIdentifier>{77d0d484-33d5-4ca5-a8eb-ca77f6483fce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sampling">
-      <UniqueIdentifier>{fa6c5a62-b994-4775-bf20-805638ce0e28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Camera\CameraParameters">
-      <UniqueIdentifier>{8af3d975-e8a3-4ac8-8479-54db1a746031}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Shaders\ShaderPosition">
-      <UniqueIdentifier>{c52b576a-8140-410e-843d-53451d0e1063}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Renderer">
-      <UniqueIdentifier>{df3112c3-3d12-4ecb-b129-d507540ac445}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\GUI">
-      <UniqueIdentifier>{ef7eee4c-05ee-4799-8db2-27e723902f90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Shaders\Shader">
-      <UniqueIdentifier>{fbd8854d-3a3e-4ce0-ab8f-8d79a19368fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FileOps\Mesh File Loading">
-      <UniqueIdentifier>{d7ba1906-1b0e-4f34-b45c-31f6d129d6ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures">
-      <UniqueIdentifier>{ade9a426-7164-4277-8c7a-e4165280edbe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics Structures">
-      <UniqueIdentifier>{ac9534b2-8886-4974-8ae7-d198376d8abc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics Structures\GraphicsData">
-      <UniqueIdentifier>{90e07af0-b078-4995-9015-e3f154686324}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics Structures\Lists">
-      <UniqueIdentifier>{b2cf5b61-47df-4795-810e-5015655c9fba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics Structures\Indices">
-      <UniqueIdentifier>{0091298a-7b52-4d31-9452-95ef97628db8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics Structures\Vertex">
-      <UniqueIdentifier>{c378287f-02de-4f65-b4a2-a31518043ed9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures">
-      <UniqueIdentifier>{49f28c4e-4fcd-43e2-a1f9-e863e20b4570}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Mesh">
-      <UniqueIdentifier>{9bfe7ffd-e93e-44bb-852e-1c8765251958}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\MeshStats">
-      <UniqueIdentifier>{dc67609d-bf9c-465b-812d-038fc14b0d0e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Management">
-      <UniqueIdentifier>{d1c1eaf7-0cf1-4254-91be-e6c85d4624ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Management\Mesh_Manager">
-      <UniqueIdentifier>{fd41b6f8-c410-4ae6-93a4-b768903ff1fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics And Search Structure">
-      <UniqueIdentifier>{ae79c3db-bc84-4f73-b8bb-78474e3c0d15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics And Search Structure\IndexedTriangle">
-      <UniqueIdentifier>{60e67002-3371-445d-af0d-97db70d3ede5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics Structures\Lists\Triangle List">
-      <UniqueIdentifier>{9f350489-f819-4fa6-b6f2-1d3cd6cf6f72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics Structures\Lists\Vertex List">
-      <UniqueIdentifier>{250672a9-f7ff-4521-8a37-eda69cff4b9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics Structures\Lists\Indice List">
-      <UniqueIdentifier>{6c642001-9be2-4c14-84f9-1c45c727db21}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Camera\Camera Implementation">
-      <UniqueIdentifier>{c7690ac4-fa02-4feb-b305-90b048ea7557}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sculpting">
-      <UniqueIdentifier>{5d014eee-9bba-462e-b03e-628a4ae5b2a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sampling\Ray Casting">
-      <UniqueIdentifier>{0602a549-3604-4cf2-b5f4-0745409d68ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\Topology">
-      <UniqueIdentifier>{abbad5a0-66ce-431d-9532-2f342fd3e3f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp">
-      <UniqueIdentifier>{263aad85-0741-41f9-a916-628a948af3ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\GUI\ImGUI Impl">
-      <UniqueIdentifier>{65e635db-a968-4b0c-9930-f17beda1ef38}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\GUI\ImGUI Impl\src">
-      <UniqueIdentifier>{010a7b22-f79b-4e5a-86c1-e36fb4009041}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\GUI\ImGUI Impl\header">
-      <UniqueIdentifier>{18d6e7af-d2db-4349-b314-c74b49aa065b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\GUI\MainGUI">
-      <UniqueIdentifier>{411c42f5-cf17-42e2-91fc-0505cb572f57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\GUI\TopBar">
-      <UniqueIdentifier>{390b313d-543e-4062-80f6-b2e09102d1c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3D Objects">
-      <UniqueIdentifier>{c466cc75-5def-4bb1-b599-a08949eff210}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3D Objects\Spacial Grid">
-      <UniqueIdentifier>{61100c27-eafe-4eb5-8e63-74fb538ce63b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3D Objects\Visual Objects">
-      <UniqueIdentifier>{6380adda-d889-481d-8538-b9627bddcaea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\EdgeList">
-      <UniqueIdentifier>{56aee3be-35d0-4046-b2a7-399b3894823c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Edge">
-      <UniqueIdentifier>{00323994-3432-4dca-940c-eb69b8f6c85c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp">
-      <UniqueIdentifier>{13aef099-b031-43c6-9fc7-8cbba508b862}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp">
-      <UniqueIdentifier>{74b8e9ef-f944-4173-bdd0-97a721f8e598}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\GEdge">
-      <UniqueIdentifier>{a57afe84-eca6-4d4f-b19c-4c7c53bae901}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation">
-      <UniqueIdentifier>{3262abad-47cc-4235-84b1-3b7efae5ec23}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\OctreeStats">
-      <UniqueIdentifier>{0ff7b123-bcfb-4ee6-8cfb-11d3a34a468b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree">
-      <UniqueIdentifier>{534e2f94-f03d-43bd-b539-f97fb2a48a5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octant">
-      <UniqueIdentifier>{6ca5ace5-5a13-4ca5-ba54-a2d346059f8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers">
-      <UniqueIdentifier>{2e8c40a5-fb0d-4cb1-81a4-1c3c10ec91de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList">
-      <UniqueIdentifier>{cafb1551-484a-45ba-8e0b-dd1e230c9839}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList\TriangleOctantKeyPair">
-      <UniqueIdentifier>{d33a8261-6dcb-46ad-a78e-9de8b323c2f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeCollision">
-      <UniqueIdentifier>{ced1ed22-05d2-4f29-bcc4-2495bd67a2e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\VertexIDHashing">
-      <UniqueIdentifier>{cde618c8-2420-44e9-a50b-2acf7bcd8807}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sampling\SamplerPayload">
-      <UniqueIdentifier>{1e574261-b2a5-4808-9dc5-e4e0628badd1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\ITree">
-      <UniqueIdentifier>{da970e6c-3f06-4d72-a20f-67a51de71a74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\ITree\node">
-      <UniqueIdentifier>{29319acd-f417-4810-a998-e2b62f9face7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\ITree\stats">
-      <UniqueIdentifier>{0c9d0e8f-e69f-4b4d-a88e-40d3f2400874}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\ITree\impl">
-      <UniqueIdentifier>{afad5917-e438-4ed9-ac66-426254904956}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\ITree\node list">
-      <UniqueIdentifier>{728df663-73e4-4916-a6fc-520149d91dc7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\ITree\node\Box">
-      <UniqueIdentifier>{3bb7aeb6-5073-4419-9056-cbc419c8a851}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\ITree\node\INodeMortonCode">
-      <UniqueIdentifier>{36776766-54ce-4879-b118-4a70aa7dc496}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\ITree\ITreeVisualization">
-      <UniqueIdentifier>{92b20465-d8e3-4808-ae5c-43ee011f6956}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\ITree\ITreeVisualization\ITreeDrawContainer">
-      <UniqueIdentifier>{b0b1f840-63cb-4f58-b27e-f64fc956f680}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeIntersection">
-      <UniqueIdentifier>{12c025a3-475e-4374-a0ef-c73f90c2feef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Management\MeshChangeLog">
-      <UniqueIdentifier>{64eb83b6-39c1-41f2-a86e-a003df151d02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Management\MeshChangeLog\Mesh History">
-      <UniqueIdentifier>{d2ffc55d-e413-4968-aeba-d5cfaedabca0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Subdivision">
-      <UniqueIdentifier>{05073a2e-f2c5-4fd8-b3bb-41d1094e6cc6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sculpting\Sculptor">
-      <UniqueIdentifier>{f1d5abb0-4ef4-4801-b339-c36853441a61}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sculpting\SculptPayload">
-      <UniqueIdentifier>{16fc882b-d0b7-4f77-b579-a934b0a1d167}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sculpting\Sculptor\imple">
-      <UniqueIdentifier>{a2473f7d-ce68-4ed7-9210-6b29ad6eb030}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sculpting\Sculptor\Sculpt Smooth">
-      <UniqueIdentifier>{ca982535-bb28-4d25-bcd2-62f0e425c371}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Sculpting\Sculptor\Sculpt Color">
-      <UniqueIdentifier>{99cdd20b-569e-4d27-9413-78930113b1b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization">
-      <UniqueIdentifier>{80847cc9-f7a2-45a6-9450-35529eef9b03}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\GUI\DebuggingConsole">
-      <UniqueIdentifier>{5baad93a-797b-4346-bc83-6be8cde42699}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window And GUI\GUI\DebuggingConsole\Main Directive">
-      <UniqueIdentifier>{8097ee4d-52f4-4d05-b7ec-6a6f3f83b524}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Main\MainDirective">
-      <UniqueIdentifier>{41de77a8-fccb-4e44-be64-a6824931d733}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="Window_Class.cpp">
-      <Filter>Window And GUI\Window\Window Class</Filter>
-    </ClCompile>
-    <ClCompile Include="Window_API.cpp">
-      <Filter>Window And GUI\Window\Window API</Filter>
-    </ClCompile>
-    <ClCompile Include="include\glad\glad.c">
-      <Filter>Graphics\GraphicsAPI_OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="V3D.cpp">
-      <Filter>Data Structures\Graphics Structures\Vertex</Filter>
-    </ClCompile>
-    <ClCompile Include="Indices.cpp">
-      <Filter>Data Structures\Graphics Structures\Indices</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexList.cpp">
-      <Filter>Data Structures\Graphics Structures\Lists\Vertex List</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleList.cpp">
-      <Filter>Data Structures\Graphics Structures\Lists\Triangle List</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsBufferObjects.cpp">
-      <Filter>Graphics\BufferObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Graphics\Color</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsData.cpp">
-      <Filter>Data Structures\Graphics Structures\GraphicsData</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGLWrapper.cpp">
-      <Filter>Graphics\OpenGLWrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraParameters.cpp">
-      <Filter>Rendering\Camera\CameraParameters</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyInput.cpp">
-      <Filter>Window And GUI\Window\Window API</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderPosition.cpp">
-      <Filter>Rendering\Shaders\ShaderPosition</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Data Structures\Search Structures\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Rendering\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh_Manager.cpp">
-      <Filter>Data Structures\Management\Mesh_Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshStats.cpp">
-      <Filter>Data Structures\Search Structures\MeshStats</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Rendering\Shaders\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFileLoader.cpp">
-      <Filter>FileOps\Mesh File Loading</Filter>
-    </ClCompile>
-    <ClCompile Include="IndexedTriangle.cpp">
-      <Filter>Data Structures\Graphics And Search Structure\IndexedTriangle</Filter>
-    </ClCompile>
-    <ClCompile Include="RayCasting.cpp">
-      <Filter>Mechanics\Sampling\Ray Casting</Filter>
-    </ClCompile>
-    <ClCompile Include="IndiceList.cpp">
-      <Filter>Data Structures\Graphics Structures\Lists\Indice List</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Rendering\Camera\Camera Implementation</Filter>
-    </ClCompile>
-    <ClCompile Include="Sampler.cpp">
-      <Filter>Mechanics\Sampling</Filter>
-    </ClCompile>
-    <ClCompile Include="TopologyComputation.cpp">
-      <Filter>Math\Topology</Filter>
-    </ClCompile>
-    <ClCompile Include="include\IMGUI\imgui.cpp">
-      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
-    </ClCompile>
-    <ClCompile Include="include\IMGUI\imgui_demo.cpp">
-      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
-    </ClCompile>
-    <ClCompile Include="include\IMGUI\imgui_draw.cpp">
-      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
-    </ClCompile>
-    <ClCompile Include="include\IMGUI\imgui_impl_glfw.cpp">
-      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
-    </ClCompile>
-    <ClCompile Include="include\IMGUI\imgui_impl_opengl3.cpp">
-      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
-    </ClCompile>
-    <ClCompile Include="include\IMGUI\imgui_tables.cpp">
-      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
-    </ClCompile>
-    <ClCompile Include="include\IMGUI\imgui_widgets.cpp">
-      <Filter>Window And GUI\GUI\ImGUI Impl\src</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Window And GUI\GUI\MainGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="TopBar.cpp">
-      <Filter>Window And GUI\GUI\TopBar</Filter>
-    </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>3D Objects\Spacial Grid</Filter>
-    </ClCompile>
-    <ClCompile Include="VisualObjects.cpp">
-      <Filter>3D Objects\Visual Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Edge.cpp">
-      <Filter>Data Structures\Search Structures\Edge</Filter>
-    </ClCompile>
-    <ClCompile Include="EdgeList.cpp">
-      <Filter>Data Structures\Search Structures\EdgeList</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexLookUp.cpp">
-      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleLookUp.cpp">
-      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp</Filter>
-    </ClCompile>
-    <ClCompile Include="GEdge.cpp">
-      <Filter>Data Structures\Search Structures\GEdge</Filter>
-    </ClCompile>
-    <ClCompile Include="Octree.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleOctantKeyPair.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList\TriangleOctantKeyPair</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleOctantKeyPairList.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList</Filter>
-    </ClCompile>
-    <ClCompile Include="SamplerPayload.cpp">
-      <Filter>Mechanics\Sampling\SamplerPayload</Filter>
-    </ClCompile>
-    <ClCompile Include="INode.cpp">
-      <Filter>Data Structures\Search Structures\ITree\node</Filter>
-    </ClCompile>
-    <ClCompile Include="ITreeStats.cpp">
-      <Filter>Data Structures\Search Structures\ITree\stats</Filter>
-    </ClCompile>
-    <ClCompile Include="ITree.cpp">
-      <Filter>Data Structures\Search Structures\ITree\impl</Filter>
-    </ClCompile>
-    <ClCompile Include="IndexNodeList.cpp">
-      <Filter>Data Structures\Search Structures\ITree\node list</Filter>
-    </ClCompile>
-    <ClCompile Include="INodeBox.cpp">
-      <Filter>Data Structures\Search Structures\ITree\node\Box</Filter>
-    </ClCompile>
-    <ClCompile Include="INodeMortonCode.cpp">
-      <Filter>Data Structures\Search Structures\ITree\node\INodeMortonCode</Filter>
-    </ClCompile>
-    <ClCompile Include="LinearAlgebra.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="ITreeVisualization.cpp">
-      <Filter>Data Structures\Search Structures\ITree\ITreeVisualization</Filter>
-    </ClCompile>
-    <ClCompile Include="ItreeDrawContainer.cpp">
-      <Filter>Data Structures\Search Structures\ITree\ITreeVisualization\ITreeDrawContainer</Filter>
-    </ClCompile>
-    <ClCompile Include="OctreeIntersection.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeIntersection</Filter>
-    </ClCompile>
-    <ClCompile Include="OctreeElements.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
-    </ClCompile>
-    <ClCompile Include="OctreeOctant.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
-    </ClCompile>
-    <ClCompile Include="SubdivisionSurface.cpp">
-      <Filter>Mechanics\Subdivision</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshChangeLog.cpp">
-      <Filter>Data Structures\Management\MeshChangeLog</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshHistory.cpp">
-      <Filter>Data Structures\Management\MeshChangeLog\Mesh History</Filter>
-    </ClCompile>
-    <ClCompile Include="Smoothing.cpp">
-      <Filter>Mechanics\Sculpting\Sculptor\Sculpt Smooth</Filter>
-    </ClCompile>
-    <ClCompile Include="SculptBrush.cpp">
-      <Filter>Mechanics\Sculpting\Sculptor\imple</Filter>
-    </ClCompile>
-    <ClCompile Include="Coloring.cpp">
-      <Filter>Mechanics\Sculpting\Sculptor\Sculpt Color</Filter>
-    </ClCompile>
-    <ClCompile Include="SculptPayload.cpp">
-      <Filter>Mechanics\Sculpting\SculptPayload</Filter>
-    </ClCompile>
-    <ClCompile Include="OctreeVisualization.cpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization</Filter>
-    </ClCompile>
-    <ClCompile Include="DebuggingConsole.cpp">
-      <Filter>Window And GUI\GUI\DebuggingConsole</Filter>
+      <Filter>Main\Imple</Filter>
     </ClCompile>
     <ClCompile Include="MainDirective.cpp">
       <Filter>Main\MainDirective</Filter>
     </ClCompile>
+    <ClCompile Include="Window_Class.cpp">
+      <Filter>Window\Window Class</Filter>
+    </ClCompile>
+    <ClCompile Include="V3D.cpp">
+      <Filter>Data Structures\Unit\V3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Edge.cpp">
+      <Filter>Data Structures\Unit\Edge</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Rendering\Camera\Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraParameters.cpp">
+      <Filter>Rendering\Camera\Camera Parameters</Filter>
+    </ClCompile>
+    <ClCompile Include="Coloring.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="DebuggingConsole.cpp">
+      <Filter>GUI\Debug Console</Filter>
+    </ClCompile>
+    <ClCompile Include="EdgeList.cpp">
+      <Filter>Data Structures\Search\Lists\Edge List</Filter>
+    </ClCompile>
+    <ClCompile Include="include\glad\glad.c">
+      <Filter>Rendering\OpenGL\Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsBufferObjects.cpp">
+      <Filter>Rendering\Graphics Buffer Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsData.cpp">
+      <Filter>Data Structures\Graphics Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>3D Objects\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>GUI\Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui.cpp">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_demo.cpp">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_draw.cpp">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_impl_glfw.cpp">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_impl_opengl3.cpp">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_tables.cpp">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IMGUI\imgui_widgets.cpp">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexedTriangle.cpp">
+      <Filter>Data Structures\Unit\IndexedTriangle</Filter>
+    </ClCompile>
+    <ClCompile Include="IndiceList.cpp">
+      <Filter>Data Structures\Search\Lists\Indice List</Filter>
+    </ClCompile>
+    <ClCompile Include="Indices.cpp">
+      <Filter>Data Structures\Unit\Indices</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyInput.cpp">
+      <Filter>Window\Window API\KeyInput</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearAlgebra.cpp">
+      <Filter>Mathematics\Linear Algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFileLoader.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Data Structures\Search\Mesh\Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh_Manager.cpp">
+      <Filter>Data Structures\Search\Mesh\Mesh Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshChangeLog.cpp">
+      <Filter>Data Structures\Search\Mesh\Mesh Change Log\Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshHistory.cpp">
+      <Filter>Data Structures\Search\Mesh\Mesh Change Log\Mesh History</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshStats.cpp">
+      <Filter>Data Structures\Search\Mesh\Stats</Filter>
+    </ClCompile>
+    <ClCompile Include="Octree.cpp">
+      <Filter>Data Structures\Search\Octree\Imple\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeVisualization.cpp">
+      <Filter>Data Structures\Search\Octree\Octree Visualization</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeOctant.cpp">
+      <Filter>Data Structures\Search\Octree\Imple\Octants Extension</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeElements.cpp">
+      <Filter>Data Structures\Search\Octree\Imple\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeIntersection.cpp">
+      <Filter>Data Structures\Search\Octree\Imple\Intersection</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGLWrapper.cpp">
+      <Filter>Rendering\OpenGL\OpenGL Gummy Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="RayCasting.cpp">
+      <Filter>Mechanics\Ray Casting</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Rendering\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sampler.cpp">
+      <Filter>Mechanics\Sampling\Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="SamplerPayload.cpp">
+      <Filter>Mechanics\Sampling\Sampler Payload</Filter>
+    </ClCompile>
+    <ClCompile Include="SculptBrush.cpp">
+      <Filter>Mechanics\Sculpting\Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="SculptPayload.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Payload</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Rendering\Shaders\Shader\Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderPosition.cpp">
+      <Filter>Rendering\Shaders\Shader\Shader Position</Filter>
+    </ClCompile>
+    <ClCompile Include="Smoothing.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Smooth</Filter>
+    </ClCompile>
+    <ClCompile Include="SubdivisionSurface.cpp">
+      <Filter>Mechanics\Subdivision Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="TopologyComputation.cpp">
+      <Filter>Mathematics\Topology</Filter>
+    </ClCompile>
+    <ClCompile Include="TopBar.cpp">
+      <Filter>GUI\Top Bar</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleOctantKeyPair.cpp">
+      <Filter>Data Structures\Search\Octree\Octant\Triangle Octant Key Pair</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleOctantKeyPairList.cpp">
+      <Filter>Data Structures\Search\Octree\Octant\Triangle Octant Key Pair List</Filter>
+    </ClCompile>
+    <ClCompile Include="Window_API.cpp">
+      <Filter>Window\Window API\Base Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleLookUp.cpp">
+      <Filter>Data Structures\Search\Look Up\Triangle Look Up</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexLookUp.cpp">
+      <Filter>Data Structures\Search\Look Up\Vertex Look Up</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexList.cpp">
+      <Filter>Data Structures\Search\Lists\Vertex List</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleList.cpp">
+      <Filter>Data Structures\Search\Lists\Triangle List</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualObjects.cpp">
+      <Filter>3D Objects\Visual Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolsWindow.cpp">
+      <Filter>GUI\Tools Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Noise.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Noise</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
-      <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="Macro.hpp">
-      <Filter>Macro</Filter>
-    </ClInclude>
-    <ClInclude Include="MathDefinitions.hpp">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Window_Class.hpp">
-      <Filter>Window And GUI\Window\Window Class</Filter>
-    </ClInclude>
-    <ClInclude Include="Window_API.hpp">
-      <Filter>Window And GUI\Window\Window API</Filter>
-    </ClInclude>
-    <ClInclude Include="V3D.hpp">
-      <Filter>Data Structures\Graphics Structures\Vertex</Filter>
-    </ClInclude>
-    <ClInclude Include="Indices.hpp">
-      <Filter>Data Structures\Graphics Structures\Indices</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexList.hpp">
-      <Filter>Data Structures\Graphics Structures\Lists\Vertex List</Filter>
-    </ClInclude>
-    <ClInclude Include="TriangleList.hpp">
-      <Filter>Data Structures\Graphics Structures\Lists\Triangle List</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsData.hpp">
-      <Filter>Data Structures\Graphics Structures\GraphicsData</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsBufferObjects.hpp">
-      <Filter>Graphics\BufferObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.hpp">
-      <Filter>Graphics\Color</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGLWrapper.hpp">
-      <Filter>Graphics\OpenGLWrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraParameters.hpp">
-      <Filter>Rendering\Camera\CameraParameters</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyInput.hpp">
-      <Filter>Window And GUI\Window\Window API</Filter>
-    </ClInclude>
-    <ClInclude Include="LinearAlgebra.hpp">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderPosition.hpp">
-      <Filter>Rendering\Shaders\ShaderPosition</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.hpp">
-      <Filter>Data Structures\Search Structures\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.hpp">
-      <Filter>Rendering\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh_Manager.hpp">
-      <Filter>Data Structures\Management\Mesh_Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshStats.hpp">
-      <Filter>Data Structures\Search Structures\MeshStats</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.hpp">
-      <Filter>Rendering\Shaders\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFileLoader.hpp">
-      <Filter>FileOps\Mesh File Loading</Filter>
-    </ClInclude>
-    <ClInclude Include="IndexedTriangle.hpp">
-      <Filter>Data Structures\Graphics And Search Structure\IndexedTriangle</Filter>
-    </ClInclude>
-    <ClInclude Include="RayCasting.hpp">
-      <Filter>Mechanics\Sampling\Ray Casting</Filter>
-    </ClInclude>
-    <ClInclude Include="IndiceList.hpp">
-      <Filter>Data Structures\Graphics Structures\Lists\Indice List</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.hpp">
-      <Filter>Rendering\Camera\Camera Implementation</Filter>
-    </ClInclude>
-    <ClInclude Include="Sampler.hpp">
-      <Filter>Mechanics\Sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="TopologyComputation.hpp">
-      <Filter>Math\Topology</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IMGUI\imconfig.h">
-      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IMGUI\imgui.h">
-      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IMGUI\imgui_impl_glfw.h">
-      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IMGUI\imgui_impl_opengl3.h">
-      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IMGUI\imgui_impl_opengl3_loader.h">
-      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IMGUI\imgui_internal.h">
-      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IMGUI\imstb_rectpack.h">
-      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IMGUI\imstb_textedit.h">
-      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IMGUI\imstb_truetype.h">
-      <Filter>Window And GUI\GUI\ImGUI Impl\header</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.hpp">
-      <Filter>Window And GUI\GUI\MainGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="TopBar.hpp">
-      <Filter>Window And GUI\GUI\TopBar</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.hpp">
-      <Filter>3D Objects\Spacial Grid</Filter>
-    </ClInclude>
-    <ClInclude Include="VisualObjects.hpp">
-      <Filter>3D Objects\Visual Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Edge.hpp">
-      <Filter>Data Structures\Search Structures\Edge</Filter>
-    </ClInclude>
-    <ClInclude Include="EdgeList.hpp">
-      <Filter>Data Structures\Search Structures\EdgeList</Filter>
-    </ClInclude>
-    <ClInclude Include="Smoothing.hpp">
-      <Filter>Mechanics\Sculpting\Sculptor\Sculpt Smooth</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexLookUp.hpp">
-      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\VertexLookUp</Filter>
-    </ClInclude>
-    <ClInclude Include="TriangleLookUp.hpp">
-      <Filter>Data Structures\Graphics And Search Structure\TriangleAndVertexLookUp\TriangleLookUp</Filter>
-    </ClInclude>
-    <ClInclude Include="GEdge.hpp">
-      <Filter>Data Structures\Search Structures\GEdge</Filter>
-    </ClInclude>
-    <ClInclude Include="Octant.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octant</Filter>
-    </ClInclude>
-    <ClInclude Include="Octree.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree</Filter>
-    </ClInclude>
-    <ClInclude Include="OctreeStats.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\OctreeStats</Filter>
-    </ClInclude>
-    <ClInclude Include="TriangleOctantKeyPair.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList\TriangleOctantKeyPair</Filter>
-    </ClInclude>
-    <ClInclude Include="TriangleOctantKeyPairList.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\TriangleOctantKeyPairList</Filter>
-    </ClInclude>
-    <ClInclude Include="OctreeCollision.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeCollision</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexIDHashing.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\VertexIDHashing</Filter>
-    </ClInclude>
-    <ClInclude Include="SamplerPayload.hpp">
-      <Filter>Mechanics\Sampling\SamplerPayload</Filter>
-    </ClInclude>
-    <ClInclude Include="INode.hpp">
-      <Filter>Data Structures\Search Structures\ITree\node</Filter>
-    </ClInclude>
-    <ClInclude Include="ITreeStats.hpp">
-      <Filter>Data Structures\Search Structures\ITree\stats</Filter>
-    </ClInclude>
-    <ClInclude Include="ITree.hpp">
-      <Filter>Data Structures\Search Structures\ITree\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="INodeBox.hpp">
-      <Filter>Data Structures\Search Structures\ITree\node\Box</Filter>
-    </ClInclude>
-    <ClInclude Include="INodeMortonCode.hpp">
-      <Filter>Data Structures\Search Structures\ITree\node\INodeMortonCode</Filter>
-    </ClInclude>
-    <ClInclude Include="ITreeVisualization.hpp">
-      <Filter>Data Structures\Search Structures\ITree\ITreeVisualization</Filter>
-    </ClInclude>
-    <ClInclude Include="ItreeDrawContainer.hpp">
-      <Filter>Data Structures\Search Structures\ITree\ITreeVisualization\ITreeDrawContainer</Filter>
-    </ClInclude>
-    <ClInclude Include="OctreeIntersection.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeIntersection</Filter>
-    </ClInclude>
-    <ClInclude Include="SubdivisionSurface.hpp">
-      <Filter>Mechanics\Subdivision</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshChangeLog.hpp">
-      <Filter>Data Structures\Management\MeshChangeLog</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshHistory.hpp">
-      <Filter>Data Structures\Management\MeshChangeLog\Mesh History</Filter>
-    </ClInclude>
-    <ClInclude Include="SculptPayload.hpp">
-      <Filter>Mechanics\Sculpting\SculptPayload</Filter>
-    </ClInclude>
-    <ClInclude Include="SculptBrush.hpp">
-      <Filter>Mechanics\Sculpting\Sculptor\imple</Filter>
-    </ClInclude>
-    <ClInclude Include="Coloring.hpp">
-      <Filter>Mechanics\Sculpting\Sculptor\Sculpt Color</Filter>
-    </ClInclude>
-    <ClInclude Include="OctreeVisualization.hpp">
-      <Filter>Data Structures\Search Structures\Octree Implementation\Octree Helpers\OctreeVisualization</Filter>
-    </ClCompile>
-    <ClInclude Include="DebuggingConsole.hpp">
-      <Filter>Window And GUI\GUI\DebuggingConsole</Filter>
+      <Filter>Main\Imple</Filter>
     </ClInclude>
     <ClInclude Include="MainDirective.hpp">
       <Filter>Main\MainDirective</Filter>
     </ClInclude>
+    <ClInclude Include="Window_Class.hpp">
+      <Filter>Window\Window Class</Filter>
+    </ClInclude>
+    <ClInclude Include="V3D.hpp">
+      <Filter>Data Structures\Unit\V3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.hpp">
+      <Filter>Data Structures\Unit\Edge</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Rendering\Camera\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraParameters.hpp">
+      <Filter>Rendering\Camera\Camera Parameters</Filter>
+    </ClInclude>
+    <ClInclude Include="Coloring.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="DebuggingConsole.hpp">
+      <Filter>GUI\Debug Console</Filter>
+    </ClInclude>
+    <ClInclude Include="EdgeList.hpp">
+      <Filter>Data Structures\Search\Lists\Edge List</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsBufferObjects.hpp">
+      <Filter>Rendering\Graphics Buffer Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsData.hpp">
+      <Filter>Data Structures\Graphics Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.hpp">
+      <Filter>3D Objects\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.hpp">
+      <Filter>GUI\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imconfig.h">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui.h">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_impl_glfw.h">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_impl_opengl3_loader.h">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_impl_opengl3.h">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imgui_internal.h">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imstb_textedit.h">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imstb_rectpack.h">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMGUI\imstb_truetype.h">
+      <Filter>GUI\ImGUI Base Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexedTriangle.hpp">
+      <Filter>Data Structures\Unit\IndexedTriangle</Filter>
+    </ClInclude>
+    <ClInclude Include="IndiceList.hpp">
+      <Filter>Data Structures\Search\Lists\Indice List</Filter>
+    </ClInclude>
+    <ClInclude Include="Indices.hpp">
+      <Filter>Data Structures\Unit\Indices</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyInput.hpp">
+      <Filter>Window\Window API\KeyInput</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearAlgebra.hpp">
+      <Filter>Mathematics\Linear Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Macro.hpp">
+      <Filter>Utility and Macros</Filter>
+    </ClInclude>
+    <ClInclude Include="MathDefinitions.hpp">
+      <Filter>Mathematics\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFileLoader.hpp">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>Data Structures\Search\Mesh\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh_Manager.hpp">
+      <Filter>Data Structures\Search\Mesh\Mesh Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshChangeLog.hpp">
+      <Filter>Data Structures\Search\Mesh\Mesh Change Log\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshHistory.hpp">
+      <Filter>Data Structures\Search\Mesh\Mesh Change Log\Mesh History</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshStats.hpp">
+      <Filter>Data Structures\Search\Mesh\Stats</Filter>
+    </ClInclude>
+    <ClInclude Include="Octree.hpp">
+      <Filter>Data Structures\Search\Octree\Imple\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="OctreeVisualization.hpp">
+      <Filter>Data Structures\Search\Octree\Octree Visualization</Filter>
+    </ClInclude>
+    <ClInclude Include="OctreeStats.hpp">
+      <Filter>Data Structures\Search\Octree\Octree Stats</Filter>
+    </ClInclude>
+    <ClInclude Include="OctreeCollision.hpp">
+      <Filter>Data Structures\Search\Octree\Imple\Octree Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLWrapper.hpp">
+      <Filter>Rendering\OpenGL\OpenGL Gummy Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCasting.hpp">
+      <Filter>Mechanics\Ray Casting</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.hpp">
+      <Filter>Rendering\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sampler.hpp">
+      <Filter>Mechanics\Sampling\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="SamplerPayload.hpp">
+      <Filter>Mechanics\Sampling\Sampler Payload</Filter>
+    </ClInclude>
+    <ClInclude Include="SculptBrush.hpp">
+      <Filter>Mechanics\Sculpting\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="SculptPayload.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Payload</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.hpp">
+      <Filter>Rendering\Shaders\Shader\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPosition.hpp">
+      <Filter>Rendering\Shaders\Shader\Shader Position</Filter>
+    </ClInclude>
+    <ClInclude Include="Smoothing.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Smooth</Filter>
+    </ClInclude>
+    <ClInclude Include="SubdivisionSurface.hpp">
+      <Filter>Mechanics\Subdivision Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="TopologyComputation.hpp">
+      <Filter>Mathematics\Topology</Filter>
+    </ClInclude>
+    <ClInclude Include="TopBar.hpp">
+      <Filter>GUI\Top Bar</Filter>
+    </ClInclude>
+    <ClInclude Include="Octant.hpp">
+      <Filter>Data Structures\Search\Octree\Octant\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleOctantKeyPair.hpp">
+      <Filter>Data Structures\Search\Octree\Octant\Triangle Octant Key Pair</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleOctantKeyPairList.hpp">
+      <Filter>Data Structures\Search\Octree\Octant\Triangle Octant Key Pair List</Filter>
+    </ClInclude>
+    <ClInclude Include="Window_API.hpp">
+      <Filter>Window\Window API\Base Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleLookUp.hpp">
+      <Filter>Data Structures\Search\Look Up\Triangle Look Up</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexLookUp.hpp">
+      <Filter>Data Structures\Search\Look Up\Vertex Look Up</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexList.hpp">
+      <Filter>Data Structures\Search\Lists\Vertex List</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleList.hpp">
+      <Filter>Data Structures\Search\Lists\Triangle List</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualObjects.hpp">
+      <Filter>3D Objects\Visual Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexIDHashing.hpp">
+      <Filter>Data Structures\Search\Octree\Imple\Vertex Hash</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolsWindow.hpp">
+      <Filter>GUI\Tools Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Noise.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Noise</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="cube.gum">
+      <Filter>3D Models\gum Models</Filter>
+    </None>
     <None Include="WireFrameShader.vert">
-      <Filter>Rendering\Shaders\WireFrameShader</Filter>
-    </None>
-    <None Include="WireFrameShader.frag">
-      <Filter>Rendering\Shaders\WireFrameShader</Filter>
-    </None>
-    <None Include="StandardShader.vert">
-      <Filter>Rendering\Shaders\StandardShader</Filter>
+      <Filter>Rendering\Shaders\Shader Files</Filter>
     </None>
     <None Include="StandardShader.frag">
-      <Filter>Rendering\Shaders\StandardShader</Filter>
+      <Filter>Rendering\Shaders\Shader Files</Filter>
     </None>
-    <None Include="cube.gum">
-      <Filter>3D Models\.gum files</Filter>
+    <None Include="WireFrameShader.frag">
+      <Filter>Rendering\Shaders\Shader Files</Filter>
+    </None>
+    <None Include="StandardShader.vert">
+      <Filter>Rendering\Shaders\Shader Files</Filter>
     </None>
     <None Include="sphere.gum">
-      <Filter>3D Models\.gum files</Filter>
+      <Filter>3D Models\gum Models</Filter>
     </None>
-    <None Include="IndexNodeList.hpp">
-      <Filter>Data Structures\Search Structures\ITree\node list</Filter>
-    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="3D Models">
+      <UniqueIdentifier>{5309c9a2-02c7-447a-b9a3-6d46220b04ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures">
+      <UniqueIdentifier>{8d78fcd8-5568-416a-87e4-b96dabc4a762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{8cbfa8d2-3006-4171-9520-2cbe7dfa9595}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{e2f6441e-43f2-4dab-a93e-4111418ef2cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{39da0aaf-560b-415e-b91b-cd4a843c9323}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Imple">
+      <UniqueIdentifier>{92964fec-0f2a-4410-84e6-5eeeff3486c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\MainDirective">
+      <UniqueIdentifier>{36796fd9-7a2c-4840-9678-c7587541cebe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Window Class">
+      <UniqueIdentifier>{f73ed463-d6b1-480c-bd5a-6b0370de3c4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Window API">
+      <UniqueIdentifier>{ec5826c7-2d9a-4e5f-8327-2d1abaf51f5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search">
+      <UniqueIdentifier>{649c8ebe-b6c1-43ad-8a0e-9097f95f3775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Unit">
+      <UniqueIdentifier>{48ac2dfa-ce64-4921-b2a4-e25a974df0f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics">
+      <UniqueIdentifier>{a7302d47-c520-4c4b-960e-1dcf21ff35a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics">
+      <UniqueIdentifier>{ea8393c8-fc4a-4f77-a19c-1724a6ac647d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Unit\V3D">
+      <UniqueIdentifier>{5338d416-59d9-41be-a679-1414272a6e17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Unit\Edge">
+      <UniqueIdentifier>{af1c8f3a-8c1d-446b-b7f7-a450f66b10e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{ea0e97d2-b90e-4a86-aa6e-03853ff4cb57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Camera">
+      <UniqueIdentifier>{54665b24-f93e-477f-9155-53b5f71bd623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Camera\Imple">
+      <UniqueIdentifier>{b219ee07-70ee-42c1-8a39-101b339b6686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Camera\Camera Parameters">
+      <UniqueIdentifier>{c9bd0bb5-bbfb-4219-91dc-89de44e76808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Ray Casting">
+      <UniqueIdentifier>{101e0778-c9fb-4510-bb92-fa89208c18bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sampling">
+      <UniqueIdentifier>{63b85755-1f03-46f3-b3a1-7adde5dfa6c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting">
+      <UniqueIdentifier>{e3fa52f7-8b19-4a31-a92b-16e2f9ef3143}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos">
+      <UniqueIdentifier>{dc897024-9fe2-4b69-8928-08e004d57925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Color">
+      <UniqueIdentifier>{c75daef7-47e8-48e7-a9e4-dd8cf157166f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Smooth">
+      <UniqueIdentifier>{61ed0a9d-ab6f-40c2-90c4-4306d09c2473}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Stroke">
+      <UniqueIdentifier>{c730d470-b55f-453a-aea2-666de22614ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Debug Console">
+      <UniqueIdentifier>{9012afc6-cb67-4947-9f84-e413c7b27d53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Models\gum Models">
+      <UniqueIdentifier>{03aea54b-b126-45ec-a9e7-5cbce940e7af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\OpenGL">
+      <UniqueIdentifier>{295bca6f-e0a6-46ef-a774-e9bedb31bf20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\OpenGL\Imple">
+      <UniqueIdentifier>{af4c3197-a05c-486b-9f76-7639ce1e07e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Graphics Buffer Objects">
+      <UniqueIdentifier>{f7121bd4-f7a8-49aa-a88a-71d509d63eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Graphics Data">
+      <UniqueIdentifier>{ec9da60b-dcb7-443e-aa43-ab4966a95629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects">
+      <UniqueIdentifier>{c6c2f0c2-deb4-4e61-8dc3-59b8a68d11ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Grid">
+      <UniqueIdentifier>{c1615d9d-2c52-4c3b-9021-4cc45c522a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Imple">
+      <UniqueIdentifier>{74ac3c38-252f-4199-ad49-c50fa9bdd012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\ImGUI Base Files">
+      <UniqueIdentifier>{94ec6613-e58f-4041-82fa-3310aa3dab81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Unit\IndexedTriangle">
+      <UniqueIdentifier>{3b0d85cb-67b2-4710-93ea-b2ca337e0c86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Unit\Indices">
+      <UniqueIdentifier>{74d3382a-228e-440e-a9de-8cb977c04745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Window API\KeyInput">
+      <UniqueIdentifier>{ad2ece7f-0549-4fc6-ae95-8e7344719b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Linear Algebra">
+      <UniqueIdentifier>{8b426278-e70f-491e-969f-d169d866c2aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility and Macros">
+      <UniqueIdentifier>{5f4d014a-c4e5-4576-8bc3-648d1b59e027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Definitions">
+      <UniqueIdentifier>{258f0050-d1a8-44cf-b003-c78e9ce8cf4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree">
+      <UniqueIdentifier>{b599b200-dc72-469f-bd44-66dc38b3a917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Mesh">
+      <UniqueIdentifier>{418d1a8a-774d-4de1-a88a-0caef9af100a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File">
+      <UniqueIdentifier>{d4264b5f-046b-4500-8eae-2f27911a6fc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders">
+      <UniqueIdentifier>{6fa03500-4745-4de6-b9d8-d85dffa0c631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Mesh\Imple">
+      <UniqueIdentifier>{48436a47-5dde-42c4-a663-ead2e32f547f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Mesh\Mesh Change Log">
+      <UniqueIdentifier>{02c65c07-f1bc-4810-89b3-dd06d7e5d868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Mesh\Mesh Change Log\Imple">
+      <UniqueIdentifier>{ae9621fc-44e6-4bd5-8e2d-e61e6ab83ed8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Mesh\Mesh Change Log\Mesh History">
+      <UniqueIdentifier>{fa2c7a7b-c37a-493d-b72b-2120a1efffba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Mesh\Stats">
+      <UniqueIdentifier>{36a1861d-b64d-49b1-a1d7-fb0d74d1e48d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Imple">
+      <UniqueIdentifier>{0edebd77-6907-4770-a02d-6e15a75c377c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Octant">
+      <UniqueIdentifier>{6165fef5-6143-4859-9514-f3f51835e57a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Imple\Base">
+      <UniqueIdentifier>{f5a92920-3315-462a-b743-bafe33cbd0f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Octree Stats">
+      <UniqueIdentifier>{55ffe6e9-1c7f-422c-8b82-b5bb2bd6cec1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Octree Visualization">
+      <UniqueIdentifier>{aee6d4bb-653f-442f-ad56-68f0fd346eae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Imple\Octree Collision">
+      <UniqueIdentifier>{68f835da-6971-43ff-a21d-aa0dc2effc20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Imple\Elements">
+      <UniqueIdentifier>{b5a9a5ab-ad6f-4dee-a979-ebb61e11f1f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Imple\Octants Extension">
+      <UniqueIdentifier>{25924917-e691-4239-a8e7-4584ca537049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Imple\Intersection">
+      <UniqueIdentifier>{8e974d37-173a-4bbf-b6bb-7ba2ff905956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\OpenGL\OpenGL Gummy Wrapper">
+      <UniqueIdentifier>{265db79f-80d7-4db7-94d7-6d65e7c04405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Renderer">
+      <UniqueIdentifier>{8e0cacd4-6108-4432-bddb-1f49833aa2e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sampling\Imple">
+      <UniqueIdentifier>{e445e350-4ad2-4752-a089-c6aebc9011ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sampling\Sampler Payload">
+      <UniqueIdentifier>{91d0b6d9-30f3-4336-bd71-306cc3e6d3e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Imple">
+      <UniqueIdentifier>{b8b020b4-fed0-4b0e-b348-06055b963228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Payload">
+      <UniqueIdentifier>{8e381822-28c3-433a-b404-f8c092b2d24b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader Files">
+      <UniqueIdentifier>{f18db37b-2266-4d61-947d-638e8a1ad2af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader">
+      <UniqueIdentifier>{ea7dca77-5931-4875-8800-e32b6ced96cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader\Imple">
+      <UniqueIdentifier>{dc24a4a9-7076-4b5d-b739-d0356340ad48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader\Shader Position">
+      <UniqueIdentifier>{25a7f41c-4906-434c-a5d4-bfebbc1458e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Subdivision Surface">
+      <UniqueIdentifier>{9eed1f9b-eb90-4ccb-84a0-961d1742a48a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Topology">
+      <UniqueIdentifier>{139e89c6-9ab1-4014-b487-6003294b5b3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Top Bar">
+      <UniqueIdentifier>{28708c01-5ece-41b9-b148-fc91925e7987}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Octant\Imple">
+      <UniqueIdentifier>{52e03857-b9cd-46aa-8fd6-c766a5d03bd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Octant\Triangle Octant Key Pair List">
+      <UniqueIdentifier>{9b6da249-423d-4cf4-9931-5e8f54b3ede6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Octant\Triangle Octant Key Pair">
+      <UniqueIdentifier>{6b3438f2-44e9-45b1-bd52-9b751402ed3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Window API\Base Imple">
+      <UniqueIdentifier>{01b8f69a-cde8-4502-a6a8-4c175af32fac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Look Up">
+      <UniqueIdentifier>{31a55acd-41eb-4eac-b7d0-290a6518319c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Look Up\Vertex Look Up">
+      <UniqueIdentifier>{08f70668-2a02-4ef4-87c0-36210cc12bfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Look Up\Triangle Look Up">
+      <UniqueIdentifier>{0d9c7fbd-f83c-470a-bfee-1b5fc2f62bca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Lists">
+      <UniqueIdentifier>{dd7e293e-df8a-4d82-9ce6-d3c880936b6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Lists\Vertex List">
+      <UniqueIdentifier>{a45d4412-d5e3-4bbc-bbdf-a53474a845dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Lists\Triangle List">
+      <UniqueIdentifier>{704bb084-5091-4fd3-b318-169ec296e0c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Lists\Indice List">
+      <UniqueIdentifier>{4bf8f706-a887-4a51-8309-c943307c98ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Lists\Edge List">
+      <UniqueIdentifier>{1287db2d-f706-4f7a-bdb7-83cbea251eeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Mesh\Mesh Manager">
+      <UniqueIdentifier>{5ef1b1a3-7f3f-4ce0-bf09-c0c720f2e4b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Visual Objects">
+      <UniqueIdentifier>{576e924c-5de3-4453-9c11-64d263a7764c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Octree\Imple\Vertex Hash">
+      <UniqueIdentifier>{922e571a-1d0a-465a-93ff-b26c001d686c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Tools Window">
+      <UniqueIdentifier>{2a8cd5ca-aabe-47be-b825-1e17c459c2c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Noise">
+      <UniqueIdentifier>{96014b26-996f-4437-8eab-7af4aef070c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

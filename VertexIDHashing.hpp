@@ -6,7 +6,7 @@
 
 namespace VertexIDHashingDefinition
 {
-	// Not Happy about this code at all. This is just Lambda with more steps. Anonymous undocumented functions for what they are supposed to achieve.
+	// This is just Lambda with more steps. Anonymous undocumented functions for what they are supposed to achieve.
 	using namespace MeshStatsDefinition;
 
 
