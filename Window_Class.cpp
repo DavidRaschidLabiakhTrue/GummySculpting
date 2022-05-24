@@ -14,6 +14,8 @@ namespace Window_Class
 	{
 		void framebuffer_size_callback(GLFWwindow* win, int width, int height)
 		{
+			WindowGlobal::ActiveWindow->canRender = (width == 0 or height == 0) ? false : true;
+
 			glViewport(0, 0, width, height);
 		}
 

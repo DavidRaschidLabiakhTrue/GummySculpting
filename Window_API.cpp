@@ -30,6 +30,8 @@ Window_API_Structures::ScreenData::ScreenData()
 	glfwGetCursorPos(winGB::ActiveWindowPTR, &msx, &msy);
 	glfwGetWindowSize(winGB::ActiveWindowPTR, &width, &height);
 
+
+
 	translationVector = v4(0, 0, width, height);
 }
 

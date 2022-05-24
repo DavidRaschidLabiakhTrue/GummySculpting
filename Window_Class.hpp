@@ -36,7 +36,7 @@ namespace Window_Class
 		Public_Variables
 
 			int scroll_state = 0; // holds the scroll state.
-
+			bool canRender = true;
 		private:
 			
 			
@@ -44,7 +44,7 @@ namespace Window_Class
 			void loadGLFWToProgram(); // load GLFW
 			void LoadOpenGL(); // load GLAD
 			WinPtr winptr = UnassignedPTR;
-
+			
 			v2 dim;
 	};
 
