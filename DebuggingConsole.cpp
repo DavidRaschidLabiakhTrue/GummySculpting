@@ -138,12 +138,12 @@ void DebugConsoleDefinition::DebugConsole::ExecCommand(const char *command_line)
 			}
 			if (directive.size() > 1)
 			{
-				string buildMessage = "Main Directive Issued -> ";
-				forall(directiveelement, directive)
-				{
-					buildMessage += directiveelement + ' ';
-				}
-				AddLog(buildMessage.c_str());
+				// string buildMessage = "Main Directive Issued -> ";
+				// forall(directiveelement, directive)
+				// {
+				// 	buildMessage += directiveelement + ' ';
+				// }
+				// AddLog(buildMessage.c_str());
 			}
 			MainDirectiveDefinition::Directives.push_back(directive);
 			break;

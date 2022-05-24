@@ -234,8 +234,10 @@ void MainProgram::processVariableCommand(StringList &arguments, int numArgs)
     }
 
     unordered_map<string, variableVariantType> variableMap;
-    variableMap.merge(renderer.getActiveMesh()->meshVariables);
-    // variableMap = renderer.getActiveMesh()->meshVariables;
+    foreach(variable, renderer.getActiveMesh()->meshVariables)
+	{
+		variableMap.emplace(variable.first, variable.second);
+	}
 
     auto variantVar = variableMap.find(arguments[1]);
     if (variantVar != variableMap.end())
