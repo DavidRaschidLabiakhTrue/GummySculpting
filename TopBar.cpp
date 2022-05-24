@@ -1,5 +1,7 @@
 #include "TopBar.hpp"
 
+static int topBarHeight = 0;
+
 TopBarDefinition::TopBar::TopBar()
 {
 }
@@ -44,5 +46,11 @@ void TopBarDefinition::TopBar::build()
 		ImGui::MenuItem("Help Guide");
 		ImGui::EndMenu();
 	}
+	topBarHeight = ImGui::GetWindowHeight();
 	ImGui::EndMainMenuBar();
+}
+
+int TopBarDefinition::TopBar::getHeight()
+{
+	return topBarHeight;
 }

@@ -2,6 +2,7 @@
 
 using namespace GuiDefinition;
 using namespace TopBarDefinition;
+using namespace ToolbarDefinition;
 using namespace ToolsWindowDefinition;
 
 
@@ -31,6 +32,7 @@ void GuiDefinition::GUI::newGuiFrame()
 void GuiDefinition::GUI::buildGuiFrame()
 {
 	topBar.build();
+	toolbar.build();
 	toolsWindow.build();
 }
 
