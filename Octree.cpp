@@ -8,41 +8,43 @@ using namespace OctreeDefinition;
  */
 void OctreeDefinition::Octree::octreePrintStats()
 {
-    // say "Octree Debug" done;
-    // say "\tVertex Limit:" spc octantTriangleLimit done;
+    say "Octree Debug" done;
+    say "\tVertex Limit:" spc octantTriangleLimit done;
     say "\tDepth Limit:" spc octreeDepthLimit done;
-    // say "\tDepth:" spc octreeDepth done;
-    // say "\tCenter:" spc to_string(octants[root].octantCenter) done;
-    // say "\tHalfsize:" spc octants[root].octantHalfSize done;
-    // say "\tVertices: " << verticeCount() done;
-    // say "\tTriangles:" spc totalTriangles() done;
-    // say "\tOctants:" spc octants.size() done;
-    // say "\tTriangles in Root:" spc octants[root].triangleIDs.size() done;
-    // say "\tLeaves:" spc leaves.size() done;
+    say "\tOctree Buffer Size:" spc octreeBuffer done;
+    say "\tOctree Looseness:" spc octreeLooseness done;
+    say "\tDepth:" spc octreeDepth done;
+    say "\tCenter:" spc to_string(octants[root].octantCenter) done;
+    say "\tHalfsize:" spc octants[root].octantHalfSize done;
+    say "\tVertices: " << verticeCount() done;
+    say "\tTriangles:" spc totalTriangles() done;
+    say "\tOctants:" spc octants.size() done;
+    say "\tTriangles in Root:" spc octants[root].triangleIDs.size() done;
+    say "\tLeaves:" spc leaves.size() done;
 
-    // int count = 0; // Counts leaves and pseudo-leaves
-    // int owt = 0; // Octants with triangles
-    // int pwt = 0; // Triangles in pseudo leaves
-    // foreach (o, octants)
-    // {
-    //     if (o.octantState)
-    //     {
-    //         count++;
-    //     }
+    int count = 0; // Counts leaves and pseudo-leaves
+    int owt = 0; // Octants with triangles
+    int pwt = 0; // Triangles in pseudo leaves
+    foreach (o, octants)
+    {
+        if (o.octantState)
+        {
+            count++;
+        }
 
-    //     if (o.triangleIDs.size())
-    //     {
-    //         owt++;
-    //         if (o.octantState == OctantState::OctantNotEmptyInternal)
-    //         {
-    //             pwt++;
-    //         }
-    //     }
-    // }
-    // // Ignore for now
-    // say "\tActive Octants:" spc count done;
-    // say "\tOctants w/ Triangles:" spc owt done;
-    // say "\tPsuedo-Leaves w/ Traingles:" spc pwt done;
+        if (o.triangleIDs.size())
+        {
+            owt++;
+            if (o.octantState == OctantState::OctantNotEmptyInternal)
+            {
+                pwt++;
+            }
+        }
+    }
+    // Ignore for now
+    say "\tActive Octants:" spc count done;
+    say "\tOctants w/ Triangles:" spc owt done;
+    say "\tPsuedo-Leaves w/ Traingles:" spc pwt done;
 }
 
 /**

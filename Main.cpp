@@ -130,6 +130,7 @@ void MainProgram::processDirectives()
     case MESH:
         processMeshCommand(arguments, numArgs);
         break;
+    case PRINT:
     case SET:
         processVariableCommand(arguments, numArgs);
         break;
@@ -238,17 +239,76 @@ void MainProgram::processRendererCommand(StringList &arguments, int numArgs)
 void MainProgram::processVariableCommand(StringList &arguments, int numArgs)
 {
     using namespace DebugConsoleDefinition;
-    if (numArgs < 3)
+    if (numArgs < 2)
     {
         return;
     }
 
-    auto variableRef = renderer.getActiveMesh()->meshVariables.find(arguments[1]);
-	if(variableRef != renderer.getActiveMesh()->meshVariables.end())
-	{
-		int& variable = get<reference_wrapper<int>>(variableRef->second);
-		variable = stoi(arguments[2]);
-	}
+    unordered_map<string, variableVariantType> variableMap;
+    variableMap.merge(renderer.getActiveMesh()->meshVariables);
+    // variableMap = renderer.getActiveMesh()->meshVariables;
+
+    auto variantVar = variableMap.find(arguments[1]);
+    if (variantVar != variableMap.end())
+    {
+        try
+        {
+            switch (getCommand(arguments[0]))
+            {
+            case SET:
+                if (numArgs < 3)
+                {
+                    return;
+                }
+                visit(
+                    overloaded{
+                        [&arguments](int &arg) { arg = stoi(arguments[2]); },
+                        [&arguments](float &arg) { arg = stof(arguments[2]); },
+                        [&arguments](bool &arg) {
+                            if (arguments[2] == "true")
+                                arg = true;
+                            else if (arguments[2] == "false")
+                                arg = false;
+                            else
+                                debug.AddLog("Main: Error: Invalid argument for boolean.");
+                        }},
+                    variantVar->second);
+                break;
+            case PRINT:
+                visit(
+                    overloaded{
+                        [&arguments](int &arg) { debug.AddLog("Main: %i", arg); },
+                        [&arguments](float &arg) { debug.AddLog("Main: %f", arg); },
+                        [&arguments](bool &arg) { debug.AddLog("Main: %s", ((arg == true) ? "true" : "false")); }},
+                    variantVar->second);
+                break;
+            }
+        }
+        catch (exception &e)
+        {
+            debug.AddLog("Main: Error: Bad Argument: %s", e.what());
+        }
+    }
+    else
+    {
+        if (arguments[0] == "print" && arguments[1] == "all")
+        {
+            foreach (v, variableMap)
+            {
+				const char* variableName = v.first.c_str();
+				visit(
+                    overloaded{
+                        [variableName](int &arg) { debug.AddLog("Main: %s = %i", variableName, arg); },
+                        [variableName](float &arg) { debug.AddLog("Main: %s = %.2f", variableName, arg); },
+                        [variableName](bool &arg) { debug.AddLog("Main: %s = %s", variableName, ((arg == true) ? "true" : "false")); }},
+                    v.second);
+            }
+        }
+        else
+        {
+            debug.AddLog("Main: Error: Variable not found: %s", arguments[1].c_str());
+        }
+    }
 }
 
 void MainProgram::preprocess(StringList &arguments)

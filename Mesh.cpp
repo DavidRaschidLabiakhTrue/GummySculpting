@@ -15,6 +15,10 @@ void Mesh::createVariableMap()
 {
     meshVariables.emplace("octreedepthlimit", ref(octreeDepthLimit));
 	meshVariables.emplace("octanttrianglelimit", ref(octantTriangleLimit));
+	meshVariables.emplace("octreebuffer", ref(octreeBuffer));
+	meshVariables.emplace("octreelooseness", ref(octreeLooseness));
+	meshVariables.emplace("testbool", ref(testBool));
+
 }
 
 void MeshDefinition::Mesh::generateGraphsAndTrees()

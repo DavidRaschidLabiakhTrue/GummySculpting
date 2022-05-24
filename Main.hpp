@@ -45,7 +45,7 @@ using DebugConsoleDefinition::debug;
 
 using MainDirectiveDefinition::Directives; // command list main must execute
 
-
+template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
 class MainProgram
 {
 	public:
@@ -66,6 +66,7 @@ class MainProgram
 		void processRendererCommand(StringList& arguments, int numArgs); // process renderer command
 		void processMeshCommand(StringList& arguments, int numArgs); // process mesh command
 		void processVariableCommand(StringList& arguments, int numArgs); // process variable command
+		// pair< getVariable()
 
 		void loadResources(); // load resources into memory
         void beginDrawFrame(); // begin a draw frame

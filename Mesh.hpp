@@ -60,7 +60,7 @@ namespace MeshDefinition
 
 			string name;
 
-			unordered_map<string, variant<reference_wrapper<int>, reference_wrapper<float>>> meshVariables;
+			unordered_map<string, variableVariantType> meshVariables;
 
 	};
 	typedef Mesh& MeshReference;  // reference to a mesh

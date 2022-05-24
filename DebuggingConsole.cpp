@@ -103,6 +103,7 @@ void DebugConsoleDefinition::DebugConsole::ExecCommand(const char *command_line)
         break;
     case OCTREE:
 	case SET:
+	case PRINT:
     case MESH:
     case RENDERER:
     case SCULPTOR: {

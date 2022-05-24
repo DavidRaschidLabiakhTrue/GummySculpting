@@ -39,6 +39,8 @@ namespace Macros
 	#define done << '\n'
 	#define forall(item,items) for(auto &item: (items))
 	#define foreach(item,items) for(auto &item: (items))
+
+	#define variableVariantType variant<reference_wrapper<int>, reference_wrapper<float>, reference_wrapper<bool>>
 }
 
 
