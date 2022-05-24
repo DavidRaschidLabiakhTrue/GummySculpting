@@ -18,6 +18,8 @@ void OctreeVisualization::visualizeOctree(DrawMode drawMode, DepthColorMode dept
     {
         generateOctantWireframe(octant.octantIndex);
     }
+    colorTrianglePerOctant();
+    refresh();
 }
 
 void OctreeVisualization::generateOctantWireframe(OctantIndex octantID)
@@ -88,5 +90,39 @@ void OctreeVisualization::drawOctreeWireframe()
         gboOctreeWireframe.bindVAO();
         glDrawElements(GL_LINES, (GLsizei)octreeWireframe.octreeIndices.size(), GL_UNSIGNED_INT, NULL);
         unbindActiveVAO();
+    }
+}
+
+random_device rd;
+mt19937 e2(rd());
+normal_distribution<> dist(50, 100);
+
+void OctreeVisualization::colorTrianglePerOctant()
+{
+    v4 black(0.0f, 0.0f, 0.0f, 1.0f);
+    colorDataUniformly(black);
+
+    foreach (octant, octants)
+    {
+        v4 color = v4((float)dist(e2) / 100.0f,
+                      (float)dist(e2) / 100.0f,
+                      (float)dist(e2) / 100.0f,
+                      1.0f);
+        foreach (triangle, octant.triangleIDs)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                RV3D vertex = vertices[triangles[triangle][i]];
+
+                if (vertex.color == black)
+                {
+                    vertex.color = color;
+                }
+                else
+                {
+                    vertex.color = 0.5f * (vertex.color + color);
+                }
+            }
+        }
     }
 }

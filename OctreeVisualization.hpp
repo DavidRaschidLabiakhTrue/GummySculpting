@@ -3,6 +3,7 @@
 
 #include "Octree.hpp"
 #include "Shader.hpp"
+#include <random>
 
 namespace OctreeVisualizationDefinition
 {
@@ -50,10 +51,13 @@ namespace OctreeVisualizationDefinition
             void generateOctantWireframe(OctantIndex octantID);
             void bindOctreeWireframe();
             void drawOctreeWireframe();
+            void colorTrianglePerOctant();
+
             DrawMode drawMode = LeafOctants;
             DepthColorMode depthColorMode = EnableDepthColor;
             OctreeWireframe octreeWireframe;
             GraphicsBufferObject gboOctreeWireframe;
+
 
             v4 DepthColors[20] = {
                 v4(1.0f, 1.0f, 1.0f, 1.0f), // White
