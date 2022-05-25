@@ -105,10 +105,18 @@ bool OctreeDefinition::Octree::updateTrianglesInOctree(TriangleIDList tris)
 	{
 		return updateSuccessful;
 	}
-    
+
     foreach (tri, tris)
     {
         updateSuccessful = updateSuccessful && updateTriangleInOctree(tri);
     }
     return updateSuccessful;
+}
+
+void OctreeDefinition::Octree::octreeReinsertTriangles() {
+    TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
+    for(int i = 0; i < triangles.size(); i++) {
+        removeTriangleFromOctree(i);
+        insertTriangle(i);
+    }
 }

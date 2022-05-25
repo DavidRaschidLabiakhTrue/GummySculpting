@@ -3,12 +3,14 @@
 
 #include "MathDefinitions.hpp"
 #include <vector>
+#include <unordered_map>
 #define NOTUSINGNORMALORUV
 
 namespace VertexDefinition
 {
 	Usage MathTypeDefinitions::CoordinateDefine;
 	using std::vector;
+	using std::unordered_map;
 	// formal definition of a vertex structure
 	typedef unsigned int BitData; // used to clarify this data will only ever be accessed with bits.
 
@@ -55,6 +57,7 @@ namespace VertexDefinition
 		BitData bitData; // reserve first 14 starting from right to represent weight data with a resolution of 100.00 total.
 		vector<int> triangleIDs; // Triangles that this vertex is a part of. TODO: Using vector<int> for now, but should have proper data type
 		vector<int> ABCD;  // Reserved for subdivision to keep track of which vertices to use for Loop's equation. - sussy
+		unordered_map<char, int> ABCDmap; // Reserved for subdivision to keep track of which vertices to use for Loop's equation. - not sussy, trust
 #ifndef NOTUSINGNORMALORUV
 		// Don't use these unless specified. They aren't needed.
 		v3 normal;

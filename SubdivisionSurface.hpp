@@ -25,6 +25,7 @@ namespace Subdivision
             v3 sumNeighbors(unordered_set<KeyData> neighbors);
             bool isVertexOnCrease(KeyData vertexID);
             float getCreaseAngleOfNewVertex(KeyData vertexID);
+            void simpleSubdivision4to12(int level = 1, bool octreeRebuild = true, bool refreshDisplay = true);
 
             int vertexOffset;
             float angleLimit = 1.5708f; // Radians, 90 degrees

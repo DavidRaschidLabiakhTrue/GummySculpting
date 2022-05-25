@@ -186,7 +186,7 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 			// Make sure we have a valid integer
 			try
 			{
-				renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
+				renderer.getActiveMesh()->simpleSubdivision4to12(stoi(arguments[2]));
 			}
 			catch (exception &e)
 			{
@@ -362,7 +362,7 @@ void MainProgram::parseCommandLineArguments(StringList &arguments)
     string parser = "";
     if (arguments.size() == 0)
     {
-        arguments.emplace_back("4star.gum"); // default argument
+        arguments.emplace_back("sphere254k.gum"); // default argument
     }
     else
     {

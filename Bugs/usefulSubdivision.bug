@@ -140,6 +140,15 @@ void SubdivisionSurface::simpleSubdivision4to12(int level, bool octreeRebuild, b
     // Loops for number of levels to subdivide
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
     {
+        // Clear edges and triangles of each vertex
+        // Easily Parallelizable
+        for (KeyData vertexID = 0; vertexID < vertices.size(); vertexID++)
+        {
+            edges[vertexID].vertexEdges.clear();
+            vertices[vertexID].triangleIDs.clear();
+            vertices[vertexID].ABCD.clear();
+        }
+
         vertexOffset = (int)vertices.size(); // Offset to where new vertices are placed in the vertices vector.
         int vertexIndex = vertexOffset;      // Index for new vertices.
         // int triangleOffset = (int)triangles.size(); // Offset to where new triangles are placed in the triangles vector.
@@ -148,8 +157,8 @@ void SubdivisionSurface::simpleSubdivision4to12(int level, bool octreeRebuild, b
         vector<KeyList> triangleMidpointMap;
 
         // Fill midpoint map with all midpoints
-        // Parallelizable
-        for (KeyData vertexID = 0; vertexID < vertexOffset; vertexID++)
+        // Easily Parallelizable
+        for (int vertexID = 0; vertexID < vertexOffset; vertexID++)
         {
             foreach (otherVertexID, edges[vertexID].vertexEdges)
             {
@@ -164,17 +173,8 @@ void SubdivisionSurface::simpleSubdivision4to12(int level, bool octreeRebuild, b
             }
         }
 
-        // Clear edges, triangles, ABCD of each vertex
-        // Easily Parallelizable
-        for (KeyData vertexID = 0; vertexID < vertexOffset; vertexID++)
-        {
-            edges[vertexID].vertexEdges.clear();
-            vertices[vertexID].triangleIDs.clear();
-            vertices[vertexID].ABCD.clear();
-        }
-
         // Fill triangle midpoint map with all triangle midpoints
-        // Parallelizable
+        // Easily Parallelizable
         for (TriangleID tri = 0; tri < triangles.size(); tri++)
         {
             KeyList midpointIDs = {
@@ -184,86 +184,96 @@ void SubdivisionSurface::simpleSubdivision4to12(int level, bool octreeRebuild, b
             triangleMidpointMap.push_back(midpointIDs);
         }
 
-        // vector<unordered_map<char, int>> ABCDmaps;
-        // ABCDmaps.reserve(vertices.size());
-        // for (int i = 0; i < vertices.size(); i++)
-        // {
-        //     ABCDmaps.emplace_back(unordered_map<char, int>());
-        // }
+        vector<unordered_map<char, int>> ABCDmaps;
+        ABCDmaps.reserve(vertices.size());
+        for(int i = 0; i < vertices.size(); i++) {
+            ABCDmaps.emplace_back(unordered_map<char, int>());
+        }
 
         int triangleIndex = 0;
         IndexedTriangles newTriangles;
         for (TriangleID tri = 0; tri < triangles.size(); tri++)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                IndexedTriangle newTriangle;
-                newTriangle[0] = triangles[tri][i];
-                newTriangle[1] = triangleMidpointMap[tri][i];
-                newTriangle[2] = triangleMidpointMap[tri][(i + 2) % 3];
-                vertices[newTriangle[0]].triangleIDs.emplace_back(triangleIndex);
-                vertices[newTriangle[1]].triangleIDs.emplace_back(triangleIndex);
-                vertices[newTriangle[2]].triangleIDs.emplace_back(triangleIndex);
-                newTriangles.emplace_back(newTriangle);
-                triangleIndex++;
-            }
-
-            IndexedTriangle midpointTriangle;
-            midpointTriangle[0] = triangleMidpointMap[tri][0];
-            midpointTriangle[1] = triangleMidpointMap[tri][1];
-            midpointTriangle[2] = triangleMidpointMap[tri][2];
-            vertices[midpointTriangle[0]].triangleIDs.emplace_back(triangleIndex);
-            vertices[midpointTriangle[1]].triangleIDs.emplace_back(triangleIndex);
-            vertices[midpointTriangle[2]].triangleIDs.emplace_back(triangleIndex);
-            newTriangles.emplace_back(midpointTriangle);
+            IndexedTriangle newTriangle;
+            newTriangle[0] = triangles[tri][0];
+            newTriangle[1] = triangleMidpointMap[tri][0];
+            newTriangle[2] = triangleMidpointMap[tri][2];
+            vertices[newTriangle[0]].triangleIDs.emplace_back(triangleIndex);
+            vertices[newTriangle[1]].triangleIDs.emplace_back(triangleIndex);
+            vertices[newTriangle[2]].triangleIDs.emplace_back(triangleIndex);
+            newTriangles.emplace_back(newTriangle);
             triangleIndex++;
-        }
 
-        for(TriangleID tri = 0; tri < triangles.size(); tri++) {
+            IndexedTriangle newTriangle1;
+            newTriangle1[0] = triangles[tri][1];
+            newTriangle1[1] = triangleMidpointMap[tri][1];
+            newTriangle1[2] = triangleMidpointMap[tri][0];
+            vertices[newTriangle1[0]].triangleIDs.emplace_back(triangleIndex);
+            vertices[newTriangle1[1]].triangleIDs.emplace_back(triangleIndex);
+            vertices[newTriangle1[2]].triangleIDs.emplace_back(triangleIndex);
+            newTriangles.emplace_back(newTriangle1);
+            triangleIndex++;
+
+            IndexedTriangle newTriangle2;
+            newTriangle2[0] = triangles[tri][2];
+            newTriangle2[1] = triangleMidpointMap[tri][2];
+            newTriangle2[2] = triangleMidpointMap[tri][1];
+            vertices[newTriangle2[0]].triangleIDs.emplace_back(triangleIndex);
+            vertices[newTriangle2[1]].triangleIDs.emplace_back(triangleIndex);
+            vertices[newTriangle2[2]].triangleIDs.emplace_back(triangleIndex);
+            newTriangles.emplace_back(newTriangle2);
+            triangleIndex++;
+
+            IndexedTriangle newTriangle3;
+            newTriangle3[0] = triangleMidpointMap[tri][0];
+            newTriangle3[1] = triangleMidpointMap[tri][1];
+            newTriangle3[2] = triangleMidpointMap[tri][2];
+            vertices[newTriangle3[0]].triangleIDs.emplace_back(triangleIndex);
+            vertices[newTriangle3[1]].triangleIDs.emplace_back(triangleIndex);
+            vertices[newTriangle3[2]].triangleIDs.emplace_back(triangleIndex);
+            newTriangles.emplace_back(newTriangle3);
+            triangleIndex++;
+
             for (int i = 0; i < 3; i++)
             {
-                int oneStepAhead = (i + 1) % 3;
-                int twoStepsAhead = (i + 2) % 3;
                 // Fill out ABCD maps for each vertex in triangle
                 // A and B can be duplicates, so try_emplace
-                vertices[triangleMidpointMap[tri][i]].ABCDmap.try_emplace('A', triangles[tri][i]);
-                vertices[triangleMidpointMap[tri][i]].ABCDmap.try_emplace('B', triangles[tri][oneStepAhead]);
+                ABCDmaps[triangleMidpointMap[tri][i]].try_emplace('A', triangles[tri][0]);
+                ABCDmaps[triangleMidpointMap[tri][i]].try_emplace('B', triangles[tri][1]);
 
-                // // If C is not in map emplace opposing vertex as C
-                // // If it does exist, emplace opposing vertex as D
-                if (vertices[triangleMidpointMap[tri][i]].ABCDmap.find('C') == vertices[triangleMidpointMap[tri][i]].ABCDmap.end())
+                // If C is not in map emplace opposing vertex as C
+                // If it does exist, emplace opposing vertex as D
+                if (ABCDmaps[triangleMidpointMap[tri][i]].find('C') == ABCDmaps[triangleMidpointMap[tri][i]].end())
                 {
-                    vertices[triangleMidpointMap[tri][i]].ABCDmap.emplace('C', triangles[tri][twoStepsAhead]);
+                    ABCDmaps[triangleMidpointMap[tri][i]].emplace('C', triangles[tri][2]);
                 }
                 else
                 {
-                    vertices[triangleMidpointMap[tri][i]].ABCDmap.emplace('D', triangles[tri][twoStepsAhead]);
+                    ABCDmaps[triangleMidpointMap[tri][i]].emplace('D', triangles[tri][2]);
                 }
             }
         }
 
         // temp? bandage for ABCD stuff
-        // Easily Parallelizable
-        for (int vertexID = 0; vertexID < vertices.size(); vertexID++)
+        for(int vertexID = 0; vertexID < vertices.size(); vertexID++)
         {
-            vertices[vertexID].ABCD.emplace_back(vertices[vertexID].ABCDmap['A']);
-            vertices[vertexID].ABCD.emplace_back(vertices[vertexID].ABCDmap['B']);
-            vertices[vertexID].ABCD.emplace_back(vertices[vertexID].ABCDmap['C']);
+            vertices[vertexID].ABCD.emplace_back(ABCDmaps[vertexID]['A']);
+            vertices[vertexID].ABCD.emplace_back(ABCDmaps[vertexID]['B']);
+            vertices[vertexID].ABCD.emplace_back(ABCDmaps[vertexID]['C']);
 
-            if (vertices[vertexID].ABCDmap.find('D') != vertices[vertexID].ABCDmap.end())
+            if (ABCDmaps[vertexID].find('D') != ABCDmaps[vertexID].end())
             {
-                vertices[vertexID].ABCD.emplace_back(vertices[vertexID].ABCDmap['D']);
+                vertices[vertexID].ABCD.emplace_back(ABCDmaps[vertexID]['D']);
             }
         }
 
-        triangles = newTriangles;
-        generateEdges();
+        // triangles = newTriangles;
     }
 
+    generateEdges();
     if (octreeRebuild)
     {
-        // rebuildOctree();
-        octreeReinsertTriangles();
+        rebuildOctree();
     }
     if (refreshDisplay)
     {
@@ -283,8 +293,8 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh)
 {
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
     {
-        simpleSubdivision4to12(1, false, false); // 4:1 subdivision. First step of loop subdivision
-        Vertices newVertexList = vertices;       // New vertex list
+        simpleSubdivision4to12(1, false,false);   // 4:1 subdivision. First step of loop subdivision
+        Vertices newVertexList = vertices; // New vertex list
 
         // Calculate new position for every original vertex before subdivision
         for (int vertexID = 0; vertexID < vertexOffset; vertexID++)
@@ -294,6 +304,19 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh)
             v3 ksum = sumNeighbors(edges[vertexID].vertexEdges); // Sum of neighboring vertices
 
             newVertexList[vertexID] = (vertices[vertexID].position * (1.0f - (k * beta))) + (ksum * beta);
+
+            // Boundary/crease Condition
+            // if (isVertexOnCrease(vertexID))
+            // if(false)
+            // {
+            //     vector<int> ABCD = vertices[vertexID].ABCD;
+            //     newVertexList[vertexID] = (1.0f / 8.0f) * (vertices[ABCD[0]].position + vertices[ABCD[1]].position) +
+            //                               (3.0f / 4.0f) * vertices[vertexID].position;
+            // }
+            // else
+            // {
+            // newVertexList[vertexID] = (vertices[vertexID].position * (1.0f - (k * beta)) + (ksum * beta));
+            // }
         }
 
         // Calculate new position for every vertex that was created during subdivision
@@ -303,54 +326,26 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh)
 
             newVertexList[vertexID] = (0.375f * (vertices[ABCD[0]].position + vertices[ABCD[1]].position)) +
                                       (0.125f * (vertices[ABCD[2]].position + vertices[ABCD[3]].position));
-        }
 
-        // Calculate new position for every original vertex before subdivision
-        // for (int vertexID = 0; vertexID < vertexOffset; vertexID++)
-        // {
-        //     int k = (int)edges[vertexID].vertexEdges.size();     // Number of neighboring vertices
-        //     float beta = getBeta(k);                             // Get Beta
-        //     v3 ksum = sumNeighbors(edges[vertexID].vertexEdges); // Sum of neighboring vertices
-        //     newVertexList[vertexID] = (vertices[vertexID].position * (1.0f - (k * beta))) + (ksum * beta);
-        //     Boundary/crease Condition
-        //     if (isVertexOnCrease(vertexID))
-        //     if(false)
-        //     {
-        //         vector<int> ABCD = vertices[vertexID].ABCD;
-        //         newVertexList[vertexID] = (1.0f / 8.0f) * (vertices[ABCD[0]].position + vertices[ABCD[1]].position) +
-        //                                   (3.0f / 4.0f) * vertices[vertexID].position;
-        //     }
-        //     else
-        //     {
-        //     newVertexList[vertexID] = (vertices[vertexID].position * (1.0f - (k * beta)) + (ksum * beta));
-        //     }
-        // }
-        // Calculate new position for every vertex that was created during subdivision
-        // for (KeyData vertexID = vertexOffset; vertexID < vertices.size(); vertexID++)
-        // {
-        //     vector<int> ABCD = vertices[vertexID].ABCD; // Get the ABCD vector for the vertex
-        //     newVertexList[vertexID] = (0.375f * (vertices[ABCD[0]].position + vertices[ABCD[1]].position)) +
-        //                               (0.125f * (vertices[ABCD[2]].position + vertices[ABCD[3]].position));
-        // Boundary/crease Condition
-        // if (isVertexOnCrease(vertexID))
-        // if(false)
-        // {
-        //     newVertexList[vertexID] = 0.5f * (vertices[ABCD[0]].position + vertices[ABCD[1]].position);
-        // }
-        // // Interior Condition
-        // else
-        // {
-        // newVertexList[vertexID] = (3.0f / 8.0f) * (vertices[ABCD[0]].position + vertices[ABCD[1]].position) +
-        //                           (1.0f / 8.0f) * (vertices[ABCD[2]].position + vertices[ABCD[3]].position);
-        // }
-        // }
+            // Boundary/crease Condition
+            // if (isVertexOnCrease(vertexID))
+            // if(false)
+            // {
+            //     newVertexList[vertexID] = 0.5f * (vertices[ABCD[0]].position + vertices[ABCD[1]].position);
+            // }
+            // // Interior Condition
+            // else
+            // {
+            // newVertexList[vertexID] = (3.0f / 8.0f) * (vertices[ABCD[0]].position + vertices[ABCD[1]].position) +
+            //                           (1.0f / 8.0f) * (vertices[ABCD[2]].position + vertices[ABCD[3]].position);
+            // }
+        }
 
         vertices = newVertexList;
     }
     if (rebuildRefresh)
     {
-        // rebuildOctree();
-        octreeReinsertTriangles();
+        rebuildOctree();
         refresh();
     }
 }
@@ -425,12 +420,10 @@ float SubdivisionSurface::getBeta(int nEdges)
     if (nEdges == 3)
     {
         return 0.375f; // 3.0f / 8.0f; should be 3/16
-        // return 3.0f/16.0f;
     }
     else if (nEdges > 3)
     {
         return 0.75f * (1.0f / n); // 3.0f / (4.0f * n); should be 3/(8n)
-        // return 3.0f/(8.0f*n);
     }
     else
     {

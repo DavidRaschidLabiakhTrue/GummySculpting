@@ -45,6 +45,7 @@ namespace OctreeDefinition
             bool updateTriangleInOctree(TriangleID tri);
             bool updateTrianglesInOctree(TriangleIDList tri);
             bool removeTriangleFromOctree(TriangleID tri);
+            void octreeReinsertTriangles();
 
             // OctreeIntersection.cpp
             KeyList collectVerticesAroundCollision(OctreeCollision collision, double range);
