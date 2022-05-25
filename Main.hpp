@@ -58,6 +58,8 @@ class MainProgram
 
 	private:
 
+
+
 		void checkDirectives();
 		void processDirectives();
 		void preprocess(StringList& arguments); // begin preprocessing and setting up resources

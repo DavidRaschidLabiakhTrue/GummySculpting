@@ -184,6 +184,12 @@
     <ClCompile Include="Noise.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Noise</Filter>
     </ClCompile>
+    <ClCompile Include="Toolbar.cpp">
+      <Filter>GUI\Toolbar</Filter>
+    </ClCompile>
+    <ClCompile Include="Stroking.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Stroke</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -380,6 +386,12 @@
     </ClInclude>
     <ClInclude Include="Noise.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Noise</Filter>
+    </ClInclude>
+    <ClInclude Include="Toolbar.hpp">
+      <Filter>GUI\Toolbar</Filter>
+    </ClInclude>
+    <ClInclude Include="Stroking.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Stroke</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -672,6 +684,9 @@
     </Filter>
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Noise">
       <UniqueIdentifier>{96014b26-996f-4437-8eab-7af4aef070c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Toolbar">
+      <UniqueIdentifier>{302d5105-f3de-4cc0-9b8e-225a5f59dee4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

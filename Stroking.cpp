@@ -1,25 +1,15 @@
-#include "Smoothing.hpp"
+#include "Stroking.hpp"
 
-
-
-using namespace Sculpting::Smoothing;
-
-void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadReference payload)
+void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReference payload)
 {
 	auto oPayload = cMesh.octreeRayIntersection(payload.origin, payload.direction);
 
 	auto& cHistory = cMesh.history.currentChangeLog;
 	HistoryKeyVertexMap apply;
-	
+
 	if (oPayload.isCollision == false)
 	{
 		return; // there was no collision with the octree
-	}
-	else
-	{
-		
-
-
 	}
 	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, 0.5f);
 
@@ -34,8 +24,15 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 			}
 			apply[id] = cHistory[id] = cMesh.vertices[id];
 		}
-	
+
 	}
+
+	// this version must be using an interative loop to apply the effects instead.
+
+	float fallOff = 0.5;
+
+	
+
 
 	forall(element, apply)
 	{
@@ -47,7 +44,4 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 	cMesh.updateTrianglesInOctree(list);
 
 	cMesh.history.currentChangeLog.clear();
-
 }
-
-

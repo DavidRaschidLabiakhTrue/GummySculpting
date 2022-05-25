@@ -45,6 +45,7 @@ namespace Window_API
 			Construct ScreenData();
 			Deconstruct ~ScreenData();
 			v4 translationVector;
+
 		};
 	}
 

@@ -17,7 +17,7 @@ namespace TopBarDefinition
 		~TopBar();
 
 		void build();
-
+		int getHeight();
 
 	};
 }

@@ -34,19 +34,25 @@ int MainProgram::ProgramCycle()
 
 	while (shouldNotClose())
 	{
-
 		beginDrawFrame(); // refresh all draw buffers
+		if (win.canRender) // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
+		{
+			
 
-		checkDirectives();
+			checkDirectives();
 
-		checkDebugConsole();
+			checkDebugConsole();
 
-		queryMechanics(); // query for input
+			queryMechanics(); // query for input
 
-		draw3D(); // drawing meshes
+			draw3D(); // drawing meshes
+			
+
+			
+		}
 		draw2D();
-
 		eventQuery(); // update glfw in conjunction with opengl
+
 	}
 
 	return 0;
@@ -448,3 +454,4 @@ void MainProgram::beginDrawFrame()
     gui.newGuiFrame();
     clearBuffer();
 }
+

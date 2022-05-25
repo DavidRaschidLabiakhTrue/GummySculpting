@@ -3,7 +3,7 @@
 #include "Smoothing.hpp"
 #include "Coloring.hpp"
 #include "Noise.hpp"
-
+#include "Stroking.hpp"
 
 using namespace SculptBrushDefinition;
 
@@ -42,7 +42,7 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 					break;
 
 				case BrushState::BrushStateStroke :
-
+					Stroking::applyStroke(cMesh, payload);
 					break;
 
 				case BrushState::BrushStateNoise :

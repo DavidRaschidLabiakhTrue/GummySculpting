@@ -3,6 +3,7 @@
 
 #include "Window_API.hpp"
 #include "TopBar.hpp"
+#include "Toolbar.hpp"
 #include "ToolsWindow.hpp"
 
 
@@ -10,6 +11,7 @@ namespace GuiDefinition
 {
 	using namespace Window_API;
 	using namespace TopBarDefinition;
+	using namespace ToolbarDefinition;
 	using namespace ToolsWindowDefinition;
 
 	ImGuiIO& InitializeImGUI();
@@ -30,6 +32,7 @@ namespace GuiDefinition
 			ImGuiIO imguiIO;
 
 			TopBar topBar;
+			Toolbar toolbar;
 			ToolsWindow toolsWindow;
 	};
 }
