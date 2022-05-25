@@ -17,7 +17,7 @@ void Sculpting::Coloring::applyColor(MeshReference cMesh, SculptPayloadReference
 		// say oPayload.triangleID spc "was hit at distance" spc oPayload.distance spc "with position" spc to_string(oPayload.position) done;
 
 	}
-	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, 0.5f);
+	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, payload.radius);
 
 
 		forall(element, list)

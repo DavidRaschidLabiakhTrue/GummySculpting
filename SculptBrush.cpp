@@ -5,6 +5,8 @@
 #include "Noise.hpp"
 #include "Stroking.hpp"
 
+#include "ToolsWindow.hpp"
+
 using namespace SculptBrushDefinition;
 
 using namespace Sculpting;
@@ -31,6 +33,7 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 		cMesh.history.sealChange = false;
 		payload.direction = this->direction;
 		payload.origin = this->origin().position;
+		payload.radius = ToolsWindowDefinition::RadiusSlider;
 		if (direction != currentDir)
 		{
 			currentDir = direction;
@@ -55,7 +58,8 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 					break;
 			}
 
-			cMesh.refresh();
+			cMesh.needToRefresh = true;
+
 		}
 
 	}

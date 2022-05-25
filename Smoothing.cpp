@@ -21,7 +21,7 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 
 
 	}
-	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, 0.5f);
+	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, payload.radius);
 
 
 

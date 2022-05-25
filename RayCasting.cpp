@@ -37,8 +37,10 @@ RayCastDefinition::RayCast::RayCast(bool trueConstruct)
 	this->indices.push_back(1);
 
 
-
-	bindRay();
+	if (shouldDrawRay)
+	{
+		bindRay();
+	}
 }
 
 RayCast::~RayCast()

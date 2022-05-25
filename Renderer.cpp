@@ -24,6 +24,11 @@ inline void RendererDefinition::Renderer::drawStandard()
 	StandardShader.use();
 	forall(mesh, meshes)
 	{
+		if (mesh.needToRefresh)
+		{
+			mesh.refresh();
+			mesh.needToRefresh = false;
+		}
 		mesh.render();
 		// mesh.itreeDrawContainer.drawContainer();
 		mesh.drawOctreeWireframe();
