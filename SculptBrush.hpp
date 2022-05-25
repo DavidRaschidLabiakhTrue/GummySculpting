@@ -18,6 +18,8 @@ namespace SculptBrushDefinition
 			~SculptBrush();
 			SculptBrush(bool trueConstructor);
 
+			void applySculpt(MeshReference cMesh);
+
 			void querySculpt(MeshReference cMesh);
 
 
