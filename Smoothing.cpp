@@ -29,9 +29,7 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 	{
 		forall(id, cMesh.triangles[element].indice)
 		{
-			if (id > cMesh.vertices.size()) {
-				continue;
-			}
+
 			apply[id] = cHistory[id] = cMesh.vertices[id];
 		}
 	

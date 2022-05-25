@@ -5,6 +5,8 @@
 #include "Noise.hpp"
 #include "Stroking.hpp"
 
+#include "SmoothedColor.hpp"
+
 #include "ToolsWindow.hpp"
 
 using namespace SculptBrushDefinition;
@@ -54,6 +56,10 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 		case BrushState::BrushStateColor:
 
 			Coloring::applyColor(cMesh, payload);
+			break;
+
+		case BrushState::BrushStateSmoothedColor:
+			SmoothingColor::applySmoothingColor(cMesh, payload);
 			break;
 	}
 

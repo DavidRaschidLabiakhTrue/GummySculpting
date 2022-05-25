@@ -366,6 +366,10 @@ void MainProgram::processSculptorCommand(StringList& arguments, int numArgs)
 		case NOISE:
 			brush.currentState = BrushState::BrushStateNoise;
 			break;
+		case SMOOTHEDCOLOR:
+			brush.currentState = BrushState::BrushStateSmoothedColor;
+			break;
+
 	}
 }
 

@@ -22,9 +22,6 @@
     <ClCompile Include="CameraParameters.cpp">
       <Filter>Rendering\Camera\Camera Parameters</Filter>
     </ClCompile>
-    <ClCompile Include="Coloring.cpp">
-      <Filter>Mechanics\Sculpting\Sculpting Algos\Color</Filter>
-    </ClCompile>
     <ClCompile Include="DebuggingConsole.cpp">
       <Filter>GUI\Debug Console</Filter>
     </ClCompile>
@@ -190,6 +187,12 @@
     <ClCompile Include="Stroking.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Stroke</Filter>
     </ClCompile>
+    <ClCompile Include="Coloring.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Color\Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="SmoothedColor.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Color\Smoothing Color</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -212,9 +215,6 @@
     </ClInclude>
     <ClInclude Include="CameraParameters.hpp">
       <Filter>Rendering\Camera\Camera Parameters</Filter>
-    </ClInclude>
-    <ClInclude Include="Coloring.hpp">
-      <Filter>Mechanics\Sculpting\Sculpting Algos\Color</Filter>
     </ClInclude>
     <ClInclude Include="DebuggingConsole.hpp">
       <Filter>GUI\Debug Console</Filter>
@@ -392,6 +392,12 @@
     </ClInclude>
     <ClInclude Include="Stroking.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Stroke</Filter>
+    </ClInclude>
+    <ClInclude Include="Coloring.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Color\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="SmoothedColor.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Color\Smoothing Color</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -687,6 +693,12 @@
     </Filter>
     <Filter Include="GUI\Toolbar">
       <UniqueIdentifier>{302d5105-f3de-4cc0-9b8e-225a5f59dee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Color\Imple">
+      <UniqueIdentifier>{5f491c0b-2f7d-4510-b51a-a85ef764ea8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Color\Smoothing Color">
+      <UniqueIdentifier>{008f3de2-f315-4c63-baa1-238851624af4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

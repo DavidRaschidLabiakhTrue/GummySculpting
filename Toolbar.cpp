@@ -33,6 +33,18 @@ void ToolbarDefinition::Toolbar::build()
 	ImGui::Begin("TOOLBAR", NULL, window_flags);
 	ImGui::PopStyleVar();
 
+	if (ImGui::Button("Stroke Brush", ImVec2(0, buttonHeight)))
+	{
+		buildMessage = { "sculptor", "stroke" };
+		MainDirectiveDefinition::Directives.push_back(buildMessage);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Smooth Brush", ImVec2(0, buttonHeight)))
+	{
+		buildMessage = { "sculptor", "smooth" };
+		MainDirectiveDefinition::Directives.push_back(buildMessage);
+	};
+	ImGui::SameLine();
 	if (ImGui::Button("Color Brush", ImVec2(0, buttonHeight)))
 	{
 		buildMessage = { "sculptor", "color" };
@@ -40,18 +52,12 @@ void ToolbarDefinition::Toolbar::build()
 	};
 	ImGui::SameLine();
 
-	if(ImGui::Button("Smooth Brush", ImVec2(0, buttonHeight)))
+
+	if (ImGui::Button("Smoothed Color Brush", ImVec2(0, buttonHeight)))
 	{
-		buildMessage = { "sculptor", "smooth" };
+		buildMessage = { "sculptor", "smoothedcolor" };
 		MainDirectiveDefinition::Directives.push_back(buildMessage);
 	};
-	ImGui::SameLine();
-	if (ImGui::Button("Stroke Brush", ImVec2(0, buttonHeight)))
-	{
-		buildMessage = { "sculptor", "stroke" };
-		MainDirectiveDefinition::Directives.push_back(buildMessage);
-	}
-
 	ImGui::SameLine();
 
 	if (ImGui::Button("Noise Brush", ImVec2(0, buttonHeight)))

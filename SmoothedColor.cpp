@@ -1,6 +1,6 @@
-#include "Coloring.hpp"
+#include "SmoothedColor.hpp"
 
-void Sculpting::Coloring::applyColor(MeshReference cMesh, SculptPayloadReference payload)
+void Sculpting::SmoothingColor::applySmoothingColor(MeshReference cMesh, SculptPayloadReference payload)
 {
 	auto oPayload = cMesh.octreeRayIntersection(payload.origin, payload.direction);
 	auto& cHistory = cMesh.history.currentChangeLog;
@@ -25,18 +25,22 @@ void Sculpting::Coloring::applyColor(MeshReference cMesh, SculptPayloadReference
 		forall(id, cMesh.triangles[element].indice)
 		{
 
+
 			apply[id] = cHistory[id] = cMesh.vertices[id];
+			apply[id].color = cMesh.colorAverageAt(id);
 		}
-	
+
 	}
 	auto etst = ColorSlider_Color_Values;
 
 	forall(element, apply)
 	{
-		cMesh.vertices[element.first].loadColorDirectly(ColorSlider_Color_Values);
+
+		cMesh.vertices[element.first].color = element.second.color;
 	}
 
 
 
 	cMesh.updateTrianglesInOctree(list);
 }
+
