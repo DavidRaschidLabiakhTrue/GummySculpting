@@ -73,13 +73,13 @@ namespace DebugConsoleDefinition
 		DEBUG,
 		UNDO,
 		REDO,
-		DEMO, 
+		DEMO,
 		SMOOTH,
 		STROKE,
 		COLOR,
 		NOISE,
 		SMOOTHEDCOLOR,
-
+        SUBDLEVEL,
 
     };
 
@@ -107,7 +107,8 @@ namespace DebugConsoleDefinition
 		{"color", COLOR},
 		{"stroke", STROKE},
 		{"noise", NOISE},
-		{"smoothedcolor", SMOOTHEDCOLOR}
+		{"smoothedcolor", SMOOTHEDCOLOR},
+        {"subdlevel", SUBDLEVEL},
 	};
 
     static CONSOLECOMMAND getCommand(string command)

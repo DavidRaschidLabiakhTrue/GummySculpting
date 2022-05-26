@@ -62,7 +62,7 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 	string parser = "";
 	if (arguments.size() == 0)
 	{
-		arguments.emplace_back("sphere16k.gum"); // default argument
+		arguments.emplace_back("sphere.gum"); // default argument
 	}
 	else
 	{
@@ -237,6 +237,17 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 				break;
 			}
 			break;
+        case SUBDLEVEL:
+            if(numArgs < 3)
+            {
+                break;
+            }
+            try {
+                renderer.getActiveMesh()->gotoSubdivisionLevel(stoi(arguments[2]));
+            } catch (exception &e) {
+                debug.AddLog("Main: Error: Bad Argument: %s", e.what());
+                break;
+            }
     }
 }
 

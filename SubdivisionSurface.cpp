@@ -35,6 +35,13 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
     {
         vertexOffset = (int)vertices.size(); // Offset to where new vertices are placed in the vertices vector.
         int vertexIndex = vertexOffset;      // Index for new vertices.
+
+        IndexedTriangles oldTriangles = triangles;
+        Edges oldEdges = edges;
+        vertexOffsets.emplace_back(vertexIndex);
+        triangleLists.emplace_back(oldTriangles);
+        edgeLists.emplace_back(oldEdges);
+
         // int triangleOffset = (int)triangles.size(); // Offset to where new triangles are placed in the triangles vector.
         // int triangleIndex = triangleOffset;         // Index for new triangles.
         unordered_map<v3, KeyData> midpointMap; // Map of midpoints to their index in the vertices vector.
@@ -50,7 +57,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
                 {
                     v3 midpoint = (vertices[vertexID].position + vertices[otherVertexID].position) * 0.5f;
                     V3D newVert = midpoint;
-                    newVert.color = (vertices[vertexID].color + vertices[otherVertexID].color)*0.5f;
+                    newVert.color = (vertices[vertexID].color + vertices[otherVertexID].color) * 0.5f;
                     vertices.emplace_back(newVert);
                     midpointMap.emplace(midpoint, vertexIndex);
                     vertexIndex++;
@@ -340,4 +347,24 @@ void SubdivisionSurface::subdivisionTest()
 {
     loopSubdivision(2);
     octreePrintStats();
+}
+
+void SubdivisionSurface::gotoSubdivisionLevel(int subdLevel)
+{
+    if (subdLevel > currentSubdivisionLevel)
+    {
+        loopSubdivision(subdLevel - currentSubdivisionLevel);
+    }
+    else if (subdLevel < currentSubdivisionLevel)
+    {
+        vertices.erase(vertices.begin() + vertexOffsets[subdLevel], vertices.end());
+        edges = edgeLists[subdLevel];
+        edgeLists.erase(edgeLists.begin() + subdLevel + 1, edgeLists.end());
+        triangles = triangleLists[subdLevel];
+        triangleLists.erase(triangleLists.begin() + subdLevel + 1, triangleLists.end());
+        rebuildOctree();
+        refresh();
+    }
+
+    currentSubdivisionLevel = subdLevel;
 }
