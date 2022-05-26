@@ -62,7 +62,7 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 	string parser = "";
 	if (arguments.size() == 0)
 	{
-		arguments.emplace_back("sphere16k.gum"); // default argument
+		arguments.emplace_back("4star.gum"); // default argument
 	}
 	else
 	{
