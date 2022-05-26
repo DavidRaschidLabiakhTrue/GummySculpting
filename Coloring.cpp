@@ -17,7 +17,7 @@ void Sculpting::Coloring::applyColor(MeshReference cMesh, SculptPayloadReference
 		// say oPayload.triangleID spc "was hit at distance" spc oPayload.distance spc "with position" spc to_string(oPayload.position) done;
 
 	}
-	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, 0.5f);
+	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, 0.2f);
 
 
 		forall(element, list)
@@ -29,7 +29,7 @@ void Sculpting::Coloring::applyColor(MeshReference cMesh, SculptPayloadReference
 			}
 			apply[id] = cHistory[id] = cMesh.vertices[id];
 		}
-	
+
 	}
 	auto etst = ColorSlider_Color_Values;
 

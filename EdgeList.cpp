@@ -17,6 +17,7 @@ EdgeReference EdgeList::getEdge(KeyData key)
 
 void EdgeList::generateEdges()
 {
+	edges.clear();
 	const auto countUniqueVertices = vertices.size();
 	edges.reserve(countUniqueVertices);
 	for (int i = 0; i < countUniqueVertices; i++)
@@ -35,6 +36,22 @@ void EdgeList::generateEdges()
 		edges[tri[2]].vertexEdges.insert(tri[0]);
 		edges[tri[2]].vertexEdges.insert(tri[1]);
 	}
+
+	// easier parallelizable version
+	// for(int vertexID = 0; vertexID < vertices.size(); vertexID++) {
+	// 	foreach(tri, vertices[vertexID].triangleIDs) {
+	// 		if(triangles[tri][0] == vertexID){
+	// 			edges[vertexID].vertexEdges.insert(triangles[tri][1]);
+	// 			edges[vertexID].vertexEdges.insert(triangles[tri][2]);
+	// 		} else if (triangles[tri][1] == vertexID) {
+	// 			edges[vertexID].vertexEdges.insert(triangles[tri][0]);
+	// 			edges[vertexID].vertexEdges.insert(triangles[tri][2]);
+	// 		} else if (triangles[tri][2] == vertexID) {
+	// 			edges[vertexID].vertexEdges.insert(triangles[tri][0]);
+	// 			edges[vertexID].vertexEdges.insert(triangles[tri][1]);
+	// 		}
+	// 	}
+	// }
 
 	// this->cleanUpEdges();
 	//printAllEdges();

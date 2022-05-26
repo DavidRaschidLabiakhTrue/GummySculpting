@@ -37,7 +37,7 @@ int MainProgram::ProgramCycle()
 		beginDrawFrame(); // refresh all draw buffers
 		if (win.canRender) // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
 		{
-			
+
 
 			checkDirectives();
 
@@ -46,9 +46,9 @@ int MainProgram::ProgramCycle()
 			queryMechanics(); // query for input
 
 			draw3D(); // drawing meshes
-			
 
-			
+
+
 		}
 		draw2D();
 		eventQuery(); // update glfw in conjunction with opengl
@@ -192,7 +192,7 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 			// Make sure we have a valid integer
 			try
 			{
-				renderer.getActiveMesh()->simpleSubdivision4to12(stoi(arguments[2]));
+				renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
 			}
 			catch (exception &e)
 			{

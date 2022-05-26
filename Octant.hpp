@@ -42,7 +42,7 @@ namespace OctantDefinition
 		TopFrontRight = 7
 	};
 
-	const vector<v3> octantPositionVectors = 
+	const vector<v3> octantPositionVectors =
 	{
 		v3(-1, -1, -1), // BottomBackLeft
 		v3(-1, -1, 1),  // BottomFrontLeft
@@ -52,7 +52,7 @@ namespace OctantDefinition
 		v3(1, -1, 1),   // BottomFrontRight
 		v3(1, 1, -1),   // TopBackRight
 		v3(1, 1, 1)     // TopFrontRight
-	};   
+	};
 
 
     /*

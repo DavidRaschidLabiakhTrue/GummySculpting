@@ -32,10 +32,10 @@ namespace EdgeListDefinition
 
 			const int edgesTotal();
 
-			v3 averageAt(KeyData key); // 
+			v3 averageAt(KeyData key);
 
 
-			
+
 
 			Edges edges;
 

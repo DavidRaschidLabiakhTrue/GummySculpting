@@ -10,132 +10,25 @@ using namespace Subdivision;
  *  - Removes the edges and connects the old vertices to the midpoints.
  *  - Assigns the new Triangles and Edges to every vertex.
  *
+ *   Creating new triangles
+ *
+ *        v0
+ *        /\
+ *   mp0 /__\ mp2
+ *      /\  /\
+ *     /__\/__\
+ *   v1   mp1  v2
+ *
+ *  v_ = original vertex
+ *  mp_ = midpoint
+ *
+ *   New Triangles are:
+ *       <v0,  mp0, mp2>
+ *       <v1,  mp1, mp0>
+ *       <v2,  mp2, mp1>
+ *       <mp0, mp1, mp2> // This replaces the original triangle
  */
-int SubdivisionSurface::simpleSubdivision4to1(int level, bool rebuildRefresh)
-{
-    // Loops for number of levels to subdivide
-    for (int levelCounter = 0; levelCounter < level; levelCounter++)
-    {
-        // Clear edges and triangles of each vertex
-        for (KeyData vertexID = 0; vertexID < vertices.size(); vertexID++)
-        {
-            edges[vertexID].vertexEdges.clear();
-            vertices[vertexID].triangleIDs.clear();
-            vertices[vertexID].ABCD.clear();
-        }
-
-        vertexOffset = (int)vertices.size();        // Offset to where new vertices are placed in the vertices vector.
-        int vertexIndex = vertexOffset;             // Index for new vertices.
-        int triangleOffset = (int)triangles.size(); // Offset to where new triangles are placed in the triangles vector.
-        int triangleIndex = triangleOffset;         // Index for new triangles.
-        unordered_map<v3, int> midpointMap;         // Map of midpoints to their index in the vertices vector.
-
-        /**
-         *   Creating new triangles
-         *
-         *        v0
-         *        /\
-         *   mp0 /__\ mp2
-         *      /\  /\
-         *     /__\/__\
-         *   v1   mp1  v2
-         *
-         *  v_ = original vertex
-         *  mp_ = midpoint
-         *
-         *   New Triangles are:
-         *       <v0,  mp0, mp2>
-         *       <v1,  mp1, mp0>
-         *       <v2,  mp2, mp1>
-         *       <mp0, mp1, mp2> // This replaces the original triangle
-         */
-        // For every original triangle in the mesh
-        for (TriangleID tri = 0; tri < triangleOffset; tri++)
-        {
-            // Get the midpoints of the edges of the triangle
-            vector<v3> triangleMidpoints = {
-                getEdgeMidpoint(triangles[tri][0], triangles[tri][1]),
-                getEdgeMidpoint(triangles[tri][1], triangles[tri][2]),
-                getEdgeMidpoint(triangles[tri][2], triangles[tri][0])};
-
-            KeyList vKeys;
-
-            // For every midpoint of the triangle's edges
-            // Fill out vKeys
-            for (int i = 0; i < 3; i++)
-            {
-                // If the midpoint of the edge has not been created yet...
-                // This is to avoid creating duplicate midpoints
-                if (midpointMap.find(triangleMidpoints[i]) == midpointMap.end())
-                {
-                    vKeys.emplace_back(vertexIndex);                 // Set the key to the current index
-                    midpointMap[triangleMidpoints[i]] = vertexIndex; // Add the vertex vector (key) and key (value) to the map
-
-                    edges.emplace_back(Edge()); // Add new Edge object to the edges vector
-
-                    V3D vert = triangleMidpoints[i]; // Create V3D object for vertex
-
-                    // Add the original vertices of the triangle to the ABCD vector for loop subdivision
-                    // The first two (A, B) are the original vertices of the edge
-                    // The third is the opposing vertex of the triangles from the edge
-                    vert.ABCD.emplace_back(triangles[tri][i]);
-                    vert.ABCD.emplace_back(triangles[tri][(i + 1) % 3]);
-                    vert.ABCD.emplace_back(triangles[tri][(i + 2) % 3]);
-
-                    vertices.emplace_back(vert); // Add the vertex to the vertices array
-                    vertexIndex++;               // Increment index
-                }
-                // Otherwise set the midpoint's key to the existing value
-                else
-                {
-                    KeyData vertexID = midpointMap[triangleMidpoints[i]];              // VertexID of the midpoint
-                    vKeys.emplace_back(vertexID);                                      // Set the key to the existing vertexID
-                    vertices[vertexID].ABCD.emplace_back(triangles[tri][(i + 2) % 3]); // Add the edge's other triangle's opposing vertex (D) to the ABCD vector
-                }
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
-                KeyData vertexID = vKeys[i];
-                int oneStepAhead = (i + 1) % 3;
-                int twoStepsAhead = (i + 2) % 3; // Two steps ahead, see triangle diagram
-
-                IndexedTriangle newTriangle;
-                newTriangle[0] = triangles[tri][i];
-                newTriangle[1] = vKeys[i];
-                newTriangle[2] = vKeys[twoStepsAhead];
-
-                // Add triangle to vertices
-                vertices[newTriangle[0]].triangleIDs.emplace_back(triangleIndex);
-                vertices[newTriangle[1]].triangleIDs.emplace_back(triangleIndex);
-                vertices[newTriangle[2]].triangleIDs.emplace_back(triangleIndex);
-
-                // newTriangles.emplace_back(newTriangle); // Add new triangle to the triangles vector
-                triangles.emplace_back(newTriangle); // Add new triangle to the triangles vector
-                triangleIndex++;
-            }
-
-            // Add middle triangle to vertices
-            vertices[vKeys[0]].triangleIDs.emplace_back(triangleIndex);
-            vertices[vKeys[1]].triangleIDs.emplace_back(triangleIndex);
-            vertices[vKeys[2]].triangleIDs.emplace_back(triangleIndex);
-
-            // Replace the original triangle with the middle triangle
-            triangles[tri][0] = vKeys[0];
-            triangles[tri][1] = vKeys[1];
-            triangles[tri][2] = vKeys[2];
-        }
-    }
-    generateEdges();
-    if (rebuildRefresh)
-    {
-        rebuildOctree();
-        refresh();
-    }
-    return vertexOffset;
-}
-
-void SubdivisionSurface::simpleSubdivision4to12(int level, bool octreeRebuild, bool refreshDisplay)
+void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bool refreshDisplay)
 {
     // Loops for number of levels to subdivide
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
@@ -166,7 +59,7 @@ void SubdivisionSurface::simpleSubdivision4to12(int level, bool octreeRebuild, b
 
         // Clear edges, triangles, ABCD of each vertex
         // Easily Parallelizable
-        for (KeyData vertexID = 0; vertexID < vertexOffset; vertexID++)
+        for (int vertexID = 0; vertexID < vertexOffset; vertexID++)
         {
             edges[vertexID].vertexEdges.clear();
             vertices[vertexID].triangleIDs.clear();
@@ -184,23 +77,18 @@ void SubdivisionSurface::simpleSubdivision4to12(int level, bool octreeRebuild, b
             triangleMidpointMap.push_back(midpointIDs);
         }
 
-        // vector<unordered_map<char, int>> ABCDmaps;
-        // ABCDmaps.reserve(vertices.size());
-        // for (int i = 0; i < vertices.size(); i++)
-        // {
-        //     ABCDmaps.emplace_back(unordered_map<char, int>());
-        // }
-
         int triangleIndex = 0;
         IndexedTriangles newTriangles;
         for (TriangleID tri = 0; tri < triangles.size(); tri++)
         {
+            KeyList midpoints = triangleMidpointMap[tri];
+
             for (int i = 0; i < 3; i++)
             {
                 IndexedTriangle newTriangle;
                 newTriangle[0] = triangles[tri][i];
-                newTriangle[1] = triangleMidpointMap[tri][i];
-                newTriangle[2] = triangleMidpointMap[tri][(i + 2) % 3];
+                newTriangle[1] = midpoints[i];
+                newTriangle[2] = midpoints[(i + 2) % 3];
                 vertices[newTriangle[0]].triangleIDs.emplace_back(triangleIndex);
                 vertices[newTriangle[1]].triangleIDs.emplace_back(triangleIndex);
                 vertices[newTriangle[2]].triangleIDs.emplace_back(triangleIndex);
@@ -209,9 +97,9 @@ void SubdivisionSurface::simpleSubdivision4to12(int level, bool octreeRebuild, b
             }
 
             IndexedTriangle midpointTriangle;
-            midpointTriangle[0] = triangleMidpointMap[tri][0];
-            midpointTriangle[1] = triangleMidpointMap[tri][1];
-            midpointTriangle[2] = triangleMidpointMap[tri][2];
+            midpointTriangle[0] = midpoints[0];
+            midpointTriangle[1] = midpoints[1];
+            midpointTriangle[2] = midpoints[2];
             vertices[midpointTriangle[0]].triangleIDs.emplace_back(triangleIndex);
             vertices[midpointTriangle[1]].triangleIDs.emplace_back(triangleIndex);
             vertices[midpointTriangle[2]].triangleIDs.emplace_back(triangleIndex);
@@ -219,40 +107,33 @@ void SubdivisionSurface::simpleSubdivision4to12(int level, bool octreeRebuild, b
             triangleIndex++;
         }
 
-        for(TriangleID tri = 0; tri < triangles.size(); tri++) {
-            for (int i = 0; i < 3; i++)
-            {
-                int oneStepAhead = (i + 1) % 3;
-                int twoStepsAhead = (i + 2) % 3;
-                // Fill out ABCD maps for each vertex in triangle
-                // A and B can be duplicates, so try_emplace
-                vertices[triangleMidpointMap[tri][i]].ABCDmap.try_emplace('A', triangles[tri][i]);
-                vertices[triangleMidpointMap[tri][i]].ABCDmap.try_emplace('B', triangles[tri][oneStepAhead]);
-
-                // // If C is not in map emplace opposing vertex as C
-                // // If it does exist, emplace opposing vertex as D
-                if (vertices[triangleMidpointMap[tri][i]].ABCDmap.find('C') == vertices[triangleMidpointMap[tri][i]].ABCDmap.end())
-                {
-                    vertices[triangleMidpointMap[tri][i]].ABCDmap.emplace('C', triangles[tri][twoStepsAhead]);
-                }
-                else
-                {
-                    vertices[triangleMidpointMap[tri][i]].ABCDmap.emplace('D', triangles[tri][twoStepsAhead]);
-                }
-            }
-        }
-
-        // temp? bandage for ABCD stuff
-        // Easily Parallelizable
-        for (int vertexID = 0; vertexID < vertices.size(); vertexID++)
+        for (TriangleID tri = 0; tri < triangles.size(); tri++)
         {
-            vertices[vertexID].ABCD.emplace_back(vertices[vertexID].ABCDmap['A']);
-            vertices[vertexID].ABCD.emplace_back(vertices[vertexID].ABCDmap['B']);
-            vertices[vertexID].ABCD.emplace_back(vertices[vertexID].ABCDmap['C']);
+            IndexedTriangle triangle = triangles[tri];
 
-            if (vertices[vertexID].ABCDmap.find('D') != vertices[vertexID].ABCDmap.end())
+            RV3D mp0 = vertices[triangleMidpointMap[tri][0]];
+            RV3D mp1 = vertices[triangleMidpointMap[tri][1]];
+            RV3D mp2 = vertices[triangleMidpointMap[tri][2]];
+
+            mp0.ABCDmap.try_emplace('A', triangle[0]);
+            mp0.ABCDmap.try_emplace('B', triangle[1]);
+            if (!mp0.ABCDmap.try_emplace('C', triangle[2]).second)
             {
-                vertices[vertexID].ABCD.emplace_back(vertices[vertexID].ABCDmap['D']);
+                mp0.ABCDmap.try_emplace('D', triangle[2]);
+            }
+
+            mp1.ABCDmap.try_emplace('A', triangle[1]);
+            mp1.ABCDmap.try_emplace('B', triangle[2]);
+            if (!mp1.ABCDmap.try_emplace('C', triangle[0]).second)
+            {
+                mp1.ABCDmap.try_emplace('D', triangle[0]);
+            }
+
+            mp2.ABCDmap.try_emplace('A', triangle[2]);
+            mp2.ABCDmap.try_emplace('B', triangle[0]);
+            if (!mp2.ABCDmap.try_emplace('C', triangle[1]).second)
+            {
+                mp2.ABCDmap.try_emplace('D', triangle[1]);
             }
         }
 
@@ -283,8 +164,8 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh)
 {
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
     {
-        simpleSubdivision4to12(1, false, false); // 4:1 subdivision. First step of loop subdivision
-        Vertices newVertexList = vertices;       // New vertex list
+        simpleSubdivision4to1(1, false, false); // 4:1 subdivision. First step of loop subdivision
+        Vertices newVertexList = vertices;      // New vertex list
 
         // Calculate new position for every original vertex before subdivision
         for (int vertexID = 0; vertexID < vertexOffset; vertexID++)
@@ -297,12 +178,13 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh)
         }
 
         // Calculate new position for every vertex that was created during subdivision
-        for (KeyData vertexID = vertexOffset; vertexID < vertices.size(); vertexID++)
+        for (int vertexID = vertexOffset; vertexID < vertices.size(); vertexID++)
         {
-            vector<int> ABCD = vertices[vertexID].ABCD; // Get the ABCD vector for the vertex
+            // vector<int> ABCD = vertices[vertexID].ABCD;                    // Get the ABCD vector for the vertex
+            unordered_map<char, int> ABCDmap = vertices[vertexID].ABCDmap; // Map of ABCD vector
 
-            newVertexList[vertexID] = (0.375f * (vertices[ABCD[0]].position + vertices[ABCD[1]].position)) +
-                                      (0.125f * (vertices[ABCD[2]].position + vertices[ABCD[3]].position));
+            newVertexList[vertexID] = (0.375f * (vertices[ABCDmap['A']].position + vertices[ABCDmap['B']].position)) +
+                                      (0.125f * (vertices[ABCDmap['C']].position + vertices[ABCDmap['D']].position));
         }
 
         // Calculate new position for every original vertex before subdivision

@@ -115,8 +115,10 @@ bool OctreeDefinition::Octree::updateTrianglesInOctree(TriangleIDList tris)
 
 void OctreeDefinition::Octree::octreeReinsertTriangles() {
     TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
+    foreach(octant, octants) {
+        octant.triangleIDs.clear();
+    }
     for(int i = 0; i < triangles.size(); i++) {
-        removeTriangleFromOctree(i);
         insertTriangle(i);
     }
 }
