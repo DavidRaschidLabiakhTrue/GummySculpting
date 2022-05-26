@@ -86,6 +86,21 @@ const int EdgeListDefinition::EdgeList::edgesTotal()
     return (const int) edges.size();
 }
 
+v4 EdgeListDefinition::EdgeList::colorAverageAt(KeyData key)
+{
+	v4 res = v4(0);
+
+	auto& edge = edges[key].vertexEdges;
+
+	forall(element, edge)
+	{
+		res += vertices[element].color;
+	}
+	res /= (float)edge.size();
+
+    return res;
+}
+
 v3 EdgeListDefinition::EdgeList::averageAt(KeyData key)
 {
 	v3 res = v3(0);

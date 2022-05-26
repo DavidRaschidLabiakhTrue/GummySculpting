@@ -48,6 +48,10 @@ namespace MeshDefinition
 
 			void forwardHistory();
 
+			void undoHistory();
+			void redoHistory();
+
+
 			void cullHistory(ChangeLogLevel levelsUpwardToCull);
 			void createVariableMap();
 
@@ -57,6 +61,7 @@ namespace MeshDefinition
 			ChangeLog history; // mesh reversion history.
 
 
+			bool needToRefresh = false; // need to refresh GPU binding
 
 			string name;
 

@@ -22,6 +22,7 @@ namespace ToolsWindowDefinition
 	};
 
 	extern v4 ColorSlider_Color_Values;
+	extern float RadiusSlider;
 }
 
 #endif // !ToolsWindow_HPP

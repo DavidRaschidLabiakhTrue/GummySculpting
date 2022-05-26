@@ -36,7 +36,7 @@ namespace RayCastDefinition
 			RV3D origin();
 			RV3D end();
 
-			bool shouldDrawRay = true;
+			bool shouldDrawRay = false;
 			v3 direction = v3(0,0,0);
 			void screenToWorld();
 			void bindRay();

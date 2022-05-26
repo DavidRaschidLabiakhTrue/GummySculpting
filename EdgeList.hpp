@@ -35,6 +35,8 @@ namespace EdgeListDefinition
 			v3 averageAt(KeyData key);
 
 
+			v4 colorAverageAt(KeyData key);
+
 
 
 			Edges edges;

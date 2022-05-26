@@ -73,17 +73,23 @@ void CameraDefinition::Camera::checkKeyInput()
 			pos += speed * orientation;
 
 		}
+		else if (CheckKeyPressed(GLFW_KEY_S))
+		{
+			pos += speed * -orientation;
+
+		}
 
 		if (CheckKeyPressed(GLFW_KEY_A))
 		{
 			pos += speed * -glm::normalize(glm::cross(orientation, up));
 
 		}
-		if (CheckKeyPressed(GLFW_KEY_S))
+		else if (CheckKeyPressed(GLFW_KEY_D))
 		{
-			pos += speed * -orientation;
+			pos += speed * glm::normalize(glm::cross(orientation, up));
 
 		}
+
 		/*
 		* // Problematic system
 		// this case consumes mouse scroll wheel input and moves the view forward or backwards. It uses a distance multiplier to also operate.
@@ -93,11 +99,7 @@ void CameraDefinition::Camera::checkKeyInput()
 			WindowGlobal::ActiveWindow->scroll_state = 0;
 		}
 		*/
-		if (CheckKeyPressed(GLFW_KEY_D))
-		{
-			pos += speed * glm::normalize(glm::cross(orientation, up));
 
-		}
 		if (CheckKeyPressed(GLFW_KEY_R))
 		{
 			//resetViewAndPos(); // unimplemented
@@ -106,10 +108,11 @@ void CameraDefinition::Camera::checkKeyInput()
 		{
 			pos += speed * up;
 		}
-		if (CheckKeyPressed(GLFW_KEY_LEFT_CONTROL))
+		else if (CheckKeyPressed(GLFW_KEY_X))
 		{
 			pos += speed * -up;
 		}
+
 		// speed
 		if (CheckKeyPressed(GLFW_KEY_LEFT_SHIFT))
 		{

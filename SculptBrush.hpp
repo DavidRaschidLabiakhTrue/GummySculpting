@@ -9,7 +9,7 @@ namespace SculptBrushDefinition
 	using namespace SamplerDefinition;
 	using namespace SculptPayloadDefinition;
 
-	enum BrushState{BrushStateSmooth, BrushStateStroke, BrushStateColor, BrushStateNoise};
+	enum BrushState{BrushStateSmooth, BrushStateStroke, BrushStateColor, BrushStateNoise, BrushStateSmoothedColor};
 
 	class SculptBrush : public Sampler
 	{
@@ -17,6 +17,8 @@ namespace SculptBrushDefinition
 			SculptBrush();
 			~SculptBrush();
 			SculptBrush(bool trueConstructor);
+
+			void applySculpt(MeshReference cMesh);
 
 			void querySculpt(MeshReference cMesh);
 

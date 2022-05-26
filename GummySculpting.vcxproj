@@ -196,6 +196,7 @@
     <ClCompile Include="SamplerPayload.cpp" />
     <ClCompile Include="SculptBrush.cpp" />
     <ClCompile Include="SculptPayload.cpp" />
+    <ClCompile Include="SmoothedColor.cpp" />
     <ClCompile Include="Smoothing.cpp" />
     <ClCompile Include="Stroking.cpp" />
     <ClCompile Include="SubdivisionSurface.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="SamplerPayload.hpp" />
     <ClInclude Include="SculptBrush.hpp" />
     <ClInclude Include="SculptPayload.hpp" />
+    <ClInclude Include="SmoothedColor.hpp" />
     <ClInclude Include="Smoothing.hpp" />
     <ClInclude Include="Stroking.hpp" />
     <ClInclude Include="SubdivisionSurface.hpp" />

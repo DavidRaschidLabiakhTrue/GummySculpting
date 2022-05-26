@@ -57,6 +57,43 @@ int MainProgram::ProgramCycle()
 
 	return 0;
 }
+void MainProgram::parseCommandLineArguments(StringList& arguments)
+{
+	string parser = "";
+	if (arguments.size() == 0)
+	{
+		arguments.emplace_back("sphere16k.gum"); // default argument
+	}
+	else
+	{
+		foreach(arg, arguments)
+		{
+			int argSize = (int)arg.size();
+
+			if (argSize < 4)
+			{
+				continue;
+			}
+			else
+			{
+			}
+		}
+	}
+
+	forall(strArg, arguments)
+	{ // check if string can even be a .gum or .obj
+		if (strArg.size() > 4)
+		{
+			parser = strArg.substr(strArg.size() - 4, strArg.size());
+
+			if (parser == ".gum")
+			{
+				renderer.loadMeshFromFile(strArg);
+			}
+			parser.clear();
+		}
+	}
+}
 
 MainProgram::MainProgram()
 {
@@ -329,6 +366,10 @@ void MainProgram::processSculptorCommand(StringList& arguments, int numArgs)
 		case NOISE:
 			brush.currentState = BrushState::BrushStateNoise;
 			break;
+		case SMOOTHEDCOLOR:
+			brush.currentState = BrushState::BrushStateSmoothedColor;
+			break;
+
 	}
 }
 
@@ -363,43 +404,7 @@ void MainProgram::preprocess(StringList &arguments)
 
 
 
-void MainProgram::parseCommandLineArguments(StringList &arguments)
-{
-    string parser = "";
-    if (arguments.size() == 0)
-    {
-        arguments.emplace_back("sphere254k.gum"); // default argument
-    }
-    else
-    {
-        foreach (arg, arguments)
-        {
-            int argSize = (int)arg.size();
 
-            if (argSize < 4)
-            {
-                continue;
-            }
-            else
-            {
-            }
-        }
-    }
-
-    forall(strArg, arguments)
-    { // check if string can even be a .gum or .obj
-        if (strArg.size() > 4)
-        {
-            parser = strArg.substr(strArg.size() - 4, strArg.size());
-
-            if (parser == ".gum")
-            {
-                renderer.loadMeshFromFile(strArg);
-            }
-            parser.clear();
-        }
-    }
-}
 void MainProgram::bindGraphicsDataToGPU()
 {
     renderer.bindAllMeshes();

@@ -28,6 +28,13 @@ void TopBarDefinition::TopBar::build()
 	if (ImGui::BeginMenu("View"))
 	{
 		ImGui::MenuItem("Reset Camera");
+
+		if (ImGui::MenuItem("Toggle Wireframe"))
+		{
+			vector<string> debugToggleCommand = { "renderer",  "toggle", "wireframe"};
+			MainDirectiveDefinition::Directives.push_back(debugToggleCommand);
+		}
+
 		ImGui::EndMenu();
 	}
 	if (ImGui::BeginMenu("Settings"))
