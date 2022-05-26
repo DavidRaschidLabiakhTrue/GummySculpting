@@ -33,7 +33,7 @@ void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReferenc
 
 	forall(element, apply)
 	{
-		cMesh.vertices[element.first].position += cMesh.averageAt(element.first);
+		cMesh.vertices[element.first].position += 0.1f * cMesh.averageAt(element.first);
 	}
 
 

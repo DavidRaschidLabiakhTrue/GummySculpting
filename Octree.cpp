@@ -23,8 +23,8 @@ void OctreeDefinition::Octree::octreePrintStats()
     say "\tLeaves:" spc leaves.size() done;
 
     int count = 0; // Counts leaves and pseudo-leaves
-    int owt = 0; // Octants with triangles
-    int pwt = 0; // Triangles in pseudo leaves
+    int owt = 0;   // Octants with triangles
+    int pwt = 0;   // Triangles in pseudo leaves
     foreach (o, octants)
     {
         if (o.octantState)
@@ -52,11 +52,12 @@ void OctreeDefinition::Octree::octreePrintStats()
  * Same ideas can be used for unit testing.
  *
  */
-void OctreeDefinition::Octree::testOctree() {
+void OctreeDefinition::Octree::testOctree()
+{
 
     this->octreePrintStats();
 
-	// Testing Intersection and Collection
+    // Testing Intersection and Collection
     v3 rayOrigin(0, 0, 3);
     v3 rayDirection(0, 0, -1);
     OctreeCollision collision = this->octreeRayIntersection(rayOrigin, rayDirection);
@@ -71,34 +72,36 @@ void OctreeDefinition::Octree::testOctree() {
             << glm::to_string(vertices[triangles[collision.triangleID][1]].position) << ", "
             << glm::to_string(vertices[triangles[collision.triangleID][2]].position) << " >" done;
         say "\tIntersection Point: " << glm::to_string(collision.position) done;
-        double collectRange = glm::sqrt(2)/8;
+        double collectRange = glm::sqrt(2) / 8;
         KeyList verticesCollected = collectVerticesAroundCollision(collision, collectRange);
         say "\tVertices Around Collision (Range " << collectRange << "): " << verticesCollected.size();
         for (int i = 0; i < verticesCollected.size(); i++)
         {
-			say (i%20 == 0 ? "\n\t\t" : "") << verticesCollected[i] << " ";
+            say(i % 20 == 0 ? "\n\t\t" : "") << verticesCollected[i] << " ";
         }
         say endl;
     }
 
-	// Testing removal
-	int count = 0;
-	foreach(octant, octants) {
-		count += (int) octant.triangleIDs.size();
-	}
-	say "Triangles in Octree: " << count done;
-	say "Triangles in Mesh (should be same ^): " << totalTriangles() done;
+    // Testing removal
+    int count = 0;
+    foreach (octant, octants)
+    {
+        count += (int)octant.triangleIDs.size();
+    }
+    say "Triangles in Octree: " << count done;
+    say "Triangles in Mesh (should be same ^): " << totalTriangles() done;
 
-	for(int i = 0; i < totalTriangles(); i++)
-	{
-		removeTriangleFromOctree(i);
-	}
+    for (int i = 0; i < totalTriangles(); i++)
+    {
+        removeTriangleFromOctree(i);
+    }
 
-	count = 0;
-	foreach(octant, octants) {
-		count += (int) octant.triangleIDs.size();
-	}
-	say "Triangles in Octree after Removal (should be 0): " << count done;
+    count = 0;
+    foreach (octant, octants)
+    {
+        count += (int)octant.triangleIDs.size();
+    }
+    say "Triangles in Octree after Removal (should be 0): " << count done;
 
     say "---Clearing Octree---" done;
     clearOctree();
@@ -128,6 +131,7 @@ void OctreeDefinition::Octree::buildOctree()
     rootOctant.octantIndex = 0;
     rootOctant.octantCenter = this->center;
     rootOctant.octantHalfSize = glm::max(maxExtent, minExtent) * octreeBuffer;
+    // rootOctant.octantState = ;
     octants.emplace_back(rootOctant);
 
     say "done" done;
@@ -144,7 +148,8 @@ void OctreeDefinition::Octree::buildOctree()
  * @brief Clear the octree and reset appropriate values.
  *
  */
-void OctreeDefinition::Octree::clearOctree() {
+void OctreeDefinition::Octree::clearOctree()
+{
     octants.clear();
     octreeDepth = 0;
     octreeCurrentDepth = 0;
@@ -158,7 +163,8 @@ void OctreeDefinition::Octree::clearOctree() {
  * 3. Builds the octree
  *
  */
-void OctreeDefinition::Octree::rebuildOctree() {
+void OctreeDefinition::Octree::rebuildOctree()
+{
     clearOctree();
     collectStats();
     buildOctree();
@@ -184,7 +190,8 @@ void OctreeDefinition::Octree::resizeOctree(TriangleID tri)
     // Continuously resize until triangle fits into the root octant
     while (!isTriangleInOctantBounds(tri, root))
     {
-        OctantReference oldRoot = octants[root]; // Save oldRoot to replace one of the new root's children
+
+        Octant oldRoot = octants[root]; // Save oldRoot to replace one of the new root's children
 
         // Get morton code of triangle centroid to determine direction to grow octree
         OctantPosition newRootDirection = (OctantPosition)mortonCodeHash(triangleCentroid, oldRoot.octantCenter);
@@ -218,15 +225,23 @@ void OctreeDefinition::Octree::resizeOctree(TriangleID tri)
         // Then replace octant at the index with the old root
         OctantPosition oldRootNewPosition = (OctantPosition)mortonCodeHash(oldRootAdjustedCenter, newRootCenter);
         OctantIndex oldRootNewIndex = octants[root].children[oldRootNewPosition];
+        oldRoot.octantIndex = oldRootNewIndex;
         octants[oldRootNewIndex] = oldRoot;
+
+        foreach (triangleID, oldRoot.triangleIDs)
+        {
+            triangleToOctantList[triangleID].octantIndex = oldRootNewIndex;
+        }
 
         // Adjust the parent values of the old roots children to point to its new index
         if (oldRoot.octantState != OctantLeaf)
         {
             foreach (child, oldRoot.children)
             {
-                octants[oldRoot.children[child]].parent = oldRootNewIndex;
+                octants[child].parent = oldRootNewIndex;
             }
         }
     }
+
+    // octreeReinsertTriangles();
 }

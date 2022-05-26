@@ -10,7 +10,7 @@ MeshStats::~MeshStats()
 }
 
 /*
-	Collect All Relevant Stats in a mesh linearly. 
+	Collect All Relevant Stats in a mesh linearly.
 */
 void MeshStats::collectStats()
 {
@@ -20,7 +20,7 @@ void MeshStats::collectStats()
 
 	forall(vert, vertices)
 	{
-		center += vert.position;
+		tempCenter += vert.position;
 
 		if (vert.position.x > max.x)
 		{
