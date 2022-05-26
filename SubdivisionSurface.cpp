@@ -50,6 +50,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
                 {
                     v3 midpoint = (vertices[vertexID].position + vertices[otherVertexID].position) * 0.5f;
                     V3D newVert = midpoint;
+                    newVert.color = (vertices[vertexID].color + vertices[otherVertexID].color)*0.5f;
                     vertices.emplace_back(newVert);
                     midpointMap.emplace(midpoint, vertexIndex);
                     vertexIndex++;
