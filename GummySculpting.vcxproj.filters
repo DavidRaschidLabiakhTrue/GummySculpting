@@ -193,6 +193,9 @@
     <ClCompile Include="SmoothedColor.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Color\Smoothing Color</Filter>
     </ClCompile>
+    <ClCompile Include="CameraNav.cpp">
+      <Filter>GUI\CameraNav</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -398,6 +401,9 @@
     </ClInclude>
     <ClInclude Include="SmoothedColor.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Color\Smoothing Color</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraNav.hpp">
+      <Filter>GUI\CameraNav</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -699,6 +705,9 @@
     </Filter>
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Color\Smoothing Color">
       <UniqueIdentifier>{008f3de2-f315-4c63-baa1-238851624af4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\CameraNav">
+      <UniqueIdentifier>{4b45fe53-0bd3-4bca-bc9a-702f8eba2d18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
