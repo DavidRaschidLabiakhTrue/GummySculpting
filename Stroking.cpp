@@ -30,11 +30,14 @@ void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReferenc
 		}
 
 	}
-
-	forall(element, apply)
+	for (int i = 0; i < 4; i++)
 	{
-		cMesh.vertices[element.first].position += 0.1f * cMesh.averageAt(element.first);
+		forall(element, apply)
+		{
+			cMesh.vertices[element.first].position += 0.001f * normalize(cMesh.averageAt(element.first));
+		}
 	}
+
 
 
 
