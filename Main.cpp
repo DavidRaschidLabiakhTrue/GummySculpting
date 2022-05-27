@@ -248,6 +248,12 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
                 debug.AddLog("Main: Error: Bad Argument: %s", e.what());
                 break;
             }
+		case UNDO:
+			renderer.getActiveMesh()->undoHistory();
+			break;
+		case REDO:
+			renderer.getActiveMesh()->redoHistory();
+			break;
     }
 }
 
