@@ -19,7 +19,7 @@ void ToolbarDefinition::Toolbar::build()
 	ImGui::SetNextWindowPos(ImVec2(viewport->Pos.x, viewport->Pos.y + topBar.getHeight()));
 	ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, toolbarHeight));
 
-	vector<string> buildMessage;
+
 
 	ImGuiWindowFlags window_flags = 0
 		| ImGuiWindowFlags_NoTitleBar
@@ -35,50 +35,50 @@ void ToolbarDefinition::Toolbar::build()
 
 	if (ImGui::Button("Stroke Brush", ImVec2(0, buttonHeight)))
 	{
-		buildMessage = { "sculptor", "stroke" };
-		MainDirectiveDefinition::Directives.push_back(buildMessage);
+
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "stroke" });
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Smooth Brush", ImVec2(0, buttonHeight)))
 	{
-		buildMessage = { "sculptor", "smooth" };
-		MainDirectiveDefinition::Directives.push_back(buildMessage);
+
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "smooth" });
 	};
 	ImGui::SameLine();
 	if (ImGui::Button("Color Brush", ImVec2(0, buttonHeight)))
 	{
-		buildMessage = { "sculptor", "color" };
-		MainDirectiveDefinition::Directives.push_back(buildMessage);
+
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "color" });
 	};
 	ImGui::SameLine();
 
 
 	if (ImGui::Button("Smoothed Color Brush", ImVec2(0, buttonHeight)))
 	{
-		buildMessage = { "sculptor", "smoothedcolor" };
-		MainDirectiveDefinition::Directives.push_back(buildMessage);
+
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "smoothedcolor" });
 	};
 	ImGui::SameLine();
 
 	if (ImGui::Button("Noise Brush", ImVec2(0, buttonHeight)))
 	{
-		buildMessage = { "sculptor", "noise" };
-		MainDirectiveDefinition::Directives.push_back(buildMessage);
+
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "noise" });
 	}
 
 	ImGui::SameLine();
 
 	if (ImGui::Button("Simple Subdivide", ImVec2(0, buttonHeight)))
 	{
-		buildMessage = { "mesh", "simplesubdivide", "1"};
-		MainDirectiveDefinition::Directives.push_back(buildMessage);
+
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "simplesubdivide", "1" });
 	}
 	ImGui::SameLine();
 
 	if (ImGui::Button("Loop Subdivide", ImVec2(0, buttonHeight)))
 	{
-		buildMessage = { "mesh", "loopsubdivide", "1" };
-		MainDirectiveDefinition::Directives.push_back(buildMessage);
+
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "loopsubdivide", "1" });
 	}
 
 

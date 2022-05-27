@@ -9,6 +9,8 @@
 
 #include "KeyInput.hpp"
 
+#include "TopologyComputation.hpp"
+
 using namespace RayCastDefinition;
 using namespace Window_API;
 using namespace CameraDefinition;
@@ -133,6 +135,18 @@ void RayCastDefinition::RayCast::screenToWorld()
 
 	if (shouldDrawRay)
 	{
+		/*
+		v3 newOrigin;
+		v3 newDirection;
+		TopologyComputationDefinition::swapRayAxisAndOrigin(direction, vertices[0].position, newDirection, newOrigin);
+
+		direction = newDirection;
+
+		vertices[0].position = newOrigin;
+		vertices[1].position = vertices[0].position + direction * v3(200);
+
+		*/
+
 		refreshRay();
 	}
 

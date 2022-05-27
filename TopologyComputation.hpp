@@ -10,6 +10,8 @@ namespace TopologyComputationDefinition
 
 	bool intersectionMoller(rv3 origin, rv3 direction, rv3 p0, rv3 p1, rv3 p2, rv3 intersectionPoint); // moller intersection
 
+	bool swapRayAxisAndOrigin(rv3 originalDir, rv3 originalOrigin, rv3 newDir, rv3 newOrigin);
+
 
 }
 

@@ -3,6 +3,7 @@
 using namespace GuiDefinition;
 using namespace TopBarDefinition;
 using namespace ToolbarDefinition;
+using namespace CameraNavDefinition;
 using namespace ToolsWindowDefinition;
 
 
@@ -33,6 +34,7 @@ void GuiDefinition::GUI::buildGuiFrame()
 {
 	topBar.build();
 	toolbar.build();
+	cameraNav.build();
 	toolsWindow.build();
 }
 

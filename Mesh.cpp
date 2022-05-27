@@ -56,10 +56,12 @@ KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
 
 void MeshDefinition::Mesh::undoHistory()
 {
+	say "Undoing History" done;
 }
 
 void MeshDefinition::Mesh::redoHistory()
 {
+	say "Redoing History" done;
 }
 
 void MeshDefinition::Mesh::cullHistory(ChangeLogLevel levelsUpwardToCull)

@@ -12,7 +12,7 @@ namespace ToolbarDefinition
 	using namespace Window_API;
 	using namespace TopBarDefinition;
 
-	// a gui class that enables a top bar in gummy
+	// a gui class that enables a toolbar in gummy
 	class Toolbar
 	{
 	public:

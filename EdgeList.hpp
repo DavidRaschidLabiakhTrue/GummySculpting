@@ -16,13 +16,15 @@ namespace EdgeListDefinition
 	*	edges[i] will return an edge that contains all *edges* to element i which also refers to the *vertex* in vertices[i]. It does not explicitly store the ID
 	*/
 
+
+
 	class EdgeList : public VertexLookUp
 	{
 		public:
 			EdgeList();
 			~EdgeList();
 
-			EdgeReference getEdge(KeyData key);
+			EdgeReference getEdge(KeyData key) EDGENOEXCEPT;
 
 			void generateEdges();
 
@@ -30,12 +32,12 @@ namespace EdgeListDefinition
 
 			void printAllEdges();
 
-			const int edgesTotal();
+			const int edgesTotal() EDGENOEXCEPT;
 
-			v3 averageAt(KeyData key);
+			v3 averageAt(KeyData key) EDGENOEXCEPT;
 
 
-			v4 colorAverageAt(KeyData key);
+			v4 colorAverageAt(KeyData key) EDGENOEXCEPT;
 
 
 

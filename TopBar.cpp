@@ -12,6 +12,7 @@ TopBarDefinition::TopBar::~TopBar()
 
 void TopBarDefinition::TopBar::build()
 {
+	vector<string> buildCommand;
 	ImGui::BeginMainMenuBar();
 	if (ImGui::BeginMenu("File"))
 	{
@@ -21,8 +22,14 @@ void TopBarDefinition::TopBar::build()
 	}
 	if (ImGui::BeginMenu("Edit"))
 	{
-		ImGui::MenuItem("Undo");
-		ImGui::MenuItem("Redo");
+		if (ImGui::MenuItem("Undo"))
+		{
+			MainDirectiveDefinition::Directives.push_back({ "mesh", "undo" });
+		}
+		if (ImGui::MenuItem("Redo"))
+		{
+			MainDirectiveDefinition::Directives.push_back({ "mesh", "redo" });
+		}
 		ImGui::EndMenu();
 	}
 	if (ImGui::BeginMenu("View"))
@@ -31,8 +38,7 @@ void TopBarDefinition::TopBar::build()
 
 		if (ImGui::MenuItem("Toggle Wireframe"))
 		{
-			vector<string> debugToggleCommand = { "renderer",  "toggle", "wireframe"};
-			MainDirectiveDefinition::Directives.push_back(debugToggleCommand);
+			MainDirectiveDefinition::Directives.push_back({ "renderer",  "toggle", "wireframe" });
 		}
 
 		ImGui::EndMenu();
@@ -46,8 +52,7 @@ void TopBarDefinition::TopBar::build()
 	{
 		if (ImGui::MenuItem("Debug Console"))
 		{
-			vector<string> debugToggleCommand = { "debug",  "toggle" };
-			MainDirectiveDefinition::Directives.push_back(debugToggleCommand);
+			MainDirectiveDefinition::Directives.push_back({ "debug",  "toggle" });
 		}
 		
 		ImGui::MenuItem("Help Guide");
