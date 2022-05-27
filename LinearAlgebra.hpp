@@ -1,6 +1,12 @@
 #ifndef LinearAlgebra_HPP
 #define LinearAlgebra_HPP
 
+#define GLM_FORCE_SSE2
+#define GLM_FORCE_ALIGNED
+#define GLM_FORCE_INTRINSICS
+
+
+
 
 #include "glm/vec3.hpp"
 #include "glm/vec4.hpp"
