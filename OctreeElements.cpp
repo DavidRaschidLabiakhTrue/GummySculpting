@@ -8,7 +8,7 @@ using namespace OctreeDefinition;
  * @return true
  * @return false
  */
-bool OctreeDefinition::Octree::insertTriangle(TriangleID tri)
+bool OctreeDefinition::Octree::insertTriangle(TriangleID tri) ONOEXCEPT
 {
     // Check if the triangle is in the octree
     if (!Octree::isTriangleInOctantBounds(tri, root))
@@ -44,7 +44,7 @@ bool OctreeDefinition::Octree::insertTriangle(TriangleID tri)
  * @return true
  * @return false
  */
-bool OctreeDefinition::Octree::removeTriangleFromOctree(TriangleID tri)
+bool OctreeDefinition::Octree::removeTriangleFromOctree(TriangleID tri) ONOEXCEPT
 {
     // Get octant that triangle is in
     OctantIndex oix = triangleToOctantList[tri].octantIndex;
@@ -57,8 +57,10 @@ bool OctreeDefinition::Octree::removeTriangleFromOctree(TriangleID tri)
 
     OctantReference octantRef = octants[oix]; // Get the octant reference for clarity
 
+	const int triangleIDsSize = octantRef.triangleIDs.size();
+
     // Search through the octants triangle list for the triangle
-    for (int i = 0; i < octantRef.triangleIDs.size(); i++)
+    for (int i = 0; i < triangleIDsSize; i++)
     {
         // If the triangle was found, remove it from the octant's list and return true
         if (octantRef.triangleIDs[i] == tri)
@@ -80,7 +82,7 @@ bool OctreeDefinition::Octree::removeTriangleFromOctree(TriangleID tri)
  * @return true
  * @return false
  */
-bool OctreeDefinition::Octree::updateTriangleInOctree(TriangleID tri)
+bool OctreeDefinition::Octree::updateTriangleInOctree(TriangleID tri) ONOEXCEPT
 {
     if (removeTriangleFromOctree(tri))
     {
@@ -98,7 +100,7 @@ bool OctreeDefinition::Octree::updateTriangleInOctree(TriangleID tri)
  * @return true
  * @return false
  */
-bool OctreeDefinition::Octree::updateTrianglesInOctree(TriangleIDList tris)
+bool OctreeDefinition::Octree::updateTrianglesInOctree(TriangleIDList tris) ONOEXCEPT
 {
 	bool updateSuccessful = true;
 	if (tris.size() == 0)
@@ -118,7 +120,8 @@ void OctreeDefinition::Octree::octreeReinsertTriangles() {
     foreach(octant, octants) {
         octant.triangleIDs.clear();
     }
-    for(int i = 0; i < triangles.size(); i++) {
+	const int countofTriangles = this->totalTriangles();
+    for(int i = 0; i < countofTriangles; i++) {
         insertTriangle(i);
     }
 }

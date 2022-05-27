@@ -16,6 +16,7 @@ void GL::set3DRenderingParameters()
 {
 	glEnable(GL_DEPTH_TEST); // we want depth test and later stencil
 	glDepthFunc(GL_LESS);
+	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CCW);
 	glEnable(GL_MULTISAMPLE);
 }

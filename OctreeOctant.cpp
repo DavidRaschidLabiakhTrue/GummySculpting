@@ -7,7 +7,7 @@ using namespace OctreeDefinition;
  * @param triangle
  * @return OctantIndex
  */
-OctantIndex OctreeDefinition::Octree::findOctantForTriangle(TriangleID triangle)
+OctantIndex OctreeDefinition::Octree::findOctantForTriangle(TriangleID triangle) ONOEXCEPT
 {
     octreeCurrentDepth = 0;                              // Set the current depth to 0
     v3 triangleCentroid = getTriangleCentroid(triangle); // get the triangle centroid, used for morton code
@@ -31,7 +31,7 @@ OctantIndex OctreeDefinition::Octree::findOctantForTriangle(TriangleID triangle)
     return currOctant;
 }
 
-int OctreeDefinition::Octree::mortonCodeHash(v3 point, v3 center)
+int OctreeDefinition::Octree::mortonCodeHash(v3 point, v3 center) ONOEXCEPT
 {
     // this function is performing a safety test on point.members that are "0" on an axis.
     // Due to the nature of floating points, -0.0f is possible and less than 0.0f, so this function takes this into account and auto converts -0.0f into 0.0f if it exists so there are no errors in the MortonCode produced.
@@ -44,7 +44,7 @@ int OctreeDefinition::Octree::mortonCodeHash(v3 point, v3 center)
  *
  * @param oix
  */
-void OctreeDefinition::Octree::subdivideOctant(OctantIndex oix)
+void OctreeDefinition::Octree::subdivideOctant(OctantIndex oix) ONOEXCEPT
 {
     // Update the current depth value of the octree if subdivision increases it
     if (octreeCurrentDepth == octreeDepth)
@@ -110,7 +110,7 @@ void OctreeDefinition::Octree::subdivideOctant(OctantIndex oix)
  * @param octantPosition
  * @param parentIndex
  */
-void OctreeDefinition::Octree::createChildOctant(OctantPosition octantPosition, OctantIndex parentIndex)
+void OctreeDefinition::Octree::createChildOctant(OctantPosition octantPosition, OctantIndex parentIndex) ONOEXCEPT
 {
     Octant childOctant;                                  // Empty octant
     OctantReference parentOctant = octants[parentIndex]; // Get the parent octant reference
@@ -146,7 +146,7 @@ void OctreeDefinition::Octree::createChildOctant(OctantPosition octantPosition, 
  * @return true
  * @return false
  */
-bool OctreeDefinition::Octree::isTriangleInOctantBounds(TriangleID tri, OctantIndex octantID)
+bool OctreeDefinition::Octree::isTriangleInOctantBounds(TriangleID tri, OctantIndex octantID) ONOEXCEPT
 {
     OctantReference oct = octants[octantID];                                            // retrieve the current processed octant
     IndexedTriangle triangle = triangles[tri];                                          // retrieve the current processed triangle

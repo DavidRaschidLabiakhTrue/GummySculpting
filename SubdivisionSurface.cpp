@@ -28,7 +28,7 @@ using namespace Subdivision;
  *       <v2,  mp2, mp1>
  *       <mp0, mp1, mp2> // This replaces the original triangle
  */
-void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bool refreshDisplay)
+void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bool refreshDisplay) SUBNOEXCEPT
 {
     // Loops for number of levels to subdivide
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
@@ -76,7 +76,10 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
 
         // Fill triangle midpoint map with all triangle midpoints
         // Parallelizable
-        for (TriangleID tri = 0; tri < triangles.size(); tri++)
+
+		const int countofTriangles = this->totalTriangles();
+
+        for (TriangleID tri = 0; tri < countofTriangles; tri++)
         {
             KeyList midpointIDs = {
                 midpointMap[getEdgeMidpoint(triangles[tri][0], triangles[tri][1])],
@@ -160,7 +163,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
     }
 }
 
-inline v3 SubdivisionSurface::getEdgeMidpoint(KeyData v1, KeyData v2)
+inline v3 SubdivisionSurface::getEdgeMidpoint(KeyData v1, KeyData v2) SUBNOEXCEPT
 {
     return (vertices[v1].position + vertices[v2].position) * 0.5f;
 }
@@ -168,7 +171,7 @@ inline v3 SubdivisionSurface::getEdgeMidpoint(KeyData v1, KeyData v2)
 // TODO: Need to adapt to include calculation for boundary vertices
 // Currently Assumes that all vertices are interior
 // Can Optimize with precomputed constants
-void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh)
+void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh) SUBNOEXCEPT
 {
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
     {
@@ -308,7 +311,7 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh)
 //     }
 // }
 
-float SubdivisionSurface::getBeta(int nEdges)
+float SubdivisionSurface::getBeta(int nEdges) SUBNOEXCEPT
 {
     float n = (float)nEdges;
     // nEdges = 1;
@@ -333,7 +336,7 @@ float SubdivisionSurface::getBeta(int nEdges)
     }
 }
 
-v3 SubdivisionSurface::sumNeighbors(unordered_set<KeyData> neighbors)
+v3 SubdivisionSurface::sumNeighbors(unordered_set<KeyData> neighbors) SUBNOEXCEPT
 {
     v3 sum = v3(0);
     for (KeyData neighbor : neighbors)
@@ -343,13 +346,13 @@ v3 SubdivisionSurface::sumNeighbors(unordered_set<KeyData> neighbors)
     return sum;
 }
 
-void SubdivisionSurface::subdivisionTest()
+void SubdivisionSurface::subdivisionTest() SUBNOEXCEPT
 {
     loopSubdivision(2);
     octreePrintStats();
 }
 
-void SubdivisionSurface::gotoSubdivisionLevel(int subdLevel)
+void SubdivisionSurface::gotoSubdivisionLevel(int subdLevel) SUBNOEXCEPT
 {
     if (subdLevel > currentSubdivisionLevel)
     {

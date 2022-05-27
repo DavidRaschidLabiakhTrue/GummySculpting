@@ -23,36 +23,47 @@ namespace OctreeDefinition
 
 #define MortonCodeConvert_Safe(MortonCodeVertexPosition, MortonCodeCenterPosition) (((((MortonCodeVertexPosition) == 0.0f) && std::signbit((MortonCodeVertexPosition))) ? 0.0f : (MortonCodeVertexPosition)) >= (MortonCodeCenterPosition))
 
+// Uncomment this line to apply no except to every octree function to boost performance
+#define USING_NOEXCEPT_OCTREE
+
+#ifndef USING_NOEXCEPT_OCTREE
+#define ONOEXCEPT
+#else
+#define ONOEXCEPT noexcept
+#endif
+
+
+
     class Octree : public OctreeStats
     {
         public:
             // Octree.cpp
-            void buildOctree();
-            void testOctree();
-            void octreePrintStats();
-            void resizeOctree(TriangleID tri);
-            void clearOctree();
-            void rebuildOctree();
+            void buildOctree() ONOEXCEPT;
+            void testOctree() ONOEXCEPT;
+            void octreePrintStats() ONOEXCEPT;
+            void resizeOctree(TriangleID tri) ONOEXCEPT;
+            void clearOctree() ONOEXCEPT;
+            void rebuildOctree() ONOEXCEPT;
 
             // OctreeOctant.cpp
-            void subdivideOctant(OctantIndex octantID);
-            void createChildOctant(OctantPosition octantPosition, OctantIndex parentIndex);
-            OctantIndex findOctantForTriangle(TriangleID tri);
-            bool isTriangleInOctantBounds(TriangleID tri, OctantIndex octantID);
+            void subdivideOctant(OctantIndex octantID) ONOEXCEPT;
+            void createChildOctant(OctantPosition octantPosition, OctantIndex parentIndex) ONOEXCEPT;
+            OctantIndex findOctantForTriangle(TriangleID tri) ONOEXCEPT;
+            bool isTriangleInOctantBounds(TriangleID tri, OctantIndex octantID) ONOEXCEPT;
 
             // OctreeElements.cpp
-            bool insertTriangle(TriangleID tri);
-            bool updateTriangleInOctree(TriangleID tri);
-            bool updateTrianglesInOctree(TriangleIDList tri);
-            bool removeTriangleFromOctree(TriangleID tri);
+            bool insertTriangle(TriangleID tri) ONOEXCEPT;
+            bool updateTriangleInOctree(TriangleID tri) ONOEXCEPT;
+            bool updateTrianglesInOctree(TriangleIDList tri) ONOEXCEPT;
+            bool removeTriangleFromOctree(TriangleID tri) ONOEXCEPT;
             void octreeReinsertTriangles();
 
             // OctreeIntersection.cpp
-            KeyList collectVerticesAroundCollision(OctreeCollision collision, double range);
-            TriangleIDList collectTrianglesAroundCollision(OctreeCollision collision, double range);
-            OctreeCollision octreeRayIntersection(v3 origin, v3 direction);
+            KeyList collectVerticesAroundCollision(OctreeCollision collision, double range) ONOEXCEPT;
+            TriangleIDList collectTrianglesAroundCollision(OctreeCollision collision, double range) ONOEXCEPT;
+            OctreeCollision octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT;
 
-            int mortonCodeHash(v3 point, v3 center); // returns the morton code position with respect to octant
+            int mortonCodeHash(v3 point, v3 center) ONOEXCEPT; // returns the morton code position with respect to octant
 
             // List of octants which contain triangles
             // OctantIndexList activeOctants;

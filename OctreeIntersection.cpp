@@ -9,7 +9,7 @@ using namespace OctreeDefinition;
  * @param range
  * @return KeyList
  */
-KeyList OctreeDefinition::Octree::collectVerticesAroundCollision(OctreeCollision collision, double range)
+KeyList OctreeDefinition::Octree::collectVerticesAroundCollision(OctreeCollision collision, double range) ONOEXCEPT
 {
     KeyList results; // list of keys returned from collecting method
 
@@ -58,7 +58,7 @@ KeyList OctreeDefinition::Octree::collectVerticesAroundCollision(OctreeCollision
  * @param range
  * @return TriangleIDList
  */
-TriangleIDList OctreeDefinition::Octree::collectTrianglesAroundCollision(OctreeCollision collision, double range)
+TriangleIDList OctreeDefinition::Octree::collectTrianglesAroundCollision(OctreeCollision collision, double range) ONOEXCEPT
 {
     return getTrianglesFromVertices(collectVerticesAroundCollision(collision, range));
 }
@@ -72,7 +72,7 @@ TriangleIDList OctreeDefinition::Octree::collectTrianglesAroundCollision(OctreeC
  * @param direction
  * @return OctreeCollision
  */
-OctreeCollision OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction)
+OctreeCollision OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT
 {
     // Create a new octree collision object and set distance to max float value
     OctreeCollision collision;

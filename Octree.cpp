@@ -6,7 +6,7 @@ using namespace OctreeDefinition;
 /**
  * @brief Print octree information for debugging.
  */
-void OctreeDefinition::Octree::octreePrintStats()
+void OctreeDefinition::Octree::octreePrintStats() ONOEXCEPT
 {
     say "Octree Debug" done;
     say "\tVertex Limit:" spc octantTriangleLimit done;
@@ -52,7 +52,7 @@ void OctreeDefinition::Octree::octreePrintStats()
  * Same ideas can be used for unit testing.
  *
  */
-void OctreeDefinition::Octree::testOctree()
+void OctreeDefinition::Octree::testOctree() ONOEXCEPT
 {
 
     this->octreePrintStats();
@@ -116,7 +116,7 @@ void OctreeDefinition::Octree::testOctree()
  * @brief Build the octree by inserting all triangles of the mesh into the octree.
  * Initializes the root octant.
  */
-void OctreeDefinition::Octree::buildOctree()
+void OctreeDefinition::Octree::buildOctree() ONOEXCEPT
 {
     say "Initializing Octree...";
 
@@ -148,7 +148,7 @@ void OctreeDefinition::Octree::buildOctree()
  * @brief Clear the octree and reset appropriate values.
  *
  */
-void OctreeDefinition::Octree::clearOctree()
+void OctreeDefinition::Octree::clearOctree() ONOEXCEPT
 {
     octants.clear();
     octreeDepth = 0;
@@ -163,7 +163,7 @@ void OctreeDefinition::Octree::clearOctree()
  * 3. Builds the octree
  *
  */
-void OctreeDefinition::Octree::rebuildOctree()
+void OctreeDefinition::Octree::rebuildOctree() ONOEXCEPT
 {
     clearOctree();
     collectStats();
@@ -176,7 +176,7 @@ void OctreeDefinition::Octree::rebuildOctree()
  *
  * @param tri
  */
-void OctreeDefinition::Octree::resizeOctree(TriangleID tri)
+void OctreeDefinition::Octree::resizeOctree(TriangleID tri) ONOEXCEPT
 {
     // If the depth limit is currently reached, increase limit to allow resizing
     if (octreeDepth == octreeDepthLimit)
