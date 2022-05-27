@@ -62,5 +62,5 @@ vector<int> VertexList::getTrianglesFromVertices(KeyList vertexIDs)
         }
     }
 
-    return vector<int>(triangleIDset.begin(), triangleIDset.end());
+    return vector<int>(triangleIDset.begin(), triangleIDset.end()); // sussy
 }

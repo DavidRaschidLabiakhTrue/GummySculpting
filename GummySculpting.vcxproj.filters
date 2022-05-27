@@ -279,9 +279,6 @@
     <ClInclude Include="LinearAlgebra.hpp">
       <Filter>Mathematics\Linear Algebra</Filter>
     </ClInclude>
-    <ClInclude Include="Macro.hpp">
-      <Filter>Utility and Macros</Filter>
-    </ClInclude>
     <ClInclude Include="MathDefinitions.hpp">
       <Filter>Mathematics\Definitions</Filter>
     </ClInclude>
@@ -404,6 +401,12 @@
     </ClInclude>
     <ClInclude Include="CameraNav.hpp">
       <Filter>GUI\CameraNav</Filter>
+    </ClInclude>
+    <ClInclude Include="Macro.hpp">
+      <Filter>Utility and Macros\Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="include\mini\ini.h">
+      <Filter>Utility and Macros\ini loading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -708,6 +711,12 @@
     </Filter>
     <Filter Include="GUI\CameraNav">
       <UniqueIdentifier>{4b45fe53-0bd3-4bca-bc9a-702f8eba2d18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility and Macros\Macro">
+      <UniqueIdentifier>{cd9dcd05-dd92-48f8-87f9-d85a337c5994}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility and Macros\ini loading">
+      <UniqueIdentifier>{61487071-c7bc-4897-911d-06ea3147422e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

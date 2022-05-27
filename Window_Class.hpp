@@ -14,6 +14,8 @@
 
 #include "MathDefinitions.hpp"
 
+#include "mini/ini.h"
+
 #define DEFAULT_openglVersionMajor 4
 #define DEFAULT_openGLVersionMinor 6
 
