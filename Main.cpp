@@ -9,6 +9,7 @@ Usage Window_API::Window_API_Functions;
 
 int main(int argc, char **argv)
 {
+
     StringList arguments(argv + 1, argv + argc); // loads the arguments as a string vector.
 
     say "Command Line Arguments:\n\t";
