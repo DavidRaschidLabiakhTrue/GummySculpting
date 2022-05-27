@@ -9,7 +9,7 @@ IndexedTriangle::~IndexedTriangle()
 {
 }
 
-KeyData& IndexedTriangleDefinition::IndexedTriangle::operator[](int pos)
+KeyData& IndexedTriangleDefinition::IndexedTriangle::operator[](const int pos) TRINOEXCEPT
 {
 	return indice[pos];
 }

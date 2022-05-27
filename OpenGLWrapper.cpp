@@ -18,7 +18,7 @@ void GL::set3DRenderingParameters()
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CCW);
-	glEnable(GL_MULTISAMPLE);
+	//glEnable(GL_MULTISAMPLE);
 }
 
 void GL::printOpenGLEnviromentInfo()

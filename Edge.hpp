@@ -11,6 +11,14 @@ namespace EdgeDefinition
 
 	typedef unordered_set<KeyData> VertexEdges;
 
+#define USING_NOEXCEPT_EDGE
+
+#ifndef USING_NOEXCEPT_EDGE
+#define EDGENOEXCEPT
+#else
+#define EDGENOEXCEPT noexcept
+#endif
+
 	// container for Edge IDs that correspond to a vertex list.
 	struct Edge
 	{

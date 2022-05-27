@@ -10,7 +10,7 @@ EdgeList::~EdgeList()
 {
 }
 
-EdgeReference EdgeList::getEdge(KeyData key)
+EdgeReference EdgeList::getEdge(KeyData key)  EDGENOEXCEPT
 {
 	return this->edges[key];
 }
@@ -81,12 +81,12 @@ void EdgeList::printAllEdges()
 
 }
 
-const int EdgeListDefinition::EdgeList::edgesTotal()
+const int EdgeListDefinition::EdgeList::edgesTotal() EDGENOEXCEPT
 {
     return (const int) edges.size();
 }
 
-v4 EdgeListDefinition::EdgeList::colorAverageAt(KeyData key)
+v4 EdgeListDefinition::EdgeList::colorAverageAt(KeyData key) EDGENOEXCEPT
 {
 	v4 res = v4(0);
 
@@ -101,7 +101,7 @@ v4 EdgeListDefinition::EdgeList::colorAverageAt(KeyData key)
     return res;
 }
 
-v3 EdgeListDefinition::EdgeList::averageAt(KeyData key)
+v3 EdgeListDefinition::EdgeList::averageAt(KeyData key) EDGENOEXCEPT
 {
 	v3 res = v3(0);
 

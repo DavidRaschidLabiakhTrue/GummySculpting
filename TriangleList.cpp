@@ -15,22 +15,22 @@ TriangleList::~TriangleList()
 
 }
 
-const int TriangleList::triangleCountAsindiceCount()
+const int TriangleList::triangleCountAsindiceCount() TRINOEXCEPT
 {
     return (triangles.size()) * 3;
 }
 
-const int TriangleList::triangleMemorySize()
+const int TriangleList::triangleMemorySize() TRINOEXCEPT
 {
 	return triangles.size() * (sizeof(IndexedTriangle));
 }
 
-const int TriangleListDefinition::TriangleList::totalTriangles()
+const int TriangleListDefinition::TriangleList::totalTriangles() TRINOEXCEPT
 {
     return triangles.size();
 }
 
-void TriangleList::printTriangleListToConsole()
+void TriangleList::printTriangleListToConsole() TRINOEXCEPT
 {
 	forall(tri, triangles)
 	{
