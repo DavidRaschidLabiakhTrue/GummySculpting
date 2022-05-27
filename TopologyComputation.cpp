@@ -40,4 +40,27 @@ bool TopologyComputationDefinition::intersectionMoller(rv3 origin, rv3 direction
     return false;
 }
 
+bool TopologyComputationDefinition::swapRayAxisAndOrigin(rv3 originalDir, rv3 originalOrigin, rv3 newDir, rv3 newOrigin)
+{
+	if (originalOrigin.x == 0.0f and originalDir.x == 0.0f)
+	{
+		return false; // we are starting at the center and we are pointing down the middle. Symmetry is not possible from the center
+	}
+
+	// the direction is normalized already, 
+
+	// assuming the ray does not get centered
+
+	newDir = v3(-1.0f * originalDir.x, originalDir.y, originalDir.z);
+	newOrigin = v3(-1.0f * originalOrigin.x, originalOrigin.y, originalOrigin.z); // I need to draw the ray
+
+	say "old dir" spc to_string(originalDir); say "new dir" spc to_string(newDir) done;
+
+	say "old origin" spc to_string(originalOrigin); say "new origin" spc to_string(newOrigin) done;
+
+
+
+	return true;
+}
+
 
