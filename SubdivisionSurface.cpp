@@ -35,6 +35,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
     {
         vertexOffset = (int)vertices.size(); // Offset to where new vertices are placed in the vertices vector.
         int vertexIndex = vertexOffset;      // Index for new vertices.
+        const int trianglesSize = (int)triangles.size();
 
         IndexedTriangles oldTriangles = triangles;
         Edges oldEdges = edges;
@@ -76,7 +77,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
 
         // Fill triangle midpoint map with all triangle midpoints
         // Parallelizable
-        for (TriangleID tri = 0; tri < triangles.size(); tri++)
+        for (TriangleID tri = 0; tri < trianglesSize; tri++)
         {
             KeyList midpointIDs = {
                 midpointMap[getEdgeMidpoint(triangles[tri][0], triangles[tri][1])],
@@ -87,7 +88,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
 
         int triangleIndex = 0;
         IndexedTriangles newTriangles;
-        for (TriangleID tri = 0; tri < triangles.size(); tri++)
+        for (TriangleID tri = 0; tri < trianglesSize; tri++)
         {
             KeyList midpoints = triangleMidpointMap[tri];
 
@@ -115,7 +116,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
             triangleIndex++;
         }
 
-        for (TriangleID tri = 0; tri < triangles.size(); tri++)
+        for (TriangleID tri = 0; tri < trianglesSize; tri++)
         {
             IndexedTriangle triangle = triangles[tri];
 
@@ -186,7 +187,8 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh)
         }
 
         // Calculate new position for every vertex that was created during subdivision
-        for (int vertexID = vertexOffset; vertexID < vertices.size(); vertexID++)
+        int verticesSize = vertices.size();
+        for (int vertexID = vertexOffset; vertexID < verticesSize; vertexID++)
         {
             // vector<int> ABCD = vertices[vertexID].ABCD;                    // Get the ABCD vector for the vertex
             unordered_map<char, int> ABCDmap = vertices[vertexID].ABCDmap; // Map of ABCD vector

@@ -12,7 +12,7 @@ namespace Subdivision
     using namespace OctreeVisualizationDefinition;
 
     #define InfiniteCreaseAngle std::numeric_limits<float>::max()
-    #define PI 3.141592f
+    // #define PI 3.141592f
     #define TWO_PI 6.283184f
     class SubdivisionSurface : public OctreeVisualization
     {
