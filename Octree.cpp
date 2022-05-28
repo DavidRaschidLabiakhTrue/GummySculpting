@@ -60,7 +60,7 @@ void OctreeDefinition::Octree::testOctree() ONOEXCEPT
     // Testing Intersection and Collection
     v3 rayOrigin(0, 0, 3);
     v3 rayDirection(0, 0, -1);
-    OctreeCollision collision = this->octreeRayIntersection(rayOrigin, rayDirection);
+    // OctreeCollision collision = this->octreeRayIntersection(rayOrigin, rayDirection);
     if (collision.isCollision)
     {
         say "Collision: " done;
@@ -72,14 +72,14 @@ void OctreeDefinition::Octree::testOctree() ONOEXCEPT
             << glm::to_string(vertices[triangles[collision.triangleID][1]].position) << ", "
             << glm::to_string(vertices[triangles[collision.triangleID][2]].position) << " >" done;
         say "\tIntersection Point: " << glm::to_string(collision.position) done;
-        double collectRange = glm::sqrt(2) / 8;
-        KeyList verticesCollected = collectVerticesAroundCollision(collision, collectRange);
-        say "\tVertices Around Collision (Range " << collectRange << "): " << verticesCollected.size();
-        for (int i = 0; i < verticesCollected.size(); i++)
-        {
-            say(i % 20 == 0 ? "\n\t\t" : "") << verticesCollected[i] << " ";
-        }
-        say endl;
+        // double collectRange = glm::sqrt(2) / 8;
+        // KeyList verticesCollected = collectVerticesAroundCollision(collision, collectRange);
+        // say "\tVertices Around Collision (Range " << collectRange << "): " << verticesCollected.size();
+        // for (int i = 0; i < verticesCollected.size(); i++)
+        // {
+        //     say(i % 20 == 0 ? "\n\t\t" : "") << verticesCollected[i] << " ";
+        // }
+        // say endl;
     }
 
     // Testing removal

@@ -2,7 +2,8 @@
 
 void Sculpting::SmoothingColor::applySmoothingColor(MeshReference cMesh, SculptPayloadReference payload)
 {
-	auto oPayload = cMesh.octreeRayIntersection(payload.origin, payload.direction);
+	cMesh.octreeRayIntersection(payload.origin, payload.direction);
+	auto oPayload = cMesh.collision;
 	auto& cHistory = cMesh.history.currentChangeLog;
 	HistoryKeyVertexMap apply;
 
@@ -17,7 +18,8 @@ void Sculpting::SmoothingColor::applySmoothingColor(MeshReference cMesh, SculptP
 		// say oPayload.triangleID spc "was hit at distance" spc oPayload.distance spc "with position" spc to_string(oPayload.position) done;
 
 	}
-	auto list = cMesh.Octree::collectTrianglesAroundCollision(oPayload, payload.radius);
+	cMesh.Octree::collectTrianglesAroundCollision(payload.radius);
+	auto list = cMesh.trianglesInRange;
 
 
 	forall(element, list)
@@ -41,6 +43,6 @@ void Sculpting::SmoothingColor::applySmoothingColor(MeshReference cMesh, SculptP
 
 
 
-	cMesh.updateTrianglesInOctree(list);
+	cMesh.updateAffectedTriangles();
 }
 
