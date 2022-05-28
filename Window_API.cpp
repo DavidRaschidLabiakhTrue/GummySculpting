@@ -3,6 +3,32 @@
 namespace Window_API
 {
 	WindowAPIData WinAPI;
+	MouseDeltaPosition::MouseDeltaPosition()
+	{
+	}
+	MouseDeltaPosition::~MouseDeltaPosition()
+	{
+	}
+	void MouseDeltaPosition::update()
+	{
+		this->last = this->current;
+		getCurrent();
+
+	}
+	void MouseDeltaPosition::getCurrent()
+	{
+		double retx;
+		double rety;
+		glfwGetCursorPos(winGB::ActiveWindowPTR, &retx, &rety);
+		this->current = v2(retx, rety);
+	}
+
+	v2 MouseDeltaPosition::getDelta()
+	{
+		return this->current - this->last;
+	}
+
+	MouseDeltaPosition MouseDelta;
 }
 
 Usage Window_API;

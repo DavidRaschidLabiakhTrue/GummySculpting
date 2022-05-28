@@ -26,6 +26,10 @@
 
 #include "glm/gtx/hash.hpp"
 
+#include "glm/gtx/norm.hpp";
+
+#include "glm/gtx/normal.hpp"
+
 // container wrapper for numerous glm functions. Also heavily reduces compile time by including only what's needed by header
 namespace LinearAlgebra
 {
@@ -67,6 +71,8 @@ namespace LinearAlgebra
 
 	using glm::intersectLineTriangle;
 	using glm::intersectRayTriangle;
+
+	using glm::triangleNormal;
 
 	glm::vec3 midpointFromV3(glm::vec3& p1, glm::vec3& p2);
 }

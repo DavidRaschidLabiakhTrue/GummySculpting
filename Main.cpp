@@ -39,7 +39,7 @@ int MainProgram::ProgramCycle()
 		if (win.canRender) // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
 		{
 
-
+			MouseDelta.update();
 			checkDirectives();
 
 			checkDebugConsole();

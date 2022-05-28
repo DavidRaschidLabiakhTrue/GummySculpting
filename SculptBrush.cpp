@@ -62,6 +62,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 			SmoothingColor::applySmoothingColor(cMesh, payload);
 			break;
 	}
+	payload.wasRun = true;
 
 	cMesh.needToRefresh = true;
 }
@@ -71,11 +72,18 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 	// this logic is faulty and needs revised for proper state mechanics
 	if (cast() and this->currentDir != direction)
 	{
+		if (payload.wasRun == false)
+		{
+			say "beinning PayloadRun" done;
+			// calculate maximum distance
+		}
 		applySculpt(cMesh);
 	}
 
 	else if (cMesh.history.sealChange == false && CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT))
 	{
+		payload.wasRun = false;
+
 		cMesh.history.sealChange = true;
 		cMesh.history.adjustLevelUp();
 

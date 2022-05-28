@@ -63,6 +63,24 @@ namespace Window_API
 
 	extern WindowAPIData WinAPI; // this is what's exported and searched.
 
+
+	struct MouseDeltaPosition
+	{
+		public:
+			MouseDeltaPosition();
+			~MouseDeltaPosition();
+
+			void update();
+			void getCurrent();
+			v2 getDelta();
+			
+			v2 last;
+			v2 current;
+
+	};
+
+	extern MouseDeltaPosition MouseDelta;
+
 	namespace Global_Window_API_EnviromentVariables
 	{
 		extern v4 WindowBackgroundColor; // color of the background on OpenGL;
