@@ -33,6 +33,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
     // Loops for number of levels to subdivide
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
     {
+        currentSubdivisionLevel++;
         vertexOffset = (int)vertices.size(); // Offset to where new vertices are placed in the vertices vector.
         int vertexIndex = vertexOffset;      // Index for new vertices.
         const int trianglesSize = (int)triangles.size();
@@ -72,7 +73,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
         {
             edges[vertexID].vertexEdges.clear();
             vertices[vertexID].triangleIDs.clear();
-            vertices[vertexID].ABCD.clear();
+            vertices[vertexID].ABCDmap.clear();
         }
 
         // Fill triangle midpoint map with all triangle midpoints

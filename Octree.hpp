@@ -8,7 +8,10 @@
 #include "OctreeStats.hpp"
 #include "VertexIDHashing.hpp"
 
+#include <chrono>
+#include <queue>
 #include <unordered_set>
+// #include <bits/stdc++.h>
 
 namespace OctreeDefinition
 {
@@ -31,8 +34,6 @@ namespace OctreeDefinition
 #else
 #define ONOEXCEPT noexcept
 #endif
-
-
 
     class Octree : public OctreeStats
     {
@@ -57,11 +58,16 @@ namespace OctreeDefinition
             bool updateTrianglesInOctree(TriangleIDList tri) ONOEXCEPT;
             bool removeTriangleFromOctree(TriangleID tri) ONOEXCEPT;
             void octreeReinsertTriangles();
+            void updateAffectedTriangles();
 
             // OctreeIntersection.cpp
-            KeyList collectVerticesAroundCollision(OctreeCollision collision, double range) ONOEXCEPT;
-            TriangleIDList collectTrianglesAroundCollision(OctreeCollision collision, double range) ONOEXCEPT;
-            OctreeCollision octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT;
+            KeyList collectVerticesAroundCollisionOriginal(OctreeCollision collision, double range) ONOEXCEPT;
+            TriangleIDList collectTrianglesAroundCollisionOriginal(OctreeCollision collision, double range) ONOEXCEPT;
+            OctreeCollision octreeRayIntersectionOriginal(v3 origin, v3 direction) ONOEXCEPT;
+
+            void collectVerticesAroundCollision(float range) ONOEXCEPT;
+            void collectTrianglesAroundCollision(double range) ONOEXCEPT;
+            void octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT;
 
             int mortonCodeHash(v3 point, v3 center) ONOEXCEPT; // returns the morton code position with respect to octant
 
@@ -70,6 +76,11 @@ namespace OctreeDefinition
 
             OctantList octants;
             OctantList leaves;
+
+            OctreeCollision collision;
+            KeyList verticesInRange;
+            TriangleIDList affectedTriangles;
+            TriangleIDList trianglesInRange;
 
             // Plane normals may be wrong here, need to double check
             v3 planeNormals[3] = {

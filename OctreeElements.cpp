@@ -125,3 +125,12 @@ void OctreeDefinition::Octree::octreeReinsertTriangles() {
         insertTriangle(i);
     }
 }
+
+void Octree::updateAffectedTriangles() {
+    foreach(tri, affectedTriangles) {
+        updateTriangleInOctree(tri);
+    }
+    if(affectedTriangles.size() == 0) {
+        say "No Intersection" done;
+    }
+}
