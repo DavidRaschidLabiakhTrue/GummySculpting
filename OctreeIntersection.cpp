@@ -352,12 +352,6 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ON
         }
     }
 
-    if (newCollision.isCollision)
-    {
-        say "Ray Origin: " << glm::to_string(origin) << "\nDirection: " << glm::to_string(direction) done;
-        say "Distance to collision: " << newCollision.distance done;
-        say "Collision position: " << glm::to_string(newCollision.position) done;
-    }
     collision = newCollision;
 }
 
