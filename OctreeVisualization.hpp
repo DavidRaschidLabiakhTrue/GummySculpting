@@ -13,7 +13,9 @@ namespace OctreeVisualizationDefinition
     enum DrawMode
     {
         AllOctants = 0,
-        LeafOctants = 1
+        LeafOctants = 1,
+        AllIntersectedOctants = 2,
+        IntersectedLeafOctants = 3,
     };
 
     enum DepthColorMode
@@ -47,7 +49,7 @@ namespace OctreeVisualizationDefinition
     class OctreeVisualization : public Octree
     {
         public:
-            void visualizeOctree(DrawMode = LeafOctants, DepthColorMode = EnableDepthColor);
+            void visualizeOctree(DrawMode = IntersectedLeafOctants, DepthColorMode = EnableDepthColor);
             void generateOctantWireframe(OctantIndex octantID);
             void bindOctreeWireframe();
             void drawOctreeWireframe();

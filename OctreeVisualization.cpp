@@ -25,10 +25,13 @@ void OctreeVisualization::visualizeOctree(DrawMode drawMode, DepthColorMode dept
 void OctreeVisualization::generateOctantWireframe(OctantIndex octantID)
 {
     Octant octant = octants[octantID];
-    if (drawMode == LeafOctants && octant.triangleIDs.size() == 0)
+
+    if ((octant.triangleIDs.size() == 0 && (drawMode == LeafOctants || drawMode == IntersectedLeafOctants)) ||
+        (!octant.intersected && (drawMode == IntersectedLeafOctants || drawMode == AllIntersectedOctants)))
     {
         return;
     }
+
     int currentIndex = (int)octreeWireframe.octreeVertices.size();
 
     OctantIndex curr = octantID;

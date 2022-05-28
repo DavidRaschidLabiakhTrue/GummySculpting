@@ -75,6 +75,7 @@ namespace OctantDefinition
             float octantHalfSize;                 // HalfSize of the octant
             v3 octantCenter;                      // center position of octant
             OctantState octantState = OctantLeaf; // State of the octant. Default = OctantLeaf
+			bool intersected = false; // debug
     };
 
     typedef Octant &OctantReference;

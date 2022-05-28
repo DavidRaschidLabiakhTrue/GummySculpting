@@ -16,7 +16,7 @@ namespace OctreeCollisionDefinition
 	struct OctreeCollision
 	{
 		TriangleID triangleID; // triangle id the collision occurs
-		float distance = NoCollisionDistance; // distance from start to collision point.
+		float distance; // distance from start to collision point.
 		v3 position; // of collision
 		bool isCollision = false; // is there a collision
 		OctantIndex octantID;

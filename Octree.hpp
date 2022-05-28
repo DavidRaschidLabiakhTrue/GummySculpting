@@ -68,6 +68,7 @@ namespace OctreeDefinition
             void collectVerticesAroundCollision(float range) ONOEXCEPT;
             void collectTrianglesAroundCollision(double range) ONOEXCEPT;
             void octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT;
+            bool isOriginInOctantBounds(v3 origin, Octant octant) ONOEXCEPT;
 
             int mortonCodeHash(v3 point, v3 center) ONOEXCEPT; // returns the morton code position with respect to octant
 

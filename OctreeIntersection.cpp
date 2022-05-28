@@ -243,97 +243,32 @@ OctreeCollision OctreeDefinition::Octree::octreeRayIntersectionOriginal(v3 origi
 
 void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT
 {
-    say "Ray Origin: " << glm::to_string(origin) << "\nDirection: " << glm::to_string(direction) done;
     priority_queue<pair<float, int>, vector<pair<float, int>>, greater<pair<float, int>>> queue;
+    collision = OctreeCollision();
     OctreeCollision newCollision;
     float octantCollisionDistance = NoCollisionDistance;
+    float triangleCollisionDistance = NoCollisionDistance;
 
-    // queue.push(make_pair(NoCollisionDistance, root));
+    // debug
+    foreach (octant, octants)
+    {
+        octant.intersected = false;
+    }
 
-    // while (!queue.empty())
-    // {
+    queue.push(make_pair(NoCollisionDistance, root));
 
-    //     float octantDistance = queue.top().first;
-    //     int octantID = queue.top().second;
-    //     Octant octant = octants[octantID];
-    //     queue.pop();
+    while (!queue.empty())
+    {
 
-    //     // Checks each triangle in the octant for collision with the ray
-    //     // Records the closest collision, replacing the current collision when necessary
-    //     foreach (tri, octant.triangleIDs)
-    //     {
-    //         IndexedTriangle triangle = triangles[tri]; // Indexed triangle for clarity
-    //         float tempDistance;
-    //         v2 unusedBaryPosition; // Unused variable to pass into the intersection function
+        float octantDistance = queue.top().first;
+        int octantID = queue.top().second;
+        Octant octant = octants[octantID];
+        queue.pop();
 
-    //         // If the ray intersects the triangle and the distance is less than the current collision,
-    //         // update the collision with the new intersected triangle, distance, and position
-    //         // Long ass function call formatted wierdly to make it easier to read
-    //         if (intersectRayTriangle(
-    //                 origin,
-    //                 direction,
-    //                 vertices[triangle[0]].position,
-    //                 vertices[triangle[1]].position,
-    //                 vertices[triangle[2]].position,
-    //                 unusedBaryPosition,
-    //                 tempDistance) &&
-    //             tempDistance < newCollision.distance)
-    //         {
-    //             newCollision.triangleID = tri;
-    //             newCollision.distance = tempDistance;
-    //             newCollision.position = origin + direction * tempDistance;
-    //             newCollision.isCollision = true;
-    //             newCollision.octantID = octantID;
-    //             octantCollisionDistance = octantDistance;
-    //         }
-    //     }
-
-    //     foreach (child, octant.children)
-    //     {
-    //         if (child == NoOctantChildSet)
-    //         {
-    //             break;
-    //         }
-
-    //         Octant childOctant = octants[child];
-    //         // Get nearest corner of octant
-    //         // Uses the morton code to determine which corner is nearest and gets the corresponding vector
-    //         // Then calculates the position of the corner
-    //         v3 originDirectionVector = octantPositionVectors[mortonCodeHash(origin, childOctant.octantCenter)];
-    //         v3 corner = childOctant.octantCenter + originDirectionVector * childOctant.octantHalfSize;
-
-    //         // Calculate the intersection of the ray with each face of the octant
-    //         // TODO: Should have better naming for vector components
-    //         for (int i = 0; i < 3; i++)
-    //         {
-    //             float tempDistance = NoCollisionDistance; // temp distance value for intersection below
-
-    //             // If the plane is intersected
-    //             if (intersectRayPlane(
-    //                     origin,
-    //                     direction,
-    //                     corner,
-    //                     planeNormals[i],
-    //                     tempDistance))
-    //             {
-    //                 v3 point = origin + direction * tempDistance; // Calculate the intersection pointd
-    //                 int j = (i + 2) % 3;                          // Determine the second component of the plane to test
-
-    //                 // Check if the intersection point is within the octant's face
-    //                 // and if the distance is closer than the current recorded distance
-    //                 if (abs(childOctant.octantCenter[i] - point[i]) <= childOctant.octantHalfSize &&
-    //                     abs(childOctant.octantCenter[j] - point[j]) <= childOctant.octantHalfSize &&
-    //                     tempDistance <= newCollision.distance)
-    //                 {
-    //                     queue.push(make_pair(tempDistance, child));
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-    // Linear search for triangle intersection, used for debugging collection
-    for(int tri = 0; tri < triangles.size(); tri++) {
+        // Checks each triangle in the octant for collision with the ray
+        // Records the closest collision, replacing the current collision when necessary
+        foreach (tri, octant.triangleIDs)
+        {
             IndexedTriangle triangle = triangles[tri]; // Indexed triangle for clarity
             float tempDistance;
             v2 unusedBaryPosition; // Unused variable to pass into the intersection function
@@ -349,16 +284,86 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ON
                     vertices[triangle[2]].position,
                     unusedBaryPosition,
                     tempDistance) &&
-                tempDistance < newCollision.distance)
+                tempDistance < triangleCollisionDistance)
             {
                 newCollision.triangleID = tri;
                 newCollision.distance = tempDistance;
                 newCollision.position = origin + direction * tempDistance;
                 newCollision.isCollision = true;
-                // newCollision.octantID = octantID;
-                // octantCollisionDistance = octantDistance;
+                newCollision.octantID = octantID;
+                octantCollisionDistance = octantDistance;
+                triangleCollisionDistance = tempDistance;
             }
+        }
+
+        // Don't check for child octants if the octant is a leaf
+        if (octant.octantState == OctantLeaf)
+        {
+            continue;
+        }
+
+        // Check if the octants children are intersected and if so, push them onto the queue
+        foreach (child, octant.children)
+        {
+
+            Octant childOctant = octants[child];
+
+            if(isOriginInOctantBounds(origin, childOctant))
+            {
+                octants[child].intersected = true;
+                queue.push(make_pair(0.0f, child));
+                continue;
+            }
+
+            // Get nearest corner of octant
+            // Uses the morton code to determine which corner is nearest and gets the corresponding vector
+            // Then calculates the position of the corner
+            v3 originDirectionVector = octantPositionVectors[mortonCodeHash(origin, childOctant.octantCenter)];
+            v3 corner = childOctant.octantCenter + originDirectionVector * childOctant.octantHalfSize;
+
+            // Calculate the intersection of the ray with each face of the octant
+            // TODO: Should have better naming for vector components
+            for (int i = 0; i < 3; i++)
+            {
+                float tempDistance; // temp distance value for intersection below
+
+                // If the plane is intersected
+                if (intersectRayPlane(
+                        origin,
+                        direction,
+                        corner,
+                        planeNormals[i],
+                        tempDistance))
+                {
+                    v3 point = origin + direction * tempDistance; // Calculate the intersection pointd
+                    int j = (i + 1) % 3;                          // Determine the second component of the plane to test
+
+                    // Check if the intersection point is within the octant's face
+                    // and if the distance is closer than the current recorded distance
+                    if (abs(childOctant.octantCenter[i] - point[i]) <= childOctant.octantHalfSize &&
+                        abs(childOctant.octantCenter[j] - point[j]) <= childOctant.octantHalfSize &&
+                        tempDistance <= triangleCollisionDistance)
+                    {
+                        octants[child].intersected = true;
+                        queue.push(make_pair(tempDistance, child));
+                    }
+                }
+            }
+        }
     }
-    say "Distance to collision: " << collision.distance done;
+
+    if (newCollision.isCollision)
+    {
+        say "Ray Origin: " << glm::to_string(origin) << "\nDirection: " << glm::to_string(direction) done;
+        say "Distance to collision: " << newCollision.distance done;
+        say "Collision position: " << glm::to_string(newCollision.position) done;
+    }
     collision = newCollision;
+}
+
+bool Octree::isOriginInOctantBounds(v3 origin, Octant octant) ONOEXCEPT
+{
+    return (abs(origin.x - octant.octantCenter.x) <= octant.octantHalfSize &&
+            abs(origin.y - octant.octantCenter.y) <= octant.octantHalfSize &&
+            abs(origin.z - octant.octantCenter.z) <= octant.octantHalfSize);
 }
