@@ -718,5 +718,13 @@
     <Filter Include="Utility and Macros\ini loading">
       <UniqueIdentifier>{61487071-c7bc-4897-911d-06ea3147422e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\Font">
+      <UniqueIdentifier>{bb8c9905-bab7-40ab-9c4d-63163bde1549}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="G:\DL\OpenDyslexic Mono (Windows, MacOS, Linux OTF)\OpenDyslexicMono-Regular.otf">
+      <Filter>GUI\Font</Filter>
+    </Font>
   </ItemGroup>
 </Project>

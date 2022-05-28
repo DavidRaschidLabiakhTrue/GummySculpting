@@ -314,6 +314,11 @@
     <None Include="WireFrameShader.frag" />
     <None Include="WireFrameShader.vert" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="G:\DL\OpenDyslexic Mono (Windows, MacOS, Linux OTF)\OpenDyslexicMono-Regular.otf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Font>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
