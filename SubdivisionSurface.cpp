@@ -72,7 +72,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
         {
             edges[vertexID].vertexEdges.clear();
             vertices[vertexID].triangleIDs.clear();
-
+            vertices[vertexID].ABCD.clear();
         }
 
         // Fill triangle midpoint map with all triangle midpoints
