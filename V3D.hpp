@@ -21,6 +21,10 @@ namespace VertexDefinition
 		extern const BitData DefaultBinaryWeightData;
 	}
 
+
+	
+
+
 	struct V3D
 	{
 		public:
@@ -55,12 +59,15 @@ namespace VertexDefinition
 		v3 position;
 		v4 color; // shrink to v3 eventually.
 		BitData bitData; // reserve first 14 starting from right to represent weight data with a resolution of 100.00 total.
+
+		v3 normal;
+
 		vector<int> triangleIDs; // Triangles that this vertex is a part of. TODO: Using vector<int> for now, but should have proper data type
-		vector<int> ABCD;  // Reserved for subdivision to keep track of which vertices to use for Loop's equation. - sussy
-		unordered_map<char, int> ABCDmap; // Reserved for subdivision to keep track of which vertices to use for Loop's equation. - not sussy, trust
+
+		unordered_map<char, int> ABCDmap; // Reserved for subdivision to keep track of which vertices to use for Loop's equation. - not sussy, trust - COMPLETEY FUCKING SUSSY BRO
 #ifndef NOTUSINGNORMALORUV
 		// Don't use these unless specified. They aren't needed.
-		v3 normal;
+		
 		v2 uv;
 #endif // !NOTUSINGNORMALORUV
 	};
