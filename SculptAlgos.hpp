@@ -7,6 +7,8 @@ namespace Sculpting::Algos
 {
 	using namespace SculptBrushDefinition;
 
+	void applyMaptoMeshThenApplySmoothedMap(HistoryKeyVertexMap& apply, MeshReference cMesh);
+
 	void storeCurrentElementsToMap(HistoryKeyVertexMap& apply, HistoryKeyVertexMap& history, MeshReference cMesh);
 
 	void applyMapToMesh(HistoryKeyVertexMap& apply, MeshReference cMesh);

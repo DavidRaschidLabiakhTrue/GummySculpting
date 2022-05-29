@@ -38,7 +38,20 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 	payload.origin = this->origin().position;
 	payload.radius = ToolsWindowDefinition::RadiusSlider;
 
-	currentDir = direction;
+	cMesh.octreeRayIntersection(payload.origin, payload.direction);
+	if (cMesh.collision.isCollision == false or (cMesh.collision.triangleID == payload.last))
+	{
+		return;
+	}
+	else
+	{
+		payload.updateLast(cMesh.collision.triangleID);
+	}
+	
+
+
+	cMesh.Octree::collectTrianglesAroundCollision(payload.radius);
+
 	switch (this->currentState)
 	{
 		case BrushState::BrushStateSmooth:
@@ -66,7 +79,9 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 			break;
 	}
 	payload.wasRun = true;
+	cMesh.updateAffectedTriangles();
 
+	cMesh.history.currentChangeLog.clear();
 	cMesh.needToRefresh = true;
 }
 
@@ -78,7 +93,6 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 		if (payload.wasRun == false)
 		{
 			say "beinning PayloadRun" done;
-			// calculate maximum distance
 		}
 		applySculpt(cMesh);
 	}
@@ -95,4 +109,3 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 
 
 }
-

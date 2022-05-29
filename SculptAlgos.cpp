@@ -1,5 +1,5 @@
 #include "SculptAlgos.hpp"
-
+using namespace Sculpting::Algos;
 void Sculpting::Algos::applyMapToMesh(HistoryKeyVertexMap& apply, MeshReference cMesh)
 {
 	forall(element, apply)
@@ -14,6 +14,12 @@ void Sculpting::Algos::applySmoothToMapToMesh(HistoryKeyVertexMap& apply, MeshRe
 	{
 		cMesh.vertices[element.first] = cMesh.averageAt(element.first);
 	}
+}
+
+void Sculpting::Algos::applyMaptoMeshThenApplySmoothedMap(HistoryKeyVertexMap& apply, MeshReference cMesh)
+{
+	applyMapToMesh(apply, cMesh);
+	applySmoothToMapToMesh(apply, cMesh);
 }
 
 void Sculpting::Algos::storeCurrentElementsToMap(HistoryKeyVertexMap& apply, HistoryKeyVertexMap& history, MeshReference cMesh)

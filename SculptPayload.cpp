@@ -13,3 +13,8 @@ void SculptPayloadDefinition::SculptPayload::changeRadius(float newRadius)
 {
 	this->radius = newRadius;
 }
+
+void SculptPayloadDefinition::SculptPayload::updateLast(const TriangleID& id)
+{
+	this->last = id;
+}

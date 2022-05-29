@@ -2,9 +2,10 @@
 #define SculptPayload_HPP
 
 #include "SamplerPayload.hpp"
-
+#include "Mesh.hpp"
 namespace SculptPayloadDefinition
 {
+	using namespace MeshDefinition;
 	class SculptPayload : public SamplerPayloadDefinition::SamplerPayload
 	{
 		public:
@@ -12,6 +13,9 @@ namespace SculptPayloadDefinition
 			~SculptPayload();
 
 			void changeRadius(float newRadius);
+
+			void updateLast(const TriangleID& id);
+
 	};
 	typedef SculptPayload& SculptPayloadReference;
 }

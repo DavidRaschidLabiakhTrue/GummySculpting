@@ -126,11 +126,18 @@ void OctreeDefinition::Octree::octreeReinsertTriangles() {
     }
 }
 
-void Octree::updateAffectedTriangles() {
-    foreach(tri, affectedTriangles) {
+void Octree::updateAffectedTriangles() 
+{
+	if (affectedTriangles.size() == 0)
+	{
+		return;
+	}
+    foreach(tri, affectedTriangles) 
+	{
         updateTriangleInOctree(tri);
     }
-    if(affectedTriangles.size() == 0) {
-        say "No Intersection" done;
+    if (affectedTriangles.size() == 0) 
+	{
+        //say "No Intersection" done;
     }
 }
