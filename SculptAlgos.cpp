@@ -8,18 +8,22 @@ void Sculpting::Algos::applyMapToMesh(HistoryKeyVertexMap& apply, MeshReference 
 	}
 }
 
-void Sculpting::Algos::applySmoothToMapToMesh(HistoryKeyVertexMap& apply, MeshReference cMesh)
+void Sculpting::Algos::applySmoothToMapToMesh(HistoryKeyVertexMap& apply, MeshReference cMesh, const int iterations)
 {
-	forall(element, apply)
+	for (int i = 0; i < iterations; i++)
 	{
-		cMesh.vertices[element.first] = cMesh.averageAt(element.first);
+		forall(element, apply)
+		{
+			cMesh.vertices[element.first] = cMesh.averageAt(element.first);
+		}
 	}
+
 }
 
 void Sculpting::Algos::applyMaptoMeshThenApplySmoothedMap(HistoryKeyVertexMap& apply, MeshReference cMesh)
 {
 	applyMapToMesh(apply, cMesh);
-	applySmoothToMapToMesh(apply, cMesh);
+	applySmoothToMapToMesh(apply, cMesh, 7);
 }
 
 void Sculpting::Algos::storeCurrentElementsToMap(HistoryKeyVertexMap& apply, HistoryKeyVertexMap& history, MeshReference cMesh)

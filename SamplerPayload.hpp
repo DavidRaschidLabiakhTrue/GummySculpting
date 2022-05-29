@@ -19,7 +19,7 @@ namespace SamplerPayloadDefinition
 			TriangleID last = -1; // last hit ID;
 
 			bool wasRun = false;
-			bool seal = false;
+
 
 	};
 	typedef SamplerPayload& SamplerPayloadReference;

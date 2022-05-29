@@ -13,15 +13,16 @@ void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReferenc
 
 	const auto rDir = payload.direction * -1.0f; // this flips all axis.
 
+	say to_string(payload.hitNorm) done;
 
 
 	Algos::storeCurrentElementsToMap(apply, cHistory, cMesh);
-
+	Algos::applyMaptoMeshThenApplySmoothedMap(apply, cMesh);
 	for (int i = 0; i < 4; i++)
 	{
 		forall(element, apply)
 		{
-			element.second.position += rMult * distance(element.second.position, hitPoint) * 0.3f * rDir;
+			element.second.position += rMult * distance(element.second.position, hitPoint) * 0.3f * payload.hitNorm;
 		}
 	}
 
@@ -32,7 +33,16 @@ void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReferenc
 
 }
 
-
+/*
+* // STRETCH TO NORM
+* 	for (int i = 0; i < 4; i++)
+	{
+		forall(element, apply)
+		{
+			element.second.position += rMult * distance(element.second.position, hitPoint) * 0.3f * payload.hitNorm;
+		}
+	}
+*/
 
 /*
 *  // CRATER ALGO

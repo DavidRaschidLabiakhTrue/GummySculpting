@@ -14,7 +14,13 @@ namespace SculptPayloadDefinition
 
 			void changeRadius(float newRadius);
 
-			void updateLast(const TriangleID& id);
+			void updateLast(const TriangleID& id, rv3 lastHit, v3 tempNorm);
+
+			void reverseDir();
+
+			v3 hitNorm;
+			v3 rDir;
+			v3 hit;
 
 	};
 	typedef SculptPayload& SculptPayloadReference;
