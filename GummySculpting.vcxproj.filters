@@ -434,6 +434,12 @@
     <None Include="sphere.gum">
       <Filter>3D Models\gum Models</Filter>
     </None>
+    <None Include="plane.gum">
+      <Filter>3D Models\gum Models</Filter>
+    </None>
+    <None Include="4star.gum">
+      <Filter>3D Models\gum Models</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="3D Models">

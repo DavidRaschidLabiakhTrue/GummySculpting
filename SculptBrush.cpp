@@ -85,7 +85,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 
 		case BrushState::BrushStateStroke:
 
-			Stroking::applyStroke(cMesh, payload);
+			Stroking::applyStroke(cMesh, payload, 8);
 			break;
 
 		case BrushState::BrushStateNoise:

@@ -20,10 +20,10 @@ void Sculpting::Algos::applySmoothToMapToMesh(HistoryKeyVertexMap& apply, MeshRe
 
 }
 
-void Sculpting::Algos::applyMaptoMeshThenApplySmoothedMap(HistoryKeyVertexMap& apply, MeshReference cMesh)
+void Sculpting::Algos::applyMaptoMeshThenApplySmoothedMap(HistoryKeyVertexMap& apply, MeshReference cMesh, const int iterations)
 {
 	applyMapToMesh(apply, cMesh);
-	applySmoothToMapToMesh(apply, cMesh, 7);
+	applySmoothToMapToMesh(apply, cMesh, iterations);
 }
 
 void Sculpting::Algos::storeCurrentElementsToMap(HistoryKeyVertexMap& apply, HistoryKeyVertexMap& history, MeshReference cMesh)
