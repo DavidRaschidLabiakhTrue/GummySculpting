@@ -15,5 +15,7 @@ namespace Sculpting::Algos
 
 	void applySmoothToMapToMesh(HistoryKeyVertexMap& apply, MeshReference cMesh);
 
+	void applyColorToMapAndSmoothColor(HistoryKeyVertexMap& apply, MeshReference cMesh);
+
 }
 #endif

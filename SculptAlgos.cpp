@@ -32,3 +32,15 @@ void Sculpting::Algos::storeCurrentElementsToMap(HistoryKeyVertexMap& apply, His
 		}
 	}
 }
+
+void Sculpting::Algos::applyColorToMapAndSmoothColor(HistoryKeyVertexMap& apply, MeshReference cMesh)
+{
+	forall(element, apply)
+	{
+		cMesh.vertices[element.first].color = element.second.color;
+	}
+	forall(element, apply)
+	{
+		cMesh.vertices[element.first].color = cMesh.colorAverageAt(element.first);
+	}
+}
