@@ -20,11 +20,12 @@ void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReferenc
 		payload.last = coll.triangleID;
 	}
 
-	
-	const auto hitPoint = coll.position;
+	const auto rMult = payload.radius * 0.5f;
+	const auto hitPoint = coll.position + rMult;
 	const v3 centNormal = cMesh.getTriangleNormal(coll.triangleID);
 
 	const auto rDir = payload.direction * -1.0f; // this flips all axis.
+
 
 	float falloff = 0; 
 
@@ -33,96 +34,45 @@ void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReferenc
 	HistoryKeyVertexMap apply;
 
 	
-	cMesh.Octree::collectTrianglesAroundCollision(payload.radius);
-
-
+	cMesh.Octree::collectTrianglesAroundCollision(payload.radius); // perhaps this should return the reference to this below vector to be succint
+	auto& triInRange = cMesh.trianglesInRange;
 
 
 
 	
 
 
-	auto& triInRange = cMesh.trianglesInRange;
+	
 
-	forall(element, triInRange)
-	{
-		forall(id, cMesh.triangles[element].indice)
-		{
-			apply[id] = cHistory[id] = cMesh.vertices[id];
-		}
-	}
+	Algos::storeCurrentElementsToMap(apply, cHistory, cMesh);
+
 	for (int i = 0; i < 4; i++)
 	{
 		forall(element, apply)
 		{
-			element.second.position += 0.005f * rDir;
+			element.second.position += rMult * distance(element.second.position, hitPoint) * 0.3f * rDir;
 		}
 	}
 
-	forall(element, apply)
-	{
-		cMesh.vertices[element.first].position = element.second.position;
-	}
+	Algos::applyMapToMesh(apply, cMesh);
 
+	Algos::applySmoothToMapToMesh(apply, cMesh);
 
 
 	cMesh.updateAffectedTriangles();
 
 	cMesh.history.currentChangeLog.clear();
 }
+
+
 
 /*
-void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReference payload)
-{
-
-	cMesh.octreeRayIntersection(payload.origin, payload.direction);
-	OctreeCollision oPayload = cMesh.collision;
-
-
-
-
-
-	auto& cHistory = cMesh.history.currentChangeLog;
-	HistoryKeyVertexMap apply;
-
-	if (oPayload.isCollision == false)
-	{
-		return; // there was no collision with the octree
-	}
-	else
-	{
-
-	}
-	cMesh.Octree::collectTrianglesAroundCollision(payload.radius);
-	vector<int> list = cMesh.trianglesInRange;
-
-	forall(element, list)
-	{
-		forall(id, cMesh.triangles[element].indice)
-		{
-
-			apply[id] = cHistory[id] = cMesh.vertices[id];
-		}
-
-	}
-	for (int i = 0; i < 4; i++)
+*  // CRATER ALGO
+* 	for (int i = 0; i < 4; i++)
 	{
 		forall(element, apply)
 		{
-			cMesh.vertices[element.first].position += 0.005f * normalize(cMesh.averageAt(element.first));
+			element.second.position += rMult * distance(element.second.position, hitPoint) * rDir;
 		}
 	}
-
-	forall(element, apply)
-	{
-		cMesh.vertices[element.first].position = cMesh.averageAt(element.first);
-	}
-
-
-
-
-	cMesh.updateAffectedTriangles();
-
-	cMesh.history.currentChangeLog.clear();
-}
 */

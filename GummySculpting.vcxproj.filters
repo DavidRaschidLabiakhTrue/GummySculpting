@@ -196,6 +196,9 @@
     <ClCompile Include="CameraNav.cpp">
       <Filter>GUI\CameraNav</Filter>
     </ClCompile>
+    <ClCompile Include="SculptAlgos.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Apply</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -407,6 +410,9 @@
     </ClInclude>
     <ClInclude Include="include\mini\ini.h">
       <Filter>Utility and Macros\ini loading</Filter>
+    </ClInclude>
+    <ClInclude Include="SculptAlgos.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Apply</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -720,6 +726,9 @@
     </Filter>
     <Filter Include="GUI\Font">
       <UniqueIdentifier>{bb8c9905-bab7-40ab-9c4d-63163bde1549}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Apply">
+      <UniqueIdentifier>{3a3c6111-90a5-4424-aae6-7bd321f437d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -202,6 +202,7 @@
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="SamplerPayload.cpp" />
+    <ClCompile Include="SculptAlgos.cpp" />
     <ClCompile Include="SculptBrush.cpp" />
     <ClCompile Include="SculptPayload.cpp" />
     <ClCompile Include="SmoothedColor.cpp" />
@@ -270,6 +271,7 @@
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />
     <ClInclude Include="SamplerPayload.hpp" />
+    <ClInclude Include="SculptAlgos.hpp" />
     <ClInclude Include="SculptBrush.hpp" />
     <ClInclude Include="SculptPayload.hpp" />
     <ClInclude Include="SmoothedColor.hpp" />

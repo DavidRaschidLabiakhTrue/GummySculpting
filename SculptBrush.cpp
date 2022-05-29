@@ -16,6 +16,7 @@ using namespace Sculpting;
 
 SculptBrushDefinition::SculptBrush::SculptBrush()
 {
+	
 }
 
 SculptBrushDefinition::SculptBrush::~SculptBrush()
@@ -24,7 +25,9 @@ SculptBrushDefinition::SculptBrush::~SculptBrush()
 
 SculptBrushDefinition::SculptBrush::SculptBrush(bool trueConstructor) : Sampler(trueConstructor)
 {
+	this->offsetTime = glfwGetTime(); // starting up time limiter to sculptor
 
+	sculptRate = 1.0f / 24.0f; // 24 times a second.
 }
 
 void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
@@ -92,3 +95,4 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 
 
 }
+

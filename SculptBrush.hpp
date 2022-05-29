@@ -28,7 +28,9 @@ namespace SculptBrushDefinition
 		protected:
 			SculptPayload payload;
 
-
+			double rateTime;
+			double offsetTime;
+			double sculptRate;
 
 	};
 }
