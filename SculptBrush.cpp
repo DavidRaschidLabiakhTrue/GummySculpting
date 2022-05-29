@@ -36,6 +36,25 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 	if (cast() and this->currentDir != direction)
 	{
 		currentDir = direction; // update the current direction
+
+
+		cMesh.history.sealChange = false;
+		payload.direction = this->direction;
+		payload.origin = this->origin().position;
+		payload.radius = ToolsWindowDefinition::RadiusSlider;
+
+		cMesh.octreeRayIntersection(payload.origin, payload.direction);
+
+		if (cMesh.collision.isCollision == false or (cMesh.collision.triangleID == payload.last))
+		{
+			return;
+		}
+		else
+		{
+			payload.updateLast(cMesh.collision.triangleID, cMesh.collision.position, cMesh.getTriangleNormal(cMesh.collision.triangleID));
+		}
+
+
 		if (payload.wasRun == false) // if the payload has begun a stroke - collect info
 		{
 			say "beinning PayloadRun" done;
@@ -57,21 +76,8 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 {
 	
-	cMesh.history.sealChange = false;
-	payload.direction = this->direction;
-	payload.origin = this->origin().position;
-	payload.radius = ToolsWindowDefinition::RadiusSlider;
 
-	cMesh.octreeRayIntersection(payload.origin, payload.direction);
-	if (cMesh.collision.isCollision == false or (cMesh.collision.triangleID == payload.last))
-	{
-		return;
-	}
-	else
-	{
-		payload.updateLast(cMesh.collision.triangleID, cMesh.collision.position, cMesh.getTriangleNormal(cMesh.collision.triangleID));
-	}
-	
+
 
 
 	cMesh.Octree::collectTrianglesAroundCollision(payload.radius);
@@ -85,7 +91,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 
 		case BrushState::BrushStateStroke:
 
-			Stroking::applyStroke(cMesh, payload, 8);
+			Stroking::applyStroke(cMesh, payload, 1);
 			break;
 
 		case BrushState::BrushStateNoise:
