@@ -199,6 +199,9 @@
     <ClCompile Include="SculptAlgos.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Apply</Filter>
     </ClCompile>
+    <ClCompile Include="Lighting.cpp">
+      <Filter>Rendering\Lighting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -414,22 +417,13 @@
     <ClInclude Include="SculptAlgos.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Apply</Filter>
     </ClInclude>
+    <ClInclude Include="Lighting.hpp">
+      <Filter>Rendering\Lighting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cube.gum">
       <Filter>3D Models\gum Models</Filter>
-    </None>
-    <None Include="WireFrameShader.vert">
-      <Filter>Rendering\Shaders\Shader Files</Filter>
-    </None>
-    <None Include="StandardShader.frag">
-      <Filter>Rendering\Shaders\Shader Files</Filter>
-    </None>
-    <None Include="WireFrameShader.frag">
-      <Filter>Rendering\Shaders\Shader Files</Filter>
-    </None>
-    <None Include="StandardShader.vert">
-      <Filter>Rendering\Shaders\Shader Files</Filter>
     </None>
     <None Include="sphere.gum">
       <Filter>3D Models\gum Models</Filter>
@@ -439,6 +433,21 @@
     </None>
     <None Include="4star.gum">
       <Filter>3D Models\gum Models</Filter>
+    </None>
+    <None Include="StandardShader.vert">
+      <Filter>Rendering\Shaders\Shader Files\Standard</Filter>
+    </None>
+    <None Include="StandardShader.frag">
+      <Filter>Rendering\Shaders\Shader Files\Standard</Filter>
+    </None>
+    <None Include="WireFrameShader.frag">
+      <Filter>Rendering\Shaders\Shader Files\Wire</Filter>
+    </None>
+    <None Include="WireFrameShader.vert">
+      <Filter>Rendering\Shaders\Shader Files\Wire</Filter>
+    </None>
+    <None Include="StandardShader.geom">
+      <Filter>Rendering\Shaders\Shader Files\Standard</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -735,6 +744,15 @@
     </Filter>
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Apply">
       <UniqueIdentifier>{3a3c6111-90a5-4424-aae6-7bd321f437d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Lighting">
+      <UniqueIdentifier>{d7f4e1cd-287e-4d34-bf06-956496b8af73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader Files\Standard">
+      <UniqueIdentifier>{c058f541-059e-4b28-bfee-245639de942a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader Files\Wire">
+      <UniqueIdentifier>{d83cab57-02c2-4b69-8938-a52a658f5c5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

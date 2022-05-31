@@ -13,7 +13,7 @@ void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReferenc
 
 	const auto rDir = payload.direction * -1.0f; // this flips all axis.
 
-	say to_string(payload.hitNorm) done;
+	// say to_string(payload.hitNorm) done;
 
 
 	Algos::storeCurrentElementsToMap(apply, cHistory, cMesh);

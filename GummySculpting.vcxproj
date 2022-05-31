@@ -189,6 +189,7 @@
     <ClCompile Include="include\IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="IndexedTriangle.cpp" />
     <ClCompile Include="IndiceList.cpp" />
+    <ClCompile Include="Lighting.cpp" />
     <ClCompile Include="LinearAlgebra.cpp" />
     <ClCompile Include="MainDirective.cpp" />
     <ClCompile Include="MeshChangeLog.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="include\mini\ini.h" />
     <ClInclude Include="IndexedTriangle.hpp" />
     <ClInclude Include="IndiceList.hpp" />
+    <ClInclude Include="Lighting.hpp" />
     <ClInclude Include="MainDirective.hpp" />
     <ClInclude Include="MeshChangeLog.hpp" />
     <ClInclude Include="MeshHistory.hpp" />
@@ -314,6 +316,10 @@
     <None Include="plane.gum" />
     <None Include="sphere.gum" />
     <None Include="StandardShader.frag" />
+    <None Include="StandardShader.geom">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
     <None Include="StandardShader.vert" />
     <None Include="WireFrameShader.frag" />
     <None Include="WireFrameShader.vert" />
