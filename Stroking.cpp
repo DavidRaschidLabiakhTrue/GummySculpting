@@ -28,7 +28,7 @@ void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReferenc
 
 	Algos::applyMaptoMeshThenApplySmoothedMap(apply, cMesh);
 
-
+	cMesh.recomputeNormals(apply);
 
 
 }

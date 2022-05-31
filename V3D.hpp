@@ -58,9 +58,10 @@ namespace VertexDefinition
 
 		v3 position;
 		v4 color; // shrink to v3 eventually.
+		v3 normal = v3(0);
 		BitData bitData; // reserve first 14 starting from right to represent weight data with a resolution of 100.00 total.
 
-		v3 normal;
+		
 
 		vector<int> triangleIDs; // Triangles that this vertex is a part of. TODO: Using vector<int> for now, but should have proper data type
 
