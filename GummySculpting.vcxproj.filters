@@ -202,6 +202,9 @@
     <ClCompile Include="Lighting.cpp">
       <Filter>Rendering\Lighting</Filter>
     </ClCompile>
+    <ClCompile Include="Gizmo.cpp">
+      <Filter>Mechanics\Gizmos\Imple</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -419,6 +422,9 @@
     </ClInclude>
     <ClInclude Include="Lighting.hpp">
       <Filter>Rendering\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Gizmo.hpp">
+      <Filter>Mechanics\Gizmos\Imple</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -753,6 +759,12 @@
     </Filter>
     <Filter Include="Rendering\Shaders\Shader Files\Wire">
       <UniqueIdentifier>{d83cab57-02c2-4b69-8938-a52a658f5c5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Gizmos">
+      <UniqueIdentifier>{fd88783c-6838-4d11-b25f-8d3bb4b7aa02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Gizmos\Imple">
+      <UniqueIdentifier>{ca0088f7-58d7-4158-ab44-c67bd5b7b23e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

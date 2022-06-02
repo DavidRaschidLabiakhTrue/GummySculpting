@@ -19,6 +19,8 @@
 
 #include "SculptBrush.hpp"
 
+#include "Gizmo.hpp"
+
 #include "DebuggingConsole.hpp"
 
 #include "MainDirective.hpp"
@@ -38,6 +40,8 @@ using namespace GuiDefinition;
 using namespace VisualObjectsDefinition;
 
 using namespace SculptBrushDefinition;
+
+using namespace GizmoDefinition;
 
 
 
@@ -93,6 +97,8 @@ class MainProgram
 		Renderer renderer;
 
 		SculptBrush brush;
+
+		Gizmo gizmo;
 
 		GUI gui;
 

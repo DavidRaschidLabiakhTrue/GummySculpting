@@ -109,6 +109,7 @@ MainProgram::MainProgram(StringList &arguments)
     debug = DebugConsoleDefinition::DebugConsole(TrueConstructor);
     CameraDefinition::GlobalCamera = &cam; // set up camera linkage
     brush = SculptBrush(TrueConstructor);
+	gizmo = Gizmo(TrueConstructor);
 
     visualObjects = VisualObjects(TrueConstructor);
 
@@ -435,7 +436,10 @@ void MainProgram::queryMechanics()
 {
 
     queryCamera();
-    brush.querySculpt(renderer.getActiveMeshReference());
+
+	brush.querySculpt(renderer.getActiveMeshReference());
+
+	gizmo.queryGizmo();
 }
 void MainProgram::queryCamera()
 {
