@@ -24,7 +24,13 @@ using namespace ShaderDefinition;
 RayCast::RayCast()
 {
 
-
+	V3D castPoint;
+	castPoint.setPositionToCenter();
+	castPoint.loadColorAs255(150, 81, 27); // magic numbers for a shader of orange
+	this->vertices.push_back(castPoint);
+	this->vertices.push_back(castPoint);
+	this->indices.push_back(0);
+	this->indices.push_back(1);
 
 }
 
