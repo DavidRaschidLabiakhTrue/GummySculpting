@@ -32,26 +32,49 @@ int main(int argc, char **argv)
 
 int MainProgram::ProgramCycle()
 {
+	Window_API_Functions::eventQuery(); // start off the event query cycle
+
+	const double TARGET_FPS = 30.0f; // 30 frames a second
+	const double TARGET_QUERY_RATE = 30.0f; // 30 times a second - this needs to be split between a rate for the camera and the sculptor seperately.
+
+	const double frameRateInterval = 1.0f / TARGET_FPS; // this is the real constant needed.
+	const double queryRateInterval = 1.0f / TARGET_QUERY_RATE;
+
+
+	double lastFrameTime = 0.0;
+	double lastQueryTime = 0.0; // these variables are not members of main for a reason. We want the compiler to register them with the CPU so the accuracy remains high.
+
+	double nowTime;
 
 	while (shouldNotClose())
 	{
-		beginDrawFrame(); // refresh all draw buffers
-		if (win.canRender) // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
+		nowTime = glfwGetTime(); // get current time
+		// perform updates
+		if ((nowTime - lastQueryTime) >= queryRateInterval) // query check
 		{
-
-			MouseDelta.update();
-			checkDirectives();
-
-			checkDebugConsole();
-
 			queryMechanics(); // query for input
-
-			draw3D(); // drawing meshes
-
-
-
+			checkDirectives(); // check for directives
+			lastQueryTime = nowTime;
 		}
-		draw2D();
+		// draw the gui.
+		if ((nowTime - lastFrameTime) >= frameRateInterval) // fps check
+		{
+			// refresh all draw buffers
+			if (win.canRender) // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
+			{
+				beginDrawFrame();
+
+				checkDebugConsole();
+
+				draw3D(); // drawing meshes
+				draw2D(); // querying the GUI and drawing the GUI occur at the same time, because that's how IMGUI works.
+				lastFrameTime = nowTime;
+			}
+			
+		}
+
+
+
 		eventQuery(); // update glfw in conjunction with opengl
 
 	}
