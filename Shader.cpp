@@ -8,10 +8,14 @@ namespace ShaderDefinition
 {
 	Shader StandardShader;
 	Shader WireFrameShader;
+
+	Shader StaticMeshShader;
+
 	void compileGlobalShaders()
 	{
 		StandardShader.compileShader("StandardShader.vert", "StandardShader.frag", "Standard Shader");
 		WireFrameShader.compileShader("WireFrameShader.vert", "WireFrameShader.frag", "WireFrame Shader");
+		StaticMeshShader.compileShader("StaticMeshShader.vert", "StaticMeshShader.frag", "Static Mesh Shader");
 	}
 }
 
@@ -31,11 +35,14 @@ Shader::~Shader()
 
 }
 
+
+
 void Shader::use()
 {
 	glUseProgram(id);
 	uploadCameraMatrixToGPU(); // load the camera matrix to the gpu before batch rendering.
 }
+
 // need to simplify with Glad wrapper
 void Shader::compileShader(string vertexFilePath, string fragmentFilePath, string name)
 {
@@ -98,7 +105,17 @@ void Shader::compileShader(string vertexFilePath, string fragmentFilePath, strin
 
 
 }
+void ShaderDefinition::Shader::uploadScaleFloatToGPU(float renderScale)
+{
 
+	glUniform1f(ShaderSlotInfo.scale.position, renderScale);
+}
+
+void ShaderDefinition::Shader::uploadOffsetVectorToGPU(rv3 renderOffset)
+{
+
+	glUniform3f(ShaderSlotInfo.offset.position, renderOffset.x, renderOffset.y, renderOffset.z);
+}
 void Shader::uploadCameraMatrixToGPU()
 {
 	glUniformMatrix4fv(ShaderSlotInfo.cameraMatrix.position, 1, GL_FALSE, value_ptr(GlobalCamera->cameraMatrix));
@@ -118,6 +135,8 @@ void Shader::compileWireFrameShader()
 {
 	compileShader("WireFrameShader.vert", "WireFrameShader.frag", "WireFrame Shader");
 }
+
+
 
 void Shader::checkShaderStatus(string shaderType, int shaderProgramID)
 {

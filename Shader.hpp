@@ -3,11 +3,12 @@
 
 #include "OpenGLWrapper.hpp"
 #include "ShaderPosition.hpp"
-
+#include "MathDefinitions.hpp"
 
 namespace ShaderDefinition
 {
 	Usage ShaderPositionDefinition;
+	using namespace MathTypeDefinitions::CoordinateDefine;
 
 	// shader class that enables meshes to be drawn on the GPU through a shader program
 	class Shader
@@ -17,10 +18,15 @@ namespace ShaderDefinition
 			Deconstruct ~Shader();
 
 			void use(); // load shader for usage on program load.
+
 			void compileShader(string vertexFilePath, string fragmentFilePath, string name); // compile a shader file.
 			
 			void compileStandardShader(); // hard coded compiling
 			void compileWireFrameShader(); // hard coded compiling
+
+
+			void uploadScaleFloatToGPU(float renderScale);
+			void uploadOffsetVectorToGPU(rv3 renderOffset);
 
 			string name; // name of shader for debugging
 			
@@ -33,6 +39,7 @@ namespace ShaderDefinition
 	};
 	extern Shader StandardShader;
 	extern Shader WireFrameShader;
+	extern Shader StaticMeshShader;
 
 	extern void compileGlobalShaders();
 }

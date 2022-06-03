@@ -86,6 +86,8 @@ class MainProgram
 		void queryCamera(); // query for camera input from the user.
 
 		void draw3D(); // drawing meshes
+
+		void drawStatic();
 		void draw2D(); // draw gui and other 2d components
 		void checkDebugConsole();
 

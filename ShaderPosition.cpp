@@ -48,6 +48,19 @@ void ShaderPosition::loadModelMatrix()
 	position = 1;
 }
 
+void ShaderPositionDefinition::ShaderPosition::loadOffset()
+{
+	slot = "staticOffset";
+	position = 1;
+
+}
+
+void ShaderPositionDefinition::ShaderPosition::loadScale()
+{
+	slot = "staticScale";
+	position = 2;
+}
+
 ShaderPositionData::ShaderPositionData()
 {
 	position.loadPosition();
@@ -55,6 +68,8 @@ ShaderPositionData::ShaderPositionData()
 	data.loadWeight();
 	cameraMatrix.loadCameraMatrix();
 	modelMatrix.loadModelMatrix();
+	offset.loadOffset();
+	scale.loadScale();
 }
 
 ShaderPositionData::~ShaderPositionData()

@@ -205,6 +205,12 @@
     <ClCompile Include="Gizmo.cpp">
       <Filter>Mechanics\Gizmos\Imple</Filter>
     </ClCompile>
+    <ClCompile Include="StaticMesh.cpp">
+      <Filter>3D Objects\Static Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeGate.cpp">
+      <Filter>Utility and Macros\Time Gate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -426,6 +432,12 @@
     <ClInclude Include="Gizmo.hpp">
       <Filter>Mechanics\Gizmos\Imple</Filter>
     </ClInclude>
+    <ClInclude Include="TimeGate.hpp">
+      <Filter>Utility and Macros\Time Gate</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMesh.hpp">
+      <Filter>3D Objects\Static Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cube.gum">
@@ -454,6 +466,12 @@
     </None>
     <None Include="StandardShader.geom">
       <Filter>Rendering\Shaders\Shader Files\Standard</Filter>
+    </None>
+    <None Include="StaticMeshShader.frag">
+      <Filter>Rendering\Shaders\Shader Files\Static Mesh Shader</Filter>
+    </None>
+    <None Include="StaticMeshShader.vert">
+      <Filter>Rendering\Shaders\Shader Files\Static Mesh Shader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -765,6 +783,15 @@
     </Filter>
     <Filter Include="Mechanics\Gizmos\Imple">
       <UniqueIdentifier>{ca0088f7-58d7-4158-ab44-c67bd5b7b23e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility and Macros\Time Gate">
+      <UniqueIdentifier>{926aa47e-036e-4391-aaa9-2bf22d627b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Static Mesh">
+      <UniqueIdentifier>{1a293627-ced5-446d-8c47-3b85d15791bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader Files\Static Mesh Shader">
+      <UniqueIdentifier>{a138c809-f1b3-4678-aa86-8df514566261}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

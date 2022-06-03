@@ -4,9 +4,10 @@
 #include <iostream>
 
 #include "Window_API.hpp"
+#include "Shader.hpp"
 
 Usage Window_API::Window_API_Functions;
-
+using namespace ShaderDefinition;
 int main(int argc, char **argv)
 {
 
@@ -46,6 +47,14 @@ int MainProgram::ProgramCycle()
 
 	double nowTime;
 
+	StaticMesh mesh;
+
+	MeshFileLoader::loadGumFile("4star.gum", mesh);
+
+	say mesh.totalTriangles() spc " is the total amount of triangles in static mesh" done;
+
+	v3 offset = v3(1.0, 3.0, -5.0);
+
 	while (shouldNotClose())
 	{
 		nowTime = glfwGetTime(); // get current time
@@ -67,6 +76,10 @@ int MainProgram::ProgramCycle()
 				checkDebugConsole();
 
 				draw3D(); // drawing meshes
+
+				drawStatic();
+
+
 				draw2D(); // querying the GUI and drawing the GUI occur at the same time, because that's how IMGUI works.
 				lastFrameTime = nowTime;
 			}
@@ -473,7 +486,20 @@ void MainProgram::draw3D()
 {
     renderer.draw();
     brush.drawRay();
-    visualObjects.drawVisualObjects();
+    
+}
+void MainProgram::drawStatic()
+{
+	visualObjects.drawVisualObjects();
+
+	StaticMeshShader.use();
+	
+	/*
+	*	for all mesh that are static meshes
+	* 
+	*		mesh.uploadOffsetandScaleToGPU(); // send the offset and the scale to the GPU
+	*		mesh.render(); // draw it to screen.
+	*/
 }
 void MainProgram::draw2D()
 {

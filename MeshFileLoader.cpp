@@ -8,6 +8,14 @@ void MeshFileLoader::loadGumFile(string filepath, Mesh& mesh)
 	GumLoading::readGumMesh(filepath, mesh); // the actual implementation
 }
 
+void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh)
+{
+	GumLoading::readGumMesh(filepath, mesh);
+
+	mesh.collectStats();
+	mesh.bind(); // this mesh is going to be only modified in the shader as it is static.
+}
+
 namespace MeshFileLoader::Util
 {
 	void skipFileLines(FILE* file, int linestoSkip)
@@ -79,6 +87,17 @@ namespace MeshFileLoader::GumLoading
 		}
 		return (KeyData)stoi(str);
 	}
+
+    void GumLoading::readGumMesh(string filePath, StaticMeshReference mesh)
+    {
+		Mesh rMesh;
+
+		readGumMesh(filePath, rMesh);
+		// hacky but simple
+		mesh.vertices.insert(mesh.vertices.begin(), rMesh.vertices.begin(), rMesh.vertices.end());
+		mesh.triangles.insert(mesh.triangles.begin(), rMesh.triangles.begin(), rMesh.triangles.end());
+
+    }
 
 
 	void GumLoading::readTriangle(FILE** file, string& str, Mesh& mesh)
