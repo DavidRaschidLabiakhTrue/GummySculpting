@@ -1,9 +1,13 @@
 #ifndef Macro_HPP
 #define Macro_HPP
 
+#define _CRTDBG_MAP_ALLOC
+
 #include <iostream>
 #include <vector>
 #include <string>
+
+
 
 typedef std::vector<std::string> StringList; // Traces of vector<> are bad for readability.
 

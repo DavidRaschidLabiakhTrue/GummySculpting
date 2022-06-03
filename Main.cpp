@@ -8,14 +8,15 @@
 
 #include "TimeGate.hpp"
 
-#include <crtdbg.h>
+
+
 
 Usage Window_API::Window_API_Functions;
 using namespace ShaderDefinition;
 using namespace TimeGateDefinition;
 int main(int argc, char **argv)
 {
-
+	// _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     StringList arguments(argv + 1, argv + argc); // loads the arguments as a string vector.
 
     say "Command Line Arguments:\n\t";
@@ -80,7 +81,7 @@ int MainProgram::ProgramCycle()
 		eventQuery(); // update glfw in conjunction with opengl
 
 	}
-
+	//_CrtDumpMemoryLeaks();
 	return 0;
 }
 void MainProgram::parseCommandLineArguments(StringList& arguments)
@@ -486,7 +487,7 @@ void MainProgram::queryCamera()
 void MainProgram::draw3D()
 {
     renderer.draw();
-    brush.drawRay();
+    //brush.drawRay();
     
 }
 void MainProgram::drawStatic()

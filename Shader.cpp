@@ -118,6 +118,7 @@ void ShaderDefinition::Shader::uploadOffsetVectorToGPU(rv3 renderOffset)
 }
 void Shader::uploadCameraMatrixToGPU()
 {
+	
 	glUniformMatrix4fv(ShaderSlotInfo.cameraMatrix.position, 1, GL_FALSE, value_ptr(GlobalCamera->cameraMatrix));
 }
 
