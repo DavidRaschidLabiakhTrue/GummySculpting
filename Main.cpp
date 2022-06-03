@@ -42,46 +42,32 @@ int MainProgram::ProgramCycle()
 	Window_API_Functions::eventQuery(); // start off the event query cycle
 
 
-
+	
 
 
 	while (shouldNotClose())
 	{
+		TimeGateDefinition::tick(); // global time delta checker
 
 		queryMechanics(); // query for input
 
 		checkDirectives(); // check for directives
-	
 
-		renderGate.tick(); // get current time
-		// draw the gui.
-
-		if (renderGate.canUpdate()) // fps check
+		if (renderGate.canUpdate() && win.canRender) // fps check  // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
 		{
 			// refresh all draw buffers
-			if (win.canRender) // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
-			{
-				beginDrawFrame();
-
-				checkDebugConsole();
-
-				draw3D(); // drawing meshes
-
-				//drawStatic();
-
-
-				draw2D(); // querying the GUI and drawing the GUI occur at the same time, because that's how IMGUI works.
-				renderGate.canUpdate();
-			}
+			beginDrawFrame();
+			checkDebugConsole();
+			draw3D(); // drawing meshes
+			//drawStatic();
+			draw2D(); // querying the GUI and drawing the GUI occur at the same time, because that's how IMGUI works.
+			renderGate.canUpdate();
 			
 		}
-
-		
-
 		eventQuery(); // update glfw in conjunction with opengl
 
 	}
-	//_CrtDumpMemoryLeaks();
+
 	return 0;
 }
 void MainProgram::parseCommandLineArguments(StringList& arguments)
@@ -460,14 +446,14 @@ void MainProgram::generateMaps()
 }
 void MainProgram::queryMechanics()
 {
-	cameraGate.tick();
+
 	if (cameraGate.canUpdate() && win.canRender)
 	{
 		queryCamera();
 		cameraGate.update();
 	}
 
-	sculptGate.tick();
+
 	if (sculptGate.canUpdate())
 	{
 		brush.querySculpt(renderer.getActiveMeshReference());
