@@ -24,6 +24,9 @@
 #include "DebuggingConsole.hpp"
 
 #include "MainDirective.hpp"
+
+#include "TimeGate.hpp"
+
 #include <variant>
 
 using namespace MathTypeDefinitions;
@@ -43,7 +46,7 @@ using namespace SculptBrushDefinition;
 
 using namespace GizmoDefinition;
 
-
+using namespace TimeGateDefinition;
 
 using DebugConsoleDefinition::debug;
 
@@ -104,10 +107,13 @@ class MainProgram
 
 		GUI gui;
 
-		bool showDebugConsole = true;
+		bool showDebugConsole = false;
 		bool showDemoDebugger = false;
 		VisualObjects visualObjects;
 
+		TimeGate cameraGate = TimeGate(45.0f);
+		TimeGate sculptGate = TimeGate(15.0f);
+		TimeGate renderGate = TimeGate(30.0f);
 
 
 };
