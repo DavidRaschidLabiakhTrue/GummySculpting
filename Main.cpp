@@ -47,13 +47,9 @@ int MainProgram::ProgramCycle()
 
 	double nowTime;
 
-	StaticMesh mesh;
 
-	MeshFileLoader::loadGumFile("4star.gum", mesh);
 
-	say mesh.totalTriangles() spc " is the total amount of triangles in static mesh" done;
 
-	v3 offset = v3(1.0, 3.0, -5.0);
 
 	while (shouldNotClose())
 	{
