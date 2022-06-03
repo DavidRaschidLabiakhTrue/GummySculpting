@@ -47,7 +47,7 @@ inline void RendererDefinition::Renderer::drawStandard()
 
 inline void RendererDefinition::Renderer::drawWireFrame()
 {
-	/*
+	
 	if (this->shouldDrawWire)
 	{
 		WireFrameShader.use();
@@ -58,7 +58,7 @@ inline void RendererDefinition::Renderer::drawWireFrame()
 		}
 		GL::drawFilled();
 	}
-	*/
+	
 
 }
 
@@ -67,7 +67,7 @@ inline void RendererDefinition::Renderer::drawWireFrame()
 void Renderer::draw()
 {
 	drawStandard();
-	drawWireFrame();
+	//drawWireFrame();
 }
 
 void RendererDefinition::Renderer::toggleWireFrame()

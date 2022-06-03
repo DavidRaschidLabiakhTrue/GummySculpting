@@ -6,6 +6,9 @@ using namespace MeshDefinition;
 void MeshFileLoader::loadGumFile(string filepath, Mesh& mesh)
 {
 	GumLoading::readGumMesh(filepath, mesh); // the actual implementation
+	mesh.bind();
+	mesh.createVariableMap();
+	mesh.generateGraphsAndTrees();
 }
 
 void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh)
@@ -14,6 +17,7 @@ void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh)
 
 	mesh.collectStats();
 	mesh.bind(); // this mesh is going to be only modified in the shader as it is static.
+
 }
 
 namespace MeshFileLoader::Util

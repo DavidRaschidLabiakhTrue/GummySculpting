@@ -452,7 +452,7 @@ void MainProgram::preprocess(StringList &arguments)
 
 void MainProgram::bindGraphicsDataToGPU()
 {
-    renderer.bindAllMeshes();
+    renderer.setUpMeshResources();
 }
 void MainProgram::generateMaps()
 {
