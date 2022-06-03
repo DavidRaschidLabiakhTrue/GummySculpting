@@ -75,6 +75,7 @@ class MainProgram
 		void processRendererCommand(StringList& arguments, int numArgs); // process renderer command
 		void processMeshCommand(StringList& arguments, int numArgs); // process mesh command
 		void processVariableCommand(StringList& arguments, int numArgs); // process variable command
+		void processFileManagementCommand(StringList& arguments, int numArgs);
 		// pair< getVariable()
 
 		void processSculptorCommand(StringList& arguments, int numArgs);

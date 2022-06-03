@@ -24,6 +24,7 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 		//mesh.loadTriangleTest();
 		MeshFileLoader::loadGumFile(meshFilePath, mesh);
 		meshes.push_back(mesh);
+		makeLastMeshActive();
 		return;
 	}
 	else

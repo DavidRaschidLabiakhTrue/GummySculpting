@@ -67,7 +67,7 @@ inline void RendererDefinition::Renderer::drawWireFrame()
 void Renderer::draw()
 {
 	drawStandard();
-	//drawWireFrame();
+	drawWireFrame();
 }
 
 void RendererDefinition::Renderer::toggleWireFrame()

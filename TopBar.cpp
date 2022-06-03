@@ -18,9 +18,11 @@ void TopBarDefinition::TopBar::build()
 	{
 		if (ImGui::MenuItem("Load Mesh"))
 		{
+			
 			nfdchar_t* inPath = NULL;
 			nfdresult_t result = NFD_OpenDialog("gum,obj", NULL, &inPath);
 			string path;
+			
 			if (result == NFD_ERROR)
 			{
 				// do nothing
@@ -31,11 +33,12 @@ void TopBarDefinition::TopBar::build()
 			}
 			else
 			{
+				buildCommand.emplace_back("file");
+				buildCommand.emplace_back("import");
 				path = inPath;
-				say path done;
+				buildCommand.emplace_back(path);
+				MainDirectiveDefinition::Directives.emplace_back(buildCommand);
 			}
-
-
 		}
 		
 		ImGui::MenuItem("Export Mesh");

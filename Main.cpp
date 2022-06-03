@@ -142,7 +142,23 @@ void MainProgram::checkDirectives()
         //say "Directive Exhausted" done;
     }
 }
+void MainProgram::processFileManagementCommand(StringList& arguments, int numArgs)
+{
+	using namespace DebugConsoleDefinition;
+	if (numArgs < 3)
+	{
+		return;
+	}
+	switch (getCommand(arguments[1]))
+	{
+		case IMPORT:
+			renderer.loadMeshFromFile(arguments[2]);
+			break;
+		case EXPORT: // this case will need to be expanded to also include .obj and probably .stl
+			break;
+	}
 
+}
 void MainProgram::processDirectives()
 {
 
@@ -168,7 +184,8 @@ void MainProgram::processDirectives()
 		case MESH:
 			processMeshCommand(arguments, numArgs);
 			break;
-		case PRINT:
+		case PRINT: // mmhh
+			
 		case SET:
 			processVariableCommand(arguments, numArgs);
 			break;
@@ -177,7 +194,9 @@ void MainProgram::processDirectives()
 		case SCULPTOR:
 			processSculptorCommand(arguments, numArgs);
 			break;
-
+		case FILEMANGEMENT:
+			processFileManagementCommand(arguments, numArgs);
+			break;
     }
 }
 
@@ -270,6 +289,8 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 			break;
     }
 }
+
+
 
 
 void MainProgram::processRendererCommand(StringList &arguments, int numArgs)
@@ -460,8 +481,6 @@ void MainProgram::queryMechanics()
 		sculptGate.update();
 	}
    
-
-	
 
 	gizmo.queryGizmo();
 }
