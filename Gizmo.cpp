@@ -1,33 +1,18 @@
 #include "Gizmo.hpp"
 
-#include "KeyInput.hpp"
-
 using namespace GizmoDefinition;
-
-GizmoDefinition::Gizmo::Gizmo()
-{
-
-}
-
-GizmoDefinition::Gizmo::~Gizmo()
-{
-
-}
 
 GizmoDefinition::Gizmo::Gizmo(bool trueConstructor)
 {
 
 }
 
-void GizmoDefinition::Gizmo::queryGizmo()
+StaticMesh GizmoDefinition::Gizmo::CreateGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale)
 {
-	if (!gizmoActive && cast() and this->currentDir != direction)
-	{
-		gizmoActive = true;
-		say "gizmo active" done;
-	}
-	else if (gizmoActive && CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT)) {
-		gizmoActive = false;
-		say "gizmo deactivated" done;
-	}
+	StaticMesh newStaticMesh = StaticMesh();
+	MeshFileLoader::loadGumFile(fileName, newStaticMesh, color, rotationAngle, rotationAxis);
+	newStaticMesh.offset = offset;
+	newStaticMesh.scale = scale;
+
+	return newStaticMesh;
 }

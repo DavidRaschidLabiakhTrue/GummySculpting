@@ -11,13 +11,32 @@ void MeshFileLoader::loadGumFile(string filepath, Mesh& mesh)
 	mesh.generateGraphsAndTrees();
 }
 
+// static mesh overload
 void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh)
 {
 	GumLoading::readGumMesh(filepath, mesh);
 
 	mesh.collectStats();
 	mesh.bind(); // this mesh is going to be only modified in the shader as it is static.
+}
 
+// static mesh with color and rotation overload
+void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh, v4 uniformColor, float rotationAngle, v3 rotationAxis)
+{
+	GumLoading::readGumMesh(filepath, mesh);
+
+	mesh.colorDataUniformly(uniformColor);
+
+	glm::mat4 rotationMtx(1);
+	rotationMtx = glm::rotate(rotationMtx, rotationAngle, rotationAxis);
+
+	forall(vert, mesh.vertices)
+	{
+		vert.position = v3(rotationMtx * v4(vert.position, 1.0));
+	}
+
+	mesh.collectStats();
+	mesh.bind(); // this mesh is going to be only modified in the shader as it is static.
 }
 
 namespace MeshFileLoader::Util

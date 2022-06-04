@@ -19,7 +19,7 @@
 
 #include "SculptBrush.hpp"
 
-#include "Gizmo.hpp"
+#include "GizmoManager.hpp"
 
 #include "DebuggingConsole.hpp"
 
@@ -44,7 +44,7 @@ using namespace VisualObjectsDefinition;
 
 using namespace SculptBrushDefinition;
 
-using namespace GizmoDefinition;
+using namespace GizmoManagerDefinition;
 
 using namespace TimeGateDefinition;
 
@@ -104,7 +104,7 @@ class MainProgram
 
 		SculptBrush brush;
 
-		Gizmo gizmo;
+		GizmoManager gizmoManager;
 
 		GUI gui;
 

@@ -59,7 +59,7 @@ int MainProgram::ProgramCycle()
 			beginDrawFrame();
 			checkDebugConsole();
 			draw3D(); // drawing meshes
-			//drawStatic();
+			drawStatic();
 			draw2D(); // querying the GUI and drawing the GUI occur at the same time, because that's how IMGUI works.
 			renderGate.canUpdate();
 			
@@ -121,7 +121,7 @@ MainProgram::MainProgram(StringList &arguments)
     debug = DebugConsoleDefinition::DebugConsole(TrueConstructor);
     CameraDefinition::GlobalCamera = &cam; // set up camera linkage
     brush = SculptBrush(TrueConstructor);
-	gizmo = Gizmo(TrueConstructor);
+	gizmoManager = GizmoManager(TrueConstructor);
 
     visualObjects = VisualObjects(TrueConstructor);
 
@@ -482,7 +482,7 @@ void MainProgram::queryMechanics()
 	}
    
 
-	gizmo.queryGizmo();
+	gizmoManager.queryGizmo();
 }
 void MainProgram::queryCamera()
 {
@@ -507,6 +507,7 @@ void MainProgram::drawStatic()
 	*		mesh.uploadOffsetandScaleToGPU(); // send the offset and the scale to the GPU
 	*		mesh.render(); // draw it to screen.
 	*/
+	gizmoManager.drawGizmo();
 }
 void MainProgram::draw2D()
 {
