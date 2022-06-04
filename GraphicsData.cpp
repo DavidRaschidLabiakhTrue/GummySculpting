@@ -90,6 +90,8 @@ void GraphicsData::refresh()
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void*)offsetof(V3D, V3D::normal)); // color data reserves 4 slots.
 
 	unbindActiveVAO();
+
+
 }
 
 void GraphicsData::render()

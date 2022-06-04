@@ -11,11 +11,14 @@ namespace ShaderDefinition
 
 	Shader StaticMeshShader;
 
+	Shader GridShader;
+
 	void compileGlobalShaders()
 	{
 		StandardShader.compileShader("StandardShader.vert", "StandardShader.frag", "Standard Shader");
 		WireFrameShader.compileShader("WireFrameShader.vert", "WireFrameShader.frag", "WireFrame Shader");
 		StaticMeshShader.compileShader("StaticMeshShader.vert", "StaticMeshShader.frag", "Static Mesh Shader");
+		GridShader.compileShader("GridShader.vert", "GridShader.frag", "Grid Shader");
 	}
 }
 
@@ -121,6 +124,11 @@ void ShaderDefinition::Shader::uploadStaticColorVectorToGPU(rv4 renderColor)
 {
 
 	glUniform4f(ShaderSlotInfo.staticColor.position, renderColor.r, renderColor.g, renderColor.b, renderColor.a);
+}
+
+void ShaderDefinition::Shader::uploadModelMatrixToGPU(rm4 model)
+{
+	glUniformMatrix4fv(ShaderSlotInfo.modelMatrix.position, 1, GL_FALSE, value_ptr(model));
 }
 
 void ShaderDefinition::Shader::uploadProjectionMatrixToGPU()

@@ -1,24 +1,43 @@
 #include "Transformer.hpp"
+#include "MathDefinitions.hpp"
 
-TransformerDefinition::Transformer::Transformer()
+using namespace MathTypeDefinitions::CoordinateDefine::Basis;
+
+TransformerDefinition::ModelMatrix::ModelMatrix()
 {
 }
 
-TransformerDefinition::Transformer::~Transformer()
+TransformerDefinition::ModelMatrix::~ModelMatrix()
 {
 }
 
-void TransformerDefinition::Transformer::translateX(float movex)
+void TransformerDefinition::ModelMatrix::rotateX(const float x)
+{
+	model = rotate(model, glm::radians(x), Basis::X);
+}
+
+void TransformerDefinition::ModelMatrix::rotateY(const float y)
+{
+	model = rotate(model, glm::radians(y), Basis::Y);
+}
+
+void TransformerDefinition::ModelMatrix::rotateZ(const float z)
+{
+	model = rotate(model, glm::radians(z), Basis::Z);
+}
+
+void TransformerDefinition::ModelMatrix::translateX(const float x)
 {
 }
 
-void TransformerDefinition::Transformer::translateY(float movey)
+void TransformerDefinition::ModelMatrix::translateY(const float y)
 {
 }
 
-void TransformerDefinition::Transformer::translateZ(float movez)
+void TransformerDefinition::ModelMatrix::translateZ(const float z)
 {
 }
+
 
 TransformerDefinition::CameraTransformer::CameraTransformer()
 {

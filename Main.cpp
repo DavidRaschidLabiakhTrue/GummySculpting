@@ -42,8 +42,6 @@ int MainProgram::ProgramCycle()
 	Window_API_Functions::eventQuery(); // start off the event query cycle
 
 
-	
-
 
 	while (shouldNotClose())
 	{
@@ -61,7 +59,7 @@ int MainProgram::ProgramCycle()
 			draw3D(); // drawing meshes
 			drawStatic();
 			draw2D(); // querying the GUI and drawing the GUI occur at the same time, because that's how IMGUI works.
-			renderGate.canUpdate();
+
 			
 		}
 		eventQuery(); // update glfw in conjunction with opengl
@@ -471,14 +469,14 @@ void MainProgram::queryMechanics()
 	if (cameraGate.canUpdate() && win.canRender)
 	{
 		queryCamera();
-		cameraGate.update();
+
 	}
 
 
 	if (sculptGate.canUpdate())
 	{
 		brush.querySculpt(renderer.getActiveMeshReference());
-		sculptGate.update();
+
 	}
    
 
@@ -497,12 +495,13 @@ void MainProgram::draw3D()
 }
 void MainProgram::drawStatic()
 {
+	
 	visualObjects.drawVisualObjects();
 
 	// clear depth buffer to draw newly rendered objects on top
 	renderer.clearDepthInfo();
-
 	StaticMeshShader.use();
+	
 	
 	/*
 	*	for all mesh that are static meshes

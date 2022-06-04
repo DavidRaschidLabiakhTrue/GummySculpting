@@ -271,6 +271,7 @@
     <ClInclude Include="IndiceList.hpp" />
     <ClInclude Include="Lighting.hpp" />
     <ClInclude Include="MainDirective.hpp" />
+    <ClInclude Include="MathDefinitions.cpp" />
     <ClInclude Include="MeshChangeLog.hpp" />
     <ClInclude Include="MeshHistory.hpp" />
     <ClInclude Include="Noise.hpp" />
@@ -328,6 +329,8 @@
     <None Include="4star.gum" />
     <None Include="arrow.gum" />
     <None Include="cube.gum" />
+    <None Include="GridShader.frag" />
+    <None Include="GridShader.vert" />
     <None Include="plane.gum" />
     <None Include="sphere.gum" />
     <None Include="StandardShader.frag" />

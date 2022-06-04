@@ -33,7 +33,16 @@ void TimeGateDefinition::TimeGate::update()
 
 const bool TimeGateDefinition::TimeGate::canUpdate()
 {
-	return (nowTime - lastTime) >= RATE_INTERVAL;
+	if ((nowTime - lastTime) >= RATE_INTERVAL)
+	{
+		lastTime = nowTime;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
 }
 
 TimeGateDefinition::TimeGate::~TimeGate()

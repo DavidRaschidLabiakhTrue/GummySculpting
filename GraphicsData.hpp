@@ -11,6 +11,8 @@
 
 #include "TriangleLookUp.hpp"
 
+#include "Transformer.hpp"
+
 namespace GraphicsDataDefinition
 {
 	using namespace TriangleListDefinition;
@@ -19,11 +21,12 @@ namespace GraphicsDataDefinition
 	using namespace VertexLookUpDefinition;
 	using namespace EdgeListDefinition;
 	using namespace TriangleLookUpDefinition;
+	using TransformerDefinition::ModelMatrix;
 	/*
 		*	Graphics Data - A graphics format meant specifically for interacting with the GPU.
 		*   Inherited by MeshStats -> Mesh
 	*/
-	class GraphicsData : protected GraphicsBufferObject, public TriangleLookUp
+	class GraphicsData : protected GraphicsBufferObject, public TriangleLookUp, public ModelMatrix
 	{
 		public:
 			Construct GraphicsData();

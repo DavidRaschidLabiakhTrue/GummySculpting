@@ -10,21 +10,24 @@ namespace TransformerDefinition
 	using namespace MathTypeDefinitions::CoordinateDefine;
 	using namespace MathTypeDefinitions::MatrixDefine;
 
-	class Transformer
+	class ModelMatrix
 	{
 		public:
 
-			Transformer();
-			~Transformer();
+			ModelMatrix();
+			~ModelMatrix();
+			
+			// rotate the model x degrees
+			void rotateX(const float x);
+			void rotateY(const float y);
+			void rotateZ(const float z);
 
-			void translateX(float movex);
-			void translateY(float movey);
-			void translateZ(float movez);
-
+			void translateX(const float x);
+			void translateY(const float y);
+			void translateZ(const float z);
 			
 
 			m4 model = m4(1.0f);
-			v3 offset = v3(0);
 	};
 
 	class CameraTransformer

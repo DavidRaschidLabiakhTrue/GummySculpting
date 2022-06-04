@@ -30,19 +30,10 @@ inline void RendererDefinition::Renderer::drawStandard()
 			meshes[i].refresh();
 			meshes[i].needToRefresh = false;
 		}
+		StandardShader.uploadModelMatrixToGPU(meshes[i].model);
 		meshes[i].render();
 	}
-	//forall(mesh, meshes)
-	//{
-	//	if (mesh.needToRefresh)
-	//	{
-	//		mesh.refresh();
-	//		mesh.needToRefresh = false;
-	//	}
-	//	mesh.render();
-	//	// mesh.itreeDrawContainer.drawContainer();
-	//	//mesh.drawOctreeWireframe();
-	//}
+
 }
 
 inline void RendererDefinition::Renderer::drawWireFrame()
@@ -52,10 +43,14 @@ inline void RendererDefinition::Renderer::drawWireFrame()
 	{
 		WireFrameShader.use();
 		GL::drawLined();
-		forall(mesh, meshes)
+		const int meshSize = meshes.size();
+		for (int i = 0; i < meshSize; i++)
 		{
-			mesh.render();
+
+			StandardShader.uploadModelMatrixToGPU(meshes[i].model);
+			meshes[i].render();
 		}
+
 		GL::drawFilled();
 	}
 	

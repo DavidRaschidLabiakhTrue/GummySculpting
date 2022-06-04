@@ -20,7 +20,6 @@ namespace MathTypeDefinitions
 		typedef v3& rv3; // vector 3 reference
 		typedef v4& rv4; // vector 4 reference - r g b a
 		
-
 	}
 	// defines matrices of dim 2 to 4
 	namespace MatrixDefine
@@ -33,6 +32,16 @@ namespace MathTypeDefinitions
 
 	}
 
+}
+namespace MathTypeDefinitions::CoordinateDefine::Basis
+{
+	const v3 X = v3(1, 0, 0);
+	const v3 Y = v3(0, 1, 0);
+	const v3 Z = v3(0, 0, 1);
+
+	const v3 XY = v3(1, 1, 0);
+	const v3 XZ = v3(1, 0, 1);
+	const v3 YZ = v3(0, 1, 1);
 }
 
 #endif

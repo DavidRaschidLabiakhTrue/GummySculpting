@@ -42,11 +42,7 @@ void ShaderPosition::loadCameraMatrix()
 	position = 0;
 }
 
-void ShaderPosition::loadModelMatrix()
-{
-	slot = "modelMatrix";
-	position = 1;
-}
+
 
 void ShaderPositionDefinition::ShaderPosition::loadProjectionMatrix()
 {
@@ -58,6 +54,11 @@ void ShaderPositionDefinition::ShaderPosition::loadViewMatrix()
 {
 	slot = "viewMatrix";
 	position = 20;
+}
+void ShaderPosition::loadModelMatrix()
+{
+	slot = "modelMatrix";
+	position = 25;
 }
 
 void ShaderPositionDefinition::ShaderPosition::loadOffset()

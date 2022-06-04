@@ -220,7 +220,9 @@
     <ClCompile Include="RotateGizmo.cpp">
       <Filter>Mechanics\Gizmos\Imple\Rotate</Filter>
     </ClCompile>
-    <ClCompile Include="Transformer.cpp" />
+    <ClCompile Include="Transformer.cpp">
+      <Filter>Mechanics\Transformer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -460,6 +462,9 @@
     <ClInclude Include="Transformer.hpp">
       <Filter>Mechanics\Transformer</Filter>
     </ClInclude>
+    <ClInclude Include="MathDefinitions.cpp">
+      <Filter>Mathematics\Definitions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cube.gum">
@@ -497,6 +502,12 @@
     </None>
     <None Include="arrow.gum">
       <Filter>3D Models\gum Models</Filter>
+    </None>
+    <None Include="GridShader.frag">
+      <Filter>Rendering\Shaders\Shader Files\Grid</Filter>
+    </None>
+    <None Include="GridShader.vert">
+      <Filter>Rendering\Shaders\Shader Files\Grid</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -829,6 +840,9 @@
     </Filter>
     <Filter Include="Mechanics\Transformer">
       <UniqueIdentifier>{500e6174-be7c-4aff-9e5a-2044bcab53f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader Files\Grid">
+      <UniqueIdentifier>{688d1aa1-6354-44e1-9504-2788ad7406a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

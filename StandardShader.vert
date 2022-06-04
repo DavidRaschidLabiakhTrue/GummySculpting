@@ -10,12 +10,12 @@ out vec3 myNormal;
 
 layout (location = 15) uniform mat4 projectionMatrix;
 layout (location = 20) uniform mat4 viewMatrix;
-
+layout (location = 25) uniform mat4 modelMatrix;
 
 
 void main()
 {
    myNormal = aNormal; // consume the normal call to ensure the shader is accepting the normal
-   gl_Position = projectionMatrix * viewMatrix* vec4(aPos, 1.0);
+   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(aPos, 1.0);
    myColor = aColor;
 };

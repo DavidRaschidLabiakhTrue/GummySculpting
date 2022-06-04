@@ -9,7 +9,7 @@ namespace ShaderDefinition
 {
 	Usage ShaderPositionDefinition;
 	using namespace MathTypeDefinitions::CoordinateDefine;
-
+	using namespace MathTypeDefinitions::MatrixDefine;
 	// shader class that enables meshes to be drawn on the GPU through a shader program
 	class Shader
 	{
@@ -28,7 +28,7 @@ namespace ShaderDefinition
 			void uploadScaleFloatToGPU(float renderScale);
 			void uploadOffsetVectorToGPU(rv3 renderOffset);
 			void uploadStaticColorVectorToGPU(rv4 renderColor);
-
+			void uploadModelMatrixToGPU(rm4 model);
 			string name; // name of shader for debugging
 			
 		protected:
@@ -43,6 +43,7 @@ namespace ShaderDefinition
 	extern Shader StandardShader;
 	extern Shader WireFrameShader;
 	extern Shader StaticMeshShader;
+	extern Shader GridShader;
 
 	extern void compileGlobalShaders();
 }
