@@ -217,6 +217,9 @@
     <ClCompile Include="GizmoManager.cpp">
       <Filter>Mechanics\Gizmos\Imple</Filter>
     </ClCompile>
+    <ClCompile Include="RotateGizmo.cpp">
+      <Filter>Mechanics\Gizmos\Imple\Rotate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -449,6 +452,9 @@
     </ClInclude>
     <ClInclude Include="GizmoManager.hpp">
       <Filter>Mechanics\Gizmos\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateGizmo.hpp">
+      <Filter>Mechanics\Gizmos\Imple\Rotate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -813,6 +819,9 @@
     </Filter>
     <Filter Include="Mechanics\Gizmos\Imple\Translate">
       <UniqueIdentifier>{deb67fbf-a1f9-41d0-9ab2-487797ced615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Gizmos\Imple\Rotate">
+      <UniqueIdentifier>{733d2ca9-c1fd-49cc-96c7-3ba9f652f197}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

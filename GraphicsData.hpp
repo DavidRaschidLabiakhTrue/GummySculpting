@@ -35,8 +35,7 @@ namespace GraphicsDataDefinition
 
 			void render(); // render and draw vertex data.
 
-
-			
+			void invertFaces();
 
 			// need to implement copy.
 

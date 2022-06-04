@@ -7,12 +7,36 @@ GizmoDefinition::Gizmo::Gizmo(bool trueConstructor)
 
 }
 
-StaticMesh GizmoDefinition::Gizmo::createGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale)
+StaticMesh GizmoDefinition::Gizmo::createGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale, bool invertFaces)
 {
 	StaticMesh newStaticMesh = StaticMesh();
-	MeshFileLoader::loadGumFile(fileName, newStaticMesh, color, rotationAngle, rotationAxis);
+	MeshFileLoader::loadGumFile(fileName, newStaticMesh, false);
+
+	//Apply color
+	newStaticMesh.colorDataUniformly(color);
+
+	//Rotate
+	glm::mat4 rotationMtx(1);
+	rotationMtx = glm::rotate(rotationMtx, rotationAngle, rotationAxis);
+
+	forall(vert, newStaticMesh.vertices)
+	{
+		vert.position = v3(rotationMtx * v4(vert.position, 1.0));
+	}
+
+	//Apply offset and scale
 	newStaticMesh.offset = offset;
 	newStaticMesh.scale = scale;
+
+	//optionally invert all faces
+	if (invertFaces)
+	{
+		newStaticMesh.invertFaces();
+	}
+
+	//Send to GPU
+	newStaticMesh.collectStats();
+	newStaticMesh.bind(); // this mesh is going to be only modified in the shader as it is static.
 
 	return newStaticMesh;
 }

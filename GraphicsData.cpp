@@ -100,3 +100,13 @@ void GraphicsData::render()
 
 	GL::unbindActiveVAO();
 }
+
+void GraphicsData::invertFaces()
+{
+	forall(tri, this->triangles)
+	{
+		int temp = tri.indice[1];
+		tri.indice[1] = tri.indice[2];
+		tri.indice[2] = temp;
+	}
+}

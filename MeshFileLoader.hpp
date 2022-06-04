@@ -15,8 +15,7 @@ namespace MeshFileLoader
 	using namespace StaticMeshDefinition;
 	// wrapper for gum mesh file loading
 	void loadGumFile(string filepath, Mesh& mesh); 
-	void loadGumFile(string filepath, StaticMeshReference mesh);
-	void loadGumFile(string filepath, StaticMeshReference mesh, v4 uniformColor, float rotationAngle, v3 rotationAxis);
+	void loadGumFile(string filepath, StaticMeshReference mesh, bool shouldBind = true);
 }
 
 namespace MeshFileLoader::Util

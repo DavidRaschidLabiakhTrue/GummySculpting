@@ -3,11 +3,13 @@
 
 #include "Gizmo.hpp"
 #include "TranslateGizmo.hpp"
+#include "RotateGizmo.hpp"
 
 namespace GizmoManagerDefinition
 {
 	using namespace GizmoDefinition;
 	using namespace TranslateGizmoDefinition;
+	using namespace RotateGizmoDefinition;
 
 	class GizmoManager
 	{
