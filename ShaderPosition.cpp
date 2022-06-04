@@ -61,6 +61,12 @@ void ShaderPositionDefinition::ShaderPosition::loadScale()
 	position = 2;
 }
 
+void ShaderPositionDefinition::ShaderPosition::loadStaticColor()
+{
+	slot = "staticColor";
+	position = 3;
+}
+
 ShaderPositionData::ShaderPositionData()
 {
 	position.loadPosition();
@@ -70,6 +76,7 @@ ShaderPositionData::ShaderPositionData()
 	modelMatrix.loadModelMatrix();
 	offset.loadOffset();
 	scale.loadScale();
+	staticColor.loadStaticColor();
 }
 
 ShaderPositionData::~ShaderPositionData()

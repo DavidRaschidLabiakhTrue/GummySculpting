@@ -29,6 +29,7 @@ namespace ShaderPositionDefinition
 
 		void loadOffset();
 		void loadScale();
+		void loadStaticColor();
 	};
 
 	// basically a global constant that contains all relevant data needed.
@@ -44,7 +45,7 @@ namespace ShaderPositionDefinition
 		ShaderPosition modelMatrix;
 		ShaderPosition offset;
 		ShaderPosition scale;
-		
+		ShaderPosition staticColor;
 	};
 
 	extern ShaderPositionData ShaderSlotInfo;

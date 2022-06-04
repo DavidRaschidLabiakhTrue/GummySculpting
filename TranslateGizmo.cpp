@@ -46,6 +46,10 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 
 void TranslateGizmoDefinition::TranslateGizmo::draw()
 {
+	v4 color = GizmoColors::red;
+
+	StaticMeshShader.uploadStaticColorVectorToGPU(color);
+
 	forall(arrow, arrows)
 	{
 		arrow.mesh.uploadOffsetandScaleToGPU();

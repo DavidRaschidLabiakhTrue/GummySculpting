@@ -27,6 +27,7 @@ namespace ShaderDefinition
 
 			void uploadScaleFloatToGPU(float renderScale);
 			void uploadOffsetVectorToGPU(rv3 renderOffset);
+			void uploadStaticColorVectorToGPU(rv4 renderColor);
 
 			string name; // name of shader for debugging
 			

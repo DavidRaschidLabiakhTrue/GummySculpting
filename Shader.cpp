@@ -116,6 +116,12 @@ void ShaderDefinition::Shader::uploadOffsetVectorToGPU(rv3 renderOffset)
 
 	glUniform3f(ShaderSlotInfo.offset.position, renderOffset.x, renderOffset.y, renderOffset.z);
 }
+
+void ShaderDefinition::Shader::uploadStaticColorVectorToGPU(rv4 renderColor)
+{
+	glUniform4f(ShaderSlotInfo.staticColor.position, renderColor.r, renderColor.g, renderColor.b, renderColor.a);
+}
+
 void Shader::uploadCameraMatrixToGPU()
 {
 	
