@@ -43,6 +43,17 @@ void MeshDefinition::Mesh::computeNormals()
 	say "Normals Calculated" done;
 }
 
+void Mesh::applyModelMatrix()
+{
+	const auto totalvert = this->verticeCount();
+	for (auto i = 0; i < totalvert; i++)
+	{
+		vertices[i].position = v3(model * v4(vertices[i].position, 1.0));
+	}
+	this->resetModelMatrix();
+	this->needToRefresh = true;
+}
+
 void MeshDefinition::Mesh::recomputeNormals(HistoryKeyVertexMap& apply)
 {
 	const int totTri = (int)this->affectedTriangles.size();

@@ -60,8 +60,12 @@ namespace MeshDefinition
 
 
 			void computeNormals();
+			
 
 			void recomputeNormals(HistoryKeyVertexMap& apply);
+
+
+			void applyModelMatrix();
 
 			ChangeLog history; // mesh reversion history.
 

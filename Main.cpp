@@ -41,7 +41,12 @@ int MainProgram::ProgramCycle()
 {
 	Window_API_Functions::eventQuery(); // start off the event query cycle
 
+	renderer.activeMesh->rotateX(25);
+	renderer.activeMesh->rotateZ(86);
+	renderer.activeMesh->scaleX(2.7f);
+	renderer.activeMesh->translateY(-3);
 
+	renderer.activeMesh->applyModelMatrix();
 
 	while (shouldNotClose())
 	{
@@ -490,14 +495,14 @@ void MainProgram::queryCamera()
 void MainProgram::draw3D()
 {
     renderer.draw();
-    //brush.drawRay();
+   
     
 }
 void MainProgram::drawStatic()
 {
 	
 	visualObjects.drawVisualObjects();
-
+	brush.drawRay();
 	// clear depth buffer to draw newly rendered objects on top
 	renderer.clearDepthInfo();
 	StaticMeshShader.use();

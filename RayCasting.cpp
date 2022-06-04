@@ -119,7 +119,6 @@ void RayCastDefinition::RayCast::drawRay()
 
 	if (shouldDrawRay)
 	{
-		StandardShader.use();
 		bindVAO();
 		glDrawElements(GL_LINES, (GLsizei) indices.size(), GL_UNSIGNED_INT, NULL);
 		unbindActiveVAO();
