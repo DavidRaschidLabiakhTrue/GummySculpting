@@ -62,7 +62,10 @@ inline void RendererDefinition::Renderer::drawWireFrame()
 
 }
 
-
+void Renderer::clearDepthInfo()
+{
+	GL::clearDepthBuffer();
+}
 
 void Renderer::draw()
 {

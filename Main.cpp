@@ -499,6 +499,9 @@ void MainProgram::drawStatic()
 {
 	visualObjects.drawVisualObjects();
 
+	// clear depth buffer to draw newly rendered objects on top
+	renderer.clearDepthInfo();
+
 	StaticMeshShader.use();
 	
 	/*
