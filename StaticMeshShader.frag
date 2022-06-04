@@ -1,8 +1,9 @@
-#version 410 core
+#version 430 core
 
 
 in vec4 myColor;
 in vec3 myNormal;
+
 layout(location = 0) out vec4 FragColor;
 
 
