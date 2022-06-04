@@ -129,6 +129,8 @@ void ShaderDefinition::Shader::uploadStaticColorVectorToGPU(rv4 renderColor)
 void ShaderDefinition::Shader::uploadModelMatrixToGPU(rm4 model)
 {
 	glUniformMatrix4fv(ShaderSlotInfo.modelMatrix.position, 1, GL_FALSE, value_ptr(model));
+}
+
 void ShaderDefinition::Shader::setStaticColorBool(bool useStaticColor)
 {
 	glUniform1i(ShaderSlotInfo.staticColorBool.position, useStaticColor);
