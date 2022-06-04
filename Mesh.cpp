@@ -45,7 +45,7 @@ void MeshDefinition::Mesh::computeNormals()
 
 void MeshDefinition::Mesh::recomputeNormals(HistoryKeyVertexMap& apply)
 {
-	const int totTri = this->affectedTriangles.size();
+	const int totTri = (int)this->affectedTriangles.size();
 
 	unordered_map< TriangleID, v3> newNormals;
 	newNormals.reserve(totTri);

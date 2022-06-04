@@ -3,6 +3,7 @@
 
 #include "MathDefinitions.hpp"
 #include "CameraParameters.hpp"
+#include "Transformer.hpp"
 #include "MainStateMachine.hpp"
 
 Usage MathTypeDefinitions::CoordinateDefine;
@@ -12,9 +13,10 @@ namespace CameraDefinition
 {
 	using namespace CameraParametersDefinition;
 	using namespace MainStateMachineDefinition;
+	using TransformerDefinition::CameraTransformer;
 
 	// Camera class that enables 3D rendering.
-	class Camera : public CameraParameters
+	class Camera : public CameraParameters, public CameraTransformer
 	{
 		public:
 			Camera();
@@ -24,13 +26,7 @@ namespace CameraDefinition
 			void updateMatrix(); // updates the matrix sent out.
 
 			m4 cameraMatrix;
-			m4 view;
-			m4 projection;
 
-			v3 pos;
-
-			v3 orientation;
-			v3 up;
 
 		protected:
 			void checkKeyInput(); // checks for user key input

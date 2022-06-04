@@ -32,6 +32,8 @@ namespace ShaderDefinition
 			string name; // name of shader for debugging
 			
 		protected:
+			void uploadProjectionMatrixToGPU();
+			void uploadViewMatrixToGPU();
 			void uploadCameraMatrixToGPU(); // send the camera matrix to opengl to load into the shaders on the GPU.
 			void uploadRandomVectorToGPU();
 			int id; // shader id on gpu

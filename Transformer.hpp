@@ -37,7 +37,10 @@ namespace TransformerDefinition
 			m4 view = m4(1.0f);
 			m4 projection = m4(1.0f);
 
-			v3 position;
+			v3 pos;
+
+			v3 orientation;
+			v3 up;
 
 
 	};

@@ -123,9 +123,21 @@ void ShaderDefinition::Shader::uploadStaticColorVectorToGPU(rv4 renderColor)
 	glUniform4f(ShaderSlotInfo.staticColor.position, renderColor.r, renderColor.g, renderColor.b, renderColor.a);
 }
 
+void ShaderDefinition::Shader::uploadProjectionMatrixToGPU()
+{
+	glUniformMatrix4fv(ShaderSlotInfo.projection.position, 1, GL_FALSE, value_ptr(GlobalCamera->projection));
+}
+
+void ShaderDefinition::Shader::uploadViewMatrixToGPU()
+{
+	glUniformMatrix4fv(ShaderSlotInfo.view.position, 1, GL_FALSE, value_ptr(GlobalCamera->view));
+}
+
 void Shader::uploadCameraMatrixToGPU()
 {
-	glUniformMatrix4fv(ShaderSlotInfo.cameraMatrix.position, 1, GL_FALSE, value_ptr(GlobalCamera->cameraMatrix));
+	//glUniformMatrix4fv(ShaderSlotInfo.cameraMatrix.position, 1, GL_FALSE, value_ptr(GlobalCamera->cameraMatrix));
+	uploadProjectionMatrixToGPU();
+	uploadViewMatrixToGPU();
 }
 
 void Shader::uploadRandomVectorToGPU()

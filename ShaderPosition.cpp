@@ -48,6 +48,18 @@ void ShaderPosition::loadModelMatrix()
 	position = 1;
 }
 
+void ShaderPositionDefinition::ShaderPosition::loadProjectionMatrix()
+{
+	slot = "projectionMatrix";
+	position = 15;
+}
+
+void ShaderPositionDefinition::ShaderPosition::loadViewMatrix()
+{
+	slot = "viewMatrix";
+	position = 20;
+}
+
 void ShaderPositionDefinition::ShaderPosition::loadOffset()
 {
 	slot = "staticOffset";
@@ -64,7 +76,7 @@ void ShaderPositionDefinition::ShaderPosition::loadScale()
 void ShaderPositionDefinition::ShaderPosition::loadStaticColor()
 {
 	slot = "staticColor";
-	position = 3;
+	position = 10;
 }
 
 ShaderPositionData::ShaderPositionData()
@@ -77,6 +89,8 @@ ShaderPositionData::ShaderPositionData()
 	offset.loadOffset();
 	scale.loadScale();
 	staticColor.loadStaticColor();
+	view.loadViewMatrix();
+	projection.loadProjectionMatrix();
 }
 
 ShaderPositionData::~ShaderPositionData()

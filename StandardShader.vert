@@ -8,13 +8,14 @@ layout (location = 2) in vec3 aNormal;
 out vec4 myColor;
 out vec3 myNormal;
 
-layout (location = 0) uniform mat4 camMatrix;
+layout (location = 15) uniform mat4 projectionMatrix;
+layout (location = 20) uniform mat4 viewMatrix;
 
 
 
 void main()
 {
    myNormal = aNormal; // consume the normal call to ensure the shader is accepting the normal
-   gl_Position = camMatrix * vec4(aPos, 1.0);
+   gl_Position = projectionMatrix * viewMatrix* vec4(aPos, 1.0);
    myColor = aColor;
 };
