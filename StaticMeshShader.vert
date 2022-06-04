@@ -16,5 +16,5 @@ void main()
 {
    myNormal = aNormal; // consume the normal call to ensure the shader is accepting the normal
    gl_Position = camMatrix * vec4(staticOffset + (aPos * staticScale), 1.0);
-   myColor = staticColor;
+   myColor = aColor;
 };

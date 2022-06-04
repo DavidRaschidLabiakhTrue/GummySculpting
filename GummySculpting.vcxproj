@@ -219,6 +219,7 @@
     <ClCompile Include="ToolsWindow.cpp" />
     <ClCompile Include="TopBar.cpp" />
     <ClCompile Include="TopologyComputation.cpp" />
+    <ClCompile Include="Transformer.cpp" />
     <ClCompile Include="TranslateGizmo.cpp" />
     <ClCompile Include="TriangleList.cpp" />
     <ClCompile Include="Indices.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="ToolsWindow.hpp" />
     <ClInclude Include="TopBar.hpp" />
     <ClInclude Include="TopologyComputation.hpp" />
+    <ClInclude Include="Transformer.hpp" />
     <ClInclude Include="TranslateGizmo.hpp" />
     <ClInclude Include="TriangleList.hpp" />
     <ClInclude Include="Indices.hpp" />

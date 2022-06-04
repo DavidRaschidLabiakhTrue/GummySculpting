@@ -42,7 +42,7 @@ StaticMesh GizmoDefinition::Gizmo::createGizmoMesh(string fileName, v4 color, v3
 }
 
 //Naive solution, only use on meshes with few tris
-bool GizmoDefinition::Gizmo::detectMeshClick(StaticMesh sMesh)
+bool GizmoDefinition::Gizmo::detectMeshClick(StaticMeshReference sMesh)
 {
 	v2 unusedBaryPosition; // Unused variable to pass into the intersection function
 	float tempDistance;

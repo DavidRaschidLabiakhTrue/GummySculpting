@@ -220,6 +220,7 @@
     <ClCompile Include="RotateGizmo.cpp">
       <Filter>Mechanics\Gizmos\Imple\Rotate</Filter>
     </ClCompile>
+    <ClCompile Include="Transformer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -455,6 +456,9 @@
     </ClInclude>
     <ClInclude Include="RotateGizmo.hpp">
       <Filter>Mechanics\Gizmos\Imple\Rotate</Filter>
+    </ClInclude>
+    <ClInclude Include="Transformer.hpp">
+      <Filter>Mechanics\Transformer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -822,6 +826,9 @@
     </Filter>
     <Filter Include="Mechanics\Gizmos\Imple\Rotate">
       <UniqueIdentifier>{733d2ca9-c1fd-49cc-96c7-3ba9f652f197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Transformer">
+      <UniqueIdentifier>{500e6174-be7c-4aff-9e5a-2044bcab53f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

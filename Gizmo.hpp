@@ -34,7 +34,7 @@ namespace GizmoDefinition
 		virtual void draw() {};
 
 		StaticMesh createGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale, bool invertFaces = false);
-		bool detectMeshClick(StaticMesh cMesh);
+		bool detectMeshClick(StaticMeshReference cMesh);
 
 		bool active = false;
 
