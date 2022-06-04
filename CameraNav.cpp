@@ -1,7 +1,7 @@
 #include "CameraNav.hpp"
 
-static int widgetSideLength = 150;
-static int ButtonSideLength = 40;
+static float widgetSideLength = 150;
+static float ButtonSideLength = 40;
 
 CameraNavDefinition::CameraNav::CameraNav()
 {
