@@ -29,6 +29,8 @@ namespace ShaderDefinition
 			void uploadOffsetVectorToGPU(rv3 renderOffset);
 			void uploadStaticColorVectorToGPU(rv4 renderColor);
 			void uploadModelMatrixToGPU(rm4 model);
+			void setStaticColorBool(bool useStaticColor);
+
 			string name; // name of shader for debugging
 			
 		protected:
