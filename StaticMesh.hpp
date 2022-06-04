@@ -19,6 +19,8 @@ namespace StaticMeshDefinition
 
 			void uploadOffsetandScaleToGPU();
 
+			void renderWithStaticColor(v4 color);
+
 			v3 offset = v3(0); // offset it is to be rendered in the shader.
 			float scale = 1.0f; // scale of the mesh
 

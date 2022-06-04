@@ -24,36 +24,39 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 {
 	if (!active and cast() and this->currentDir != direction)
 	{
-		forall(arrow, arrows)
+		for (int i = 0; i < numArrows; i++)
 		{
-			if (detectMeshClick(arrow.mesh))
+			if (detectMeshClick(arrows[i].mesh))
 			{
-				activeArrow = arrow;
+				activeArrowIndex = i;
 				active = true;
 				return;
 			}
 		}
 	}
-	else if (active) {
+	else if (active and activeArrowIndex != -1) {
 		if (CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT)) {
 			active = false;
+			activeArrowIndex = -1;
 		}
 		else {
-			activeArrow.callback(cMesh);
+			arrows[activeArrowIndex].callback(cMesh);
 		}
 	}
 }
 
 void TranslateGizmoDefinition::TranslateGizmo::draw()
 {
-	v4 color = GizmoColors::red;
-
-	StaticMeshShader.uploadStaticColorVectorToGPU(color);
-
-	forall(arrow, arrows)
+	for (int i = 0; i < numArrows; i++)
 	{
-		arrow.mesh.uploadOffsetandScaleToGPU();
-		arrow.mesh.render();
+		arrows[i].mesh.uploadOffsetandScaleToGPU();
+		if (i == activeArrowIndex)
+		{
+			arrows[i].mesh.renderWithStaticColor(GizmoColors::lightOrange);
+		}
+		else {
+			arrows[i].mesh.render();
+		}
 	}
 }
 

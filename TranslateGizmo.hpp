@@ -14,6 +14,7 @@ namespace TranslateGizmoDefinition
 	{
 		typedef struct Arrow {
 			StaticMesh mesh;
+			v3 color;
 			function<void(MeshReference cMesh)> callback;
 		} Arrow;
 
@@ -29,10 +30,11 @@ namespace TranslateGizmoDefinition
 			
 
 		protected:
-			Arrow arrows[3];
+			const static int numArrows = 3;
+			Arrow arrows[numArrows];
 			string arrowFileName = "arrow.gum";
 			void translateMesh(MeshReference cMesh, v3 axis);
-			Arrow activeArrow;
+			int activeArrowIndex = -1;
 	};
 }
 
