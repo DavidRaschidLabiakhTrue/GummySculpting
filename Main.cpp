@@ -482,7 +482,7 @@ void MainProgram::queryMechanics()
 	}
    
 
-	gizmoManager.queryGizmo();
+	gizmoManager.queryGizmo(renderer.getActiveMeshReference());
 }
 void MainProgram::queryCamera()
 {

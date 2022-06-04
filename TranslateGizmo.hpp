@@ -9,21 +9,30 @@ namespace TranslateGizmoDefinition
 	using namespace GizmoDefinition;
 	using namespace MathTypeDefinitions;
 	using namespace CoordinateDefine;
+
 	class TranslateGizmo : public Gizmo
 	{
-	public:
-		TranslateGizmo();
-		~TranslateGizmo();
+		typedef struct Arrow {
+			StaticMesh mesh;
+			function<void(MeshReference cMesh)> callback;
+		} Arrow;
 
-		TranslateGizmo(bool trueConstructor);
+		public:
+			TranslateGizmo();
+			~TranslateGizmo();
 
-		void draw() override;
-		bool query() override;
-		void CreateArrow(v4 color, v3 offset, float rotationAngle, v3 rotationAxis);
+			TranslateGizmo(bool trueConstructor);
 
-	protected:
-		StaticMesh arrows[3];
-		string arrowFileName = "arrow.gum";
+		
+			void query(MeshReference cMesh) override;
+			void draw() override;
+			
+
+		protected:
+			Arrow arrows[3];
+			string arrowFileName = "arrow.gum";
+			void translateMesh(MeshReference cMesh, v3 axis);
+			Arrow activeArrow;
 	};
 }
 

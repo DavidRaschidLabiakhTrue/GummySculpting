@@ -28,10 +28,11 @@ namespace GizmoDefinition
 		Gizmo(bool trueConstructor);
 		~Gizmo() {};
 
-		virtual bool query() { return false; };
+		virtual void query(MeshReference cMesh) {};
 		virtual void draw() {};
 
-		StaticMesh CreateGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale);
+		StaticMesh createGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale);
+		bool detectMeshClick(StaticMesh cMesh);
 
 		bool active = false;
 

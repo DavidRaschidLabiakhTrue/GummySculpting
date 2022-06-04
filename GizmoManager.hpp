@@ -17,7 +17,7 @@ namespace GizmoManagerDefinition
 
 		GizmoManager(bool trueConstructor);
 
-		void queryGizmo();
+		void queryGizmo(MeshReference cMesh);
 		void drawGizmo();
 
 		Gizmo* currentGizmo;
