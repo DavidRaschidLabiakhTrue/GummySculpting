@@ -8,7 +8,7 @@
 
 #include "TimeGate.hpp"
 
-
+#include "Debug.hpp"
 
 
 Usage Window_API::Window_API_Functions;
@@ -503,6 +503,7 @@ void MainProgram::drawStatic()
 	
 	visualObjects.drawVisualObjects();
 	brush.drawRay();
+	Debug::Drawing::renderLines();
 	// clear depth buffer to draw newly rendered objects on top
 	renderer.clearDepthInfo();
 	StaticMeshShader.use();

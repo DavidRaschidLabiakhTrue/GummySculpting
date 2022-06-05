@@ -4,6 +4,8 @@
 #include "Gizmo.hpp"
 #include "MeshFileLoader.hpp" // also includes "Mesh.h"
 
+#include "Debug.hpp"
+
 namespace TranslateGizmoDefinition
 {
 	using namespace GizmoDefinition;

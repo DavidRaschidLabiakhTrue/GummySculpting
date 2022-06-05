@@ -223,6 +223,12 @@
     <ClCompile Include="Transformer.cpp">
       <Filter>Mechanics\Transformer</Filter>
     </ClCompile>
+    <ClCompile Include="DebugLine.cpp">
+      <Filter>Rendering\Debug\DebugLine</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Rendering\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -464,6 +470,12 @@
     </ClInclude>
     <ClInclude Include="MathDefinitions.cpp">
       <Filter>Mathematics\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugLine.hpp">
+      <Filter>Rendering\Debug\DebugLine</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.hpp">
+      <Filter>Rendering\Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -846,6 +858,12 @@
     </Filter>
     <Filter Include="Utility and Macros\Boost">
       <UniqueIdentifier>{0784c592-add2-49e3-88d2-1ac93a51d5ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Debug">
+      <UniqueIdentifier>{5710fd8e-310d-42fd-ac01-76d044426bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Debug\DebugLine">
+      <UniqueIdentifier>{0947d1ee-1aac-4886-8ff9-b1e8a707a186}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
