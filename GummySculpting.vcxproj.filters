@@ -844,6 +844,9 @@
     <Filter Include="Rendering\Shaders\Shader Files\Grid">
       <UniqueIdentifier>{688d1aa1-6354-44e1-9504-2788ad7406a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility and Macros\Boost">
+      <UniqueIdentifier>{0784c592-add2-49e3-88d2-1ac93a51d5ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Font Include="G:\DL\OpenDyslexic Mono (Windows, MacOS, Linux OTF)\OpenDyslexicMono-Regular.otf">
