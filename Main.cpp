@@ -41,12 +41,6 @@ int MainProgram::ProgramCycle()
 {
 	Window_API_Functions::eventQuery(); // start off the event query cycle
 
-	renderer.activeMesh->rotateX(25);
-	renderer.activeMesh->rotateZ(86);
-	renderer.activeMesh->scaleX(2.7f);
-	renderer.activeMesh->translateY(-3);
-
-	renderer.activeMesh->applyModelMatrix();
 
 	while (shouldNotClose())
 	{
@@ -249,6 +243,8 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 			try
 			{
 				renderer.getActiveMesh()->loopSubdivision(stoi(arguments[2]));
+				renderer.getActiveMesh()->computeNormals();
+				renderer.getActiveMesh()->needToRefresh = true;
 			}
 			catch (exception &e)
 			{
@@ -266,6 +262,8 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 			try
 			{
 				renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
+				renderer.getActiveMesh()->computeNormals();
+				renderer.getActiveMesh()->needToRefresh = true;
 			}
 			catch (exception &e)
 			{
@@ -280,6 +278,8 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
             }
             try {
                 renderer.getActiveMesh()->gotoSubdivisionLevel(stoi(arguments[2]));
+				renderer.getActiveMesh()->computeNormals();
+				renderer.getActiveMesh()->needToRefresh = true;
             } catch (exception &e) {
                 debug.AddLog("Main: Error: Bad Argument: %s", e.what());
                 break;
