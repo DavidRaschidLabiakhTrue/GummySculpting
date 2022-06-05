@@ -10,53 +10,113 @@ TranslateGizmoDefinition::TranslateGizmo::~TranslateGizmo()
 
 TranslateGizmoDefinition::TranslateGizmo::TranslateGizmo(bool trueConstructor)
 {
-	arrows[0].mesh = createGizmoMesh(arrowFileName, GizmoColors::red, v3(-0.5f, 0.0f, 0.0f), 1.57f, GizmoAxes::z, 0.5f);	//X-axis
-	arrows[0].callback = [&](MeshReference cMesh) -> void { translateMesh(cMesh, GizmoAxes::x); };
+	//X-axis
+	Arrow xArrow = Arrow();
+	xArrow.mesh = createGizmoMesh(arrowFileName, GizmoColors::red, v3(-0.5f, 0.0f, 0.0f), 1.57f, GizmoAxes::z, 0.5f);
+	xArrow.hoverColor = GizmoColors::lightRed;
+	xArrow.activeColor = GizmoColors::lightOrange;
+	xArrow.callback = [&](MeshReference cMesh) -> void { translateMesh(cMesh, GizmoAxes::x); };
+	arrows.push_back(xArrow);
 
-	arrows[1].mesh = createGizmoMesh(arrowFileName, GizmoColors::green, v3(0.0f, 0.5f, 0.0f), 0.0f, GizmoAxes::y, 0.5f);	//Y-axis
-	arrows[1].callback = [&](MeshReference cMesh) -> void { translateMesh(cMesh, GizmoAxes::y); };
+	//Y-axis
+	Arrow yArrow = Arrow();
+	yArrow.mesh = createGizmoMesh(arrowFileName, GizmoColors::green, v3(0.0f, 0.5f, 0.0f), 0.0f, GizmoAxes::y, 0.5f);
+	yArrow.hoverColor = GizmoColors::lightGreen;
+	yArrow.activeColor = GizmoColors::lightOrange;
+	yArrow.callback = [&](MeshReference cMesh) -> void { translateMesh(cMesh, GizmoAxes::y); };
+	arrows.push_back(yArrow);
 
-	arrows[2].mesh = createGizmoMesh(arrowFileName, GizmoColors::blue, v3(0.0f, 0.0f, 0.5f), 1.57f, GizmoAxes::x, 0.5f);	//Z-axis
-	arrows[2].callback = [&](MeshReference cMesh) -> void { translateMesh(cMesh, GizmoAxes::z); };
+	//Z-axis
+	Arrow zArrow = Arrow();
+	zArrow.mesh = createGizmoMesh(arrowFileName, GizmoColors::blue, v3(0.0f, 0.0f, 0.5f), 1.57f, GizmoAxes::x, 0.5f);
+	zArrow.hoverColor = GizmoColors::lightBlue;
+	zArrow.activeColor = GizmoColors::lightOrange;
+	zArrow.callback = [&](MeshReference cMesh) -> void { translateMesh(cMesh, GizmoAxes::z); };
+	arrows.push_back(zArrow);
 }
 
 void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 {
-	if (!active and cast() and this->currentDir != direction)
+	bool clicked = cast();
+	if (!clicked)
 	{
-		for (int i = 0; i < numArrows; i++)
+		screenToWorld();
+		active = false;
+		activeArrow = NULL;
+	}
+	if (!active)
+	{
+		v3 camPos = this->origin().position;
+
+		sortArrowsByDistance();
+
+		forall(arrow, arrows)
 		{
-			if (detectMeshClick(arrows[i].mesh))
+			v3 center = arrow.mesh.getTrueCenter();
+			arrow.distanceFromCam = glm::distance(camPos, center);
+			v3 mousePos = camPos + (this->direction * arrow.distanceFromCam);
+			float distFromGizmo = glm::distance(mousePos, center);
+
+			if (clicked and distFromGizmo < 0.2)
 			{
-				activeArrowIndex = i;
+				clearHover();
 				active = true;
+				activeArrow = &arrow;
 				return;
+			}
+			else {
+				if (distFromGizmo < 0.2)
+				{
+					if (!arrow.hovered)
+					{
+						clearHover();
+						arrow.hovered = true;
+					}
+					return;
+				}
+				else {
+					arrow.hovered = false;
+				}
 			}
 		}
 	}
-	else if (active and activeArrowIndex != -1) {
-		if (CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT)) {
-			active = false;
-			activeArrowIndex = -1;
-		}
-		else {
-			arrows[activeArrowIndex].callback(cMesh);
-		}
+	else if (activeArrow != NULL) 
+	{
+		activeArrow->callback(cMesh);
 	}
 }
 
 void TranslateGizmoDefinition::TranslateGizmo::draw()
 {
-	for (int i = 0; i < numArrows; i++)
+	forall(arrow, arrows)
 	{
-		arrows[i].mesh.uploadOffsetandScaleToGPU();
-		if (i == activeArrowIndex)
+		arrow.mesh.uploadOffsetandScaleToGPU();
+		if (&arrow == activeArrow)
 		{
-			arrows[i].mesh.renderWithStaticColor(GizmoColors::lightOrange);
+			arrow.mesh.renderWithStaticColor(GizmoColors::lightOrange);
+		}
+		else if(arrow.hovered) {
+			arrow.mesh.renderWithStaticColor(arrow.hoverColor);
 		}
 		else {
-			arrows[i].mesh.render();
+			arrow.mesh.render();
 		}
+	}
+}
+
+void TranslateGizmoDefinition::TranslateGizmo::sortArrowsByDistance()
+{
+	sort(arrows.begin(), arrows.end(), [](const auto& lhs, const auto& rhs)
+	{
+		return lhs.distanceFromCam < rhs.distanceFromCam;
+	});
+}
+
+void TranslateGizmoDefinition::TranslateGizmo::clearHover()
+{
+	forall(arrow, arrows)
+	{
+		arrow.hovered = false;
 	}
 }
 

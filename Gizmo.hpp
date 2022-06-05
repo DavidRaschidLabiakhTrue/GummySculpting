@@ -20,6 +20,9 @@ namespace GizmoDefinition
 				const static inline v4 lightGray = { 0.65f, 0.65f, 0.65f, 1.0f };
 				const static inline v4 white = { 1.0f, 1.0f, 1.0f, 1.0f };
 				const static inline v4 lightOrange = { 0.9f, 0.85f, 0.65f, 1.0f };
+				const static inline v4 lightRed = { 1.0f, 0.5f, 0.5f, 1.0f };
+				const static inline v4 lightGreen = { 0.65f, 0.95f, 0.65f, 1.0f };
+				const static inline v4 lightBlue = { 0.5f, 0.5f, 0.9f, 1.0f };
 		};
 		class GizmoAxes {
 			public:

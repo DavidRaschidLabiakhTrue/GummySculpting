@@ -16,7 +16,10 @@ namespace TranslateGizmoDefinition
 	{
 		typedef struct Arrow {
 			StaticMesh mesh;
-			v3 color;
+			v4 hoverColor;
+			v4 activeColor;
+			bool hovered = false;
+			float distanceFromCam;
 			function<void(MeshReference cMesh)> callback;
 		} Arrow;
 
@@ -29,14 +32,16 @@ namespace TranslateGizmoDefinition
 		
 			void query(MeshReference cMesh) override;
 			void draw() override;
-			
 
 		protected:
 			const static int numArrows = 3;
-			Arrow arrows[numArrows];
+			//Arrow arrows[numArrows];
+			vector<Arrow> arrows;
 			string arrowFileName = "arrow.gum";
 			void translateMesh(MeshReference cMesh, v3 axis);
-			int activeArrowIndex = -1;
+			Arrow* activeArrow;
+			void sortArrowsByDistance();
+			void clearHover();
 	};
 }
 
