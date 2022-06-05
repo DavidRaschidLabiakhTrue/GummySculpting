@@ -51,6 +51,8 @@ void Mesh::applyModelMatrix()
 		vertices[i].position = v3(model * v4(vertices[i].position, 1.0));
 	}
 	this->resetModelMatrix();
+	computeNormals();
+	rebuildOctree();
 	this->needToRefresh = true;
 }
 
