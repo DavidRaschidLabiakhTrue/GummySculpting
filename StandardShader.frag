@@ -48,6 +48,6 @@ void main()
 	float specular_factor = pow(dot_prod_specular, specular_exponent);
 
 	vec3 Is = Ls * Ks * specular_factor; 
-	vec3 consumeNormal = myNormal; // consumming the normal call so OpenGL does not optimize out the normal.
+
 	FragColor = vec4(Is + Id + Ia, 1.0);
 };
