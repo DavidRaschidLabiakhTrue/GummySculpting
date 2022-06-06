@@ -503,12 +503,11 @@ void MainProgram::drawStatic()
 	
 	visualObjects.drawVisualObjects();
 	brush.drawRay();
+	Debug::Drawing::renderPlanes();
 	// clear depth buffer to draw newly rendered objects on top
 	renderer.clearDepthInfo();
 	Debug::Drawing::renderLines();
 	StaticMeshShader.use();
-	
-	
 	/*
 	*	for all mesh that are static meshes
 	* 

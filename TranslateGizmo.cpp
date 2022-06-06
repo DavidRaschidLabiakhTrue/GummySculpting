@@ -88,6 +88,9 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 
 void TranslateGizmoDefinition::TranslateGizmo::draw()
 {
+	Debug::Drawing::drawPlane(v3(3,3,-3), v3(-0.5,0,1), 1, 1, GizmoColors::blue);
+
+
 	forall(arrow, arrows)
 	{
 		arrow.mesh.uploadOffsetandScaleToGPU();
@@ -122,6 +125,5 @@ void TranslateGizmoDefinition::TranslateGizmo::clearHover()
 
 void TranslateGizmoDefinition::TranslateGizmo::translateMesh(MeshReference cMesh, v3 axis)
 {
-	//TODO: Implement a function that translates the current mesh along the given axis based on the mouse movement
-	return;
+
 }

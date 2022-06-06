@@ -229,6 +229,9 @@
     <ClCompile Include="Debug.cpp">
       <Filter>Rendering\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="DebugPlane.cpp">
+      <Filter>Rendering\Debug\DebugPlane</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -476,6 +479,9 @@
     </ClInclude>
     <ClInclude Include="Debug.hpp">
       <Filter>Rendering\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugPlane.hpp">
+      <Filter>Rendering\Debug\DebugPlane</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -864,6 +870,9 @@
     </Filter>
     <Filter Include="Rendering\Debug\DebugLine">
       <UniqueIdentifier>{0947d1ee-1aac-4886-8ff9-b1e8a707a186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Debug\DebugPlane">
+      <UniqueIdentifier>{20edbe0d-f8af-478b-9c30-1657cd32d906}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
