@@ -9,7 +9,7 @@ namespace OctreeStatsDefinition
     using namespace MeshStatsDefinition;
     using namespace TriangleOctantKeyPairListDefinition;
 
-    class OctreeStats : public TriangleOctantKeyPairList
+    class OctreeStats : public MeshStats
     {
         public:
             int octantTriangleLimit = 1000; // Max triangles per octant

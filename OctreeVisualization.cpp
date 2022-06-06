@@ -24,7 +24,7 @@ void OctreeVisualization::visualizeOctree(DrawMode drawMode, DepthColorMode dept
 
 void OctreeVisualization::generateOctantWireframe(OctantIndex octantID)
 {
-    Octant octant = octants[octantID];
+    OctantReference octant = octants[octantID];
 
     if ((octant.triangleIDs.size() == 0 && (drawMode == LeafOctants || drawMode == IntersectedLeafOctants)) ||
         (!octant.intersected && (drawMode == IntersectedLeafOctants || drawMode == AllIntersectedOctants)))

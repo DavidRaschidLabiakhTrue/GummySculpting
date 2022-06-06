@@ -9,7 +9,7 @@ using namespace OctreeDefinition;
  * @param range
  * @return KeyList
  */
-KeyList OctreeDefinition::Octree::collectVerticesAroundCollisionOriginal(OctreeCollision collision, double range) ONOEXCEPT
+KeyList OctreeDefinition::Octree::collectVerticesAroundCollisionOriginal(OctreeCollision collision, float range) ONOEXCEPT
 {
     std::chrono::time_point<std::chrono::system_clock> start, end;
     start = std::chrono::system_clock::now();
@@ -107,7 +107,7 @@ void Octree::collectVerticesAroundCollision(float range) ONOEXCEPT
  * @param range
  * @return pair<TriangleIDList, TriangleIDList>
  */
-void OctreeDefinition::Octree::collectTrianglesAroundCollision(double range) ONOEXCEPT
+void OctreeDefinition::Octree::collectTrianglesAroundCollision(float range) ONOEXCEPT
 {
     collectVerticesAroundCollision(range);
 
@@ -135,7 +135,7 @@ void OctreeDefinition::Octree::collectTrianglesAroundCollision(double range) ONO
  * @param range
  * @return TriangleIDList
  */
-TriangleIDList OctreeDefinition::Octree::collectTrianglesAroundCollisionOriginal(OctreeCollision collision, double range) ONOEXCEPT
+TriangleIDList OctreeDefinition::Octree::collectTrianglesAroundCollisionOriginal(OctreeCollision collision, float range) ONOEXCEPT
 {
     return getTrianglesFromVertices(collectVerticesAroundCollisionOriginal(collision, range));
 }
@@ -262,7 +262,7 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ON
 
         float octantDistance = queue.top().first;
         int octantID = queue.top().second;
-        Octant octant = octants[octantID];
+        OctantReference octant = octants[octantID];
         queue.pop();
 
         // Checks each triangle in the octant for collision with the ray
@@ -306,7 +306,7 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ON
         foreach (child, octant.children)
         {
 
-            Octant childOctant = octants[child];
+            OctantReference childOctant = octants[child];
 
             if(isOriginInOctantBounds(origin, childOctant))
             {
@@ -355,7 +355,7 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ON
     collision = newCollision;
 }
 
-bool Octree::isOriginInOctantBounds(v3 origin, Octant octant) ONOEXCEPT
+bool Octree::isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT
 {
     return (abs(origin.x - octant.octantCenter.x) <= octant.octantHalfSize &&
             abs(origin.y - octant.octantCenter.y) <= octant.octantHalfSize &&

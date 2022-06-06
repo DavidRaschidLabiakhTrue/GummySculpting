@@ -51,7 +51,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
 
         // Fill midpoint map with all midpoints
         // Parallelizable
-        for (KeyData vertexID = 0; vertexID < vertexOffset; vertexID++)
+        for (KeyData vertexID = 0; vertexID < (KeyData)vertexOffset; vertexID++)
         {
             foreach (otherVertexID, edges[vertexID].vertexEdges)
             {
@@ -154,7 +154,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
     if (octreeRebuild)
     {
         // rebuildOctree();
-        octreeReinsertTriangles();
+        octreeReinsertTrianglesParallel();
     }
     if (refreshDisplay)
     {
@@ -188,7 +188,7 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh) SUBNOEX
         }
 
         // Calculate new position for every vertex that was created during subdivision
-        int verticesSize = vertices.size();
+        int verticesSize = (int) vertices.size();
         for (int vertexID = vertexOffset; vertexID < verticesSize; vertexID++)
         {
             // vector<int> ABCD = vertices[vertexID].ABCD;                    // Get the ABCD vector for the vertex
@@ -240,10 +240,11 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh) SUBNOEX
 
         vertices = newVertexList;
     }
+
     if (rebuildRefresh)
     {
         // rebuildOctree();
-        octreeReinsertTriangles();
+        octreeReinsertTrianglesParallel();
         refresh();
     }
 }
