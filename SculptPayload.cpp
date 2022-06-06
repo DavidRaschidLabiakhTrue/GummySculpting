@@ -14,7 +14,14 @@ void SculptPayloadDefinition::SculptPayload::changeRadius(float newRadius)
 	this->radius = newRadius;
 }
 
-void SculptPayloadDefinition::SculptPayload::updateLast(const TriangleID& id)
+void SculptPayloadDefinition::SculptPayload::updateLast(const TriangleID& id, rv3 lastHit, v3 tempNorm)
 {
 	this->last = id;
+	this->hit = lastHit;
+	this->hitNorm = tempNorm;
+}
+
+void SculptPayloadDefinition::SculptPayload::reverseDir()
+{
+	this->rDir = direction * -1.0f;
 }

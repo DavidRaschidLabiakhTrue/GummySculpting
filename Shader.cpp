@@ -8,10 +8,17 @@ namespace ShaderDefinition
 {
 	Shader StandardShader;
 	Shader WireFrameShader;
+
+	Shader StaticMeshShader;
+
+	Shader GridShader;
+
 	void compileGlobalShaders()
 	{
 		StandardShader.compileShader("StandardShader.vert", "StandardShader.frag", "Standard Shader");
 		WireFrameShader.compileShader("WireFrameShader.vert", "WireFrameShader.frag", "WireFrame Shader");
+		StaticMeshShader.compileShader("StaticMeshShader.vert", "StaticMeshShader.frag", "Static Mesh Shader");
+		GridShader.compileShader("GridShader.vert", "GridShader.frag", "Grid Shader");
 	}
 }
 
@@ -31,11 +38,14 @@ Shader::~Shader()
 
 }
 
+
+
 void Shader::use()
 {
 	glUseProgram(id);
 	uploadCameraMatrixToGPU(); // load the camera matrix to the gpu before batch rendering.
 }
+
 // need to simplify with Glad wrapper
 void Shader::compileShader(string vertexFilePath, string fragmentFilePath, string name)
 {
@@ -98,10 +108,49 @@ void Shader::compileShader(string vertexFilePath, string fragmentFilePath, strin
 
 
 }
+void ShaderDefinition::Shader::uploadScaleFloatToGPU(float renderScale)
+{
+
+	glUniform1f(ShaderSlotInfo.scale.position, renderScale);
+}
+
+void ShaderDefinition::Shader::uploadOffsetVectorToGPU(rv3 renderOffset)
+{
+
+	glUniform3f(ShaderSlotInfo.offset.position, renderOffset.x, renderOffset.y, renderOffset.z);
+}
+
+void ShaderDefinition::Shader::uploadStaticColorVectorToGPU(rv4 renderColor)
+{
+
+	glUniform4f(ShaderSlotInfo.staticColor.position, renderColor.r, renderColor.g, renderColor.b, renderColor.a);
+}
+
+void ShaderDefinition::Shader::uploadModelMatrixToGPU(rm4 model)
+{
+	glUniformMatrix4fv(ShaderSlotInfo.modelMatrix.position, 1, GL_FALSE, value_ptr(model));
+}
+
+void ShaderDefinition::Shader::setStaticColorBool(bool useStaticColor)
+{
+	glUniform1i(ShaderSlotInfo.staticColorBool.position, useStaticColor);
+}
+
+void ShaderDefinition::Shader::uploadProjectionMatrixToGPU()
+{
+	glUniformMatrix4fv(ShaderSlotInfo.projection.position, 1, GL_FALSE, value_ptr(GlobalCamera->projection));
+}
+
+void ShaderDefinition::Shader::uploadViewMatrixToGPU()
+{
+	glUniformMatrix4fv(ShaderSlotInfo.view.position, 1, GL_FALSE, value_ptr(GlobalCamera->view));
+}
 
 void Shader::uploadCameraMatrixToGPU()
 {
-	glUniformMatrix4fv(ShaderSlotInfo.cameraMatrix.position, 1, GL_FALSE, value_ptr(GlobalCamera->cameraMatrix));
+	//glUniformMatrix4fv(ShaderSlotInfo.cameraMatrix.position, 1, GL_FALSE, value_ptr(GlobalCamera->cameraMatrix));
+	uploadProjectionMatrixToGPU();
+	uploadViewMatrixToGPU();
 }
 
 void Shader::uploadRandomVectorToGPU()
@@ -118,6 +167,8 @@ void Shader::compileWireFrameShader()
 {
 	compileShader("WireFrameShader.vert", "WireFrameShader.frag", "WireFrame Shader");
 }
+
+
 
 void Shader::checkShaderStatus(string shaderType, int shaderProgramID)
 {

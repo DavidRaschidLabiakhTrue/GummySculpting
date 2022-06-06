@@ -4,12 +4,19 @@
 #include <iostream>
 
 #include "Window_API.hpp"
+#include "Shader.hpp"
+
+#include "TimeGate.hpp"
+
+#include "Debug.hpp"
+
 
 Usage Window_API::Window_API_Functions;
-
+using namespace ShaderDefinition;
+using namespace TimeGateDefinition;
 int main(int argc, char **argv)
 {
-
+	// _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     StringList arguments(argv + 1, argv + argc); // loads the arguments as a string vector.
 
     say "Command Line Arguments:\n\t";
@@ -32,26 +39,28 @@ int main(int argc, char **argv)
 
 int MainProgram::ProgramCycle()
 {
+	Window_API_Functions::eventQuery(); // start off the event query cycle
+
 
 	while (shouldNotClose())
 	{
-		beginDrawFrame(); // refresh all draw buffers
-		if (win.canRender) // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
+		TimeGateDefinition::tick(); // global time delta checker
+
+		queryMechanics(); // query for input
+
+		checkDirectives(); // check for directives
+
+		if (renderGate.canUpdate() && win.canRender) // fps check  // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
 		{
-
-			MouseDelta.update();
-			checkDirectives();
-
+			// refresh all draw buffers
+			beginDrawFrame();
 			checkDebugConsole();
-
-			queryMechanics(); // query for input
-
 			draw3D(); // drawing meshes
+			drawStatic();
+			draw2D(); // querying the GUI and drawing the GUI occur at the same time, because that's how IMGUI works.
 
-
-
+			
 		}
-		draw2D();
 		eventQuery(); // update glfw in conjunction with opengl
 
 	}
@@ -109,6 +118,7 @@ MainProgram::MainProgram(StringList &arguments)
     debug = DebugConsoleDefinition::DebugConsole(TrueConstructor);
     CameraDefinition::GlobalCamera = &cam; // set up camera linkage
     brush = SculptBrush(TrueConstructor);
+	gizmoManager = GizmoManager(TrueConstructor);
 
     visualObjects = VisualObjects(TrueConstructor);
 
@@ -129,7 +139,23 @@ void MainProgram::checkDirectives()
         //say "Directive Exhausted" done;
     }
 }
+void MainProgram::processFileManagementCommand(StringList& arguments, int numArgs)
+{
+	using namespace DebugConsoleDefinition;
+	if (numArgs < 3)
+	{
+		return;
+	}
+	switch (getCommand(arguments[1]))
+	{
+		case IMPORT:
+			renderer.loadMeshFromFile(arguments[2]);
+			break;
+		case EXPORT: // this case will need to be expanded to also include .obj and probably .stl
+			break;
+	}
 
+}
 void MainProgram::processDirectives()
 {
 
@@ -155,7 +181,8 @@ void MainProgram::processDirectives()
 		case MESH:
 			processMeshCommand(arguments, numArgs);
 			break;
-		case PRINT:
+		case PRINT: // mmhh
+			
 		case SET:
 			processVariableCommand(arguments, numArgs);
 			break;
@@ -164,7 +191,9 @@ void MainProgram::processDirectives()
 		case SCULPTOR:
 			processSculptorCommand(arguments, numArgs);
 			break;
-
+		case FILEMANGEMENT:
+			processFileManagementCommand(arguments, numArgs);
+			break;
     }
 }
 
@@ -214,6 +243,8 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 			try
 			{
 				renderer.getActiveMesh()->loopSubdivision(stoi(arguments[2]));
+				renderer.getActiveMesh()->computeNormals();
+				renderer.getActiveMesh()->needToRefresh = true;
 			}
 			catch (exception &e)
 			{
@@ -231,6 +262,8 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 			try
 			{
 				renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
+				renderer.getActiveMesh()->computeNormals();
+				renderer.getActiveMesh()->needToRefresh = true;
 			}
 			catch (exception &e)
 			{
@@ -245,6 +278,8 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
             }
             try {
                 renderer.getActiveMesh()->gotoSubdivisionLevel(stoi(arguments[2]));
+				renderer.getActiveMesh()->computeNormals();
+				renderer.getActiveMesh()->needToRefresh = true;
             } catch (exception &e) {
                 debug.AddLog("Main: Error: Bad Argument: %s", e.what());
                 break;
@@ -257,6 +292,8 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 			break;
     }
 }
+
+
 
 
 void MainProgram::processRendererCommand(StringList &arguments, int numArgs)
@@ -425,7 +462,7 @@ void MainProgram::preprocess(StringList &arguments)
 
 void MainProgram::bindGraphicsDataToGPU()
 {
-    renderer.bindAllMeshes();
+    renderer.setUpMeshResources();
 }
 void MainProgram::generateMaps()
 {
@@ -434,8 +471,21 @@ void MainProgram::generateMaps()
 void MainProgram::queryMechanics()
 {
 
-    queryCamera();
-    brush.querySculpt(renderer.getActiveMeshReference());
+	if (cameraGate.canUpdate() && win.canRender)
+	{
+		queryCamera();
+
+	}
+
+
+	if (sculptGate.canUpdate())
+	{
+		brush.querySculpt(renderer.getActiveMeshReference());
+
+	}
+   
+
+	gizmoManager.queryGizmo(renderer.getActiveMeshReference());
 }
 void MainProgram::queryCamera()
 {
@@ -445,8 +495,27 @@ void MainProgram::queryCamera()
 void MainProgram::draw3D()
 {
     renderer.draw();
-    brush.drawRay();
-    visualObjects.drawVisualObjects();
+   
+    
+}
+void MainProgram::drawStatic()
+{
+	
+	visualObjects.drawVisualObjects();
+	brush.drawRay();
+	// clear depth buffer to draw newly rendered objects on top
+	renderer.clearDepthInfo();
+	Debug::Drawing::renderLines();
+	StaticMeshShader.use();
+	
+	
+	/*
+	*	for all mesh that are static meshes
+	* 
+	*		mesh.uploadOffsetandScaleToGPU(); // send the offset and the scale to the GPU
+	*		mesh.render(); // draw it to screen.
+	*/
+	gizmoManager.drawGizmo();
 }
 void MainProgram::draw2D()
 {

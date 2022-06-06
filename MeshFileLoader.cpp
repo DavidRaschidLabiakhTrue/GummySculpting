@@ -6,6 +6,21 @@ using namespace MeshDefinition;
 void MeshFileLoader::loadGumFile(string filepath, Mesh& mesh)
 {
 	GumLoading::readGumMesh(filepath, mesh); // the actual implementation
+	mesh.bind();
+	mesh.createVariableMap();
+	mesh.generateGraphsAndTrees();
+}
+
+// static mesh overload
+void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh, bool shouldBind)
+{
+	GumLoading::readGumMesh(filepath, mesh);
+
+	if (shouldBind)
+	{
+		mesh.collectStats();
+		mesh.bind(); // this mesh is going to be only modified in the shader as it is static.
+	}
 }
 
 namespace MeshFileLoader::Util
@@ -79,6 +94,17 @@ namespace MeshFileLoader::GumLoading
 		}
 		return (KeyData)stoi(str);
 	}
+
+    void GumLoading::readGumMesh(string filePath, StaticMeshReference mesh)
+    {
+		Mesh rMesh;
+
+		readGumMesh(filePath, rMesh);
+		// hacky but simple
+		mesh.vertices.insert(mesh.vertices.begin(), rMesh.vertices.begin(), rMesh.vertices.end());
+		mesh.triangles.insert(mesh.triangles.begin(), rMesh.triangles.begin(), rMesh.triangles.end());
+
+    }
 
 
 	void GumLoading::readTriangle(FILE** file, string& str, Mesh& mesh)

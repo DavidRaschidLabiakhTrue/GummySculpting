@@ -22,35 +22,45 @@ void RendererDefinition::Renderer::setDrawWireOff()
 inline void RendererDefinition::Renderer::drawStandard()
 {
 	StandardShader.use();
-	forall(mesh, meshes)
+	const int meshSize = meshes.size();
+	for (int i = 0; i < meshSize; i++)
 	{
-		if (mesh.needToRefresh)
+		if (meshes[i].needToRefresh)
 		{
-			mesh.refresh();
-			mesh.needToRefresh = false;
+			meshes[i].refresh();
+			meshes[i].needToRefresh = false;
 		}
-		mesh.render();
-		// mesh.itreeDrawContainer.drawContainer();
-		mesh.drawOctreeWireframe();
+		StandardShader.uploadModelMatrixToGPU(meshes[i].model);
+		meshes[i].render();
 	}
+
 }
 
 inline void RendererDefinition::Renderer::drawWireFrame()
 {
+	
 	if (this->shouldDrawWire)
 	{
 		WireFrameShader.use();
 		GL::drawLined();
-		forall(mesh, meshes)
+		const int meshSize = meshes.size();
+		for (int i = 0; i < meshSize; i++)
 		{
-			mesh.render();
+
+			StandardShader.uploadModelMatrixToGPU(meshes[i].model);
+			meshes[i].render();
 		}
+
 		GL::drawFilled();
 	}
+	
 
 }
 
-
+void Renderer::clearDepthInfo()
+{
+	GL::clearDepthBuffer();
+}
 
 void Renderer::draw()
 {

@@ -80,6 +80,9 @@ namespace DebugConsoleDefinition
 		NOISE,
 		SMOOTHEDCOLOR,
         SUBDLEVEL,
+		IMPORT,
+		EXPORT,
+		FILEMANGEMENT
 
     };
 
@@ -109,6 +112,9 @@ namespace DebugConsoleDefinition
 		{"noise", NOISE},
 		{"smoothedcolor", SMOOTHEDCOLOR},
         {"subdlevel", SUBDLEVEL},
+		{"file", FILEMANGEMENT},
+		{"import", IMPORT},
+		{"export", EXPORT},
 	};
 
     static CONSOLECOMMAND getCommand(string command)

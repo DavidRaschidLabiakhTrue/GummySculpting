@@ -30,24 +30,54 @@ SculptBrushDefinition::SculptBrush::SculptBrush(bool trueConstructor) : Sampler(
 	sculptRate = 1.0f / 24.0f; // 24 times a second.
 }
 
+void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
+{
+	// this logic is faulty and needs revised for proper state mechanics
+	if (cast() and this->currentDir != direction)
+	{
+		currentDir = direction; // update the current direction
+
+
+		cMesh.history.sealChange = false;
+		payload.direction = this->direction;
+		payload.origin = this->origin().position;
+		payload.radius = ToolsWindowDefinition::RadiusSlider;
+
+		cMesh.octreeRayIntersection(payload.origin, payload.direction);
+
+		if (cMesh.collision.isCollision == false or (cMesh.collision.triangleID == payload.last))
+		{
+			return;
+		}
+		else
+		{
+			payload.updateLast(cMesh.collision.triangleID, cMesh.collision.position, cMesh.getTriangleNormal(cMesh.collision.triangleID));
+		}
+
+
+		if (payload.wasRun == false) // if the payload has begun a stroke - collect info
+		{
+			say "beinning PayloadRun" done;
+
+		}
+		applySculpt(cMesh);
+	}
+
+	else if (cMesh.history.sealChange == false && CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		payload.wasRun = false;
+
+		cMesh.history.sealChange = true;
+		cMesh.history.adjustLevelUp();
+
+	}
+
+}
 void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 {
-	currentDir = direction;
-	cMesh.history.sealChange = false;
-	payload.direction = this->direction;
-	payload.origin = this->origin().position;
-	payload.radius = ToolsWindowDefinition::RadiusSlider;
-
-	cMesh.octreeRayIntersection(payload.origin, payload.direction);
-	if (cMesh.collision.isCollision == false or (cMesh.collision.triangleID == payload.last))
-	{
-		return;
-	}
-	else
-	{
-		payload.updateLast(cMesh.collision.triangleID);
-	}
 	
+
+
 
 
 	cMesh.Octree::collectTrianglesAroundCollision(payload.radius);
@@ -61,7 +91,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 
 		case BrushState::BrushStateStroke:
 
-			Stroking::applyStroke(cMesh, payload);
+			Stroking::applyStroke(cMesh, payload, 1);
 			break;
 
 		case BrushState::BrushStateNoise:
@@ -85,27 +115,4 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 	cMesh.needToRefresh = true;
 }
 
-void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
-{
-	// this logic is faulty and needs revised for proper state mechanics
-	if (cast() and this->currentDir != direction)
-	{
-		if (payload.wasRun == false)
-		{
-			say "beinning PayloadRun" done;
-		}
-		applySculpt(cMesh);
-	}
 
-	else if (cMesh.history.sealChange == false && CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT))
-	{
-		payload.wasRun = false;
-
-		cMesh.history.sealChange = true;
-		cMesh.history.adjustLevelUp();
-
-	}
-
-
-
-}

@@ -2,13 +2,16 @@
 #define MeshHistory_HPP
 
 
-#include "MeshStats.hpp"
+#include "V3D.hpp"
+#include "Indices.hpp"
 
 #include <unordered_map>
 
 namespace MeshHistoryDefinition
 {
-	using namespace MeshStatsDefinition;
+	using namespace VertexDefinition;
+	using namespace IndicesDefinition;
+
 
 	// basically a structure that contains a list of changes onto a mesh using key pair association
 

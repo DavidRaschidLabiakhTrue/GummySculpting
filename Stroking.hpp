@@ -14,7 +14,7 @@ namespace Sculpting::Stroking
 	using namespace TopologyComputationDefinition;
 	using namespace Sculpting;
 
-	void applyStroke(MeshReference cMesh, SculptPayloadReference payload);
+	void applyStroke(MeshReference cMesh, SculptPayloadReference payload, const int iterations = 4);
 }
 
 #endif // !Stroking_HPP

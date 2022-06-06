@@ -11,6 +11,9 @@
 #include "SubdivisionSurface.hpp"
 
 #include "MeshChangeLog.hpp"
+
+#include "MeshHistory.hpp"
+
 #include <variant>
 #include <unordered_map>
 #include <functional>
@@ -56,7 +59,13 @@ namespace MeshDefinition
 			void createVariableMap();
 
 
+			void computeNormals();
+			
 
+			void recomputeNormals(HistoryKeyVertexMap& apply);
+
+
+			void applyModelMatrix();
 
 			ChangeLog history; // mesh reversion history.
 

@@ -7,13 +7,15 @@ namespace Sculpting::Algos
 {
 	using namespace SculptBrushDefinition;
 
-	void applyMaptoMeshThenApplySmoothedMap(HistoryKeyVertexMap& apply, MeshReference cMesh);
+	void applyMaptoMeshThenApplySmoothedMap(HistoryKeyVertexMap& apply, MeshReference cMesh, const int iterations = 7);
 
 	void storeCurrentElementsToMap(HistoryKeyVertexMap& apply, HistoryKeyVertexMap& history, MeshReference cMesh);
 
 	void applyMapToMesh(HistoryKeyVertexMap& apply, MeshReference cMesh);
 
-	void applySmoothToMapToMesh(HistoryKeyVertexMap& apply, MeshReference cMesh);
+	void applySmoothToMapToMesh(HistoryKeyVertexMap& apply, MeshReference cMesh, const int iterations = 1);
+
+	void applyColorToMapAndSmoothColor(HistoryKeyVertexMap& apply, MeshReference cMesh);
 
 }
 #endif

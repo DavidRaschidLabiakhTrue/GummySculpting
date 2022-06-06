@@ -16,7 +16,31 @@ void TopBarDefinition::TopBar::build()
 	ImGui::BeginMainMenuBar();
 	if (ImGui::BeginMenu("File"))
 	{
-		ImGui::MenuItem("Load Mesh");
+		if (ImGui::MenuItem("Load Mesh"))
+		{
+			
+			nfdchar_t* inPath = NULL;
+			nfdresult_t result = NFD_OpenDialog("gum,obj", NULL, &inPath);
+			string path;
+			
+			if (result == NFD_ERROR)
+			{
+				// do nothing
+			}
+			else if (result == NFD_CANCEL)
+			{
+				// also do nothing
+			}
+			else
+			{
+				buildCommand.emplace_back("file");
+				buildCommand.emplace_back("import");
+				path = inPath;
+				buildCommand.emplace_back(path);
+				MainDirectiveDefinition::Directives.emplace_back(buildCommand);
+			}
+		}
+		
 		ImGui::MenuItem("Export Mesh");
 		ImGui::EndMenu();
 	}

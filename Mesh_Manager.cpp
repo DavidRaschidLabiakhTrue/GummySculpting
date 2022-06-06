@@ -24,6 +24,7 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 		//mesh.loadTriangleTest();
 		MeshFileLoader::loadGumFile(meshFilePath, mesh);
 		meshes.push_back(mesh);
+		makeLastMeshActive();
 		return;
 	}
 	else
@@ -51,17 +52,8 @@ MeshReference Mesh_Manager_Definition::Mesh_Manager::getActiveMeshReference()
     return *activeMesh;
 }
 
-void Mesh_Manager::bindAllMeshes()
+void Mesh_Manager::setUpMeshResources()
 {
-	say "Binding All Meshes" done;
-
-	forall(mesh, meshes)
-	{
-		mesh.bind();
-		mesh.createVariableMap();
-		mesh.generateGraphsAndTrees();
-	}
-
 	this->makeLastMeshActive();
 }
 

@@ -24,7 +24,7 @@ namespace Mesh_Manager_Definition
 
 			void makeLastMeshActive();
 			void loadMeshFromFile(string meshFilePath); // load in a mesh from a file
-			void bindAllMeshes();
+			void setUpMeshResources();
 
 			MeshPTR getActiveMesh();
 

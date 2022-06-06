@@ -130,6 +130,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <Optimization>Disabled</Optimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +138,9 @@
       <AdditionalLibraryDirectories>$(ProjectDir)\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;nfd_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -157,6 +161,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <MinimalRebuild>false</MinimalRebuild>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -172,9 +177,13 @@
     <ClCompile Include="CameraNav.cpp" />
     <ClCompile Include="CameraParameters.cpp" />
     <ClCompile Include="Coloring.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DebuggingConsole.cpp" />
+    <ClCompile Include="DebugLine.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeList.cpp" />
+    <ClCompile Include="Gizmo.cpp" />
+    <ClCompile Include="GizmoManager.cpp" />
     <ClCompile Include="GraphicsBufferObjects.cpp" />
     <ClCompile Include="GraphicsData.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -189,6 +198,7 @@
     <ClCompile Include="include\IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="IndexedTriangle.cpp" />
     <ClCompile Include="IndiceList.cpp" />
+    <ClCompile Include="Lighting.cpp" />
     <ClCompile Include="LinearAlgebra.cpp" />
     <ClCompile Include="MainDirective.cpp" />
     <ClCompile Include="MeshChangeLog.cpp" />
@@ -200,6 +210,7 @@
     <ClCompile Include="OctreeOctant.cpp" />
     <ClCompile Include="OctreeVisualization.cpp" />
     <ClCompile Include="RayCasting.cpp" />
+    <ClCompile Include="RotateGizmo.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="SamplerPayload.cpp" />
     <ClCompile Include="SculptAlgos.cpp" />
@@ -207,12 +218,16 @@
     <ClCompile Include="SculptPayload.cpp" />
     <ClCompile Include="SmoothedColor.cpp" />
     <ClCompile Include="Smoothing.cpp" />
+    <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="Stroking.cpp" />
     <ClCompile Include="SubdivisionSurface.cpp" />
+    <ClCompile Include="TimeGate.cpp" />
     <ClCompile Include="Toolbar.cpp" />
     <ClCompile Include="ToolsWindow.cpp" />
     <ClCompile Include="TopBar.cpp" />
     <ClCompile Include="TopologyComputation.cpp" />
+    <ClCompile Include="Transformer.cpp" />
+    <ClCompile Include="TranslateGizmo.cpp" />
     <ClCompile Include="TriangleList.cpp" />
     <ClCompile Include="Indices.cpp" />
     <ClCompile Include="KeyInput.cpp" />
@@ -240,9 +255,13 @@
     <ClInclude Include="CameraNav.hpp" />
     <ClInclude Include="CameraParameters.hpp" />
     <ClInclude Include="Coloring.hpp" />
+    <ClInclude Include="Debug.hpp" />
     <ClInclude Include="DebuggingConsole.hpp" />
+    <ClInclude Include="DebugLine.hpp" />
     <ClInclude Include="Edge.hpp" />
     <ClInclude Include="EdgeList.hpp" />
+    <ClInclude Include="Gizmo.hpp" />
+    <ClInclude Include="GizmoManager.hpp" />
     <ClInclude Include="GraphicsBufferObjects.hpp" />
     <ClInclude Include="GraphicsData.hpp" />
     <ClInclude Include="Grid.hpp" />
@@ -259,7 +278,9 @@
     <ClInclude Include="include\mini\ini.h" />
     <ClInclude Include="IndexedTriangle.hpp" />
     <ClInclude Include="IndiceList.hpp" />
+    <ClInclude Include="Lighting.hpp" />
     <ClInclude Include="MainDirective.hpp" />
+    <ClInclude Include="MathDefinitions.cpp" />
     <ClInclude Include="MeshChangeLog.hpp" />
     <ClInclude Include="MeshHistory.hpp" />
     <ClInclude Include="Noise.hpp" />
@@ -269,6 +290,7 @@
     <ClInclude Include="OctreeStats.hpp" />
     <ClInclude Include="OctreeVisualization.hpp" />
     <ClInclude Include="RayCasting.hpp" />
+    <ClInclude Include="RotateGizmo.hpp" />
     <ClInclude Include="Sampler.hpp" />
     <ClInclude Include="SamplerPayload.hpp" />
     <ClInclude Include="SculptAlgos.hpp" />
@@ -276,12 +298,16 @@
     <ClInclude Include="SculptPayload.hpp" />
     <ClInclude Include="SmoothedColor.hpp" />
     <ClInclude Include="Smoothing.hpp" />
+    <ClInclude Include="StaticMesh.hpp" />
     <ClInclude Include="Stroking.hpp" />
     <ClInclude Include="SubdivisionSurface.hpp" />
+    <ClInclude Include="TimeGate.hpp" />
     <ClInclude Include="Toolbar.hpp" />
     <ClInclude Include="ToolsWindow.hpp" />
     <ClInclude Include="TopBar.hpp" />
     <ClInclude Include="TopologyComputation.hpp" />
+    <ClInclude Include="Transformer.hpp" />
+    <ClInclude Include="TranslateGizmo.hpp" />
     <ClInclude Include="TriangleList.hpp" />
     <ClInclude Include="Indices.hpp" />
     <ClInclude Include="KeyInput.hpp" />
@@ -309,10 +335,21 @@
     <ClInclude Include="Window_API.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="4star.gum" />
+    <None Include="arrow.gum" />
     <None Include="cube.gum" />
+    <None Include="GridShader.frag" />
+    <None Include="GridShader.vert" />
+    <None Include="plane.gum" />
     <None Include="sphere.gum" />
     <None Include="StandardShader.frag" />
+    <None Include="StandardShader.geom">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
     <None Include="StandardShader.vert" />
+    <None Include="StaticMeshShader.frag" />
+    <None Include="StaticMeshShader.vert" />
     <None Include="WireFrameShader.frag" />
     <None Include="WireFrameShader.vert" />
   </ItemGroup>

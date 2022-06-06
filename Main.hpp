@@ -19,9 +19,14 @@
 
 #include "SculptBrush.hpp"
 
+#include "GizmoManager.hpp"
+
 #include "DebuggingConsole.hpp"
 
 #include "MainDirective.hpp"
+
+#include "TimeGate.hpp"
+
 #include <variant>
 
 using namespace MathTypeDefinitions;
@@ -39,7 +44,9 @@ using namespace VisualObjectsDefinition;
 
 using namespace SculptBrushDefinition;
 
+using namespace GizmoManagerDefinition;
 
+using namespace TimeGateDefinition;
 
 using DebugConsoleDefinition::debug;
 
@@ -68,6 +75,7 @@ class MainProgram
 		void processRendererCommand(StringList& arguments, int numArgs); // process renderer command
 		void processMeshCommand(StringList& arguments, int numArgs); // process mesh command
 		void processVariableCommand(StringList& arguments, int numArgs); // process variable command
+		void processFileManagementCommand(StringList& arguments, int numArgs);
 		// pair< getVariable()
 
 		void processSculptorCommand(StringList& arguments, int numArgs);
@@ -82,6 +90,8 @@ class MainProgram
 		void queryCamera(); // query for camera input from the user.
 
 		void draw3D(); // drawing meshes
+
+		void drawStatic();
 		void draw2D(); // draw gui and other 2d components
 		void checkDebugConsole();
 
@@ -94,12 +104,17 @@ class MainProgram
 
 		SculptBrush brush;
 
+		GizmoManager gizmoManager;
+
 		GUI gui;
 
-		bool showDebugConsole = true;
+		bool showDebugConsole = false;
 		bool showDemoDebugger = false;
 		VisualObjects visualObjects;
 
+		TimeGate cameraGate = TimeGate(45.0f);
+		TimeGate sculptGate = TimeGate(15.0f);
+		TimeGate renderGate = TimeGate(30.0f);
 
 
 };

@@ -20,9 +20,70 @@ void Mesh::createVariableMap()
 
 }
 
+void MeshDefinition::Mesh::computeNormals()
+{
+	vector<v3> normalList;
+	const int totalTri = this->totalTriangles();
+	normalList.reserve(totalTri);
+	// first calculate all the normals
+	for (int i = 0; i < totalTri; i++)
+	{
+		normalList.emplace_back(this->getTriangleNormal(i));
+	}
+
+	forall(vert, this->vertices)
+	{
+		v3 tempNorm = v3(0);
+		forall(id, vert.triangleIDs)
+		{
+			tempNorm += normalList[id]; // add them up
+		}
+		vert.normal = normalize(tempNorm / (float)vert.triangleIDs.size()); // average them
+	}
+	say "Normals Calculated" done;
+}
+
+void Mesh::applyModelMatrix()
+{
+	const auto totalvert = this->verticeCount();
+	for (auto i = 0; i < totalvert; i++)
+	{
+		vertices[i].position = v3(model * v4(vertices[i].position, 1.0));
+	}
+	this->resetModelMatrix();
+	computeNormals();
+	rebuildOctree();
+	this->needToRefresh = true;
+}
+
+void MeshDefinition::Mesh::recomputeNormals(HistoryKeyVertexMap& apply)
+{
+	const int totTri = (int)this->affectedTriangles.size();
+
+	unordered_map< TriangleID, v3> newNormals;
+	newNormals.reserve(totTri);
+
+
+
+	forall(id, this->affectedTriangles)
+	{
+		newNormals[id] = this->getTriangleNormal(id);
+	}
+	forall(element, apply)
+	{
+		v3 norm = v3(0);
+		forall(face, vertices[element.first].triangleIDs)
+		{
+			norm += newNormals[face];
+		}
+		element.second.normal = norm / (float)vertices[element.first].triangleIDs.size();
+	}
+}
+
 void MeshDefinition::Mesh::generateGraphsAndTrees()
 {
     this->generateEdges();
+	computeNormals();
     collectStats();
     this->buildOctree();
 }
