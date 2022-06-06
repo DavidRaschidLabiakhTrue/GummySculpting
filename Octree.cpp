@@ -19,7 +19,7 @@ void OctreeDefinition::Octree::octreePrintStats() ONOEXCEPT
     say "\tVertices: " << verticeCount() done;
     say "\tTriangles:" spc totalTriangles() done;
     say "\tOctants:" spc octants.size() done;
-    say "\tTriangles in Root:" spc octants[root].triangleIDs.size() done;
+    say "\tTriangles in Root:" spc octants[root].triangleIDs->size() done;
     // say "\tLeaves:" spc leaves.size() done;
 
     int count = 0; // Counts leaves and pseudo-leaves
@@ -32,7 +32,7 @@ void OctreeDefinition::Octree::octreePrintStats() ONOEXCEPT
             count++;
         }
 
-        if (o.triangleIDs.size())
+        if (o.triangleIDs->size())
         {
             owt++;
             if (o.octantState == OctantState::OctantNotEmptyInternal)
@@ -86,7 +86,7 @@ void OctreeDefinition::Octree::testOctree() ONOEXCEPT
     int count = 0;
     foreach (octant, octants)
     {
-        count += (int)octant.triangleIDs.size();
+        count += (int)octant.triangleIDs->size();
     }
     say "Triangles in Octree: " << count done;
     say "Triangles in Mesh (should be same ^): " << totalTriangles() done;
@@ -99,7 +99,7 @@ void OctreeDefinition::Octree::testOctree() ONOEXCEPT
     count = 0;
     foreach (octant, octants)
     {
-        count += (int)octant.triangleIDs.size();
+        count += (int)octant.triangleIDs->size();
     }
     say "Triangles in Octree after Removal (should be 0): " << count done;
 
@@ -235,7 +235,7 @@ void OctreeDefinition::Octree::resizeOctree(TriangleID tri) ONOEXCEPT
         oldRoot.octantIndex = oldRootNewIndex;
         octants[oldRootNewIndex] = oldRoot;
 
-        foreach (triangleID, oldRoot.triangleIDs)
+        foreach (triangleID, *(oldRoot.triangleIDs))
         {
             triangleToOctantList[triangleID] = oldRootNewIndex;
         }

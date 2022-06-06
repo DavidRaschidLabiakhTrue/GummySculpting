@@ -56,24 +56,24 @@ void OctreeDefinition::Octree::subdivideOctant(OctantIndex oix) ONOEXCEPT
 
     // Reinsert triangles into children if they fit entirely inside
     // Reverse order to preserve positions on removal
-    for (int i = (int)octants[oix].triangleIDs.size() - 1; i >= 0; i--)
+    for (int i = (int)octants[oix].triangleIDs->size() - 1; i >= 0; i--)
     {
-        TriangleID tri = octants[oix].triangleIDs[i];
+        TriangleID tri = octants[oix].triangleIDs->at(i);
         v3 triangleCentroid = getTriangleCentroid(tri);
         OctantIndex childOctant = octants[oix].children[mortonCodeHash(triangleCentroid, octants[oix].octantCenter)];
         // If triangle fits in child octant, insert it
         if (isTriangleInOctantBounds(tri, childOctant))
         {
-            octants[childOctant].triangleIDs.emplace_back(tri);                   // Insert triangle into child octant
+            octants[childOctant].triangleIDs->emplace_back(tri);                   // Insert triangle into child octant
             triangleToOctantList[tri] = childOctant;                              // Correct the triangle - octant mapping
-            octants[oix].triangleIDs.erase(octants[oix].triangleIDs.begin() + i); // Remove triangle from the parent octant
+            octants[oix].triangleIDs->erase(octants[oix].triangleIDs->begin() + i); // Remove triangle from the parent octant
         }
     }
 
     for (int i = 0; i < 8; i++) // Subdivide any child octants if necessary
     {
         OctantIndex childOctant = octants[oix].children[i]; // Avoiding nested [] operators for clarity
-        if (octreeCurrentDepth < octreeDepthLimit && octants[childOctant].triangleIDs.size() > octantTriangleLimit)
+        if (octreeCurrentDepth < octreeDepthLimit && octants[childOctant].triangleIDs->size() > octantTriangleLimit)
         {
             subdivideOctant(childOctant);
         }
@@ -81,7 +81,7 @@ void OctreeDefinition::Octree::subdivideOctant(OctantIndex oix) ONOEXCEPT
 
     // Set state of subdivided octant
     // Checks if octant contains any triangles ands sets state accordingly
-    if (octants[oix].triangleIDs.size() == 0)
+    if (octants[oix].triangleIDs->size() == 0)
     {
         octants[oix].octantState = OctantEmptyInternal;
     }
@@ -143,7 +143,7 @@ void OctreeDefinition::Octree::createChildOctant(OctantPosition octantPosition, 
 bool OctreeDefinition::Octree::isTriangleInOctantBounds(TriangleID tri, OctantIndex octantID) ONOEXCEPT
 {
     // Octant oct = octants[octantID];                                                     // retrieve the current processed octant
-    IndexedTriangle triangle = triangles[tri];                                          // retrieve the current processed triangle
+    IndexedTriangle triangle = triangles[tri];                                                        // retrieve the current processed triangle
     v3 halfSizeVector = v3(octants[octantID].octantHalfSize + std::numeric_limits<float>::epsilon()); // Half size vec3 for comparison
 
     // Component-wiser check if the difference between each vertex and the octant's center is less than the octant's half size
@@ -174,18 +174,18 @@ void OctreeDefinition::Octree::subdivideOctantParallel(OctantIndex oix, int loca
 
     // Reinsert triangles into children if they fit entirely inside
     // Reverse order to preserve positions on removal
-    for (int i = (int)octants[oix].triangleIDs.size() - 1; i >= 0; i--)
+    for (int i = (int)octants[oix].triangleIDs->size() - 1; i >= 0; i--)
     {
-        TriangleID tri = octants[oix].triangleIDs[i];
+        TriangleID tri = octants[oix].triangleIDs->at(i);
         v3 triangleCentroid = getTriangleCentroid(tri);
         OctantIndex childID = children[mortonCodeHash(triangleCentroid, octants[oix].octantCenter)];
 
         // If triangle fits in child octant, insert it
         if (isTriangleInOctantBounds(tri, childID))
         {
-            octants[childID].triangleIDs.emplace_back(tri);                   // Insert triangle into child octant
-            triangleToOctantList[tri] = childID;                              // Correct the triangle - octant mapping
-            octants[oix].triangleIDs.erase(octants[oix].triangleIDs.begin() + i); // Remove triangle from the parent octant
+            octants[childID].triangleIDs->emplace_back(tri);                       // Insert triangle into child octant
+            triangleToOctantList[tri] = childID;                                  // Correct the triangle - octant mapping
+            octants[oix].triangleIDs->erase(octants[oix].triangleIDs->begin() + i); // Remove triangle from the parent octant
         }
     }
 
@@ -193,7 +193,7 @@ void OctreeDefinition::Octree::subdivideOctantParallel(OctantIndex oix, int loca
     {
         OctantIndex childID = children[i]; // Avoiding nested [] operators for clarity
 
-        if (localDepth < octreeDepthLimit && octants[childID].triangleIDs.size() > octantTriangleLimit)
+        if (localDepth < octreeDepthLimit && octants[childID].triangleIDs->size() > octantTriangleLimit)
         {
             subdivideOctantParallel(childID, localDepth);
         }
@@ -202,7 +202,7 @@ void OctreeDefinition::Octree::subdivideOctantParallel(OctantIndex oix, int loca
 
     // Set state of subdivided octant
     // Checks if octant contains any triangles ands sets state accordingly
-    if (octants[oix].triangleIDs.size() == 0)
+    if (octants[oix].triangleIDs->size() == 0)
     {
         octants[oix].octantState = OctantEmptyInternal;
     }

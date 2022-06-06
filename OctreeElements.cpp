@@ -18,7 +18,7 @@ bool OctreeDefinition::Octree::insertTriangle(TriangleID tri) ONOEXCEPT
 
     OctantIndex oix = findOctantForTriangle(tri); // Find the octant which encloses the triangle
     OctantReference octant = octants[oix];        // Get the octant reference
-    octant.triangleIDs.emplace_back(tri);         // Add the triangle to the octant's triangle list
+    octant.triangleIDs->emplace_back(tri);         // Add the triangle to the octant's triangle list
     triangleToOctantList[tri] = oix;              // Set triangle's octant index to the new octant index
 
     // If octant is internal and empty, change state to not empty internal
@@ -29,7 +29,7 @@ bool OctreeDefinition::Octree::insertTriangle(TriangleID tri) ONOEXCEPT
     }
 
     // Else If octant is a leaf, check depth and subdivide if # of triangles held exceeds limit
-    else if (octant.octantState == OctantLeaf && octreeCurrentDepth < octreeDepthLimit && octant.triangleIDs.size() > octantTriangleLimit)
+    else if (octant.octantState == OctantLeaf && octreeCurrentDepth < octreeDepthLimit && octant.triangleIDs->size() > octantTriangleLimit)
     {
         subdivideOctant(oix);
     }
@@ -67,15 +67,15 @@ bool OctreeDefinition::Octree::removeTriangleFromOctree(TriangleID tri) ONOEXCEP
 
     OctantReference octantRef = octants[oix]; // Get the octant reference for clarity
 
-    const int triangleIDsSize = (int)octantRef.triangleIDs.size();
+    const int triangleIDsSize = (int)octantRef.triangleIDs->size();
 
     // Search through the octants triangle list for the triangle
     for (int i = 0; i < triangleIDsSize; i++)
     {
         // If the triangle was found, remove it from the octant's list and return true
-        if (octantRef.triangleIDs[i] == tri)
+        if (octantRef.triangleIDs->at(i) == tri)
         {
-            octantRef.triangleIDs.erase(octantRef.triangleIDs.begin() + i);
+            octantRef.triangleIDs->erase(octantRef.triangleIDs->begin() + i);
             return true;
         }
     }
@@ -131,7 +131,7 @@ void OctreeDefinition::Octree::octreeReinsertTriangles()
     loadTriangleOctantList();
     foreach (octant, octants)
     {
-        octant.triangleIDs.clear();
+        octant.triangleIDs->clear();
     }
     const int countofTriangles = this->totalTriangles();
     for (int i = 0; i < countofTriangles; i++)
@@ -192,7 +192,7 @@ bool OctreeDefinition::Octree::insertTriangleParallel(TriangleID tri) ONOEXCEPT
         }
 
         // OctantReference octant = octants[oix]; // Get the octant reference
-        octants[oix].triangleIDs.emplace_back(tri); // Add the triangle to the octant's triangle list
+        octants[oix].triangleIDs->emplace_back(tri); // Add the triangle to the octant's triangle list
         triangleToOctantList[tri] = oix;            // Set triangle's octant index to the new octant index
 
         // If octant is internal and empty, change state to not empty internal
@@ -203,7 +203,7 @@ bool OctreeDefinition::Octree::insertTriangleParallel(TriangleID tri) ONOEXCEPT
         // Else If octant is a leaf, check depth and subdivide if # of triangles held exceeds limit
         else if (octants[oix].octantState == OctantLeaf &&
                  localDepth < octreeDepthLimit &&
-                 octants[oix].triangleIDs.size() > octantTriangleLimit)
+                 octants[oix].triangleIDs->size() > octantTriangleLimit)
         {
             subdivideOctantParallel(oix, localDepth);
         }
@@ -212,7 +212,7 @@ bool OctreeDefinition::Octree::insertTriangleParallel(TriangleID tri) ONOEXCEPT
         return true;
     }
 }
-int k = 0;
+
 bool Octree::insertTrianglesParallel() ONOEXCEPT
 {
     int nThreads = std::thread::hardware_concurrency();
@@ -221,7 +221,6 @@ bool Octree::insertTrianglesParallel() ONOEXCEPT
     {
         nThreads = 1;
     }
-    // nThreads = 1;
 
     int triangleCount = totalTriangles();
     vector<thread> threads;
@@ -236,13 +235,11 @@ bool Octree::insertTrianglesParallel() ONOEXCEPT
             }
         }));
     }
-    int x = 0;
+
     foreach (t, threads)
     {
         t.join();
-        say "Thread joined" spc x++ done;
     }
-    say "All threads joined" spc k++ done;
     return true;
 }
 
@@ -252,7 +249,7 @@ void OctreeDefinition::Octree::octreeReinsertTrianglesParallel() ONOEXCEPT
     loadTriangleOctantList();
     foreach (octant, octants)
     {
-        octant.triangleIDs.clear();
+        octant.triangleIDs->clear();
     }
 
     insertTrianglesParallel();
@@ -317,15 +314,15 @@ bool Octree::removeTriangleFromOctreeParallel(TriangleID tri) ONOEXCEPT
 
     // OctantReference octantRef = octants[oix]; // Get the octant reference for clarity
 
-    const int triangleIDsSize = (int)octants[oix].triangleIDs.size();
+    const int triangleIDsSize = (int)octants[oix].triangleIDs->size();
 
     // Search through the octants triangle list for the triangle
     for (int i = 0; i < triangleIDsSize; i++)
     {
         // If the triangle was found, remove it from the octant's list and return true
-        if (octants[oix].triangleIDs[i] == tri)
+        if (octants[oix].triangleIDs->at(i) == tri)
         {
-            octants[oix].triangleIDs.erase(octants[oix].triangleIDs.begin() + i);
+            octants[oix].triangleIDs->erase(octants[oix].triangleIDs->begin() + i);
             return true;
         }
     }

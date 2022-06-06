@@ -4,6 +4,7 @@
 #include "MeshStats.hpp"
 #include "TriangleOctantKeyPairList.hpp"
 
+#include <concurrent_vector.h>
 #include <mutex>
 
 namespace OctantDefinition
@@ -61,8 +62,11 @@ namespace OctantDefinition
      */
     struct Octant
     {
-            OctantIndex octantIndex;           // store octant index on the octant itself.
-            TriangleIDList triangleIDs;              // references to positions within the triangle array
+        Octant() {
+            triangleIDs = make_shared<TriangleIDList>();
+        };
+            OctantIndex octantIndex;                 // store octant index on the octant itself.
+            shared_ptr<TriangleIDList> triangleIDs;  // references to positions within the triangle array
             OctantParent parent = NoOctantParentSet; // integer id to parent within octant list
             vector<int> children = {                 // integer IDs to octant children within the OctantList
                 NoOctantChildSet,

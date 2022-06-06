@@ -162,7 +162,7 @@ OctreeCollision OctreeDefinition::Octree::octreeRayIntersectionOriginal(v3 origi
     {
         float distance = NoCollisionDistance;
         // If octant has no triangles, continue
-        if (octant.octantState == OctantEmptyInternal || octant.triangleIDs.size() == 0)
+        if (octant.octantState == OctantEmptyInternal || octant.triangleIDs->size() == 0)
         {
             continue;
         }
@@ -209,7 +209,7 @@ OctreeCollision OctreeDefinition::Octree::octreeRayIntersectionOriginal(v3 origi
 
         // Checks each triangle in the octant for collision with the ray
         // Records the closest collision, replacing the current collision when necessary
-        foreach (tri, octant.triangleIDs)
+        foreach (tri, *(octant.triangleIDs))
         {
             IndexedTriangle triangle = triangles[tri]; // Indexed triangle for clarity
             v2 unusedBaryPosition;                     // Unused variable to pass into the intersection function
@@ -267,7 +267,7 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ON
 
         // Checks each triangle in the octant for collision with the ray
         // Records the closest collision, replacing the current collision when necessary
-        foreach (tri, octant.triangleIDs)
+        foreach (tri, *(octant.triangleIDs))
         {
             IndexedTriangle triangle = triangles[tri]; // Indexed triangle for clarity
             float tempDistance;
