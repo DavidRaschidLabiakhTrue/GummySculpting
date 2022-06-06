@@ -72,7 +72,7 @@ void MainProgram::parseCommandLineArguments(StringList& arguments)
 	string parser = "";
 	if (arguments.size() == 0)
 	{
-		arguments.emplace_back("4star.gum"); // default argument
+		arguments.emplace_back("plane.gum"); // default argument
 	}
 	else
 	{
@@ -503,12 +503,11 @@ void MainProgram::drawStatic()
 	
 	visualObjects.drawVisualObjects();
 	brush.drawRay();
+	Debug::Drawing::renderPlanes();
 	// clear depth buffer to draw newly rendered objects on top
 	renderer.clearDepthInfo();
 	Debug::Drawing::renderLines();
 	StaticMeshShader.use();
-	
-	
 	/*
 	*	for all mesh that are static meshes
 	* 

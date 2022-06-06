@@ -180,6 +180,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DebuggingConsole.cpp" />
     <ClCompile Include="DebugLine.cpp" />
+    <ClCompile Include="DebugPlane.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeList.cpp" />
     <ClCompile Include="Gizmo.cpp" />
@@ -258,6 +259,7 @@
     <ClInclude Include="Debug.hpp" />
     <ClInclude Include="DebuggingConsole.hpp" />
     <ClInclude Include="DebugLine.hpp" />
+    <ClInclude Include="DebugPlane.hpp" />
     <ClInclude Include="Edge.hpp" />
     <ClInclude Include="EdgeList.hpp" />
     <ClInclude Include="Gizmo.hpp" />

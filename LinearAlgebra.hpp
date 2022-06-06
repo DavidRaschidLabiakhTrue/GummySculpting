@@ -75,6 +75,7 @@ namespace LinearAlgebra
 	using glm::triangleNormal;
 
 	glm::vec3 midpointFromV3(glm::vec3& p1, glm::vec3& p2);
+	glm::vec3 getRayPlaneIntersect(glm::vec3 planeP, glm::vec3 planeN, glm::vec3 rayP, glm::vec3 rayD);
 }
 
 #endif

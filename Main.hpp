@@ -112,9 +112,9 @@ class MainProgram
 		bool showDemoDebugger = false;
 		VisualObjects visualObjects;
 
-		TimeGate cameraGate = TimeGate(45.0f);
-		TimeGate sculptGate = TimeGate(15.0f);
-		TimeGate renderGate = TimeGate(30.0f);
+		TimeGate cameraGate = TimeGate(30);
+		TimeGate sculptGate = TimeGate(5.0f);
+		TimeGate renderGate = TimeGate(45.0f);
 
 
 };
