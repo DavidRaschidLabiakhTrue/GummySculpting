@@ -18,7 +18,7 @@ bool OctreeDefinition::Octree::insertTriangle(TriangleID tri) ONOEXCEPT
 
     OctantIndex oix = findOctantForTriangle(tri); // Find the octant which encloses the triangle
     OctantReference octant = octants[oix];        // Get the octant reference
-    octant.triangleIDs->emplace_back(tri);         // Add the triangle to the octant's triangle list
+    octant.triangleIDs->emplace(tri);         // Add the triangle to the octant's triangle list
     triangleToOctantList[tri] = oix;              // Set triangle's octant index to the new octant index
 
     // If octant is internal and empty, change state to not empty internal
@@ -69,15 +69,8 @@ bool OctreeDefinition::Octree::removeTriangleFromOctree(TriangleID tri) ONOEXCEP
 
     const int triangleIDsSize = (int)octantRef.triangleIDs->size();
 
-    // Search through the octants triangle list for the triangle
-    for (int i = 0; i < triangleIDsSize; i++)
-    {
-        // If the triangle was found, remove it from the octant's list and return true
-        if (octantRef.triangleIDs->at(i) == tri)
-        {
-            octantRef.triangleIDs->erase(octantRef.triangleIDs->begin() + i);
-            return true;
-        }
+    if(octants[oix].triangleIDs->find(tri) != octants[oix].triangleIDs->end()) {
+        octants[oix].triangleIDs->erase(tri);
     }
 
     return false; // Triangle was not found in the octant
@@ -192,7 +185,7 @@ bool OctreeDefinition::Octree::insertTriangleParallel(TriangleID tri) ONOEXCEPT
         }
 
         // OctantReference octant = octants[oix]; // Get the octant reference
-        octants[oix].triangleIDs->emplace_back(tri); // Add the triangle to the octant's triangle list
+        octants[oix].triangleIDs->emplace(tri); // Add the triangle to the octant's triangle list
         triangleToOctantList[tri] = oix;            // Set triangle's octant index to the new octant index
 
         // If octant is internal and empty, change state to not empty internal
@@ -316,15 +309,8 @@ bool Octree::removeTriangleFromOctreeParallel(TriangleID tri) ONOEXCEPT
 
     const int triangleIDsSize = (int)octants[oix].triangleIDs->size();
 
-    // Search through the octants triangle list for the triangle
-    for (int i = 0; i < triangleIDsSize; i++)
-    {
-        // If the triangle was found, remove it from the octant's list and return true
-        if (octants[oix].triangleIDs->at(i) == tri)
-        {
-            octants[oix].triangleIDs->erase(octants[oix].triangleIDs->begin() + i);
-            return true;
-        }
+    if(octants[oix].triangleIDs->find(tri) != octants[oix].triangleIDs->end()) {
+        octants[oix].triangleIDs->erase(tri);
     }
 
     return false; // Triangle was not found in the octant
