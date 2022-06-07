@@ -12,3 +12,24 @@ glm::vec3 LinearAlgebra::getRayPlaneIntersect(glm::vec3 planeP, glm::vec3 planeN
     float t = -(d + rayP.z * planeN.z + rayP.y * planeN.y + rayP.x * planeN.x) / (rayD.z * planeN.z + rayD.y * planeN.y + rayD.x * planeN.x);
     return rayP + t * rayD;
 }
+
+glm::vec4 LinearAlgebra::planePointNormalToGeneralForm(glm::vec3 point, glm::vec3 normal)
+{
+    float d = normal.x * point.x + normal.x * point.y + normal.x * point.z;
+    return glm::vec4(normal.x, normal.y, normal.z, d);
+}
+
+float LinearAlgebra::distanceFromPointToPlane(glm::vec3 pointP, glm::vec3 planeP, glm::vec3 planeN)
+{
+    glm::vec4 plane = planePointNormalToGeneralForm(planeP, planeN);
+    float d = fabs(plane[0] * pointP.x + plane[1] * pointP.y + plane[2] * pointP.z + plane[3]);
+    float e = sqrt(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2]);
+    return d / e;
+}
+
+float LinearAlgebra::distanceFromPointToPlane(glm::vec3 pointP, glm::vec4 plane)
+{
+    float d = fabs(plane[0] * pointP.x + plane[1] * pointP.y + plane[2] * pointP.z + plane[3]);
+    float e = sqrt(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2]);
+    return d / e;
+}

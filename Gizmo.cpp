@@ -2,10 +2,9 @@
 
 using namespace GizmoDefinition;
 
-GizmoDefinition::Gizmo::Gizmo(bool trueConstructor)
-{
-
-}
+GizmoDefinition::Gizmo::Gizmo() {}
+GizmoDefinition::Gizmo::Gizmo(bool trueConstructor) {}
+GizmoDefinition::Gizmo::~Gizmo() {}
 
 StaticMesh GizmoDefinition::Gizmo::createGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale, bool invertFaces)
 {

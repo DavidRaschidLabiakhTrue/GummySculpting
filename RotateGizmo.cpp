@@ -10,8 +10,8 @@ RotateGizmoDefinition::RotateGizmo::~RotateGizmo()
 
 RotateGizmoDefinition::RotateGizmo::RotateGizmo(bool trueConstructor)
 {
-	outerSphere = createGizmoMesh(sphereFileName, GizmoColors::darkGray, v3(0.0f, 0.0f, 0.0f), 0.0f, GizmoAxes::x, 0.2f);
-	innerSphere = createGizmoMesh(sphereFileName, GizmoColors::lightGray, v3(0.0f, 0.0f, 0.0f), 0.0f, GizmoAxes::x, 0.19f);
+	outerSphere = createGizmoMesh(sphereFileName, GizmoColors::darkGray, v3(0.0f, 0.0f, 0.0f), 0.0f, v3(1,0,0), 0.2f);
+	innerSphere = createGizmoMesh(sphereFileName, GizmoColors::lightGray, v3(0.0f, 0.0f, 0.0f), 0.0f, v3(1, 0, 0), 0.19f);
 }
 
 void RotateGizmoDefinition::RotateGizmo::query(MeshReference cMesh)
