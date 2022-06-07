@@ -43,6 +43,11 @@ void RotateGizmoDefinition::RotateGizmo::query(MeshReference cMesh)
 {
 	if (state.meshID != cMesh.meshID) {
 		state = RotateGizmoState(cMesh.meshID, v3(0,0,0)); //TODO: store rotations in mesh and get those here
+		didRotate = false;
+	}
+	else if (didRotate)
+	{
+
 	}
 
 	checkClicked();
@@ -143,8 +148,8 @@ void RotateGizmoDefinition::RotateGizmo::RotateMesh(MeshReference cMesh)
 
 	newRotation[activeAxis] = angleDelta;
 
+	didRotate = true;
+
 	Debug::Drawing::drawLine(meshPos, mouseStartPos, v4(1, 1, 1, 1));
 	Debug::Drawing::drawLine(meshPos, glm::normalize(mousePos) * ringScale, lineColor);
-
-	
 }

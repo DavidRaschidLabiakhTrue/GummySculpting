@@ -18,17 +18,20 @@ void TransformerDefinition::ModelMatrix::resetModelMatrix()
 
 void TransformerDefinition::ModelMatrix::rotateX(const float x)
 {
-	model = rotate(model, x, Basis::X);
+	m4 rotation = rotate(x, Basis::X);
+	model = rotation * model;
 }
 
 void TransformerDefinition::ModelMatrix::rotateY(const float y)
 {
-	model = rotate(model, y, Basis::Y);
+	m4 rotation = rotate(y, Basis::Y);
+	model = rotation * model;
 }
 
 void TransformerDefinition::ModelMatrix::rotateZ(const float z)
 {
-	model = rotate(model, z, Basis::Z);
+	m4 rotation = rotate(z, Basis::Z);
+	model = rotation * model;
 }
 
 void TransformerDefinition::ModelMatrix::rotateX_deg(const float x)

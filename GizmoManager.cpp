@@ -45,10 +45,9 @@ void GizmoManagerDefinition::GizmoManager::queryGizmo(MeshReference cMesh)
 	{
 		iterateState();
 	}
-
-	if (CheckMouseHeld(GLFW_MOUSE_BUTTON_MIDDLE))
+	if (KeyInputDefinition::isPressed(GLFW_KEY_R))
 	{
-		say "held" done;
+		cMesh.resetModelMatrix();
 	}
 
 	if (state != NONE)

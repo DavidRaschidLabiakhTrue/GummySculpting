@@ -9,6 +9,12 @@
 namespace Debug
 {
 	using namespace MathTypeDefinitions::CoordinateDefine;
+	using namespace MathTypeDefinitions::MatrixDefine;
+
+	namespace Printing
+	{
+		void printMatrix(m4 matrix);
+	}
 
 	namespace Drawing
 	{
