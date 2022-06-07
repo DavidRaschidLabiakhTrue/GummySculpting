@@ -42,6 +42,10 @@ TranslateGizmoDefinition::TranslateGizmo::TranslateGizmo(bool trueConstructor)
 
 void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 {
+	if (state.meshID != cMesh.meshID) {
+		state = TranslateGizmoState(cMesh.meshID, cMesh.center);
+	}
+
 	bool clicked = cast();
 	if (!clicked)
 	{
@@ -96,10 +100,12 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 
 void TranslateGizmoDefinition::TranslateGizmo::draw()
 {
+	Debug::Drawing::drawLine(v3(0, 0, 0), v3(4, 1, 0));
+	Debug::Drawing::drawLine(v3(0, 0, 0), v3(4, 2, 0));
+	Debug::Drawing::drawLine(v3(0, 0, 0), v3(4, 3, 0));
+
 	forall(arrow, arrows)
 	{
-		say arrow->test2 done;
-			
 		arrow->mesh.uploadOffsetandScaleToGPU();
 		if (arrow->axis == activeAxis)
 		{
@@ -145,7 +151,7 @@ glm::vec3 TranslateGizmoDefinition::TranslateGizmo::getCloserPlaneNormal(glm::ve
 
 float TranslateGizmoDefinition::TranslateGizmo::calculateMoveDistance()
 {
-	v3 center = v3(0,0,0);
+	v3 center = state.position;
 	v3 camPosition = this->origin().position;
 	v3 axis;
 	v3 planeNormal;
@@ -191,16 +197,18 @@ void TranslateGizmoDefinition::TranslateGizmo::translateMesh(MeshReference cMesh
 		}
 		*/
 		
-		v3 axisMovement;
+		
+		v3 axisVector;
 		switch (activeAxis)
 		{
-			case GizmoAxis::X: axisMovement = v3(1, 0, 0) * moveAmount; break;
-			case GizmoAxis::Y: axisMovement = v3(0, 1, 0) * moveAmount; break;
-			case GizmoAxis::Z: axisMovement = v3(0, 0, 1) * moveAmount; break;
-			default: axisMovement = v3(0, 0, 0);
+			case GizmoAxis::X: axisVector = v3(1, 0, 0); break;
+			case GizmoAxis::Y: axisVector = v3(0, 1, 0); break;
+			case GizmoAxis::Z: axisVector = v3(0, 0, 1); break;
+			default: axisVector = v3(0, 0, 0);
 		}
+		v3 axisMovement = axisVector * moveAmount;
 
-		Debug::Drawing::drawLine(v3(0, 0, 0), axisMovement);
+		Debug::Drawing::drawLine(axisVector * mouseStartOffset, axisMovement);
 
 		/*
 		state->next_state->position = state->position + axisMovement;

@@ -41,12 +41,13 @@ namespace TranslateGizmoDefinition
 			class TranslateGizmoState
 			{
 				public:
-					TranslateGizmoState(MeshReference cMesh) : cMesh(cMesh) {
-						this->cMesh = cMesh;
-						this->position = cMesh.center;
+					TranslateGizmoState() {};
+					TranslateGizmoState(int meshID, v3 position) {
+						this->meshID = meshID;
+						this->position = position;
 					};
 					~TranslateGizmoState() {};
-					MeshReference cMesh;
+					int meshID;
 					v3 position;
 			};
 			
@@ -61,7 +62,7 @@ namespace TranslateGizmoDefinition
 
 			vector<shared_ptr<TranslateGizmoState>> undoHistory;
 
-			//TranslateGizmoState state;
+			TranslateGizmoState state;
 
 			bool shouldUpdate = true;
 	};
