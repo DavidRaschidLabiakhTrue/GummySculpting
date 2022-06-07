@@ -14,6 +14,12 @@ namespace GizmoManagerDefinition
 	class GizmoManager
 	{
 	public:
+		enum GizmoManagerState
+		{
+			NONE,
+			ROTATE,
+			TRANSLATE
+		};
 		GizmoManager();
 		~GizmoManager();
 
@@ -21,10 +27,18 @@ namespace GizmoManagerDefinition
 
 		void queryGizmo(MeshReference cMesh);
 		void drawGizmo();
+		void iterateState();
+		void setCurrentGizmo();
 
 		Gizmo* currentGizmo;
 
+		TranslateGizmo* translateGizmo;
+		RotateGizmo* rotateGizmo;
+
+		GizmoManagerState state = NONE;
+
 		bool gizmoActive = false;
+
 	protected:
 
 	};

@@ -14,15 +14,48 @@ GizmoManagerDefinition::GizmoManager::~GizmoManager()
 
 GizmoManagerDefinition::GizmoManager::GizmoManager(bool trueConstructor)
 {
-	this->currentGizmo = new RotateGizmo(TrueConstructor);
+	this->translateGizmo = new TranslateGizmo(TrueConstructor);
+	this->rotateGizmo = new RotateGizmo(TrueConstructor);
+}
+
+void GizmoManagerDefinition::GizmoManager::setCurrentGizmo()
+{
+	switch (state)
+	{
+		case NONE: break;
+		case TRANSLATE: currentGizmo = translateGizmo; break;
+		case ROTATE: currentGizmo = rotateGizmo; break;
+	}
+}
+
+void GizmoManagerDefinition::GizmoManager::iterateState()
+{
+	switch (state)
+	{
+		case NONE: state = TRANSLATE; break;
+		case TRANSLATE: state = ROTATE; break;
+		case ROTATE: state = NONE; break;
+	}
+	setCurrentGizmo();
 }
 
 void GizmoManagerDefinition::GizmoManager::queryGizmo(MeshReference cMesh)
 {
-	currentGizmo->query(cMesh);
+	if (CheckKeyPressed(GLFW_KEY_Q))
+	{
+		iterateState();
+	}
+
+	if (state != NONE)
+	{
+		currentGizmo->query(cMesh);
+	}
 }
 
 void GizmoManagerDefinition::GizmoManager::drawGizmo()
 {
-	currentGizmo->draw();
+	if (state != NONE)
+	{
+		currentGizmo->draw();
+	}
 }
