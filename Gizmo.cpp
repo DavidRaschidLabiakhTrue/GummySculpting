@@ -17,7 +17,6 @@ StaticMesh GizmoDefinition::Gizmo::createGizmoMesh(string fileName, v4 color, v3
 	//Rotate
 	glm::mat4 rotationMtx(1);
 	rotationMtx = glm::rotate(rotationMtx, rotationAngle, rotationAxis);
-
 	forall(vert, newStaticMesh.vertices)
 	{
 		vert.position = v3(rotationMtx * v4(vert.position, 1.0));
@@ -61,4 +60,40 @@ bool GizmoDefinition::Gizmo::detectMeshClick(StaticMeshReference sMesh)
 		}
 	}
 	return false;
+}
+
+void GizmoDefinition::Gizmo::draw()
+{
+	forall(handle, handles)
+	{
+		handle->mesh.uploadOffsetandScaleToGPU();
+		if (handle->axis == activeAxis)
+		{
+			handle->mesh.renderWithStaticColor(GizmoColors::lightOrange);
+		}
+		else if (handle->hovered) {
+			handle->mesh.renderWithStaticColor(handle->hoverColor);
+		}
+		else {
+			handle->mesh.render();
+		}
+	}
+}
+
+void GizmoDefinition::Gizmo::clearHover()
+{
+	forall(handle, handles)
+	{
+		handle->hovered = false;
+	}
+}
+
+void GizmoDefinition::Gizmo::checkClicked() {
+	clicked = cast();
+	if (!clicked)
+	{
+		screenToWorld();
+		active = false;
+		activeAxis = GizmoAxis::NONE;
+	}
 }

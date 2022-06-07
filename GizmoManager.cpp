@@ -14,7 +14,7 @@ GizmoManagerDefinition::GizmoManager::~GizmoManager()
 
 GizmoManagerDefinition::GizmoManager::GizmoManager(bool trueConstructor)
 {
-	this->currentGizmo = new TranslateGizmo(TrueConstructor);
+	this->currentGizmo = new RotateGizmo(TrueConstructor);
 }
 
 void GizmoManagerDefinition::GizmoManager::queryGizmo(MeshReference cMesh)

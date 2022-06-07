@@ -343,6 +343,7 @@
     <None Include="GridShader.frag" />
     <None Include="GridShader.vert" />
     <None Include="plane.gum" />
+    <None Include="ring.gum" />
     <None Include="sphere.gum" />
     <None Include="StandardShader.frag" />
     <None Include="StandardShader.geom">
