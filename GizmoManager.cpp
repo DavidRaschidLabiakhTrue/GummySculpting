@@ -41,9 +41,14 @@ void GizmoManagerDefinition::GizmoManager::iterateState()
 
 void GizmoManagerDefinition::GizmoManager::queryGizmo(MeshReference cMesh)
 {
-	if (CheckKeyPressed(GLFW_KEY_Q))
+	if (KeyInputDefinition::isPressed(GLFW_KEY_Q))
 	{
 		iterateState();
+	}
+
+	if (CheckMouseHeld(GLFW_MOUSE_BUTTON_MIDDLE))
+	{
+		say "held" done;
 	}
 
 	if (state != NONE)
