@@ -55,6 +55,11 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 	}
 	if (!active)
 	{
+		if (newPosition != state.position)
+		{
+			//should add new state here instead
+			state.position = newPosition;
+		}
 		v3 camPos = this->origin().position;
 
 		sortArrowsByDistance();
@@ -100,10 +105,6 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 
 void TranslateGizmoDefinition::TranslateGizmo::draw()
 {
-	Debug::Drawing::drawLine(v3(0, 0, 0), v3(4, 1, 0));
-	Debug::Drawing::drawLine(v3(0, 0, 0), v3(4, 2, 0));
-	Debug::Drawing::drawLine(v3(0, 0, 0), v3(4, 3, 0));
-
 	forall(arrow, arrows)
 	{
 		arrow->mesh.uploadOffsetandScaleToGPU();
@@ -208,15 +209,22 @@ void TranslateGizmoDefinition::TranslateGizmo::translateMesh(MeshReference cMesh
 		}
 		v3 axisMovement = axisVector * moveAmount;
 
-		Debug::Drawing::drawLine(axisVector * mouseStartOffset, axisMovement);
-
-		Debug::Drawing::drawPlane(v3(0,0,0), axisVector, 5, 5, v4(1, 1, 1, 1));
-
-		/*
+		newPosition = state.position - mouseStartOffset * axisVector + axisMovement;
+		
 		forall(arrow, arrows)
 		{
-			arrow->mesh.offset = state.position - mouseStartOffset + axisMovement + arrow->offsetFromGizmo;
+			arrow->mesh.offset = newPosition + arrow->offsetFromGizmo;
 		}
-		*/
+
+		v3 meshTranslation = newPosition - cMesh.center;
+		switch (activeAxis)
+		{
+			case GizmoAxis::X: cMesh.translateX(meshTranslation.x); break;
+			case GizmoAxis::Y: cMesh.translateY(meshTranslation.y); break;
+			case GizmoAxis::Z: cMesh.translateZ(meshTranslation.z); break;
+			default: break;
+		}
+
+		cMesh.center = newPosition;
 	}
 }

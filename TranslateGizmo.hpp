@@ -65,6 +65,8 @@ namespace TranslateGizmoDefinition
 			TranslateGizmoState state;
 
 			bool shouldUpdate = true;
+
+			vec3 newPosition;
 	};
 }
 
