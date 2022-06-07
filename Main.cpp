@@ -41,6 +41,7 @@ int MainProgram::ProgramCycle()
 {
 	Window_API_Functions::eventQuery(); // start off the event query cycle
 
+	
 
 	while (shouldNotClose())
 	{

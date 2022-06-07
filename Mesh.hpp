@@ -37,6 +37,8 @@ namespace MeshDefinition
 	// contains graphs and maps for searching.
 	// meant as a final container for all 3d classes used for managing vertices and triangles ultimately.
 
+	extern int MeshIDTracker;
+
 	class Mesh : public SubdivisionSurface //public ITreeVisualization
 	{
 		public:
@@ -69,6 +71,7 @@ namespace MeshDefinition
 
 			ChangeLog history; // mesh reversion history.
 
+			int meshID;
 
 			bool needToRefresh = false; // need to refresh GPU binding
 

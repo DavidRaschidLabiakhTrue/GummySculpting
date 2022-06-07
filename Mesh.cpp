@@ -1,10 +1,18 @@
 #include "Mesh.hpp"
 #include <limits>
 
+namespace MeshDefinition
+{
+	int MeshIDTracker = 0;
+}
+
 using namespace MeshDefinition;
+
+
 
 Mesh::Mesh()
 {
+	this->meshID = MeshIDTracker++;
 }
 
 Mesh::~Mesh()

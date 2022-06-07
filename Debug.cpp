@@ -8,7 +8,7 @@ std::vector<DebugPlane> planeQueue;
 
 void Debug::Drawing::drawLine(v3 origin, v3 end, v4 color)
 {
-	DebugLine newLine = DebugLine(TrueConstructor);
+	DebugLine newLine = DebugLine(TrueConstructor); // this is likely causing a memory leak if the draw ray boolean is true
 	newLine.setOrigin(origin);
 	newLine.setEnd(end);
 	newLine.setColor(color);

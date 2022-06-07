@@ -8,7 +8,7 @@ GizmoDefinition::Gizmo::~Gizmo() {}
 
 StaticMesh GizmoDefinition::Gizmo::createGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale, bool invertFaces)
 {
-	StaticMesh newStaticMesh = StaticMesh();
+	StaticMesh newStaticMesh = StaticMesh(); // you can do auto newStaticMesh = StaticMesh() or just StaticMesh newStaticMesh. Either calls the default constructor.
 	MeshFileLoader::loadGumFile(fileName, newStaticMesh, false);
 
 	//Apply color
