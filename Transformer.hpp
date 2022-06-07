@@ -19,12 +19,20 @@ namespace TransformerDefinition
 
 			void resetModelMatrix();
 			
-			// rotate the model x degrees
+			// rotate the model x rad
 			void rotateX(const float x);
-			// rotate the model y degrees
+			// rotate the model y rad
 			void rotateY(const float y);
-			// rotate the model z degrees
+			// rotate the model z rad
 			void rotateZ(const float z);
+
+			// rotate the model x deg
+			void rotateX_deg(const float x);
+			// rotate the model y deg
+			void rotateY_deg(const float y);
+			// rotate the model z deg
+			void rotateZ_deg(const float z);
+
 
 			// translate the model x units in x
 			void translateX(const float x);

@@ -18,15 +18,30 @@ void TransformerDefinition::ModelMatrix::resetModelMatrix()
 
 void TransformerDefinition::ModelMatrix::rotateX(const float x)
 {
-	model = rotate(model, glm::radians(x), Basis::X);
+	model = rotate(model, x, Basis::X);
 }
 
 void TransformerDefinition::ModelMatrix::rotateY(const float y)
 {
-	model = rotate(model, glm::radians(y), Basis::Y);
+	model = rotate(model, y, Basis::Y);
 }
 
 void TransformerDefinition::ModelMatrix::rotateZ(const float z)
+{
+	model = rotate(model, z, Basis::Z);
+}
+
+void TransformerDefinition::ModelMatrix::rotateX_deg(const float x)
+{
+	model = rotate(model, glm::radians(x), Basis::X);
+}
+
+void TransformerDefinition::ModelMatrix::rotateY_deg(const float y)
+{
+	model = rotate(model, glm::radians(y), Basis::Y);
+}
+
+void TransformerDefinition::ModelMatrix::rotateZ_deg(const float z)
 {
 	model = rotate(model, glm::radians(z), Basis::Z);
 }

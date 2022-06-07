@@ -36,12 +36,51 @@ int main(int argc, char **argv)
 
     return mainProgram.ProgramCycle();
 }
+void MainProgram::parseCommandLineArguments(StringList& arguments)
+{
+	string parser = "";
+	if (arguments.size() == 0)
+	{
+		arguments.emplace_back("4star.gum"); // default argument
+	}
+	else
+	{
+		foreach(arg, arguments)
+		{
+			int argSize = (int)arg.size();                                                                    
 
+			if (argSize < 4)
+			{
+				continue;
+			}
+			else
+			{
+			}
+		}
+	}
+
+	forall(strArg, arguments)
+	{ // check if string can even be a .gum or .obj
+		if (strArg.size() > 4)
+		{
+			parser = strArg.substr(strArg.size() - 4, strArg.size());
+
+			if (parser == ".gum")
+			{
+				renderer.loadMeshFromFile(strArg);
+			}
+			parser.clear();
+		}
+	}
+}
 int MainProgram::ProgramCycle()
 {
 	Window_API_Functions::eventQuery(); // start off the event query cycle
 
-	
+	renderer.activeMesh->translateZ(3);
+	renderer.activeMesh->scaleX(3);
+	renderer.activeMesh->scaleX(3);
+	renderer.activeMesh->scaleY(3);
 
 	while (shouldNotClose())
 	{
@@ -68,43 +107,7 @@ int MainProgram::ProgramCycle()
 
 	return 0;
 }
-void MainProgram::parseCommandLineArguments(StringList& arguments)
-{
-	string parser = "";
-	if (arguments.size() == 0)
-	{
-		arguments.emplace_back("plane.gum"); // default argument
-	}
-	else
-	{
-		foreach(arg, arguments)
-		{
-			int argSize = (int)arg.size();
 
-			if (argSize < 4)
-			{
-				continue;
-			}
-			else
-			{
-			}
-		}
-	}
-
-	forall(strArg, arguments)
-	{ // check if string can even be a .gum or .obj
-		if (strArg.size() > 4)
-		{
-			parser = strArg.substr(strArg.size() - 4, strArg.size());
-
-			if (parser == ".gum")
-			{
-				renderer.loadMeshFromFile(strArg);
-			}
-			parser.clear();
-		}
-	}
-}
 
 MainProgram::MainProgram()
 {
