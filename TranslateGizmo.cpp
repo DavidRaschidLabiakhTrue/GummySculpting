@@ -210,14 +210,13 @@ void TranslateGizmoDefinition::TranslateGizmo::translateMesh(MeshReference cMesh
 
 		Debug::Drawing::drawLine(axisVector * mouseStartOffset, axisMovement);
 
-		/*
-		state->next_state->position = state->position + axisMovement;
+		Debug::Drawing::drawPlane(v3(0,0,0), axisVector, 5, 5, v4(1, 1, 1, 1));
 
+		/*
 		forall(arrow, arrows)
 		{
-			arrow->mesh.offset = state->position + axisMovement + arrow->offsetFromGizmo;
+			arrow->mesh.offset = state.position - mouseStartOffset + axisMovement + arrow->offsetFromGizmo;
 		}
 		*/
-		
 	}
 }
