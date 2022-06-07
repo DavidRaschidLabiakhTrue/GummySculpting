@@ -93,7 +93,6 @@ void GizmoDefinition::Gizmo::checkClicked() {
 	if (!clicked)
 	{
 		screenToWorld();
-		active = false;
 		activeAxis = GizmoAxis::NONE;
 	}
 }

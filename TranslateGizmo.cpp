@@ -46,7 +46,7 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 
 	checkClicked();
 
-	if (!active)
+	if (activeAxis == GizmoAxis::NONE)
 	{
 		if (newPosition != state.position)
 		{
@@ -67,7 +67,6 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 			if (clicked and distFromGizmo < 0.2)
 			{
 				clearHover();
-				active = true;
 				activeAxis = arrow->axis;
 				mouseStartOffset = calculateMoveDistance();
 				return;
@@ -88,8 +87,7 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 			}
 		}
 	}
-	
-	else if (activeAxis != GizmoAxis::NONE)
+	else
 	{
 		translateMesh(cMesh);
 	}
@@ -152,19 +150,7 @@ void TranslateGizmoDefinition::TranslateGizmo::translateMesh(MeshReference cMesh
 {
 	float moveAmount = calculateMoveDistance();
 	if (moveAmount != 0)
-	{
-		/*
-		//check to initialize next state
-		if (!state->next_state)
-		{
-			state->next_state = make_shared<TranslateGizmoState>(cMesh);
-			state->next_state->next_state = nullptr;
-			state->next_state->prev_state = state;
-			//don't switch to next state yet
-		}
-		*/
-		
-		
+	{	
 		v3 axisVector;
 		switch (activeAxis)
 		{

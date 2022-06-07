@@ -37,10 +37,10 @@ namespace GizmoDefinition
 
 		enum GizmoAxis
 		{
-			NONE,
 			X,
 			Y,
-			Z
+			Z,
+			NONE
 		};
 
 		class Handle
@@ -70,8 +70,6 @@ namespace GizmoDefinition
 
 		static StaticMesh createGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale, bool invertFaces = false);
 		bool detectMeshClick(StaticMeshReference cMesh);
-
-		bool active = false;
 
 		bool clicked = false;
 

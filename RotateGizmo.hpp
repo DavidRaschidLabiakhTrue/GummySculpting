@@ -34,23 +34,29 @@ namespace RotateGizmoDefinition
 			{
 				public:
 					RotateGizmoState() {};
-					RotateGizmoState(int meshID, v3 position) {
+					RotateGizmoState(int meshID, v3 rotations) {
 						this->meshID = meshID;
-						this->position = position;
+						this->rotations = rotations;
 					};
 					~RotateGizmoState() {};
 
 					int meshID;
-					v3 position;
+					v3 rotations;
 			};
 
-			static const inline float detectionRange = 0.1;
+			static const inline float detectionRange = 0.1f;
 
-			void RotateMesh(MeshReference cMesh, float radians, v3 axis);
+			void RotateMesh(MeshReference cMesh);
+
+			v3 getPlaneNormal(GizmoAxis axis);
+
+			float ringScale = 0.3f;
 
 			RotateGizmoState state;
-
+			v3 mouseStartPos;
 			vector<shared_ptr<Ring>> rings;
+
+			v3 newRotation;
 	};
 }
 
