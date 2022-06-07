@@ -77,10 +77,7 @@ int MainProgram::ProgramCycle()
 {
 	Window_API_Functions::eventQuery(); // start off the event query cycle
 
-	renderer.activeMesh->translateZ(3);
-	renderer.activeMesh->scaleX(3);
-	renderer.activeMesh->scaleX(3);
-	renderer.activeMesh->scaleY(3);
+
 
 	while (shouldNotClose())
 	{
