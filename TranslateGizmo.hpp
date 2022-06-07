@@ -4,7 +4,7 @@
 #include "Gizmo.hpp"
 #include "MeshFileLoader.hpp" // also includes "Mesh.h"
 
-#include "Debug.hpp"
+
 
 namespace TranslateGizmoDefinition
 {
@@ -20,7 +20,6 @@ namespace TranslateGizmoDefinition
 			~TranslateGizmo();
 		
 			void query(MeshReference cMesh) override;
-			void draw() override;
 			void translateMesh(MeshReference cMesh);
 
 		protected:
@@ -32,10 +31,6 @@ namespace TranslateGizmoDefinition
 					Empty_Construct Arrow() {};
 					Arrow(GizmoAxis axis, v4 color, v4 hoverColor, v4 activeColor, v3 offset, float rot, v3 rotAxis);
 					~Arrow() {};
-					v4 hoverColor;
-					v4 activeColor;
-					bool hovered = false;
-					string test2;
 					float distanceFromCam;
 			};
 			class TranslateGizmoState
@@ -51,10 +46,9 @@ namespace TranslateGizmoDefinition
 					v3 position;
 			};
 			
-			GizmoAxis activeAxis;
+			
 			void sortArrowsByDistance();
 			glm::vec3 getCloserPlaneNormal(glm::vec3 position, glm::vec3 center, glm::vec3 normalA, glm::vec3 normalB);
-			void clearHover();
 			float calculateMoveDistance();
 			float mouseStartOffset;
 

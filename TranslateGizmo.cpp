@@ -2,8 +2,6 @@
 
 using namespace MathTypeDefinitions;
 
-
-
 TranslateGizmoDefinition::TranslateGizmo::TranslateGizmo() {}
 
 TranslateGizmoDefinition::TranslateGizmo::~TranslateGizmo() {}
@@ -31,7 +29,7 @@ TranslateGizmoDefinition::TranslateGizmo::TranslateGizmo(bool trueConstructor)
 	arrows.push_back(yArrow);
 	handles.push_back(dynamic_pointer_cast<Handle>(yArrow));
 
-	//X-axis
+	//Z-axis
 	shared_ptr<Arrow> zArrow = make_shared<Arrow>(GizmoAxis::Z, GizmoColors::blue, GizmoColors::lightBlue,
 		GizmoColors::lightOrange, v3(0, 0, 0.5), 1.57, v3(1, 0, 0));
 	arrows.push_back(zArrow);
@@ -46,13 +44,8 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 		state = TranslateGizmoState(cMesh.meshID, cMesh.center);
 	}
 
-	bool clicked = cast();
-	if (!clicked)
-	{
-		screenToWorld();
-		active = false;
-		activeAxis = GizmoAxis::NONE;
-	}
+	checkClicked();
+
 	if (!active)
 	{
 		if (newPosition != state.position)
@@ -67,7 +60,6 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 		foreach(arrow, arrows)
 		{
 			v3 center = arrow->mesh.getTrueCenter();
-			
 			arrow->distanceFromCam = glm::distance(camPos, center);
 			v3 mousePos = camPos + (this->direction * arrow->distanceFromCam);
 			float distFromGizmo = glm::distance(mousePos, center);
@@ -103,38 +95,12 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 	}
 }
 
-void TranslateGizmoDefinition::TranslateGizmo::draw()
-{
-	forall(arrow, arrows)
-	{
-		arrow->mesh.uploadOffsetandScaleToGPU();
-		if (arrow->axis == activeAxis)
-		{
-			arrow->mesh.renderWithStaticColor(GizmoColors::lightOrange);
-		}
-		else if (arrow->hovered) {
-			arrow->mesh.renderWithStaticColor(arrow->hoverColor);
-		}
-		else {
-			arrow->mesh.render();
-		}
-	}
-}
-
 void TranslateGizmoDefinition::TranslateGizmo::sortArrowsByDistance()
 {
 	sort(arrows.begin(), arrows.end(), [](const auto& lhs, const auto& rhs)
 	{
 		return lhs->distanceFromCam < rhs->distanceFromCam;
 	});
-}
-
-void TranslateGizmoDefinition::TranslateGizmo::clearHover()
-{
-	forall(arrow, arrows)
-	{
-		arrow->hovered = false;
-	}
 }
 
 glm::vec3 TranslateGizmoDefinition::TranslateGizmo::getCloserPlaneNormal(glm::vec3 position, glm::vec3 center, glm::vec3 normalA, glm::vec3 normalB)

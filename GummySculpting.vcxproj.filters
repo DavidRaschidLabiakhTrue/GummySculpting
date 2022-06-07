@@ -527,6 +527,9 @@
     <None Include="GridShader.vert">
       <Filter>Rendering\Shaders\Shader Files\Grid</Filter>
     </None>
+    <None Include="ring.gum">
+      <Filter>3D Models\gum Models</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="3D Models">
