@@ -485,8 +485,11 @@ void MainProgram::queryMechanics()
 
 	}
    
-
-	gizmoManager.queryGizmo(renderer.getActiveMeshReference());
+	if (usingGizmo)
+	{
+		gizmoManager.queryGizmo(renderer.getActiveMeshReference());
+	}
+	
 }
 void MainProgram::queryCamera()
 {
@@ -515,7 +518,11 @@ void MainProgram::drawStatic()
 	*		mesh.uploadOffsetandScaleToGPU(); // send the offset and the scale to the GPU
 	*		mesh.render(); // draw it to screen.
 	*/
-	gizmoManager.drawGizmo();
+	if (usingGizmo)
+	{
+		gizmoManager.drawGizmo();
+	}
+	
 }
 void MainProgram::draw2D()
 {

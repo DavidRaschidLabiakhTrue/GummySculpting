@@ -110,6 +110,9 @@ class MainProgram
 
 		bool showDebugConsole = false;
 		bool showDemoDebugger = false;
+
+		bool usingGizmo = false;
+
 		VisualObjects visualObjects;
 
 		TimeGate cameraGate = TimeGate(30);
