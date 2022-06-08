@@ -238,6 +238,7 @@ OctreeCollision OctreeDefinition::Octree::octreeRayIntersectionOriginal(v3 origi
 
 void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT
 {
+    say glm::to_string(origin) << " " << glm::to_string(direction) done;
     priority_queue<pair<float, int>, vector<pair<float, int>>, greater<pair<float, int>>> queue;
     collision = OctreeCollision();
     OctreeCollision newCollision;

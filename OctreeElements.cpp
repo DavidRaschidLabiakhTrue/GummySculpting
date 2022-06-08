@@ -266,11 +266,7 @@ bool Octree::updateTrianglesInOctreeParallel(TriangleIDList tris) ONOEXCEPT
         return true;
     }
 
-    int nThreads = std::thread::hardware_concurrency();
-    if (nThreads == 0)
-    {
-        nThreads = 1;
-    }
+    int nThreads = getNThreads;
     vector<thread> threads;
     vector<bool> updateSuccessfulList;
     for (int i = 0; i < nThreads; i++)
@@ -284,10 +280,7 @@ bool Octree::updateTrianglesInOctreeParallel(TriangleIDList tris) ONOEXCEPT
             }
         }));
     }
-    foreach (t, threads)
-    {
-        t.join();
-    }
+    joinThreads;
 
     return all_of(updateSuccessfulList.begin(), updateSuccessfulList.end(), [](bool b) { return b; });
 }
@@ -311,6 +304,7 @@ bool Octree::removeTriangleFromOctreeParallel(TriangleID tri) ONOEXCEPT
 
     if(octants[oix].triangleIDs->find(tri) != octants[oix].triangleIDs->end()) {
         octants[oix].triangleIDs->erase(tri);
+        return true;
     }
 
     return false; // Triangle was not found in the octant
