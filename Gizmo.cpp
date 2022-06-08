@@ -96,3 +96,12 @@ void GizmoDefinition::Gizmo::checkClicked() {
 		activeAxis = GizmoAxis::NONE;
 	}
 }
+
+void GizmoDefinition::Gizmo::moveGizmo(v3 newPosition)
+{
+	position = newPosition;
+	forall(handle, handles)
+	{
+		handle->mesh.offset = newPosition + handle->offsetFromGizmo;
+	}
+}

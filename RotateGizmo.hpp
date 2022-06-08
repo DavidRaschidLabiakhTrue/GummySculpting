@@ -34,14 +34,16 @@ namespace RotateGizmoDefinition
 			{
 				public:
 					RotateGizmoState() {};
-					RotateGizmoState(int meshID, v3 rotations) {
+					RotateGizmoState(int meshID, v3 rotations, v3 position) {
 						this->meshID = meshID;
 						this->rotations = rotations;
+						this->position = position;
 					};
 					~RotateGizmoState() {};
 
 					int meshID;
 					v3 rotations;
+					v3 position;
 			};
 
 			static const inline float detectionRange = 0.1f;
@@ -50,7 +52,7 @@ namespace RotateGizmoDefinition
 
 			v3 getPlaneNormal(GizmoAxis axis);
 
-			float ringScale = 0.3f;
+			v3 ringScales = { 0.3f, 0.297f, 0.295f };
 
 			RotateGizmoState state;
 			v3 mouseStartPos;

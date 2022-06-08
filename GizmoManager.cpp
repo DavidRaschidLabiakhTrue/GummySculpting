@@ -48,6 +48,7 @@ void GizmoManagerDefinition::GizmoManager::queryGizmo(MeshReference cMesh)
 	if (KeyInputDefinition::isPressed(GLFW_KEY_R))
 	{
 		cMesh.resetModelMatrix();
+		cMesh.eulerRotations = v3(0, 0, 0);
 	}
 
 	if (state != NONE)

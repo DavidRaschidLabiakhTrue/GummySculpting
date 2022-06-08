@@ -68,6 +68,8 @@ namespace GizmoDefinition
 		void clearHover();
 		void checkClicked();
 
+		void moveGizmo(v3 newPosition);
+
 		static StaticMesh createGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale, bool invertFaces = false);
 		bool detectMeshClick(StaticMeshReference cMesh);
 
@@ -76,6 +78,8 @@ namespace GizmoDefinition
 		GizmoAxis activeAxis;
 
 		vector<shared_ptr<Handle>> handles;
+
+		v3 position;
 
 	protected:
 
