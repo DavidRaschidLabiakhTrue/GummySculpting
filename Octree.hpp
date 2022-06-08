@@ -14,6 +14,8 @@
 #include <thread>
 #include <unordered_set>
 #include <concurrent_vector.h>
+#include <concurrent_unordered_set.h>
+#include <concurrent_queue.h>
 
 namespace OctreeDefinition
 {
@@ -91,6 +93,9 @@ namespace OctreeDefinition
             void collectTrianglesAroundCollision(float range) ONOEXCEPT;
             void octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT;
             bool isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT;
+
+            // Parallel OctreeIntersection functions
+            void collectVerticesAroundCollisionParallel(float range, bool loadAffectedTriangles = true) ONOEXCEPT;
 
             int mortonCodeHash(v3 point, v3 center) ONOEXCEPT; // returns the morton code position with respect to octant
 

@@ -11,9 +11,6 @@ using namespace OctreeDefinition;
  */
 KeyList OctreeDefinition::Octree::collectVerticesAroundCollisionOriginal(OctreeCollision collision, float range) ONOEXCEPT
 {
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    start = std::chrono::system_clock::now();
-
     KeyList results; // list of keys returned from collecting method
 
     std::unordered_set<KeyData, point_hash, point_equal> unchecked; // List of vertices to check if they're within range
@@ -50,15 +47,13 @@ KeyList OctreeDefinition::Octree::collectVerticesAroundCollisionOriginal(OctreeC
         }
     }
 
-    end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end - start;
-    say "Collection elapsed time: " << elapsed_seconds.count() << "s" done;
     return results;
 }
 
 void Octree::collectVerticesAroundCollision(float range) ONOEXCEPT
 {
 
+    // collectVerticesAroundCollisionParallel(range);
     KeyList results; // list of keys returned from collecting method
 
     std::unordered_set<KeyData, point_hash, point_equal> unchecked; // List of vertices to check if they're within range
@@ -308,7 +303,7 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ON
 
             OctantReference childOctant = octants[child];
 
-            if(isOriginInOctantBounds(origin, childOctant))
+            if (isOriginInOctantBounds(origin, childOctant))
             {
                 octants[child].intersected = true;
                 queue.push(make_pair(0.0f, child));
@@ -361,3 +356,102 @@ bool Octree::isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT
             abs(origin.y - octant.octantCenter.y) <= octant.octantHalfSize &&
             abs(origin.z - octant.octantCenter.z) <= octant.octantHalfSize);
 }
+
+// Parallel functions
+
+// Don't use, slower than sequential
+void Octree::collectVerticesAroundCollisionParallel(float range, bool loadAffectedTriangles) ONOEXCEPT
+{
+    int nThreads = thread::hardware_concurrency();
+    if (nThreads == 0)
+    {
+        nThreads = 1;
+    }
+
+    concurrency::concurrent_vector<KeyData> results;        // list of keys returned from collecting method
+    concurrency::concurrent_queue<KeyData> unchecked;       // List of vertices to check if they're within range
+    concurrency::concurrent_unordered_set<KeyData> checked; // Every vertex that has been checked
+
+    // Prime the unchecked set with the triangle vertices
+    unchecked.push(triangles[collision.triangleID][0]);
+    unchecked.push(triangles[collision.triangleID][1]);
+    unchecked.push(triangles[collision.triangleID][2]);
+    checked.insert(triangles[collision.triangleID][0]);
+    checked.insert(triangles[collision.triangleID][1]);
+    checked.insert(triangles[collision.triangleID][2]);
+
+    while (unchecked.unsafe_size() < nThreads && !unchecked.empty())
+    {
+        KeyData v;
+        unchecked.try_pop(v);
+
+        if (distance(collision.position, vertices[v].position) <= range)
+        {
+            foreach (otherV, edges[v].vertexEdges)
+            {
+                if (checked.insert(otherV).second)
+                {
+                    unchecked.push(otherV);
+                }
+            }
+            results.push_back(v);
+        }
+    }
+
+    vector<thread> threads;
+    for (int i = 0; i < nThreads; i++)
+    {
+        threads.push_back(thread([&]() {
+            KeyData v;
+            while (unchecked.try_pop(v))
+            {
+                if (distance(collision.position, vertices[v].position) <= range)
+                {
+                    foreach (otherV, edges[v].vertexEdges)
+                    {
+                        if (checked.insert(otherV).second)
+                        {
+                            unchecked.push(otherV);
+                        }
+                    }
+                    results.push_back(v);
+                }
+            }
+        }));
+    }
+    foreach (t, threads)
+    {
+        t.join();
+    }
+
+    verticesInRange.clear();
+    foreach (vertexID, results)
+    {
+        verticesInRange.push_back(vertexID);
+    }
+
+    if (loadAffectedTriangles)
+    {
+        affectedTriangles = getTrianglesFromVertices(verticesInRange);
+    }
+}
+
+// void OctreeDefinition::Octree::collectTrianglesAroundCollision(float range) ONOEXCEPT
+// {
+//     collectVerticesAroundCollision(range);
+
+//     TriangleIDList tempAffectedTriangles = affectedTriangles;
+//     TriangleIDList tempTrianglesInRange;
+
+//     foreach (tri, tempAffectedTriangles)
+//     {
+//         if (abs(distance(vertices[triangles[tri][0]].position, collision.position)) <= range &&
+//             abs(distance(vertices[triangles[tri][1]].position, collision.position)) <= range &&
+//             abs(distance(vertices[triangles[tri][2]].position, collision.position)) <= range)
+//         {
+//             tempTrianglesInRange.emplace_back(tri);
+//         }
+//     }
+
+//     trianglesInRange = tempTrianglesInRange;
+// }

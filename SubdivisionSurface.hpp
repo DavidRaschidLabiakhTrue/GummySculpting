@@ -4,6 +4,9 @@
 #include "MeshStats.hpp"
 #include "OctreeVisualization.hpp"
 #include <unordered_map>
+#include <execution>
+#include <algorithm>
+
 
 namespace Subdivision
 {
