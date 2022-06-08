@@ -25,4 +25,4 @@ void main()
       myColor = staticColor;
    else
       myColor = aColor;
-};
+}

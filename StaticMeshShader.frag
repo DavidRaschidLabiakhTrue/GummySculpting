@@ -14,4 +14,4 @@ void main()
 {
 	vec3 consumeNormal = myNormal; // consumming the normal call so OpenGL does not optimize out the normal.
 	FragColor = myColor;
-};
+}

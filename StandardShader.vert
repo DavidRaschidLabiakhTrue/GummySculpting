@@ -20,4 +20,4 @@ void main()
    gl_Position = projectionMatrix * vec4(myPosition, 1.0);
    myNormal = vec3(viewMatrix * modelMatrix * vec4(aNormal, 0.0));
    myColor = aColor;
-};
+}

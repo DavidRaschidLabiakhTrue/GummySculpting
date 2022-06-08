@@ -50,4 +50,4 @@ void main()
 	vec3 Is = Ls * Ks * specular_factor; 
 
 	FragColor = vec4(Is + Id + Ia, 1.0);
-};
+}
