@@ -62,24 +62,6 @@ bool GizmoDefinition::Gizmo::detectMeshClick(StaticMeshReference sMesh)
 	return false;
 }
 
-void GizmoDefinition::Gizmo::draw()
-{
-	forall(handle, handles)
-	{
-		handle->mesh.uploadOffsetandScaleToGPU();
-		if (handle->axis == activeAxis)
-		{
-			handle->mesh.renderWithStaticColor(GizmoColors::lightOrange);
-		}
-		else if (handle->hovered) {
-			handle->mesh.renderWithStaticColor(handle->hoverColor);
-		}
-		else {
-			handle->mesh.render();
-		}
-	}
-}
-
 void GizmoDefinition::Gizmo::clearHover()
 {
 	forall(handle, handles)

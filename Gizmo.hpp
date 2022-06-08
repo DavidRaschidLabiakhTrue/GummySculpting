@@ -63,7 +63,7 @@ namespace GizmoDefinition
 
 		virtual void query(MeshReference cMesh) {};
 
-		void draw();
+		virtual void draw() {};
 
 		void clearHover();
 		void checkClicked();

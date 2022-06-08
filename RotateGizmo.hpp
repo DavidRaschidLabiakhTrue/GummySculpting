@@ -20,6 +20,7 @@ namespace RotateGizmoDefinition
 
 
 			void query(MeshReference cMesh) override;
+			void draw() override;
 
 		protected:
 			class Ring : public Handle

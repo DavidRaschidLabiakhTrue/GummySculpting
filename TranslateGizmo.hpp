@@ -20,6 +20,7 @@ namespace TranslateGizmoDefinition
 			~TranslateGizmo();
 		
 			void query(MeshReference cMesh) override;
+			void draw() override;
 			void translateMesh(MeshReference cMesh);
 
 		protected:
@@ -47,7 +48,7 @@ namespace TranslateGizmoDefinition
 			};
 			
 			
-			void sortArrowsByDistance();
+			vector<shared_ptr<Arrow>> getArrowsSortedByDistance();
 			glm::vec3 getCloserPlaneNormal(glm::vec3 position, glm::vec3 center, glm::vec3 normalA, glm::vec3 normalB);
 			float calculateMoveDistance();
 			float mouseStartOffset;

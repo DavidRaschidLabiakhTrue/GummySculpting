@@ -1,6 +1,7 @@
 #include "TranslateGizmo.hpp"
 
 using namespace MathTypeDefinitions;
+using namespace TranslateGizmoDefinition;
 
 TranslateGizmoDefinition::TranslateGizmo::TranslateGizmo() {}
 
@@ -54,10 +55,8 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 			state.position = newPosition;
 		}
 		v3 camPos = this->origin().position;
-
-		sortArrowsByDistance();
 		
-		foreach(arrow, arrows)
+		foreach(arrow, getArrowsSortedByDistance())
 		{
 			v3 center = arrow->mesh.getTrueCenter();
 			arrow->distanceFromCam = glm::distance(camPos, center);
@@ -93,12 +92,35 @@ void TranslateGizmoDefinition::TranslateGizmo::query(MeshReference cMesh)
 	}
 }
 
-void TranslateGizmoDefinition::TranslateGizmo::sortArrowsByDistance()
+void TranslateGizmoDefinition::TranslateGizmo::draw()
 {
-	sort(arrows.begin(), arrows.end(), [](const auto& lhs, const auto& rhs)
+	if (activeAxis != GizmoAxis::NONE)
+	{
+		arrows[activeAxis]->mesh.uploadOffsetandScaleToGPU();
+		arrows[activeAxis]->mesh.renderWithStaticColor(arrows[activeAxis]->activeColor);
+	}
+	else {
+		forall(arrow, arrows)
+		{
+			arrow->mesh.uploadOffsetandScaleToGPU();
+			if (arrow->hovered) {
+				arrow->mesh.renderWithStaticColor(arrow->hoverColor);
+			}
+			else {
+				arrow->mesh.render();
+			}
+		}
+	}
+}
+
+vector<shared_ptr<TranslateGizmo::Arrow>> TranslateGizmoDefinition::TranslateGizmo::getArrowsSortedByDistance()
+{
+	vector<shared_ptr<Arrow>> sortedArrows = arrows;
+	sort(sortedArrows.begin(), sortedArrows.end(), [](const auto& lhs, const auto& rhs)
 	{
 		return lhs->distanceFromCam < rhs->distanceFromCam;
 	});
+	return sortedArrows;
 }
 
 glm::vec3 TranslateGizmoDefinition::TranslateGizmo::getCloserPlaneNormal(glm::vec3 position, glm::vec3 center, glm::vec3 normalA, glm::vec3 normalB)

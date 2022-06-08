@@ -44,6 +44,9 @@ namespace TransformerDefinition
 			// scale the model uniformly
 			void scaleUniform(const float scalar);
 
+			v3 getTranslation();
+			void setTranslation(v3 t);
+
 			// these 3 are only here for *completeness*, you should not use them on any *deforming meshes*
 
 			// scale the model by a scalar factor of x

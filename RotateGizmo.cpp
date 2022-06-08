@@ -42,11 +42,7 @@ RotateGizmoDefinition::RotateGizmo::Ring::Ring(GizmoAxis axis, v4 color, v4 hove
 
 void RotateGizmoDefinition::RotateGizmo::query(MeshReference cMesh)
 {
-	if (state.meshID != cMesh.meshID) {
-		state = RotateGizmoState(cMesh.meshID, cMesh.eulerRotations, cMesh.center); //TODO: store rotations in mesh and get those here
-	}
-
-	if (position != state.position)
+	if (position != cMesh.center)
 	{
 		moveGizmo(cMesh.center);
 	}
@@ -60,7 +56,7 @@ void RotateGizmoDefinition::RotateGizmo::query(MeshReference cMesh)
 			didRotate = false;
 		}
 		v3 camPos = this->origin().position;
-		v3 meshPos = state.position;
+		v3 meshPos = cMesh.center;
 
 		forall(ring, rings)
 		{
@@ -75,7 +71,7 @@ void RotateGizmoDefinition::RotateGizmo::query(MeshReference cMesh)
 				if (clicked)
 				{
 					activeAxis = ring->axis;
-					mouseStartPos = mousePos;
+					mouseStartPos = glm::normalize(mousePos - meshPos);
 				}
 				else {
 					clearHover();
@@ -94,6 +90,27 @@ void RotateGizmoDefinition::RotateGizmo::query(MeshReference cMesh)
 	}
 }
 
+void RotateGizmoDefinition::RotateGizmo::draw()
+{
+	if (activeAxis != GizmoAxis::NONE)
+	{
+		rings[activeAxis]->mesh.uploadOffsetandScaleToGPU();
+		rings[activeAxis]->mesh.renderWithStaticColor(rings[activeAxis]->activeColor);
+	}
+	else {
+		forall(ring, rings)
+		{
+			ring->mesh.uploadOffsetandScaleToGPU();
+			if (ring->hovered) {
+				ring->mesh.renderWithStaticColor(ring->hoverColor);
+			}
+			else {
+				ring->mesh.render();
+			}
+		}
+	}
+}
+
 v3 RotateGizmoDefinition::RotateGizmo::getPlaneNormal(GizmoAxis axis)
 {
 	switch (axis)
@@ -108,65 +125,64 @@ v3 RotateGizmoDefinition::RotateGizmo::getPlaneNormal(GizmoAxis axis)
 void RotateGizmoDefinition::RotateGizmo::RotateMesh(MeshReference cMesh)
 {
 	v3 camPos = this->origin().position;
-	v3 meshPos = state.position;
+	v3 meshPos = cMesh.center;
 
 	v3 planeNormal = getPlaneNormal(activeAxis);
 
 	v3 mousePos = getRayPlaneIntersect(meshPos, planeNormal, camPos, this->direction);
-	v4 lineColor;
-	v3 referenceAngle;
 
+	mousePos = glm::normalize(mousePos - meshPos);
+
+	v4 lineColor;
+
+	v3 x = mouseStartPos;
+	v3 y = mousePos;
+
+	float angle;
 	switch (activeAxis)
 	{
 		case GizmoAxis::X: 
 			lineColor = GizmoColors::red; 
-			referenceAngle = v3(0, 1, 0);
+			angle = atan2(x.y, x.z) - atan2(y.y, y.z);
 			break;
 		case GizmoAxis::Y: 
 			lineColor = GizmoColors::green; 
-			referenceAngle = v3(0, 0, -1);
+			angle = atan2(x.z, x.x) - atan2(y.z, y.x);
 			break;
 		case GizmoAxis::Z: 
 			lineColor = GizmoColors::blue; 
-			referenceAngle = v3(0, 1, 0);
+			angle = atan2(x.x, x.y) - atan2(y.x, y.y);
 			break;
 		default: say "No active axis..." done; return;
 	}
 	
-	float mouseStartAngle = glm::angle(referenceAngle, glm::normalize(mouseStartPos));
-
-	float newMouseAngle = glm::angle(referenceAngle, glm::normalize(mousePos));
-
-	float trueAngle = newMouseAngle - mouseStartAngle;
-
-	float delta;
 	if (!didRotate)
 	{
 		didRotate = true;
-		delta = trueAngle;
 	}
 	else {
-		delta = trueAngle - state.rotations[activeAxis];
-	}
+		float delta = angle - cMesh.eulerRotations[activeAxis];
 
-	if (fabs(delta) > 0.001)
-	{
-		switch (activeAxis)
+		if (fabs(delta) > 0.001)
 		{
-		case GizmoAxis::X:
-			cMesh.rotateX(delta);
-			break;
-		case GizmoAxis::Y:
-			cMesh.rotateY(delta);
-			break;
-		case GizmoAxis::Z:
-			cMesh.rotateZ(delta);
-			break;
+			cMesh.setTranslation(v3(0,0,0));
+			switch (activeAxis)
+			{
+			case GizmoAxis::X:
+				cMesh.rotateX(delta);
+				break;
+			case GizmoAxis::Y:
+				cMesh.rotateY(delta);
+				break;
+			case GizmoAxis::Z:
+				cMesh.rotateZ(delta);
+				break;
+			}
+			cMesh.setTranslation(meshPos);
 		}
+		Debug::Drawing::drawLine(meshPos, meshPos + mouseStartPos * ringScales[activeAxis], v4(1, 1, 1, 1));
 	}
 
-	state.rotations[activeAxis] = trueAngle;
-
-	Debug::Drawing::drawLine(meshPos, mouseStartPos, v4(1, 1, 1, 1));
-	Debug::Drawing::drawLine(meshPos, glm::normalize(mousePos) * ringScales[activeAxis], lineColor);
+	cMesh.eulerRotations[activeAxis] = angle;
+	Debug::Drawing::drawLine(meshPos, meshPos + mousePos * ringScales[activeAxis], lineColor);
 }
