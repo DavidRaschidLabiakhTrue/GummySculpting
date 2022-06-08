@@ -98,6 +98,7 @@ void Window_API_Functions::clearBuffer()
 // polls for updates to the GLFW API and swaps draw buffers
 void Window_API_Functions::eventQuery()
 {
+	WindowGlobal::inputBuffer.clear();
 	glfwSwapBuffers(winGB::ActiveWindowPTR); // swap the draw buffers
 	glfwPollEvents(); // check for input events.
 }

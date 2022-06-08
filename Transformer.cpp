@@ -18,32 +18,56 @@ void TransformerDefinition::ModelMatrix::resetModelMatrix()
 
 void TransformerDefinition::ModelMatrix::rotateX(const float x)
 {
-	model = rotate(model, glm::radians(x), Basis::X);
+	m4 rotation = rotate(x, Basis::X);
+	model = rotation * model;
 }
 
 void TransformerDefinition::ModelMatrix::rotateY(const float y)
 {
-	model = rotate(model, glm::radians(y), Basis::Y);
+	m4 rotation = rotate(y, Basis::Y);
+	model = rotation * model;
 }
 
 void TransformerDefinition::ModelMatrix::rotateZ(const float z)
 {
-	model = rotate(model, glm::radians(z), Basis::Z);
+	m4 rotation = rotate(z, Basis::Z);
+	model = rotation * model;
+}
+
+void TransformerDefinition::ModelMatrix::rotateX_deg(const float x)
+{
+	m4 rotation = rotate(glm::radians(x), Basis::X);
+	model = rotation * model;
+}
+
+void TransformerDefinition::ModelMatrix::rotateY_deg(const float y)
+{
+	m4 rotation = rotate(glm::radians(y), Basis::Y);
+	model = rotation * model;
+}
+
+void TransformerDefinition::ModelMatrix::rotateZ_deg(const float z)
+{
+	m4 rotation = rotate(glm::radians(z), Basis::Z);
+	model = rotation * model;
 }
 
 void TransformerDefinition::ModelMatrix::translateX(const float x)
 {
-	model = translate(model, v3(x, 0, 0));
+	m4 translation = translate(v3(x, 0, 0));
+	model = translation * model;
 }
 
 void TransformerDefinition::ModelMatrix::translateY(const float y)
 {
-	model = translate(model, v3(0, y, 0));
+	m4 translation = translate(v3(0, y, 0));
+	model = translation * model;
 }
 
 void TransformerDefinition::ModelMatrix::translateZ(const float z)
 {
-	model = translate(model, v3(0, 0, z));
+	m4 translation = translate(v3(0, 0, z));
+	model = translation * model;
 }
 
 void TransformerDefinition::ModelMatrix::scaleUniform(const float scalar)
@@ -65,6 +89,19 @@ void TransformerDefinition::ModelMatrix::scaleZ(const float scalarz)
 {
 	model = scale(model, v3(1.0f, 1.0f, scalarz));
 }
+
+glm::vec3 TransformerDefinition::ModelMatrix::getTranslation()
+{
+	return v3(model[3][0], model[3][1], model[3][2]);
+}
+
+void TransformerDefinition::ModelMatrix::setTranslation(v3 t)
+{
+	model[3][0] = t.x;
+	model[3][1] = t.y;
+	model[3][2] = t.z;
+}
+
 
 
 TransformerDefinition::CameraTransformer::CameraTransformer()

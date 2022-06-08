@@ -19,6 +19,8 @@ namespace DebugLineDefinition
 			void setEnd(v3 end);
 			void drawLine();
 			void setColor(v4 color);
+
+			bool shouldDraw;
 	};
 }
 

@@ -76,6 +76,13 @@ namespace LinearAlgebra
 
 	glm::vec3 midpointFromV3(glm::vec3& p1, glm::vec3& p2);
 	glm::vec3 getRayPlaneIntersect(glm::vec3 planeP, glm::vec3 planeN, glm::vec3 rayP, glm::vec3 rayD);
+	glm::vec4 planePointNormalToGeneralForm(glm::vec3 pointP, glm::vec3 planeN);
+	float distanceFromPointToPlane(glm::vec3 pointP, glm::vec3 planeP, glm::vec3 planeN);
+	float distanceFromPointToPlane(glm::vec3 pointP, glm::vec4 plane);
+
+	float eulerFromMatrix_X(glm::mat4 matrix);
+	float eulerFromMatrix_Y(glm::mat4 matrix);
+	float eulerFromMatrix_Z(glm::mat4 matrix);
 }
 
 #endif

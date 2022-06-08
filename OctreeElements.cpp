@@ -322,6 +322,8 @@ void Octree::updateAffectedTrianglesParallel() ONOEXCEPT
     // octreeReinsertTrianglesParallel();
 }
 
+
+
 void Octree::clearCollision() ONOEXCEPT
 {
     collision = OctreeCollision();

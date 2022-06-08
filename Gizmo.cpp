@@ -2,14 +2,13 @@
 
 using namespace GizmoDefinition;
 
-GizmoDefinition::Gizmo::Gizmo(bool trueConstructor)
-{
-
-}
+GizmoDefinition::Gizmo::Gizmo() {}
+GizmoDefinition::Gizmo::Gizmo(bool trueConstructor) {}
+GizmoDefinition::Gizmo::~Gizmo() {}
 
 StaticMesh GizmoDefinition::Gizmo::createGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale, bool invertFaces)
 {
-	StaticMesh newStaticMesh = StaticMesh();
+	StaticMesh newStaticMesh = StaticMesh(); // you can do auto newStaticMesh = StaticMesh() or just StaticMesh newStaticMesh. Either calls the default constructor.
 	MeshFileLoader::loadGumFile(fileName, newStaticMesh, false);
 
 	//Apply color
@@ -18,7 +17,6 @@ StaticMesh GizmoDefinition::Gizmo::createGizmoMesh(string fileName, v4 color, v3
 	//Rotate
 	glm::mat4 rotationMtx(1);
 	rotationMtx = glm::rotate(rotationMtx, rotationAngle, rotationAxis);
-
 	forall(vert, newStaticMesh.vertices)
 	{
 		vert.position = v3(rotationMtx * v4(vert.position, 1.0));
@@ -62,4 +60,30 @@ bool GizmoDefinition::Gizmo::detectMeshClick(StaticMeshReference sMesh)
 		}
 	}
 	return false;
+}
+
+void GizmoDefinition::Gizmo::clearHover()
+{
+	forall(handle, handles)
+	{
+		handle->hovered = false;
+	}
+}
+
+void GizmoDefinition::Gizmo::checkClicked() {
+	clicked = cast();
+	if (!clicked)
+	{
+		screenToWorld();
+		activeAxis = GizmoAxis::NONE;
+	}
+}
+
+void GizmoDefinition::Gizmo::moveGizmo(v3 newPosition)
+{
+	position = newPosition;
+	forall(handle, handles)
+	{
+		handle->mesh.offset = newPosition + handle->offsetFromGizmo;
+	}
 }

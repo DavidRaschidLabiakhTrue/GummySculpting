@@ -4,7 +4,7 @@
 #include "Gizmo.hpp"
 #include "MeshFileLoader.hpp" // also includes "Mesh.h"
 
-#include "Debug.hpp"
+
 
 namespace TranslateGizmoDefinition
 {
@@ -14,34 +14,54 @@ namespace TranslateGizmoDefinition
 
 	class TranslateGizmo : public Gizmo
 	{
-		typedef struct Arrow {
-			StaticMesh mesh;
-			v4 hoverColor;
-			v4 activeColor;
-			bool hovered = false;
-			float distanceFromCam;
-			function<void(MeshReference cMesh)> callback;
-		} Arrow;
-
 		public:
-			TranslateGizmo();
-			~TranslateGizmo();
-
+			Empty_Construct TranslateGizmo();
 			TranslateGizmo(bool trueConstructor);
-
+			~TranslateGizmo();
 		
 			void query(MeshReference cMesh) override;
 			void draw() override;
+			void translateMesh(MeshReference cMesh);
 
 		protected:
-			const static int numArrows = 3;
-			//Arrow arrows[numArrows];
-			vector<Arrow> arrows;
-			string arrowFileName = "arrow.gum";
-			void translateMesh(MeshReference cMesh, v3 axis);
-			Arrow* activeArrow;
-			void sortArrowsByDistance();
-			void clearHover();
+			class Arrow : public Handle
+			{
+				static const inline string arrowFileName = "arrow.gum";
+				static const inline float arrowScale = 0.5f;
+				public:
+					Empty_Construct Arrow() {};
+					Arrow(GizmoAxis axis, v4 color, v4 hoverColor, v4 activeColor, v3 offset, float rot, v3 rotAxis);
+					~Arrow() {};
+					float distanceFromCam;
+			};
+			class TranslateGizmoState
+			{
+				public:
+					TranslateGizmoState() {};
+					TranslateGizmoState(int meshID, v3 position) {
+						this->meshID = meshID;
+						this->position = position;
+					};
+					~TranslateGizmoState() {};
+					int meshID;
+					v3 position;
+			};
+			
+			
+			vector<shared_ptr<Arrow>> getArrowsSortedByDistance();
+			glm::vec3 getCloserPlaneNormal(glm::vec3 position, glm::vec3 center, glm::vec3 normalA, glm::vec3 normalB);
+			float calculateMoveDistance();
+			float mouseStartOffset;
+
+			vector<shared_ptr<Arrow>> arrows;
+
+			vector<shared_ptr<TranslateGizmoState>> undoHistory;
+
+			TranslateGizmoState state;
+
+			bool shouldUpdate = true;
+
+			vec3 newPosition;
 	};
 }
 

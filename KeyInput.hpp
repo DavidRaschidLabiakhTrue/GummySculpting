@@ -10,14 +10,14 @@ Usage Window_API;
 namespace KeyInputDefinition
 {
 
-	#define CheckKeyPressed(x) glfwGetKey(WindowGlobal::ActiveWindowPTR, (x) ) == GLFW_PRESS
-	#define CheckMousePressed(x) glfwGetMouseButton(WindowGlobal::ActiveWindowPTR, (x) ) == GLFW_PRESS
+	#define CheckKeyHeld(x) glfwGetKey(WindowGlobal::ActiveWindowPTR, (x) ) == GLFW_PRESS
+	#define CheckMouseHeld(x) glfwGetMouseButton(WindowGlobal::ActiveWindowPTR, (x) ) == GLFW_PRESS
 
 	#define CheckKeyReleased(x) glfwGetKey(WindowGlobal::ActiveWindowPTR, (x) ) == GLFW_RELEASE
 	#define CheckMouseReleased(x) glfwGetMouseButton(WindowGlobal::ActiveWindowPTR, (x) ) == GLFW_RELEASE
 
 	
-	bool CheckIfAnyKeyPressed();
+	bool CheckIfAnyKeyHeld();
 
 	enum KeyInputCode
 	{
@@ -77,10 +77,9 @@ namespace KeyInputDefinition
 		Key_tilde,
 		Key_enter
 	};
-
-	
-	extern bool isPressed(KeyInputCode keycode); // succint way of checking for k input without touching GLFW
-	extern bool isNotPressed(KeyInputCode keycode);
+	extern bool isHeld(KeyInputCode keycode); // succint way of checking for k input without touching GLFW
+	extern bool isNotHeld(KeyInputCode keycode);
+	extern bool isPressed(int keycode); //checks if key was pressed this frame
 }
 
 #endif
