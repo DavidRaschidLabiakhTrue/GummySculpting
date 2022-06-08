@@ -80,6 +80,9 @@ namespace LinearAlgebra
 	float distanceFromPointToPlane(glm::vec3 pointP, glm::vec3 planeP, glm::vec3 planeN);
 	float distanceFromPointToPlane(glm::vec3 pointP, glm::vec4 plane);
 
+	float eulerFromMatrix_X(glm::mat4 matrix);
+	float eulerFromMatrix_Y(glm::mat4 matrix);
+	float eulerFromMatrix_Z(glm::mat4 matrix);
 }
 
 #endif

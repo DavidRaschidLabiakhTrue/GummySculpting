@@ -56,9 +56,6 @@ namespace RotateGizmoDefinition
 			v3 mouseStartPos;
 			vector<shared_ptr<Ring>> rings;
 			bool didRotate = false;
-			v3 newRotation;
-
-			m4 rotationMatrix;
 	};
 }
 

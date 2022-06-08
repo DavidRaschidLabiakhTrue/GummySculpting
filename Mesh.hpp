@@ -77,6 +77,8 @@ namespace MeshDefinition
 
 			string name;
 
+			v3 eulerRotations = v3(0,0,0);
+
 			unordered_map<string, variableVariantType> meshVariables;
 
 	};

@@ -33,3 +33,18 @@ float LinearAlgebra::distanceFromPointToPlane(glm::vec3 pointP, glm::vec4 plane)
     float e = sqrt(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2]);
     return d / e;
 }
+
+float LinearAlgebra::eulerFromMatrix_X(glm::mat4 matrix)
+{
+    return atan2(matrix[2][1], matrix[2][2]);
+}
+
+float LinearAlgebra::eulerFromMatrix_Y(glm::mat4 matrix)
+{
+    return atan2(matrix[2][0], sqrt(pow(matrix[2][1], 2) + pow(matrix[2][2], 2)));
+}
+
+float LinearAlgebra::eulerFromMatrix_Z(glm::mat4 matrix)
+{
+    return atan2(matrix[1][0], matrix[0][0]);
+}

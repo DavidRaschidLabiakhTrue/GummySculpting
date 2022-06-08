@@ -43,11 +43,6 @@ void RotateGizmoDefinition::RotateGizmo::query(MeshReference cMesh)
 {
 	if (state.meshID != cMesh.meshID) {
 		state = RotateGizmoState(cMesh.meshID, v3(0,0,0)); //TODO: store rotations in mesh and get those here
-		didRotate = false;
-	}
-	else if (didRotate)
-	{
-
 	}
 
 	checkClicked();
@@ -102,6 +97,10 @@ v3 RotateGizmoDefinition::RotateGizmo::getPlaneNormal(GizmoAxis axis)
 
 void RotateGizmoDefinition::RotateGizmo::RotateMesh(MeshReference cMesh)
 {
+	if (!didRotate)
+	{
+		didRotate = true;
+	}
 	v3 camPos = this->origin().position;
 	v3 meshPos = cMesh.center;
 
@@ -130,25 +129,25 @@ void RotateGizmoDefinition::RotateGizmo::RotateMesh(MeshReference cMesh)
 
 	float newMouseAngle = glm::angle(referenceAngle, glm::normalize(mousePos));
 
-	float angleDelta = newMouseAngle - mouseStartAngle;
+	float trueAngle = newMouseAngle - mouseStartAngle;
+
+	float delta = trueAngle - cMesh.eulerRotations[activeAxis];
 
 	switch (activeAxis)
 	{
 		case GizmoAxis::X:
-			cMesh.rotateX(angleDelta - newRotation[activeAxis]);
+			cMesh.rotateX(delta);
 			break;
 		case GizmoAxis::Y:
-			cMesh.rotateY(angleDelta - newRotation[activeAxis]);
+			cMesh.rotateY(delta);
 			break;
 		case GizmoAxis::Z:
-			cMesh.rotateZ(angleDelta - newRotation[activeAxis]);
+			cMesh.rotateZ(delta);
 			break;
 		default: return;
 	}
 
-	newRotation[activeAxis] = angleDelta;
-
-	didRotate = true;
+	cMesh.eulerRotations[activeAxis] = trueAngle;
 
 	Debug::Drawing::drawLine(meshPos, mouseStartPos, v4(1, 1, 1, 1));
 	Debug::Drawing::drawLine(meshPos, glm::normalize(mousePos) * ringScale, lineColor);
