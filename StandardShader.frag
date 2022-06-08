@@ -9,20 +9,21 @@ layout(location = 0) out vec4 FragColor;
 layout (location = 20) uniform mat4 viewMatrix;
 
 vec3 light_position_world  = vec3(0.0, 10.0, 0.0);
-vec3 Ls = vec3(1.0, 1.0, 1.0); // white specular colour
-vec3 Ld = vec3(0.7, 0.7, 0.7); // dull white diffuse light colour
-vec3 La = vec3(0.4, 0.4, 0.4); // grey ambient colour
+vec3 Ls = vec3(0.7, 0.7, 0.7); // white specular colour
+vec3 Ld = vec3(0.2, 0.2, 0.2); // dull white diffuse light colour
+
 
 // surface reflectance
-vec3 Ks = vec3(1.0, 1.0, 1.0); // fully reflect specular light
+vec3 Ks = vec3(0.7, 0.7, 0.7); // fully reflect specular light
 
-vec3 Ka = vec3(1.0, 1.0, 1.0); // fully reflect ambient light
-float specular_exponent = 100.0; // specular 'power'
+vec3 Ka = vec3(0.7, 0.7, 0.7); // fully reflect ambient light
+float specular_exponent = 75.0; // specular 'power'
 
 
 
 void main()
 {
+	vec3 La = vec3(myColor);
 	vec3 Ia = La * Ka;
 	vec3 color3 = vec3(myColor);
 	// diffuse intensity
