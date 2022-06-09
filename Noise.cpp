@@ -99,6 +99,7 @@ void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference 
 		// // See smoothing and coloring
 		//
 		//cMesh.vertices[element.first] = ... // Apply the algo here.
+		
 	}
 
 

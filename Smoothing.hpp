@@ -11,8 +11,7 @@ namespace Sculpting::Smoothing
 	using namespace SculptPayloadDefinition;
 
 	void applySmoothing(MeshReference cMesh, SculptPayloadReference payload);
-
-
+	
 }
 
 #endif
