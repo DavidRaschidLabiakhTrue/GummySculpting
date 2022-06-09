@@ -184,7 +184,6 @@
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeList.cpp" />
     <ClCompile Include="Gizmo.cpp" />
-    <ClCompile Include="GizmoManager.cpp" />
     <ClCompile Include="GraphicsBufferObjects.cpp" />
     <ClCompile Include="GraphicsData.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -211,7 +210,6 @@
     <ClCompile Include="OctreeOctant.cpp" />
     <ClCompile Include="OctreeVisualization.cpp" />
     <ClCompile Include="RayCasting.cpp" />
-    <ClCompile Include="RotateGizmo.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="SamplerPayload.cpp" />
     <ClCompile Include="SculptAlgos.cpp" />
@@ -228,7 +226,6 @@
     <ClCompile Include="TopBar.cpp" />
     <ClCompile Include="TopologyComputation.cpp" />
     <ClCompile Include="Transformer.cpp" />
-    <ClCompile Include="TranslateGizmo.cpp" />
     <ClCompile Include="TriangleList.cpp" />
     <ClCompile Include="Indices.cpp" />
     <ClCompile Include="KeyInput.cpp" />
@@ -263,7 +260,6 @@
     <ClInclude Include="Edge.hpp" />
     <ClInclude Include="EdgeList.hpp" />
     <ClInclude Include="Gizmo.hpp" />
-    <ClInclude Include="GizmoManager.hpp" />
     <ClInclude Include="GraphicsBufferObjects.hpp" />
     <ClInclude Include="GraphicsData.hpp" />
     <ClInclude Include="Grid.hpp" />
@@ -292,7 +288,6 @@
     <ClInclude Include="OctreeStats.hpp" />
     <ClInclude Include="OctreeVisualization.hpp" />
     <ClInclude Include="RayCasting.hpp" />
-    <ClInclude Include="RotateGizmo.hpp" />
     <ClInclude Include="Sampler.hpp" />
     <ClInclude Include="SamplerPayload.hpp" />
     <ClInclude Include="SculptAlgos.hpp" />
@@ -309,7 +304,6 @@
     <ClInclude Include="TopBar.hpp" />
     <ClInclude Include="TopologyComputation.hpp" />
     <ClInclude Include="Transformer.hpp" />
-    <ClInclude Include="TranslateGizmo.hpp" />
     <ClInclude Include="TriangleList.hpp" />
     <ClInclude Include="Indices.hpp" />
     <ClInclude Include="KeyInput.hpp" />
@@ -344,6 +338,7 @@
     <None Include="GridShader.vert" />
     <None Include="plane.gum" />
     <None Include="ring.gum" />
+    <None Include="scale_arm.gum" />
     <None Include="sphere.gum" />
     <None Include="StandardShader.frag" />
     <None Include="StandardShader.geom">

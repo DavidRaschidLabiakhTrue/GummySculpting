@@ -209,16 +209,7 @@
       <Filter>Utility and Macros\Time Gate</Filter>
     </ClCompile>
     <ClCompile Include="Gizmo.cpp">
-      <Filter>Mechanics\Gizmos\Imple\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="TranslateGizmo.cpp">
-      <Filter>Mechanics\Gizmos\Imple\Translate</Filter>
-    </ClCompile>
-    <ClCompile Include="GizmoManager.cpp">
       <Filter>Mechanics\Gizmos\Imple</Filter>
-    </ClCompile>
-    <ClCompile Include="RotateGizmo.cpp">
-      <Filter>Mechanics\Gizmos\Imple\Rotate</Filter>
     </ClCompile>
     <ClCompile Include="Transformer.cpp">
       <Filter>Mechanics\Transformer</Filter>
@@ -457,16 +448,7 @@
       <Filter>3D Objects\Static Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Gizmo.hpp">
-      <Filter>Mechanics\Gizmos\Imple\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="TranslateGizmo.hpp">
-      <Filter>Mechanics\Gizmos\Imple\Translate</Filter>
-    </ClInclude>
-    <ClInclude Include="GizmoManager.hpp">
       <Filter>Mechanics\Gizmos\Imple</Filter>
-    </ClInclude>
-    <ClInclude Include="RotateGizmo.hpp">
-      <Filter>Mechanics\Gizmos\Imple\Rotate</Filter>
     </ClInclude>
     <ClInclude Include="Transformer.hpp">
       <Filter>Mechanics\Transformer</Filter>
@@ -528,6 +510,9 @@
       <Filter>Rendering\Shaders\Shader Files\Grid</Filter>
     </None>
     <None Include="ring.gum">
+      <Filter>3D Models\gum Models</Filter>
+    </None>
+    <None Include="scale_arm.gum">
       <Filter>3D Models\gum Models</Filter>
     </None>
   </ItemGroup>
@@ -849,15 +834,6 @@
     </Filter>
     <Filter Include="Rendering\Shaders\Shader Files\Static Mesh Shader">
       <UniqueIdentifier>{a138c809-f1b3-4678-aa86-8df514566261}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Gizmos\Imple\Base">
-      <UniqueIdentifier>{3797c2ee-bee2-4a75-a1f6-32a530e3e506}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Gizmos\Imple\Translate">
-      <UniqueIdentifier>{deb67fbf-a1f9-41d0-9ab2-487797ced615}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mechanics\Gizmos\Imple\Rotate">
-      <UniqueIdentifier>{733d2ca9-c1fd-49cc-96c7-3ba9f652f197}</UniqueIdentifier>
     </Filter>
     <Filter Include="Mechanics\Transformer">
       <UniqueIdentifier>{500e6174-be7c-4aff-9e5a-2044bcab53f1}</UniqueIdentifier>

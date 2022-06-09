@@ -20,6 +20,7 @@
 
 #include "glm/gtx/rotate_vector.hpp"
 #include "glm/gtx/vector_angle.hpp"
+#include "glm/gtx/euler_angles.hpp"
 #include "glm/gtx/intersect.hpp"
 
 #include "glm/fwd.hpp"
@@ -73,6 +74,8 @@ namespace LinearAlgebra
 	using glm::intersectRayTriangle;
 
 	using glm::triangleNormal;
+
+	using glm::eulerAngleXYZ;
 
 	glm::vec3 midpointFromV3(glm::vec3& p1, glm::vec3& p2);
 	glm::vec3 getRayPlaneIntersect(glm::vec3 planeP, glm::vec3 planeN, glm::vec3 rayP, glm::vec3 rayD);

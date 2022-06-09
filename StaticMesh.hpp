@@ -2,7 +2,6 @@
 #define StaticMesh_HPP
 
 #include "MeshStats.hpp"
-
 #include "Shader.hpp"
 
 namespace StaticMeshDefinition
@@ -17,6 +16,8 @@ namespace StaticMeshDefinition
 			StaticMesh();
 			~StaticMesh();
 
+			void initialize(StaticMesh& mesh, string fileName, v4 color, v3 offset, float scale, float rot, v3 rotAxis);
+
 			void uploadOffsetandScaleToGPU();
 
 			void renderWithStaticColor(v4 color);
@@ -25,8 +26,6 @@ namespace StaticMeshDefinition
 
 			v3 offset = v3(0); // offset it is to be rendered in the shader.
 			float scale = 1.0f; // scale of the mesh
-
-		
 	};
 
 	typedef StaticMesh& StaticMeshReference;

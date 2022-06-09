@@ -2,87 +2,111 @@
 #define Gizmo_HPP
 
 #include "Sampler.hpp"
-
 #include "Debug.hpp"
 
 namespace GizmoDefinition
 {
+	using namespace GizmoDefinition;
 	using namespace SamplerDefinition;
-	using namespace StaticMeshDefinition;
 
-	class Gizmo : public Sampler
+	class Gizmo : Sampler
 	{
 	public:
-		class GizmoColors {
-			public:
-				const static inline v4 red = { 1.0f, 0.0f, 0.0f, 1.0f };
-				const static inline v4 green = { 0.0f, 1.0f, 0.0f, 1.0f };
-				const static inline v4 blue = { 0.0f, 0.0f, 1.0f, 1.0f };
-				const static inline v4 darkGray = { 0.35f, 0.35f, 0.35f, 1.0f };
-				const static inline v4 lightGray = { 0.65f, 0.65f, 0.65f, 1.0f };
-				const static inline v4 white = { 1.0f, 1.0f, 1.0f, 1.0f };
-				const static inline v4 lightOrange = { 0.9f, 0.85f, 0.65f, 1.0f };
-				const static inline v4 lightRed = { 1.0f, 0.5f, 0.5f, 1.0f };
-				const static inline v4 lightGreen = { 0.65f, 0.95f, 0.65f, 1.0f };
-				const static inline v4 lightBlue = { 0.5f, 0.5f, 0.9f, 1.0f };
+		enum GizmoState
+		{
+			INACTIVE,
+			ROTATE,
+			TRANSLATE,
+			SCALE
 		};
-		struct GizmoState {
-			GizmoState(MeshReference cMesh) : cMesh(cMesh) {
-				position = cMesh.center;
-			};
-			MeshReference cMesh;
-			v3 position;
-			//put virtual functions here
-		};
-
 		enum GizmoAxis
 		{
 			X,
 			Y,
 			Z,
+			ALL,
 			NONE
 		};
-
-		class Handle
-		{
+		class GizmoColors {
 			public:
-				Empty_Construct Handle() {};
-				Handle(bool trueConstructor) {};
-				virtual ~Handle() {};
-				StaticMesh mesh;
-				GizmoAxis axis;
-				v4 hoverColor;
-				v4 activeColor;
-				v3 offsetFromGizmo;
-				bool hovered;
+				const static inline v4 red = { 1.0f, 0.0f, 0.0f, 1.0f };
+				const static inline v4 green = { 0.0f, 1.0f, 0.0f, 1.0f };
+				const static inline v4 blue = { 0.0f, 0.0f, 1.0f, 1.0f };
+				const static inline v4 yellow = { 0.85f, 0.75f, 0.33f, 1.0f };
+				const static inline v4 white = { 1.0f, 1.0f, 1.0f, 1.0f };
+				const static inline v4 lightOrange = { 0.9f, 0.85f, 0.65f, 1.0f };
+				const static inline v4 lightRed = { 1.0f, 0.5f, 0.5f, 1.0f };
+				const static inline v4 lightGreen = { 0.65f, 0.95f, 0.65f, 1.0f };
+				const static inline v4 lightBlue = { 0.5f, 0.5f, 0.9f, 1.0f };
+				const static inline v4 lightYellow = { 1.0f, 0.95f, 0.65f, 1.0f };
+		};
+		struct Handle
+		{
+			Handle(string fileName, v4 color, v4 hoverColor, v3 offset, float scale, float rot, v3 rotAxis, GizmoAxis axis);
+			StaticMesh mesh;
+			GizmoAxis axis;
+			v3 offsetFromGizmo;
+			v4 hoverColor;
+			bool hovered = false;
+			float distanceFromCam = 0;
 		};
 
-		Empty_Construct Gizmo();
-		Gizmo(bool trueConstructor);
+		Gizmo();
 		~Gizmo();
+		Gizmo(bool trueConstructor);
 
-		virtual void query(MeshReference cMesh) {};
-
-		virtual void draw() {};
-
-		void clearHover();
-		void checkClicked();
-
+		void queryGizmo(MeshReference cMesh);
+		void drawGizmo();
+		void setState(GizmoState newState);
+		void iterateState();
 		void moveGizmo(v3 newPosition);
 
-		static StaticMesh createGizmoMesh(string fileName, v4 color, v3 offset, float rotationAngle, v3 rotationAxis, float scale, bool invertFaces = false);
-		bool detectMeshClick(StaticMeshReference cMesh);
-
-		bool clicked = false;
-
-		GizmoAxis activeAxis;
-
-		vector<shared_ptr<Handle>> handles;
-
-		v3 position;
+		GizmoState state = INACTIVE;
 
 	protected:
+		void queryTranslate(MeshReference cMesh);
+		void queryRotate(MeshReference cMesh);
+		void queryScale(MeshReference cMesh);
 
+		void drawTranslate();
+		void drawRotate();
+		void drawScale();
+
+		void translateMesh(MeshReference cMesh);
+		void rotateMesh(MeshReference cMesh);
+		void scaleMesh(MeshReference cMesh);
+
+		static bool sortHandlesByDistance(Handle const& lhs, Handle const& rhs);
+
+		void moveHandles(v3 newPosition, vector<Handle>& handles);
+		void clearHover(vector<Handle>& handles);
+		float calculateMouseOffset(MeshReference cMesh);
+		v3 getFartherPlaneNormal(v3 position, v3 center, v3 normalA, v3 normalB);
+
+		int meshID = -1;
+		GizmoAxis activeAxis = GizmoAxis::NONE;
+		float prevMouseOffset;
+		float prevMouseDistance;
+		v3 startMousePosition;
+		v3 prevMousePosition;
+		bool didChangeState = false;
+
+		//Translate
+		vector<Handle> arrows;
+		string arrowFileName = "arrow.gum";
+		float arrowScale = 0.5f;
+		
+		//Rotate
+		vector<Handle> rings;
+		string ringFileName = "ring.gum";
+		float ringScale = 0.3f;
+
+		//Scale
+		vector<Handle> arms;
+		string armFileName = "scale_arm.gum";
+		string cubeFileName = "cube.gum";
+		float armScale = 0.5f;
+		float cubeScale = 0.1f;
 	};
 }
 

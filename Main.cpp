@@ -119,7 +119,7 @@ MainProgram::MainProgram(StringList &arguments)
     debug = DebugConsoleDefinition::DebugConsole(TrueConstructor);
     CameraDefinition::GlobalCamera = &cam; // set up camera linkage
     brush = SculptBrush(TrueConstructor);
-	gizmoManager = GizmoManager(TrueConstructor);
+	gizmo = Gizmo(TrueConstructor);
 
     visualObjects = VisualObjects(TrueConstructor);
 
@@ -485,10 +485,7 @@ void MainProgram::queryMechanics()
 
 	}
    
-	if (usingGizmo)
-	{
-		gizmoManager.queryGizmo(renderer.getActiveMeshReference());
-	}
+	gizmo.queryGizmo(renderer.getActiveMeshReference());
 	
 }
 void MainProgram::queryCamera()
@@ -518,11 +515,9 @@ void MainProgram::drawStatic()
 	*		mesh.uploadOffsetandScaleToGPU(); // send the offset and the scale to the GPU
 	*		mesh.render(); // draw it to screen.
 	*/
-	if (usingGizmo)
-	{
-		gizmoManager.drawGizmo();
-	}
-	
+
+	gizmo.drawGizmo();
+
 }
 void MainProgram::draw2D()
 {
