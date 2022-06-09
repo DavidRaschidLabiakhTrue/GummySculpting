@@ -7,7 +7,7 @@ namespace Sculpting::Noising // likely not grammatically correct
 	using namespace SculptPayloadDefinition;
 	using namespace MeshDefinition;
 
-	void applyNoise(MeshReference cMesh, SculptPayloadReference payload);
+	void applyNoise(MeshReference cMesh, SculptPayloadReference payload , const int interations = 4);
 }
 
 #endif
