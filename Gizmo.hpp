@@ -91,9 +91,11 @@ namespace GizmoDefinition
 		v3 prevMousePosition;
 		bool didChangeState = false;
 
+		// I like there are no pointers anymore.
+
 		//Translate
 		vector<Handle> arrows;
-		string arrowFileName = "arrow.gum";
+		string arrowFileName = "arrow.gum"; 
 		float arrowScale = 0.5f;
 		
 		//Rotate

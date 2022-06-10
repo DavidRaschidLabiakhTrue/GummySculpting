@@ -4,8 +4,11 @@
 #include <fstream> 
 #include <sstream>
 
+#include "TimeGate.hpp"
+
 namespace ShaderDefinition
 {
+	using TimeGateDefinition::nowTime;
 	Shader StandardShader;
 	Shader WireFrameShader;
 
@@ -13,12 +16,24 @@ namespace ShaderDefinition
 
 	Shader GridShader;
 
+	Shader CircleShader;
+
+	std::random_device ColorRandomizer;
+	std::mt19937 ColorGenerator;
+	std::uniform_real_distribution<float> ColorDistribution;
+
 	void compileGlobalShaders()
 	{
+		ColorGenerator = std::mt19937(ColorRandomizer());
+		ColorDistribution = std::uniform_real_distribution<float>(0.0f, 1.0f);
+
 		StandardShader.compileShader("StandardShader.vert", "StandardShader.frag", "Standard Shader");
 		WireFrameShader.compileShader("WireFrameShader.vert", "WireFrameShader.frag", "WireFrame Shader");
 		StaticMeshShader.compileShader("StaticMeshShader.vert", "StaticMeshShader.frag", "Static Mesh Shader");
+
 		GridShader.compileShader("GridShader.vert", "GridShader.frag", "Grid Shader");
+		CircleShader.compileShader("CircleShader.vert", "CircleShader.frag", "Circle Shader");
+
 	}
 }
 
@@ -136,6 +151,11 @@ void ShaderDefinition::Shader::setStaticColorBool(bool useStaticColor)
 	glUniform1i(ShaderSlotInfo.staticColorBool.position, useStaticColor);
 }
 
+void ShaderDefinition::Shader::uploadTimeToGPU()
+{
+	glUniform1f(ShaderSlotInfo.timeModifier.position, nowTime);
+}
+
 void ShaderDefinition::Shader::uploadProjectionMatrixToGPU()
 {
 	glUniformMatrix4fv(ShaderSlotInfo.projection.position, 1, GL_FALSE, value_ptr(GlobalCamera->projection));
@@ -166,6 +186,11 @@ void Shader::compileStandardShader()
 void Shader::compileWireFrameShader()
 {
 	compileShader("WireFrameShader.vert", "WireFrameShader.frag", "WireFrame Shader");
+}
+
+void ShaderDefinition::Shader::uploadRandomUniformColorToGPU()
+{
+	glUniform4f(ShaderSlotInfo.randomColor.position, ColorDistribution(ColorRandomizer), ColorDistribution(ColorRandomizer), ColorDistribution(ColorRandomizer), 1.0f);
 }
 
 

@@ -16,12 +16,15 @@ namespace StaticMeshDefinition
 			StaticMesh();
 			~StaticMesh();
 
+			void bindStatic();
 			void initialize(StaticMesh& mesh, string fileName, v4 color, v3 offset, float scale, float rot, v3 rotAxis);
 
 			void uploadOffsetandScaleToGPU();
 
-			void renderWithStaticColor(v4 color);
+			
 
+			void renderWithStaticColor(v4 color);
+			
 			v3 getTrueCenter();
 
 			v3 offset = v3(0); // offset it is to be rendered in the shader.

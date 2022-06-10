@@ -5,6 +5,8 @@
 #include "ShaderPosition.hpp"
 #include "MathDefinitions.hpp"
 
+#include <random>
+
 namespace ShaderDefinition
 {
 	Usage ShaderPositionDefinition;
@@ -24,12 +26,15 @@ namespace ShaderDefinition
 			void compileStandardShader(); // hard coded compiling
 			void compileWireFrameShader(); // hard coded compiling
 
+			void uploadRandomUniformColorToGPU(); 
 
 			void uploadScaleFloatToGPU(float renderScale);
 			void uploadOffsetVectorToGPU(rv3 renderOffset);
 			void uploadStaticColorVectorToGPU(rv4 renderColor);
 			void uploadModelMatrixToGPU(rm4 model);
 			void setStaticColorBool(bool useStaticColor);
+
+			void uploadTimeToGPU();
 
 			string name; // name of shader for debugging
 			
@@ -46,6 +51,10 @@ namespace ShaderDefinition
 	extern Shader WireFrameShader;
 	extern Shader StaticMeshShader;
 	extern Shader GridShader;
+	extern Shader CircleShader;
+	extern std::random_device ColorRandomizer;
+	extern std::mt19937 ColorGenerator;
+	extern std::uniform_real_distribution<float> ColorDistribution;
 
 	extern void compileGlobalShaders();
 }

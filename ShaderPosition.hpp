@@ -33,6 +33,9 @@ namespace ShaderPositionDefinition
 		void loadScale();
 		void loadStaticColor();
 		void loadStaticColorBool();
+		void loadRandomColor();
+
+		void loadTimeModifier();
 	};
 
 	// basically a global constant that contains all relevant data needed.
@@ -53,6 +56,8 @@ namespace ShaderPositionDefinition
 		ShaderPosition scale;
 		ShaderPosition staticColor;
 		ShaderPosition staticColorBool;
+		ShaderPosition randomColor;
+		ShaderPosition timeModifier;
 	};
 
 	extern ShaderPositionData ShaderSlotInfo;

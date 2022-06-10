@@ -86,6 +86,18 @@ void ShaderPositionDefinition::ShaderPosition::loadStaticColorBool()
 	position = 11;
 }
 
+void ShaderPositionDefinition::ShaderPosition::loadRandomColor()
+{
+	slot = "randomColor";
+	position = 12;
+}
+
+void ShaderPositionDefinition::ShaderPosition::loadTimeModifier()
+{
+	slot = "time";
+	position = 13;
+}
+
 ShaderPositionData::ShaderPositionData()
 {
 	position.loadPosition();
@@ -99,6 +111,9 @@ ShaderPositionData::ShaderPositionData()
 	staticColorBool.loadStaticColorBool();
 	view.loadViewMatrix();
 	projection.loadProjectionMatrix();
+
+	randomColor.loadRandomColor();
+	timeModifier.loadTimeModifier();
 }
 
 ShaderPositionData::~ShaderPositionData()
