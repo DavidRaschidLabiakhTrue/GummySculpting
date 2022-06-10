@@ -226,6 +226,12 @@
     <ClCompile Include="StrokeDirac.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\StrokeDirac</Filter>
     </ClCompile>
+    <ClCompile Include="StaticCircle.cpp">
+      <Filter>3D Objects\Static Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleShader.vert">
+      <Filter>Rendering\Shaders\Shader Files\CircleShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -471,6 +477,9 @@
     <ClInclude Include="StrokeDirac.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\StrokeDirac</Filter>
     </ClInclude>
+    <ClInclude Include="StaticCircle.hpp">
+      <Filter>3D Objects\Static Circle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cube.gum">
@@ -520,6 +529,9 @@
     </None>
     <None Include="scale_arm.gum">
       <Filter>3D Models\gum Models</Filter>
+    </None>
+    <None Include="CircleShader.frag">
+      <Filter>Rendering\Shaders\Shader Files\CircleShader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -861,6 +873,12 @@
     </Filter>
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\StrokeDirac">
       <UniqueIdentifier>{a10dac14-d057-4083-935f-2d9bdc16588f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Static Circle">
+      <UniqueIdentifier>{38822bc1-702e-4667-b6a4-0251e69f56a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader Files\CircleShader">
+      <UniqueIdentifier>{fba5d588-f4df-497c-a3be-d17891e610d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

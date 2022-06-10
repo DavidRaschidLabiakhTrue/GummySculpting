@@ -217,6 +217,10 @@
     <ClCompile Include="SculptPayload.cpp" />
     <ClCompile Include="SmoothedColor.cpp" />
     <ClCompile Include="Smoothing.cpp" />
+    <ClCompile Include="CircleShader.vert">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="StaticCircle.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="StrokeDirac.cpp" />
     <ClCompile Include="Stroking.cpp" />
@@ -296,6 +300,7 @@
     <ClInclude Include="SculptPayload.hpp" />
     <ClInclude Include="SmoothedColor.hpp" />
     <ClInclude Include="Smoothing.hpp" />
+    <ClInclude Include="StaticCircle.hpp" />
     <ClInclude Include="StaticMesh.hpp" />
     <ClInclude Include="StrokeDirac.hpp" />
     <ClInclude Include="Stroking.hpp" />
@@ -335,6 +340,9 @@
   <ItemGroup>
     <None Include="4star.gum" />
     <None Include="arrow.gum" />
+    <None Include="CircleShader.frag">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
     <None Include="cube.gum" />
     <None Include="GridShader.frag" />
     <None Include="GridShader.vert" />

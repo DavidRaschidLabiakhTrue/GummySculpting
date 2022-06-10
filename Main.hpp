@@ -29,6 +29,8 @@
 
 #include <variant>
 
+#include "StaticCircle.hpp"
+
 using namespace MathTypeDefinitions;
 using namespace Window_Class;
 
@@ -48,11 +50,17 @@ using namespace GizmoDefinition;
 
 using namespace TimeGateDefinition;
 
+using namespace StaticCircleDefinition;
+
 using DebugConsoleDefinition::debug;
 
 using MainDirectiveDefinition::Directives; // command list main must execute
 
-template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
+
+
+
+
+template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; }; // sussy
 class MainProgram
 {
 	public:
@@ -117,7 +125,7 @@ class MainProgram
 		TimeGate sculptGate = TimeGate(15.0f);
 		TimeGate renderGate = TimeGate(45.0f);
 
-
+		StaticCircle circle;
 };
 
 

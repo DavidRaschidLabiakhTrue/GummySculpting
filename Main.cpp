@@ -11,9 +11,13 @@
 #include "Debug.hpp"
 
 
-Usage Window_API::Window_API_Functions;
+
+using namespace Window_API::Window_API_Functions;
 using namespace ShaderDefinition;
 using namespace TimeGateDefinition;
+
+using namespace StaticCircleDefinition;
+
 int main(int argc, char **argv)
 {
 	// _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -79,6 +83,8 @@ int MainProgram::ProgramCycle()
 
 
 
+	
+
 	while (shouldNotClose())
 	{
 		TimeGateDefinition::tick(); // global time delta checker
@@ -93,7 +99,9 @@ int MainProgram::ProgramCycle()
 			beginDrawFrame();
 			checkDebugConsole();
 			draw3D(); // drawing meshes
+			
 			drawStatic();
+			
 			draw2D(); // querying the GUI and drawing the GUI occur at the same time, because that's how IMGUI works.
 
 			
@@ -122,6 +130,8 @@ MainProgram::MainProgram(StringList &arguments)
 	gizmo = Gizmo(TrueConstructor);
 
     visualObjects = VisualObjects(TrueConstructor);
+
+	circle = StaticCircle(TrueConstructor);
 
     preprocess(arguments);
 }
@@ -498,7 +508,8 @@ void MainProgram::queryCamera()
 void MainProgram::draw3D()
 {
     renderer.draw();
-   
+
+	circle.drawCircle();
     
 }
 void MainProgram::drawStatic()
