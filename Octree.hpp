@@ -91,11 +91,9 @@ namespace OctreeDefinition
 
             void collectVerticesAroundCollision(float range) ONOEXCEPT;
             void collectTrianglesAroundCollision(float range) ONOEXCEPT;
-            void octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT;
+            void octreeRayIntersection(v3 origin, v3 direction, bool isSymmetric = false, v3 planeOrigin = v3(0), v3 planeNormal = v3(1,0,0)) ONOEXCEPT;
             bool isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT;
-
-            // Parallel OctreeIntersection functions
-            void collectVerticesAroundCollisionParallel(float range, bool loadAffectedTriangles = true) ONOEXCEPT;
+            void reflectRay(rv3 origin, rv3 direction, rv3 planeOrigin, rv3 planeNormal, rv3 reflectOrigin, rv3 reflectDirection) ONOEXCEPT;
 
             int mortonCodeHash(v3 point, v3 center) ONOEXCEPT; // returns the morton code position with respect to octant
 
