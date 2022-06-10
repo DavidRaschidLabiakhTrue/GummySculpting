@@ -1,26 +1,40 @@
 #include "StrokeDirac.hpp"
 
+#include "Camera.hpp"
+
+using CameraDefinition::GlobalCamera;
+
 void Sculpting::StrokingDirac::applyStrokeDirac(MeshReference cMesh, SculptPayloadReference payload, const int iterations)
 {
 	auto& cHistory = cMesh.history.currentChangeLog;
 	HistoryKeyVertexMap apply;
 
 	const auto rMult = payload.radius * 0.5f * 0.3f * payload.hitNorm;
-	const auto hitPoint = cMesh.collision.position + rMult;
+	const auto hitPoint =  + rMult;
 	const auto rDir = payload.direction * -1.0f; // this flips all axis.
 
+	const float sqrRad = payload.radius * payload.radius;
+	const float invRad = 1.0f / payload.radius;
+	const float power = 40.0f;
 
 	Algos::storeCurrentElementsToMap(apply, cHistory, cMesh);
-	Algos::applyMaptoMeshThenApplySmoothedMap(apply, cMesh, 1);
-	for (int i = 0; i < iterations; i++)
+
+	const int count = apply.size();
+	float reducer;
+	float inverter;
+
+	const auto offset = payload.direction * payload.hitNorm * payload.radius;
+	forall(element, apply)
 	{
-		forall(element, apply)
-		{
-			element.second.position += rMult * distance(element.second.position, hitPoint);
-		}
+		const auto reduc = cMesh.collision.position - element.second.position;
+		reducer = glm::sqrt(glm::dot(reduc, reduc)); // l2 norm
+
+
+		element.second.position = element.second.position + reducer * offset * (-0.25f) * element.second.normal;
 	}
 
-	Algos::applyMaptoMeshThenApplySmoothedMap(apply, cMesh, 1);
+
+	Algos::applyMaptoMeshThenApplySmoothedMap(apply, cMesh, 5);
 
 	cMesh.recomputeNormals(apply);
 }
