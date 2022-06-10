@@ -218,6 +218,7 @@
     <ClCompile Include="SmoothedColor.cpp" />
     <ClCompile Include="Smoothing.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
+    <ClCompile Include="StrokeDirac.cpp" />
     <ClCompile Include="Stroking.cpp" />
     <ClCompile Include="SubdivisionSurface.cpp" />
     <ClCompile Include="TimeGate.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="SmoothedColor.hpp" />
     <ClInclude Include="Smoothing.hpp" />
     <ClInclude Include="StaticMesh.hpp" />
+    <ClInclude Include="StrokeDirac.hpp" />
     <ClInclude Include="Stroking.hpp" />
     <ClInclude Include="SubdivisionSurface.hpp" />
     <ClInclude Include="TimeGate.hpp" />

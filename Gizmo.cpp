@@ -79,8 +79,9 @@ void Gizmo::iterateState()
 
 void Gizmo::queryGizmo(MeshReference cMesh)
 {
-	if (KeyInputDefinition::isPressed(GLFW_KEY_Q))
+	if (KeyInputDefinition::isHeld(KeyInputDefinition::Key_Q))
 	{
+		
 		iterateState();
 	}
 	if (KeyInputDefinition::isPressed(GLFW_KEY_R))

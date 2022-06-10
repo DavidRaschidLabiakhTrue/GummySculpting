@@ -4,7 +4,7 @@
 #include "Coloring.hpp"
 #include "Noise.hpp"
 #include "Stroking.hpp"
-
+#include "StrokeDirac.hpp"
 #include "SmoothedColor.hpp"
 
 #include "ToolsWindow.hpp"
@@ -107,6 +107,9 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 		case BrushState::BrushStateSmoothedColor:
 			SmoothingColor::applySmoothingColor(cMesh, payload);
 			break;
+		
+		case BrushState::BrushDirac:
+			StrokingDirac::applyStrokeDirac(cMesh, payload, 1);
 	}
 	payload.wasRun = true;
 	cMesh.updateAffectedTriangles();

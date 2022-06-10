@@ -223,6 +223,9 @@
     <ClCompile Include="DebugPlane.cpp">
       <Filter>Rendering\Debug\DebugPlane</Filter>
     </ClCompile>
+    <ClCompile Include="StrokeDirac.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\StrokeDirac</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -464,6 +467,9 @@
     </ClInclude>
     <ClInclude Include="DebugPlane.hpp">
       <Filter>Rendering\Debug\DebugPlane</Filter>
+    </ClInclude>
+    <ClInclude Include="StrokeDirac.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\StrokeDirac</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -852,6 +858,9 @@
     </Filter>
     <Filter Include="Rendering\Debug\DebugPlane">
       <UniqueIdentifier>{20edbe0d-f8af-478b-9c30-1657cd32d906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\StrokeDirac">
+      <UniqueIdentifier>{a10dac14-d057-4083-935f-2d9bdc16588f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
