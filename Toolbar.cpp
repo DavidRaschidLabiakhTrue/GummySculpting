@@ -33,7 +33,17 @@ void ToolbarDefinition::Toolbar::build()
 	ImGui::Begin("TOOLBAR", NULL, window_flags);
 	ImGui::PopStyleVar();
 
+
+	
+
 	if (ImGui::Button("Stroke Brush", ImVec2(0, buttonHeight)))
+	{
+
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "dirac" });
+	}
+	ImGui::SameLine();
+
+	if (ImGui::Button("Stroke Smooth Brush", ImVec2(0, buttonHeight)))
 	{
 
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "stroke" });
@@ -65,6 +75,8 @@ void ToolbarDefinition::Toolbar::build()
 
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "noise" });
 	}
+
+
 
 	ImGui::SameLine();
 

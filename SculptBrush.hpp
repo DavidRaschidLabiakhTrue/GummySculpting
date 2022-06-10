@@ -9,7 +9,7 @@ namespace SculptBrushDefinition
 	using namespace SamplerDefinition;
 	using namespace SculptPayloadDefinition;
 
-	enum BrushState{BrushStateSmooth, BrushStateStroke, BrushStateColor, BrushStateNoise, BrushStateSmoothedColor};
+	enum BrushState{BrushStateSmooth, BrushStateStroke, BrushStateColor, BrushStateNoise, BrushStateSmoothedColor, BrushDirac};
 
 	class SculptBrush : public Sampler
 	{

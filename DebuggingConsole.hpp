@@ -78,6 +78,7 @@ namespace DebugConsoleDefinition
 		STROKE,
 		COLOR,
 		NOISE,
+		DIRAC,
 		SMOOTHEDCOLOR,
         SUBDLEVEL,
 		IMPORT,
@@ -115,6 +116,7 @@ namespace DebugConsoleDefinition
 		{"file", FILEMANGEMENT},
 		{"import", IMPORT},
 		{"export", EXPORT},
+		{"dirac", DIRAC},
 	};
 
     static CONSOLECOMMAND getCommand(string command)

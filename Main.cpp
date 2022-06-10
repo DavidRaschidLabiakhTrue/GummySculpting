@@ -425,6 +425,8 @@ void MainProgram::processSculptorCommand(StringList& arguments, int numArgs)
 		case SMOOTHEDCOLOR:
 			brush.currentState = BrushState::BrushStateSmoothedColor;
 			break;
+		case DIRAC:
+			brush.currentState = BrushState::BrushDirac;
 
 	}
 }
