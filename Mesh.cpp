@@ -30,7 +30,7 @@ void Mesh::createVariableMap()
 
 void MeshDefinition::Mesh::computeNormals()
 {
-	vector<v3> normalList;
+	normalList.clear();
 	const int totalTri = this->totalTriangles();
 	normalList.reserve(totalTri);
 	// first calculate all the normals
@@ -49,6 +49,25 @@ void MeshDefinition::Mesh::computeNormals()
 		vert.normal = normalize(tempNorm / (float)vert.triangleIDs.size()); // average them
 	}
 	say "Normals Calculated" done;
+}
+
+void MeshDefinition::Mesh::computeNormalsFromMatrix()
+{
+	m4 i = inverse(model);
+	m4 t = glm::transpose(i);
+
+	for(int i = 0; i < vertices.size(); i++)
+	{
+		v3 tempNorm = v3(0);
+		forall(id, this->vertices[i].triangleIDs)
+		{
+			tempNorm += normalList[id];
+		}
+		
+		vertices[i].normal = normalize(tempNorm / (float)this->vertices[i].triangleIDs.size()); // average them
+		vertices[i].normal = v3(v4(vertices[i].normal, 1) * t);
+	}
+	needToRefresh = true;
 }
 
 void Mesh::applyModelMatrix()

@@ -63,6 +63,7 @@ namespace MeshDefinition
 
 			void computeNormals();
 			
+			void computeNormalsFromMatrix();
 
 			void recomputeNormals(HistoryKeyVertexMap& apply);
 

@@ -580,4 +580,5 @@ void Gizmo::scaleMesh(MeshReference cMesh)
 			prevMouseOffset = newMouseOffset;
 		}
 	}
+	cMesh.computeNormalsFromMatrix();
 }

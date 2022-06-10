@@ -33,6 +33,8 @@ namespace VertexListDefinition
 
 		Vertices vertices; //
 
+		vector<v3> normalList;
+
 		auto getVertexArray(); // get the underlying array component.
 
 		vector<int> getTrianglesFromVertices(KeyList vertexIDs); // Get all triangles that contain any of the given vertices
