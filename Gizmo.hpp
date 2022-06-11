@@ -90,6 +90,8 @@ namespace GizmoDefinition
 		v3 startMousePosition;
 		v3 prevMousePosition;
 		bool didChangeState = false;
+		bool didTransform = false;
+		v3 gizmoPosition = v3(0);
 
 		// I like there are no pointers anymore.
 

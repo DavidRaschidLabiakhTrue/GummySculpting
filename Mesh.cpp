@@ -142,6 +142,9 @@ KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
 
 void MeshDefinition::Mesh::applyTransformation()
 {
+	translationValues = v3(0);
+	rotationMatrix = m4(1);
+	scaleValues = v3(1);
 	this->applyModelMatrix();
 }
 

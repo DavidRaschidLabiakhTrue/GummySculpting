@@ -180,21 +180,25 @@ void CameraDefinition::Camera::checkMouseInput()
 		if (CheckMouseHeld(GLFW_MOUSE_BUTTON_MIDDLE))
 		{
 			const auto winDim = WindowDimensions(); // get the window dimensions.
-
-
-
 			//check distance to center
 			float distance = glm::distance(pos, focalPoint);
 
-			// Prevent Camera Jumping on load.
+			Window_API::MouseDelta.update();
+
+
+
+			v2 mouseDelta;
 			if (firstClick)
 			{
-				setMousePosition((double)winDim.width / 2, (double)winDim.height / 2);
+				mouseDelta = v2(0);
 				firstClick = false;
 			}
-			const auto ms = MouseCoordinates(); // get the mouse coordinates.
-			float rotX = sensitivity * (float)(ms.msy - ((winDim.height) / 2)) / winDim.height;
-			float rotY = sensitivity * (float)(ms.msx - ((winDim.width) / 2)) / winDim.height;
+			else {
+				mouseDelta = Window_API::MouseDelta.getDelta();
+			}
+			
+			float rotX = sensitivity * mouseDelta.y / winDim.height;
+			float rotY = sensitivity * mouseDelta.x / winDim.height;
 
 			v3 oldOrientation = orientation;
 
@@ -207,7 +211,6 @@ void CameraDefinition::Camera::checkMouseInput()
 				orientation = newOrientation;
 			}
 
-
 			// Rotates the Orientation left and right
 			orientation = rotate(orientation, radians(-rotY), up);
 
@@ -216,8 +219,19 @@ void CameraDefinition::Camera::checkMouseInput()
 
 			pos -= offset;
 
-			// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
-			setMousePosition((double)winDim.width / 2, (double)winDim.height / 2); // this is the center of the screen.
+			const auto ms = MouseCoordinates(); // get the mouse coordinates.
+
+			if (ms.msx <= 1 || ms.msx >= winDim.width - 1)
+			{
+				setMousePosition(2 + (winDim.width - 4) * (ms.msx < 0), ms.msy);
+				firstClick = true;
+			}
+
+			if (ms.msy < 1 || ms.msy >= winDim.height - 1)
+			{
+				setMousePosition(ms.msx, 2 + (winDim.height - 4) * (ms.msy < 0));
+				firstClick = true;
+			}
 		}
 		eif(CheckMouseReleased(GLFW_MOUSE_BUTTON_MIDDLE))
 		{

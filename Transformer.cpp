@@ -62,7 +62,7 @@ void TransformerDefinition::ModelMatrix::rotateZ_deg(const float z)
 
 void TransformerDefinition::ModelMatrix::setRotation(const m4 r)
 {
-	model = model * rotationMatrix;
+	model = rotationMatrix * model;
 }
 
 void TransformerDefinition::ModelMatrix::translateX(const float x)
@@ -85,9 +85,8 @@ void TransformerDefinition::ModelMatrix::translateZ(const float z)
 
 void TransformerDefinition::ModelMatrix::setTranslation(const v3 t)
 {
-	model[3][0] = t.x;
-	model[3][1] = t.y;
-	model[3][2] = t.z;
+	m4 translationMatrix = translate(t);
+	model = translationMatrix * model;
 }
 
 void TransformerDefinition::ModelMatrix::scaleUniform(const float scalar)
