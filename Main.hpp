@@ -96,6 +96,7 @@ class MainProgram
 		void generateMaps(); // generate needed maps on all meshes
 		void queryMechanics(); // perform an action query from the user
 		void queryCamera(); // query for camera input from the user.
+		bool queryGizmo(); // query for camera input from the user.
 
 		void draw3D(); // drawing meshes
 

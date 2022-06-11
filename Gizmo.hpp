@@ -55,10 +55,11 @@ namespace GizmoDefinition
 		~Gizmo();
 		Gizmo(bool trueConstructor);
 
-		void queryGizmo(MeshReference cMesh);
+		void checkInput(MeshReference cMesh);
+		bool queryTransforms(MeshReference cMesh);
 		void drawGizmo();
 		void setState(GizmoState newState);
-		void iterateState(MeshReference cMesh);
+		void iterateState();
 		void moveGizmo(v3 newPosition);
 
 		GizmoState state = INACTIVE;
