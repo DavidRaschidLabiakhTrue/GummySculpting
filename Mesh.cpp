@@ -140,6 +140,11 @@ KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
     return result;
 }
 
+void MeshDefinition::Mesh::applyTransformation()
+{
+	this->applyModelMatrix();
+}
+
 
 
 void MeshDefinition::Mesh::undoHistory()

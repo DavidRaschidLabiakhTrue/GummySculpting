@@ -32,7 +32,7 @@ Camera::Camera()
 	farPlane = 100.0f;
 	nearPlane = 0.1f;
 	sensitivity = 100.0f;
-	speed = 0.01f;
+	speed = 0.09f;
 	fov = 45.0f; // degrees
 }
 
@@ -116,11 +116,11 @@ void CameraDefinition::Camera::checkKeyInput()
 		// speed
 		if (CheckKeyHeld(GLFW_KEY_LEFT_SHIFT))
 		{
-			speed = 0.04f;
+			speed = 0.1f;
 		}
 		else
 		{
-			speed = 0.01f;
+			speed = 0.06f;
 		}
 	}
 }
