@@ -14,6 +14,7 @@ TransformerDefinition::ModelMatrix::~ModelMatrix()
 void TransformerDefinition::ModelMatrix::resetModelMatrix()
 {
 	this->model = m4(1.0f);
+
 }
 
 void TransformerDefinition::ModelMatrix::applyAllTransforms()

@@ -131,7 +131,7 @@ void Gizmo::queryGizmo(MeshReference cMesh)
 	}
 	else if (didTransform)
 	{
-		cMesh.applyTransformation();
+		//cMesh.applyTransformation();
 	}
 }
 
