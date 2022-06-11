@@ -29,7 +29,9 @@ namespace Window_Class
 		{
 			if (action == GLFW_PRESS)
 			{
+
 				WindowGlobal::inputBuffer.push_back(key);
+
 			}
 		}
 	}
