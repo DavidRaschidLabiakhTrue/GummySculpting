@@ -39,7 +39,7 @@ namespace CameraDefinition
 			void checkMouseInput(); // checks for mouse input from the user
 
 			bool firstClick = false;
-
+			bool shouldResetMouse = false;
 	};
 	typedef Camera* CameraPTR;
 
