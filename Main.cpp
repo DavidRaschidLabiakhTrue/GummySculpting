@@ -3,14 +3,12 @@
 #include "Main.hpp"
 #include <iostream>
 
-#include "Window_API.hpp"
 #include "Shader.hpp"
+#include "Window_API.hpp"
 
 #include "TimeGate.hpp"
 
 #include "Debug.hpp"
-
-
 
 using namespace Window_API::Window_API_Functions;
 using namespace ShaderDefinition;
@@ -20,7 +18,7 @@ using namespace StaticCircleDefinition;
 
 int main(int argc, char **argv)
 {
-	// _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    // _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     StringList arguments(argv + 1, argv + argc); // loads the arguments as a string vector.
 
     say "Command Line Arguments:\n\t";
@@ -40,81 +38,73 @@ int main(int argc, char **argv)
 
     return mainProgram.ProgramCycle();
 }
-void MainProgram::parseCommandLineArguments(StringList& arguments)
+void MainProgram::parseCommandLineArguments(StringList &arguments)
 {
-	string parser = "";
-	if (arguments.size() == 0)
-	{
-		arguments.emplace_back("4star.gum"); // default argument
-	}
-	else
-	{
-		foreach(arg, arguments)
-		{
-			int argSize = (int)arg.size();                                                                    
+    string parser = "";
+    if (arguments.size() == 0)
+    {
+        arguments.emplace_back("4star.gum"); // default argument
+    }
+    else
+    {
+        foreach (arg, arguments)
+        {
+            int argSize = (int)arg.size();
 
-			if (argSize < 4)
-			{
-				continue;
-			}
-			else
-			{
-			}
-		}
-	}
+            if (argSize < 4)
+            {
+                continue;
+            }
+            else
+            {
+            }
+        }
+    }
 
-	forall(strArg, arguments)
-	{ // check if string can even be a .gum or .obj
-		if (strArg.size() > 4)
-		{
-			parser = strArg.substr(strArg.size() - 4, strArg.size());
+    forall(strArg, arguments)
+    { // check if string can even be a .gum or .obj
+        if (strArg.size() > 4)
+        {
+            parser = strArg.substr(strArg.size() - 4, strArg.size());
 
-			if (parser == ".gum")
-			{
-				renderer.loadMeshFromFile(strArg);
-			}
-			parser.clear();
-		}
-	}
+            if (parser == ".gum")
+            {
+                renderer.loadMeshFromFile(strArg);
+            }
+            parser.clear();
+        }
+    }
 }
 int MainProgram::ProgramCycle()
 {
-	Window_API_Functions::eventQuery(); // start off the event query cycle
+    Window_API_Functions::eventQuery(); // start off the event query cycle
 
+    while (shouldNotClose())
+    {
+        TimeGateDefinition::tick(); // global time delta checker
 
+        queryMechanics(); // query for input
 
-	
+        checkDirectives(); // check for directives
 
-	while (shouldNotClose())
-	{
-		TimeGateDefinition::tick(); // global time delta checker
+        updateMeshes(); // check for mesh updates
 
-		queryMechanics(); // query for input
+        if (renderGate.canUpdate() && win.canRender) // fps check  // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
+        {
+            // refresh all draw buffers
+            beginDrawFrame();
+            checkDebugConsole();
+            draw3D(); // drawing meshes
 
-		checkDirectives(); // check for directives
+            drawStatic();
 
-		updateMeshes(); // check for mesh updates
+            draw2D(); // querying the GUI and drawing the GUI occur at the same time, because that's how IMGUI works.
+        }
+        eventQuery(); // update glfw in conjunction with opengl
+    }
 
-		if (renderGate.canUpdate() && win.canRender) // fps check  // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
-		{
-			// refresh all draw buffers
-			beginDrawFrame();
-			checkDebugConsole();
-			draw3D(); // drawing meshes
-			
-			drawStatic();
-			
-			draw2D(); // querying the GUI and drawing the GUI occur at the same time, because that's how IMGUI works.
-
-			
-		}
-		eventQuery(); // update glfw in conjunction with opengl
-
-	}
-
-	return 0;
+    return 0;
 }
-
 
 MainProgram::MainProgram()
 {
@@ -129,11 +119,11 @@ MainProgram::MainProgram(StringList &arguments)
     debug = DebugConsoleDefinition::DebugConsole(TrueConstructor);
     CameraDefinition::GlobalCamera = &cam; // set up camera linkage
     brush = SculptBrush(TrueConstructor);
-	gizmo = Gizmo(TrueConstructor);
+    gizmo = Gizmo(TrueConstructor);
 
     visualObjects = VisualObjects(TrueConstructor);
 
-	circle = StaticCircle(TrueConstructor);
+    circle = StaticCircle(TrueConstructor);
 
     preprocess(arguments);
 }
@@ -146,32 +136,30 @@ void MainProgram::checkDirectives()
 {
     if (Directives.size() != 0)
     {
-        //say "Directive Detected" done;
+        // say "Directive Detected" done;
         processDirectives();
         Directives.clear();
-        //say "Directive Exhausted" done;
+        // say "Directive Exhausted" done;
     }
 }
-void MainProgram::processFileManagementCommand(StringList& arguments, int numArgs)
+void MainProgram::processFileManagementCommand(StringList &arguments, int numArgs)
 {
-	using namespace DebugConsoleDefinition;
-	if (numArgs < 3)
-	{
-		return;
-	}
-	switch (getCommand(arguments[1]))
-	{
-		case IMPORT:
-			renderer.loadMeshFromFile(arguments[2]);
-			break;
-		case EXPORT: // this case will need to be expanded to also include .obj and probably .stl
-			break;
-	}
-
+    using namespace DebugConsoleDefinition;
+    if (numArgs < 3)
+    {
+        return;
+    }
+    switch (getCommand(arguments[1]))
+    {
+    case IMPORT:
+        renderer.loadMeshFromFile(arguments[2]);
+        break;
+    case EXPORT: // this case will need to be expanded to also include .obj and probably .stl
+        break;
+    }
 }
 void MainProgram::processDirectives()
 {
-
 
     using namespace DebugConsoleDefinition;
 
@@ -185,28 +173,28 @@ void MainProgram::processDirectives()
 
     switch (getCommand(arguments[0]))
     {
-		case OCTREE:
-			processOctreeCommand(arguments, numArgs);
-			break;
-		case RENDERER:
-			processRendererCommand(arguments, numArgs);
-			break;
-		case MESH:
-			processMeshCommand(arguments, numArgs);
-			break;
-		case PRINT: // mmhh
-			
-		case SET:
-			processVariableCommand(arguments, numArgs);
-			break;
-		case DEBUG:
-			processDebugCommand(arguments, numArgs);
-		case SCULPTOR:
-			processSculptorCommand(arguments, numArgs);
-			break;
-		case FILEMANGEMENT:
-			processFileManagementCommand(arguments, numArgs);
-			break;
+    case OCTREE:
+        processOctreeCommand(arguments, numArgs);
+        break;
+    case RENDERER:
+        processRendererCommand(arguments, numArgs);
+        break;
+    case MESH:
+        processMeshCommand(arguments, numArgs);
+        break;
+    case PRINT: // mmhh
+
+    case SET:
+        processVariableCommand(arguments, numArgs);
+        break;
+    case DEBUG:
+        processDebugCommand(arguments, numArgs);
+    case SCULPTOR:
+        processSculptorCommand(arguments, numArgs);
+        break;
+    case FILEMANGEMENT:
+        processFileManagementCommand(arguments, numArgs);
+        break;
     }
 }
 
@@ -220,19 +208,37 @@ void MainProgram::processOctreeCommand(StringList &arguments, int numArgs)
 
     switch (getCommand(arguments[1]))
     {
-		case REBUILD:
-			debug.AddLog("Main: Rebuilding Octree");
-			renderer.getActiveMesh()->rebuildOctree();
-			break;
-		case VISUALIZE:
-			renderer.getActiveMesh()->visualizeOctree();
-			break;
-		case TOGGLEWIREFRAME:
-			renderer.getActiveMesh()->octreeWireframe.shouldDraw = !renderer.getActiveMesh()->octreeWireframe.shouldDraw;
-			break;
-		case PRINT:
-			renderer.getActiveMesh()->octreePrintStats();
-			break;
+    case REBUILD:
+        debug.AddLog("Main: Rebuilding Octree");
+        renderer.getActiveMesh()->rebuildOctree();
+        break;
+    case VISUALIZE:
+        renderer.getActiveMesh()->visualizeOctree();
+        break;
+    case TOGGLEWIREFRAME:
+        renderer.getActiveMesh()->octreeWireframe.shouldDraw = !renderer.getActiveMesh()->octreeWireframe.shouldDraw;
+        break;
+    case PRINT:
+        renderer.getActiveMesh()->octreePrintStats();
+        break;
+    case DRAWMODE:
+        if (numArgs < 3)
+            return;
+        switch (getCommand(arguments[2]))
+        {
+        case ALLOCTANTS:
+            renderer.getActiveMesh()->drawMode = OctreeVisualizationDefinition::DrawMode::AllOctants;
+            break;
+        case LEAFOCTANTS:
+            renderer.getActiveMesh()->drawMode = OctreeVisualizationDefinition::DrawMode::LeafOctants;
+            break;
+        case INTERSECTEDOCTANTS:
+            renderer.getActiveMesh()->drawMode = OctreeVisualizationDefinition::DrawMode::AllIntersectedOctants;
+            break;
+        case INTERSECTEDLEAFOCTANTS:
+            renderer.getActiveMesh()->drawMode = OctreeVisualizationDefinition::DrawMode::IntersectedLeafOctants;
+            break;
+        }
     }
 }
 
@@ -246,67 +252,67 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 
     switch (getCommand(arguments[1]))
     {
-		case LOOPSUBDIVIDE:
-			if (numArgs < 3)
-			{
-				break;
-			}
-			// Make sure we have a valid integer
-			try
-			{
-				renderer.getActiveMesh()->loopSubdivision(stoi(arguments[2]));
-				renderer.getActiveMesh()->computeNormals();
-				renderer.getActiveMesh()->needToRefresh = true;
-			}
-			catch (exception &e)
-			{
-				debug.AddLog("Main: Error: Bad Argument: %s", e.what());
-				break;
-			}
-			break;
+    case LOOPSUBDIVIDE:
+        if (numArgs < 3)
+        {
+            break;
+        }
+        // Make sure we have a valid integer
+        try
+        {
+            renderer.getActiveMesh()->loopSubdivision(stoi(arguments[2]));
+            renderer.getActiveMesh()->computeNormals();
+            renderer.getActiveMesh()->needToRefresh = true;
+        }
+        catch (exception &e)
+        {
+            debug.AddLog("Main: Error: Bad Argument: %s", e.what());
+            break;
+        }
+        break;
 
-		case SIMPLESUBDIVIDE:
-			if (numArgs < 3)
-			{
-				break;
-			}
-			// Make sure we have a valid integer
-			try
-			{
-				renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
-				renderer.getActiveMesh()->computeNormals();
-				renderer.getActiveMesh()->needToRefresh = true;
-			}
-			catch (exception &e)
-			{
-				debug.AddLog("Main: Error: Bad Argument: %s", e.what());
-				break;
-			}
-			break;
-        case SUBDLEVEL:
-            if(numArgs < 3)
-            {
-                break;
-            }
-            try {
-                renderer.getActiveMesh()->gotoSubdivisionLevel(stoi(arguments[2]));
-				renderer.getActiveMesh()->computeNormals();
-				renderer.getActiveMesh()->needToRefresh = true;
-            } catch (exception &e) {
-                debug.AddLog("Main: Error: Bad Argument: %s", e.what());
-                break;
-            }
-		case UNDO:
-			renderer.getActiveMesh()->undoHistory();
-			break;
-		case REDO:
-			renderer.getActiveMesh()->redoHistory();
-			break;
+    case SIMPLESUBDIVIDE:
+        if (numArgs < 3)
+        {
+            break;
+        }
+        // Make sure we have a valid integer
+        try
+        {
+            renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
+            renderer.getActiveMesh()->computeNormals();
+            renderer.getActiveMesh()->needToRefresh = true;
+        }
+        catch (exception &e)
+        {
+            debug.AddLog("Main: Error: Bad Argument: %s", e.what());
+            break;
+        }
+        break;
+    case SUBDLEVEL:
+        if (numArgs < 3)
+        {
+            break;
+        }
+        try
+        {
+            renderer.getActiveMesh()->gotoSubdivisionLevel(stoi(arguments[2]));
+            renderer.getActiveMesh()->computeNormals();
+            renderer.getActiveMesh()->needToRefresh = true;
+        }
+        catch (exception &e)
+        {
+            debug.AddLog("Main: Error: Bad Argument: %s", e.what());
+            break;
+        }
+    case UNDO:
+        renderer.getActiveMesh()->undoHistory();
+        break;
+    case REDO:
+        renderer.getActiveMesh()->redoHistory();
+        break;
     }
 }
-
-
-
 
 void MainProgram::processRendererCommand(StringList &arguments, int numArgs)
 {
@@ -318,20 +324,20 @@ void MainProgram::processRendererCommand(StringList &arguments, int numArgs)
 
     switch (getCommand(arguments[1]))
     {
-		case TOGGLE:
-			if (numArgs < 3)
-			{
-				break;
-			}
+    case TOGGLE:
+        if (numArgs < 3)
+        {
+            break;
+        }
 
-			switch (getCommand(arguments[2]))
-			{
-				case WIREFRAME:
-					debug.AddLog("Main: Toggling wireframe Renderer");
-					renderer.toggleWireFrame();
-					break;
-			}
-			break;
+        switch (getCommand(arguments[2]))
+        {
+        case WIREFRAME:
+            debug.AddLog("Main: Toggling wireframe Renderer");
+            renderer.toggleWireFrame();
+            break;
+        }
+        break;
     }
 }
 
@@ -344,10 +350,10 @@ void MainProgram::processVariableCommand(StringList &arguments, int numArgs)
     }
 
     unordered_map<string, variableVariantType> variableMap;
-    foreach(variable, renderer.getActiveMesh()->meshVariables)
-	{
-		variableMap.emplace(variable.first, variable.second);
-	}
+    foreach (variable, renderer.getActiveMesh()->meshVariables)
+    {
+        variableMap.emplace(variable.first, variable.second);
+    }
 
     auto variantVar = variableMap.find(arguments[1]);
     if (variantVar != variableMap.end())
@@ -396,8 +402,8 @@ void MainProgram::processVariableCommand(StringList &arguments, int numArgs)
         {
             foreach (v, variableMap)
             {
-				const char* variableName = v.first.c_str();
-				visit(
+                const char *variableName = v.first.c_str();
+                visit(
                     overloaded{
                         [variableName](int &arg) { debug.AddLog("Main: %s = %i", variableName, arg); },
                         [variableName](float &arg) { debug.AddLog("Main: %s = %.2f", variableName, arg); },
@@ -412,51 +418,50 @@ void MainProgram::processVariableCommand(StringList &arguments, int numArgs)
     }
 }
 
-void MainProgram::processSculptorCommand(StringList& arguments, int numArgs)
+void MainProgram::processSculptorCommand(StringList &arguments, int numArgs)
 {
-	using namespace DebugConsoleDefinition;
-	if (numArgs != 2)
-	{
-		return;
-	}
-	switch (getCommand(arguments[1]))
-	{
-		case SMOOTH:
-			brush.currentState = BrushState::BrushStateSmooth;
-			break;
-		case COLOR:
-			brush.currentState = BrushState::BrushStateColor;
-			break;
-		case STROKE:
-			brush.currentState = BrushState::BrushStateStroke;
-			break;
-		case NOISE:
-			brush.currentState = BrushState::BrushStateNoise;
-			break;
-		case SMOOTHEDCOLOR:
-			brush.currentState = BrushState::BrushStateSmoothedColor;
-			break;
-		case DIRAC:
-			brush.currentState = BrushState::BrushDirac;
-
-	}
+    using namespace DebugConsoleDefinition;
+    if (numArgs != 2)
+    {
+        return;
+    }
+    switch (getCommand(arguments[1]))
+    {
+    case SMOOTH:
+        brush.currentState = BrushState::BrushStateSmooth;
+        break;
+    case COLOR:
+        brush.currentState = BrushState::BrushStateColor;
+        break;
+    case STROKE:
+        brush.currentState = BrushState::BrushStateStroke;
+        break;
+    case NOISE:
+        brush.currentState = BrushState::BrushStateNoise;
+        break;
+    case SMOOTHEDCOLOR:
+        brush.currentState = BrushState::BrushStateSmoothedColor;
+        break;
+    case DIRAC:
+        brush.currentState = BrushState::BrushDirac;
+    }
 }
 
-void MainProgram::processDebugCommand(StringList& arguments, int numArgs)
+void MainProgram::processDebugCommand(StringList &arguments, int numArgs)
 {
-	using namespace DebugConsoleDefinition;
-	switch (getCommand(arguments[1]))
-	{
-		case TOGGLE:
-			if (numArgs > 2 or numArgs == 1 or numArgs < 1)
-			{
-				return;
-			}
-		debug.AddLog("Main: Toggling Debug");
-		this->showDebugConsole = !this->showDebugConsole;
+    using namespace DebugConsoleDefinition;
+    switch (getCommand(arguments[1]))
+    {
+    case TOGGLE:
+        if (numArgs > 2 or numArgs == 1 or numArgs < 1)
+        {
+            return;
+        }
+        debug.AddLog("Main: Toggling Debug");
+        this->showDebugConsole = !this->showDebugConsole;
 
-		break;
-	}
+        break;
+    }
 }
 
 void MainProgram::preprocess(StringList &arguments)
@@ -471,9 +476,6 @@ void MainProgram::preprocess(StringList &arguments)
     bindGraphicsDataToGPU();
 }
 
-
-
-
 void MainProgram::bindGraphicsDataToGPU()
 {
     renderer.setUpMeshResources();
@@ -485,21 +487,17 @@ void MainProgram::generateMaps()
 void MainProgram::queryMechanics()
 {
 
-	if (cameraGate.canUpdate() && win.canRender)
-	{
-		queryCamera();
+    if (cameraGate.canUpdate() && win.canRender)
+    {
+        queryCamera();
+    }
 
-	}
+    if (sculptGate.canUpdate())
+    {
+        brush.querySculpt(renderer.getActiveMeshReference());
+    }
 
-
-	if (sculptGate.canUpdate())
-	{
-		brush.querySculpt(renderer.getActiveMeshReference());
-
-	}
-   
-	gizmo.queryGizmo(renderer.getActiveMeshReference());
-	
+    gizmo.queryGizmo(renderer.getActiveMeshReference());
 }
 void MainProgram::queryCamera()
 {
@@ -510,28 +508,26 @@ void MainProgram::draw3D()
 {
     renderer.draw();
 
-	circle.drawCircle();
-    
+    circle.drawCircle();
 }
 void MainProgram::drawStatic()
 {
-	
-	visualObjects.drawVisualObjects();
-	brush.drawRay();
-	Debug::Drawing::renderPlanes();
-	// clear depth buffer to draw newly rendered objects on top
-	renderer.clearDepthInfo();
-	Debug::Drawing::renderLines();
-	StaticMeshShader.use();
-	/*
-	*	for all mesh that are static meshes
-	* 
-	*		mesh.uploadOffsetandScaleToGPU(); // send the offset and the scale to the GPU
-	*		mesh.render(); // draw it to screen.
-	*/
 
-	gizmo.drawGizmo();
+    visualObjects.drawVisualObjects();
+    brush.drawRay();
+    Debug::Drawing::renderPlanes();
+    // clear depth buffer to draw newly rendered objects on top
+    renderer.clearDepthInfo();
+    Debug::Drawing::renderLines();
+    StaticMeshShader.use();
+    /*
+     *	for all mesh that are static meshes
+     *
+     *		mesh.uploadOffsetandScaleToGPU(); // send the offset and the scale to the GPU
+     *		mesh.render(); // draw it to screen.
+     */
 
+    gizmo.drawGizmo();
 }
 void MainProgram::draw2D()
 {
@@ -554,19 +550,18 @@ void MainProgram::checkDebugConsole()
 
 void MainProgram::updateMeshes()
 {
-	if (updateGate.canUpdate())
-	{
-		const int meshCount = renderer.meshes.size();
+    if (updateGate.canUpdate())
+    {
+        const int meshCount = renderer.meshes.size();
 
-		for (int i = 0; i < meshCount; i++)
-		{
-			if (renderer.meshes[i].needToRefresh)
-			{
-				renderer.meshes[i].refresh();
-			}
-		}
-	}
-
+        for (int i = 0; i < meshCount; i++)
+        {
+            if (renderer.meshes[i].needToRefresh)
+            {
+                renderer.meshes[i].refresh();
+            }
+        }
+    }
 }
 
 void MainProgram::loadResources()
@@ -579,4 +574,3 @@ void MainProgram::beginDrawFrame()
     gui.newGuiFrame();
     clearBuffer();
 }
-

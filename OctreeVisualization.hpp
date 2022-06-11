@@ -49,7 +49,7 @@ namespace OctreeVisualizationDefinition
     class OctreeVisualization : public Octree
     {
         public:
-            void visualizeOctree(DrawMode = IntersectedLeafOctants, DepthColorMode = EnableDepthColor);
+            void visualizeOctree(DepthColorMode = EnableDepthColor);
             void generateOctantWireframe(OctantIndex octantID);
             void bindOctreeWireframe();
 			void refreshOctreeWireFrame();

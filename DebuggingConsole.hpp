@@ -83,8 +83,12 @@ namespace DebugConsoleDefinition
         SUBDLEVEL,
 		IMPORT,
 		EXPORT,
-		FILEMANGEMENT
-
+		FILEMANGEMENT,
+        DRAWMODE,
+        ALLOCTANTS,
+        LEAFOCTANTS,
+        INTERSECTEDOCTANTS,
+        INTERSECTEDLEAFOCTANTS
     };
 
     const unordered_map<string, CONSOLECOMMAND> commandMap = {
@@ -117,6 +121,11 @@ namespace DebugConsoleDefinition
 		{"import", IMPORT},
 		{"export", EXPORT},
 		{"dirac", DIRAC},
+        {"drawmode", DRAWMODE},
+        {"alloctants", ALLOCTANTS},
+        {"leafoctants", LEAFOCTANTS},
+        {"intersectedoctants", INTERSECTEDOCTANTS},
+        {"intersectedleafoctants", INTERSECTEDLEAFOCTANTS}
 	};
 
     static CONSOLECOMMAND getCommand(string command)

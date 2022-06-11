@@ -2,9 +2,8 @@
 
 using namespace OctreeVisualizationDefinition;
 
-void OctreeVisualization::visualizeOctree(DrawMode drawMode, DepthColorMode depthColorMode)
+void OctreeVisualization::visualizeOctree(DepthColorMode depthColorMode)
 {
-    this->drawMode = drawMode;
     this->depthColorMode = depthColorMode;
 
     octreeWireframe.shouldDraw = true;
