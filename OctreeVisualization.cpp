@@ -17,6 +17,8 @@ void OctreeVisualization::visualizeOctree(DepthColorMode depthColorMode)
     {
         generateOctantWireframe(octant.octantIndex);
     }
+    say octreeWireframe.octreeVertices.size() done;
+    say octreeWireframe.octreeIndices.size() done;
     colorTrianglePerOctant();
 	refreshOctreeWireFrame();
 	refresh();
