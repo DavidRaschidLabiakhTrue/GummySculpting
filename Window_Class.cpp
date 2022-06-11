@@ -7,7 +7,7 @@ namespace Window_Class
 	{
 		Window* ActiveWindow = UnassignedPTR;
 		WinPtr ActiveWindowPTR = UnassignedPTR;
-		InputBuffer inputBuffer;
+		InputBuffer inputBuffer = InputBuffer();
 	}
 
 	// implementation of GLFW callback functions.
