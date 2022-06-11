@@ -105,6 +105,8 @@ class MainProgram
 
 		void buildGuiFrame();
 
+		void updateMeshes();
+
 		Window win;
 		Camera cam;
 
@@ -122,8 +124,9 @@ class MainProgram
 		VisualObjects visualObjects;
 
 		TimeGate cameraGate = TimeGate(30);
-		TimeGate sculptGate = TimeGate(15.0f);
-		TimeGate renderGate = TimeGate(45.0f);
+		TimeGate sculptGate = TimeGate(16.0f);
+		TimeGate renderGate = TimeGate(60.0f);
+		TimeGate updateGate = TimeGate(10.0f); // need to limit the amount of times a mesh is being sent from the CPU to the GPU. 
 
 		StaticCircle circle;
 };

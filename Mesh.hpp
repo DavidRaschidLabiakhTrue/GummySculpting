@@ -77,8 +77,7 @@ namespace MeshDefinition
 
 			int meshID;
 
-			bool needToRefresh = false; // need to refresh GPU binding
-
+			
 			string name;
 
 			unordered_map<string, variableVariantType> meshVariables;
