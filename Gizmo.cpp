@@ -66,14 +66,17 @@ void Gizmo::setState(GizmoState newState)
 	didChangeState = true;
 }
 
-void Gizmo::iterateState()
+void Gizmo::iterateState(MeshReference cMesh)
 {
 	switch (state)
 	{
 		case INACTIVE: setState(TRANSLATE); break;
 		case TRANSLATE: setState(ROTATE); break;
 		case ROTATE: setState(SCALE); break;
-		case SCALE: setState(INACTIVE); break;
+		case SCALE: 
+			setState(INACTIVE);
+			cMesh.applyModelMatrix();
+			break;
 	}
 }
 
@@ -81,7 +84,7 @@ void Gizmo::queryGizmo(MeshReference cMesh)
 {
 	if (KeyInputDefinition::isPressed(GLFW_KEY_Q))
 	{
-		iterateState();
+		iterateState(cMesh);
 	}
 	if (KeyInputDefinition::isPressed(GLFW_KEY_P))
 	{

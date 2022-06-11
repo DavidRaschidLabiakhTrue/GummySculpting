@@ -84,6 +84,7 @@ namespace TransformerDefinition
 			v3 focalPoint;
 
 			v3 orientation;
+			
 			v3 up;
 	};
 

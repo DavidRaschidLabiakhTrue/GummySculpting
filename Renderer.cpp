@@ -33,6 +33,10 @@ inline void RendererDefinition::Renderer::drawStandard()
 		StandardShader.uploadModelMatrixToGPU(meshes[i].model);
 		meshes[i].render();
 	}
+	if (activeMesh->octreeWireframe.shouldDraw)
+	{
+		activeMesh->drawOctreeWireframe();
+	}
 
 }
 
@@ -50,7 +54,6 @@ inline void RendererDefinition::Renderer::drawWireFrame()
 			StandardShader.uploadModelMatrixToGPU(meshes[i].model);
 			meshes[i].render();
 		}
-
 		GL::drawFilled();
 	}
 	

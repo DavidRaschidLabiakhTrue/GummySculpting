@@ -54,6 +54,7 @@ void CameraDefinition::Camera::updateMatrix()
 	view = lookAt(pos, pos + orientation, up);
 	// Adds perspective to the scene
 	const auto winDim = WindowDimensions();
+	//projection = ortho((float)-winDim.width / 2.0f, (float)winDim.width / 2.0f, (float)winDim.height / 2.0f, (float)-winDim.height / 2.0f, .01f , 5.0f);
 	projection = perspective(radians(fov), (float)winDim.width / (float)winDim.height, nearPlane, farPlane);
 
 	// Sets new camera matrix

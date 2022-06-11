@@ -43,7 +43,7 @@ namespace OctreeVisualizationDefinition
     {
             Indices octreeIndices;
             Vertices octreeVertices;
-            bool shouldDraw = true;
+            bool shouldDraw = false;
     };
 
     class OctreeVisualization : public Octree
@@ -52,6 +52,7 @@ namespace OctreeVisualizationDefinition
             void visualizeOctree(DrawMode = IntersectedLeafOctants, DepthColorMode = EnableDepthColor);
             void generateOctantWireframe(OctantIndex octantID);
             void bindOctreeWireframe();
+			void refreshOctreeWireFrame();
             void drawOctreeWireframe();
             void colorTrianglePerOctant();
 

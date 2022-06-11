@@ -58,7 +58,7 @@ namespace GizmoDefinition
 		void queryGizmo(MeshReference cMesh);
 		void drawGizmo();
 		void setState(GizmoState newState);
-		void iterateState();
+		void iterateState(MeshReference cMesh);
 		void moveGizmo(v3 newPosition);
 
 		GizmoState state = INACTIVE;

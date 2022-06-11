@@ -226,8 +226,7 @@ void MainProgram::processOctreeCommand(StringList &arguments, int numArgs)
 			renderer.getActiveMesh()->visualizeOctree();
 			break;
 		case TOGGLEWIREFRAME:
-			renderer.getActiveMesh()->octreeWireframe.shouldDraw =
-				!renderer.getActiveMesh()->octreeWireframe.shouldDraw;
+			renderer.getActiveMesh()->octreeWireframe.shouldDraw = !renderer.getActiveMesh()->octreeWireframe.shouldDraw;
 			break;
 		case PRINT:
 			renderer.getActiveMesh()->octreePrintStats();
