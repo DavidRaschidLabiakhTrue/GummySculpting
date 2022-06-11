@@ -49,6 +49,9 @@ namespace MeshDefinition
 
 			KeyData searchLinear(rv3 direction, rv3 origin);
 
+
+			void applyTransformation();
+
 			void revertHistory();
 
 			void forwardHistory();
