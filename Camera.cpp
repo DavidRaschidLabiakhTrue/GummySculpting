@@ -21,9 +21,8 @@ Camera::Camera()
 {
 	orientation = v3(0.0f, 0.0f, -1.0f);
 	up = v3(0.0f, 1.0f, 0.0f);
-	pos = v3(0, 0, 2.0f);
-
-
+	pos = startPos = v3(0, 0, 2.0f);
+	focalPoint = v3(0);
 
 	view = m4(1.0);
 	projection = m4(1.0);
@@ -68,25 +67,26 @@ void CameraDefinition::Camera::checkKeyInput()
 	// Handles key inputs
 	if(!io.WantCaptureMouse)
 	{
+		v3 changeInPos = v3(0);
 		if (CheckKeyHeld(GLFW_KEY_W))
 		{
-			pos += speed * orientation;
+			changeInPos += speed * orientation;
 
 		}
 		else if (CheckKeyHeld(GLFW_KEY_S))
 		{
-			pos += speed * -orientation;
+			changeInPos += speed * -orientation;
 
 		}
 
 		if (CheckKeyHeld(GLFW_KEY_A))
 		{
-			pos += speed * -glm::normalize(glm::cross(orientation, up));
+			changeInPos += speed * -glm::normalize(glm::cross(orientation, up));
 
 		}
 		else if (CheckKeyHeld(GLFW_KEY_D))
 		{
-			pos += speed * glm::normalize(glm::cross(orientation, up));
+			changeInPos += speed * glm::normalize(glm::cross(orientation, up));
 
 		}
 
@@ -106,12 +106,15 @@ void CameraDefinition::Camera::checkKeyInput()
 		}
 		if (CheckKeyHeld(GLFW_KEY_SPACE))
 		{
-			pos += speed * up;
+			changeInPos += speed * up;
 		}
 		else if (CheckKeyHeld(GLFW_KEY_X))
 		{
-			pos += speed * -up;
+			changeInPos += speed * -up;
 		}
+
+		focalPoint += changeInPos;
+		pos += changeInPos;
 
 		// speed
 		if (CheckKeyHeld(GLFW_KEY_LEFT_SHIFT))
@@ -127,40 +130,104 @@ void CameraDefinition::Camera::checkKeyInput()
 
 void CameraDefinition::Camera::checkMouseInput()
 {
-	if (CheckMouseHeld(GLFW_MOUSE_BUTTON_MIDDLE))
+	//consume scroll input to zoom camera in and out
+	double scroll_val = WindowGlobal::ActiveWindow->scroll_val;
+	pos *= 1 - 0.1 * (scroll_val > 0) + 0.1 * (scroll_val < 0);
+	WindowGlobal::ActiveWindow->scroll_val = 0;
+
+	switch (cameraState)
 	{
-		const auto winDim = WindowDimensions(); // get the window dimensions.
-
-		// Prevent Camera Jumping on load.
-		if (firstClick)
+	case FREEFOCUS:
+		if (CheckMouseHeld(GLFW_MOUSE_BUTTON_MIDDLE))
 		{
-			setMousePosition((double)winDim.width / 2, (double)winDim.height / 2);
-			firstClick = false;
-		}
-		const auto ms = MouseCoordinates(); // get the mouse coordinates.
-		float rotX = sensitivity * (float)(ms.msy - ((winDim.height) / 2)) / winDim.height;
-		float rotY = sensitivity * (float)(ms.msx - ((winDim.width) / 2)) / winDim.height;
-		// Calculates upcoming vertical change in the Orientation
-		v3 newOrientation = rotate(orientation, radians(-rotX), normalize(cross(orientation, up)));
+			const auto winDim = WindowDimensions(); // get the window dimensions.
 
-		// Decides whether or not the next vertical Orientation is legal or not
-		if (abs(angle(newOrientation, up) - radians(90.0f)) <= radians(85.0f))
+			// Prevent Camera Jumping on load.
+			if (firstClick)
+			{
+				setMousePosition((double)winDim.width / 2, (double)winDim.height / 2);
+				firstClick = false;
+			}
+			const auto ms = MouseCoordinates(); // get the mouse coordinates.
+			float rotX = sensitivity * (float)(ms.msy - ((winDim.height) / 2)) / winDim.height;
+			float rotY = sensitivity * (float)(ms.msx - ((winDim.width) / 2)) / winDim.height;
+			// Calculates upcoming vertical change in the Orientation
+			v3 newOrientation = rotate(orientation, radians(-rotX), normalize(cross(orientation, up)));
+
+			// Decides whether or not the next vertical Orientation is legal or not
+			if (abs(angle(newOrientation, up) - radians(90.0f)) <= radians(85.0f))
+			{
+				orientation = newOrientation;
+			}
+
+
+			// Rotates the Orientation left and right
+			orientation = rotate(orientation, radians(-rotY), up);
+
+			// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
+			setMousePosition((double)winDim.width / 2, (double)winDim.height / 2); // this is the center of the screen.
+		}
+		eif(CheckMouseReleased(GLFW_MOUSE_BUTTON_MIDDLE))
 		{
-			orientation = newOrientation;
+			// Unhides cursor since camera is not looking around anymore
+			// Makes sure the next time the camera looks around it doesn't jump
+			firstClick = true;
+			return;
 		}
+		break;
+	case ORBIT:
+		if (CheckMouseHeld(GLFW_MOUSE_BUTTON_MIDDLE))
+		{
+			const auto winDim = WindowDimensions(); // get the window dimensions.
 
 
-		// Rotates the Orientation left and right
-		orientation = rotate(orientation, radians(-rotY), up);
 
-		// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
-		setMousePosition((double)winDim.width / 2, (double)winDim.height / 2); // this is the center of the screen.
+			//check distance to center
+			float distance = glm::distance(pos, focalPoint);
+
+			// Prevent Camera Jumping on load.
+			if (firstClick)
+			{
+				setMousePosition((double)winDim.width / 2, (double)winDim.height / 2);
+				firstClick = false;
+			}
+			const auto ms = MouseCoordinates(); // get the mouse coordinates.
+			float rotX = sensitivity * (float)(ms.msy - ((winDim.height) / 2)) / winDim.height;
+			float rotY = sensitivity * (float)(ms.msx - ((winDim.width) / 2)) / winDim.height;
+
+			v3 oldOrientation = orientation;
+
+			// Calculates upcoming vertical change in the Orientation
+			v3 newOrientation = rotate(orientation, radians(-rotX), normalize(cross(orientation, up)));
+
+			// Decides whether or not the next vertical Orientation is legal or not
+			if (abs(angle(newOrientation, up) - radians(90.0f)) <= radians(85.0f))
+			{
+				orientation = newOrientation;
+			}
+
+
+			// Rotates the Orientation left and right
+			orientation = rotate(orientation, radians(-rotY), up);
+
+
+			v3 offset = (orientation - oldOrientation) * distance;
+
+			pos -= offset;
+
+			// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
+			setMousePosition((double)winDim.width / 2, (double)winDim.height / 2); // this is the center of the screen.
+		}
+		eif(CheckMouseReleased(GLFW_MOUSE_BUTTON_MIDDLE))
+		{
+			// Unhides cursor since camera is not looking around anymore
+			// Makes sure the next time the camera looks around it doesn't jump
+			firstClick = true;
+			return;
+		}
+		break;
+	default:
+		break;
 	}
-	eif(CheckMouseReleased(GLFW_MOUSE_BUTTON_MIDDLE))
-	{
-		// Unhides cursor since camera is not looking around anymore
-		// Makes sure the next time the camera looks around it doesn't jump
-		firstClick = true;
-		return;
-	}
+	
 }
