@@ -13,7 +13,6 @@ layout (location = 20) uniform mat4 viewMatrix;
 
 void main()
 {
-
    gl_Position = projectionMatrix * viewMatrix * vec4(aPos, 1.0);
    myColor = aColor;
 }

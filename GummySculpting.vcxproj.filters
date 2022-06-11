@@ -229,9 +229,6 @@
     <ClCompile Include="StaticCircle.cpp">
       <Filter>3D Objects\Static Circle</Filter>
     </ClCompile>
-    <ClCompile Include="CircleShader.vert">
-      <Filter>Rendering\Shaders\Shader Files\CircleShader</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -531,6 +528,9 @@
       <Filter>3D Models\gum Models</Filter>
     </None>
     <None Include="CircleShader.frag">
+      <Filter>Rendering\Shaders\Shader Files\CircleShader</Filter>
+    </None>
+    <None Include="CircleShader.vert">
       <Filter>Rendering\Shaders\Shader Files\CircleShader</Filter>
     </None>
   </ItemGroup>

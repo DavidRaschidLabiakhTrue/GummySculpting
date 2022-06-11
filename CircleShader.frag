@@ -13,6 +13,7 @@ vec4 green = vec4(0.149, 0.411, 0.156, 1.0);
 
 void main()
 {
+
 	vec3 consumeNormal = myNormal; // consumming the normal call so OpenGL does not optimize out the normal.
 
 	float sinOut = sin(time);
