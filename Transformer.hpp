@@ -80,9 +80,14 @@ namespace TransformerDefinition
 			m4 projection = m4(1.0f);
 
 			v3 pos;
+			v3 startPos;
+			v3 focalPoint;
 
 			v3 orientation;
+			
 			v3 up;
+
+
 	};
 
 }

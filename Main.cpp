@@ -93,6 +93,8 @@ int MainProgram::ProgramCycle()
 
 		checkDirectives(); // check for directives
 
+		updateMeshes(); // check for mesh updates
+
 		if (renderGate.canUpdate() && win.canRender) // fps check  // we need to check for 0 division. This is a safety check that checks the state of the window before allowing *anything* with 3d processing.
 		{
 			// refresh all draw buffers
@@ -226,8 +228,7 @@ void MainProgram::processOctreeCommand(StringList &arguments, int numArgs)
 			renderer.getActiveMesh()->visualizeOctree();
 			break;
 		case TOGGLEWIREFRAME:
-			renderer.getActiveMesh()->octreeWireframe.shouldDraw =
-				!renderer.getActiveMesh()->octreeWireframe.shouldDraw;
+			renderer.getActiveMesh()->octreeWireframe.shouldDraw = !renderer.getActiveMesh()->octreeWireframe.shouldDraw;
 			break;
 		case PRINT:
 			renderer.getActiveMesh()->octreePrintStats();
@@ -549,6 +550,23 @@ void MainProgram::checkDebugConsole()
     }
 
     gui.buildGuiFrame();
+}
+
+void MainProgram::updateMeshes()
+{
+	if (updateGate.canUpdate())
+	{
+		const int meshCount = renderer.meshes.size();
+
+		for (int i = 0; i < meshCount; i++)
+		{
+			if (renderer.meshes[i].needToRefresh)
+			{
+				renderer.meshes[i].refresh();
+			}
+		}
+	}
+
 }
 
 void MainProgram::loadResources()

@@ -46,6 +46,13 @@ Window_API_Structures::MouseCoordinates::~MouseCoordinates()
 Window_API_Structures::WindowDimensions::WindowDimensions()
 {
 	glfwGetWindowSize(winGB::ActiveWindowPTR, &width, &height);
+	
+	if (width != 0)
+	{
+		aspectRatiof = (float)height / (float)width;
+		aspectRatioi = height / width;
+	}
+	
 }
 Window_API_Structures::WindowDimensions::~WindowDimensions()
 {

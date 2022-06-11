@@ -66,14 +66,17 @@ void Gizmo::setState(GizmoState newState)
 	didChangeState = true;
 }
 
-void Gizmo::iterateState()
+void Gizmo::iterateState(MeshReference cMesh)
 {
 	switch (state)
 	{
 		case INACTIVE: setState(TRANSLATE); break;
 		case TRANSLATE: setState(ROTATE); break;
 		case ROTATE: setState(SCALE); break;
-		case SCALE: setState(INACTIVE); break;
+		case SCALE: 
+			setState(INACTIVE);
+			cMesh.applyModelMatrix();
+			break;
 	}
 }
 
@@ -81,7 +84,7 @@ void Gizmo::queryGizmo(MeshReference cMesh)
 {
 	if (KeyInputDefinition::isPressed(GLFW_KEY_Q))
 	{
-		iterateState();
+		iterateState(cMesh);
 	}
 	if (KeyInputDefinition::isPressed(GLFW_KEY_P))
 	{
@@ -94,13 +97,11 @@ void Gizmo::queryGizmo(MeshReference cMesh)
 	if (didChangeState)
 	{
 		didChangeState = false;
-		moveGizmo(cMesh.translationValues);
+		moveGizmo(gizmoPosition);
 	}
 
 	switch (state)
 	{
-		case INACTIVE:
-			break;
 		case TRANSLATE:
 			queryTranslate(cMesh);
 			break;
@@ -110,6 +111,27 @@ void Gizmo::queryGizmo(MeshReference cMesh)
 		case SCALE:
 			queryScale(cMesh);
 			break;
+	}
+
+	if (activeAxis != GizmoAxis::NONE)
+	{
+		didTransform = true;
+		switch (state)
+		{
+			case TRANSLATE:
+				translateMesh(cMesh);
+				break;
+			case ROTATE:
+				rotateMesh(cMesh);
+				break;
+			case SCALE:
+				scaleMesh(cMesh);
+				break;
+		}
+	}
+	else if (didTransform)
+	{
+		cMesh.applyTransformation();
 	}
 }
 
@@ -256,9 +278,6 @@ void Gizmo::queryTranslate(MeshReference cMesh)
 				}
 			}
 		}
-	} else
-	{
-		translateMesh(cMesh);
 	}
 }
 
@@ -297,10 +316,11 @@ void Gizmo::translateMesh(MeshReference cMesh)
 	if (delta != 0)
 	{
 		cMesh.translationValues[activeAxis] += delta;
+		gizmoPosition[activeAxis] += delta;
 		//cMesh.setTranslation(cMesh.translationValues);
 		cMesh.applyAllTransforms();
 		prevMouseOffset = newMouseOffset;
-		moveHandles(cMesh.translationValues, arrows);
+		moveHandles(gizmoPosition, arrows);
 	}
 }
 
@@ -317,7 +337,6 @@ void Gizmo::queryRotate(MeshReference cMesh)
 	if (activeAxis == GizmoAxis::NONE)
 	{
 		v3 camPos = this->origin().position;
-		v3 meshPos = cMesh.translationValues;
 
 		forall(ring, rings)
 		{
@@ -329,17 +348,17 @@ void Gizmo::queryRotate(MeshReference cMesh)
 				case GizmoAxis::Z: planeNormal = v3(0, 0, 1); break;
 				default: return;
 			}
-			v3 mousePos = getRayPlaneIntersect(meshPos, planeNormal, camPos, this->direction);
-			float radius = glm::distance(meshPos, mousePos);
-			float distanceFromRing = glm::distance(meshPos, mousePos) - ring.mesh.scale;
+			v3 mousePos = getRayPlaneIntersect(gizmoPosition, planeNormal, camPos, this->direction);
+			float radius = glm::distance(gizmoPosition, mousePos);
+			float distanceFromRing = glm::distance(gizmoPosition, mousePos) - ring.mesh.scale;
 			if (distanceFromRing < 0.1f //check if mouse is too far away
 				and distanceFromRing > -1 * 0.1f //check if mouse is too close to center
-				and glm::dot(mousePos - meshPos, this->direction) < 0.1f) //check for mouse on opposite side
+				and glm::dot(mousePos - gizmoPosition, this->direction) < 0.1f) //check for mouse on opposite side
 			{
 				if (clicked)
 				{
 					activeAxis = ring.axis;
-					startMousePosition = prevMousePosition = glm::normalize(mousePos - meshPos);
+					startMousePosition = prevMousePosition = glm::normalize(mousePos - gizmoPosition);
 				}
 				else {
 					clearHover(arrows);
@@ -351,10 +370,6 @@ void Gizmo::queryRotate(MeshReference cMesh)
 				ring.hovered = false;
 			}
 		}
-	}
-	else
-	{
-		rotateMesh(cMesh);
 	}
 }
 
@@ -388,7 +403,6 @@ void Gizmo::drawRotate()
 void Gizmo::rotateMesh(MeshReference cMesh)
 {
 	v3 camPos = this->origin().position;
-	v3 meshPos = cMesh.translationValues;
 
 	v3 planeNormal;
 	switch (activeAxis)
@@ -406,9 +420,9 @@ void Gizmo::rotateMesh(MeshReference cMesh)
 			return;
 	}
 
-	v3 newMousePosition = getRayPlaneIntersect(meshPos, planeNormal, camPos, this->direction);
+	v3 newMousePosition = getRayPlaneIntersect(gizmoPosition, planeNormal, camPos, this->direction);
 
-	newMousePosition = glm::normalize(newMousePosition - meshPos);
+	newMousePosition = glm::normalize(newMousePosition - gizmoPosition);
 
 	v4 lineColor;
 
@@ -435,12 +449,11 @@ void Gizmo::rotateMesh(MeshReference cMesh)
 	}
 
 	cMesh.rotationMatrix = glm::rotate(angle, planeNormal) * cMesh.rotationMatrix;
-	cMesh.setTranslation(v3(0));
 	cMesh.applyAllTransforms();
 	prevMousePosition = newMousePosition;
 
-	Debug::Drawing::drawLine(meshPos, meshPos + startMousePosition * ringScale * 0.95f, v4(1, 1, 1, 1));
-	Debug::Drawing::drawLine(meshPos, meshPos + newMousePosition * ringScale * 0.95f, lineColor);
+	Debug::Drawing::drawLine(gizmoPosition, gizmoPosition + startMousePosition * ringScale * 0.95f, v4(1, 1, 1, 1));
+	Debug::Drawing::drawLine(gizmoPosition, gizmoPosition + newMousePosition * ringScale * 0.95f, lineColor);
 }
 
 //Scale
@@ -493,10 +506,6 @@ void Gizmo::queryScale(MeshReference cMesh)
 				}
 			}
 		}
-	}
-	else
-	{
-		scaleMesh(cMesh);
 	}
 }
 

@@ -40,6 +40,9 @@ namespace GraphicsDataDefinition
 
 			void invertFaces();
 
+			bool needToRefresh = false; // need to refresh GPU binding
+
+
 			// need to implement copy.
 
 	};

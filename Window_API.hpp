@@ -36,6 +36,9 @@ namespace Window_API
 			int width;
 			int height;
 
+			float aspectRatiof;
+			float aspectRatioi;
+
 		};
 
 		struct ScreenData : public MouseCoordinates, public WindowDimensions

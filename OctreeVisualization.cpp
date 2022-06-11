@@ -19,7 +19,8 @@ void OctreeVisualization::visualizeOctree(DrawMode drawMode, DepthColorMode dept
         generateOctantWireframe(octant.octantIndex);
     }
     colorTrianglePerOctant();
-    refresh();
+	refreshOctreeWireFrame();
+	refresh();
 }
 
 void OctreeVisualization::generateOctantWireframe(OctantIndex octantID)
@@ -66,30 +67,34 @@ void OctreeVisualization::bindOctreeWireframe()
     glGenBuffers(1, &gboOctreeWireframe.vbo);
     glGenBuffers(1, &gboOctreeWireframe.ebo);
 
-    glBindVertexArray(gboOctreeWireframe.vao);
+	refreshOctreeWireFrame();
+}
 
-    // binding vertices
-    glBindBuffer(GL_ARRAY_BUFFER, gboOctreeWireframe.vbo);
-    glBufferData(GL_ARRAY_BUFFER, octreeWireframe.octreeVertices.size() * sizeof(V3D), octreeWireframe.octreeVertices.data(), GL_STATIC_DRAW);
+void OctreeVisualizationDefinition::OctreeVisualization::refreshOctreeWireFrame()
+{
+	glBindVertexArray(gboOctreeWireframe.vao);
 
-    // binding indices
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gboOctreeWireframe.ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, octreeWireframe.octreeIndices.size() * sizeof(KeyData), static_cast<void *>(octreeWireframe.octreeIndices.data()), GL_STATIC_DRAW);
+	// binding vertices
+	glBindBuffer(GL_ARRAY_BUFFER, gboOctreeWireframe.vbo);
+	glBufferData(GL_ARRAY_BUFFER, octreeWireframe.octreeVertices.size() * sizeof(V3D), octreeWireframe.octreeVertices.data(), GL_STATIC_DRAW);
 
-    // enable position data
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void *)0);
-    // enable color data
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void *)offsetof(V3D, V3D::color)); // color data reserves 4 slots.
+	// binding indices
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gboOctreeWireframe.ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, octreeWireframe.octreeIndices.size() * sizeof(KeyData), static_cast<void*>(octreeWireframe.octreeIndices.data()), GL_STATIC_DRAW);
+
+	// enable position data
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void*)0);
+	// enable color data
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void*)offsetof(V3D, V3D::color)); // color data reserves 4 slots.
 }
 
 void OctreeVisualization::drawOctreeWireframe()
 {
     if (octreeWireframe.shouldDraw)
     {
-        bindOctreeWireframe();
-        StandardShader.use();
+        GridShader.use(); // want it independent of wireframe
         gboOctreeWireframe.bindVAO();
         glDrawElements(GL_LINES, (GLsizei)octreeWireframe.octreeIndices.size(), GL_UNSIGNED_INT, NULL);
         unbindActiveVAO();

@@ -58,7 +58,7 @@ namespace GizmoDefinition
 		void queryGizmo(MeshReference cMesh);
 		void drawGizmo();
 		void setState(GizmoState newState);
-		void iterateState();
+		void iterateState(MeshReference cMesh);
 		void moveGizmo(v3 newPosition);
 
 		GizmoState state = INACTIVE;
@@ -90,6 +90,8 @@ namespace GizmoDefinition
 		v3 startMousePosition;
 		v3 prevMousePosition;
 		bool didChangeState = false;
+		bool didTransform = false;
+		v3 gizmoPosition = v3(0);
 
 		// I like there are no pointers anymore.
 
