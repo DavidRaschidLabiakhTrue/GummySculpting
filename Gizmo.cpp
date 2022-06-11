@@ -79,12 +79,11 @@ void Gizmo::iterateState()
 
 void Gizmo::queryGizmo(MeshReference cMesh)
 {
-	if (KeyInputDefinition::isHeld(KeyInputDefinition::Key_Q))
+	if (KeyInputDefinition::isPressed(GLFW_KEY_Q))
 	{
-		
 		iterateState();
 	}
-	if (KeyInputDefinition::isPressed(GLFW_KEY_R))
+	if (KeyInputDefinition::isPressed(GLFW_KEY_P))
 	{
 		cMesh.resetModelMatrix();
 		cMesh.rotationMatrix = m4(1);
