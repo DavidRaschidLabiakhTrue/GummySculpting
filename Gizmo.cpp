@@ -60,31 +60,11 @@ Gizmo::Gizmo(bool trueConstructor)
 	);
 }
 
-void Gizmo::setState(GizmoState newState)
-{
-	state = newState;
-	didChangeState = true;
-}
-
-void Gizmo::iterateState(MeshReference cMesh)
-{
-	switch (state)
-	{
-		case INACTIVE: setState(TRANSLATE); break;
-		case TRANSLATE: setState(ROTATE); break;
-		case ROTATE: setState(SCALE); break;
-		case SCALE: 
-			setState(INACTIVE);
-			cMesh.applyModelMatrix();
-			break;
-	}
-}
-
-void Gizmo::queryGizmo(MeshReference cMesh)
+void Gizmo::checkInput(MeshReference cMesh)
 {
 	if (KeyInputDefinition::isPressed(GLFW_KEY_Q))
 	{
-		iterateState(cMesh);
+		iterateState();
 	}
 	if (KeyInputDefinition::isPressed(GLFW_KEY_P))
 	{
@@ -93,11 +73,42 @@ void Gizmo::queryGizmo(MeshReference cMesh)
 		cMesh.translationValues = v3(0, 0, 0);
 		cMesh.scaleValues = v3(1, 1, 1);
 	}
+}
+
+
+void Gizmo::setState(GizmoState newState)
+{
+	state = newState;
+	didChangeState = true;
+}
+
+void Gizmo::iterateState()
+{
+	switch (state)
+	{
+		case INACTIVE: 
+			setState(TRANSLATE); 
+			break;
+		case TRANSLATE: 
+			setState(ROTATE); 
+			break;
+		case ROTATE: 
+			setState(SCALE); 
+			break;
+		case SCALE: 
+			setState(INACTIVE);
+			break;
+	}
+}
+
+bool Gizmo::queryTransforms(MeshReference cMesh)
+{
+
 
 	if (didChangeState)
 	{
 		didChangeState = false;
-		moveGizmo(gizmoPosition);
+		moveGizmo(cMesh.position);
 	}
 
 	switch (state)
@@ -111,6 +122,8 @@ void Gizmo::queryGizmo(MeshReference cMesh)
 		case SCALE:
 			queryScale(cMesh);
 			break;
+		case INACTIVE:
+			return false;
 	}
 
 	if (activeAxis != GizmoAxis::NONE)
@@ -133,6 +146,8 @@ void Gizmo::queryGizmo(MeshReference cMesh)
 	{
 		//cMesh.applyTransformation();
 	}
+
+	return true;
 }
 
 void Gizmo::drawGizmo()
@@ -315,12 +330,11 @@ void Gizmo::translateMesh(MeshReference cMesh)
 
 	if (delta != 0)
 	{
-		cMesh.translationValues[activeAxis] += delta;
+		cMesh.transform.worldTranslation[activeAxis] += delta;
 		gizmoPosition[activeAxis] += delta;
-		//cMesh.setTranslation(cMesh.translationValues);
-		cMesh.applyAllTransforms();
+		cMesh.setModelMatrix();
 		prevMouseOffset = newMouseOffset;
-		moveHandles(gizmoPosition, arrows);
+		moveHandles(cMesh.position, arrows);
 	}
 }
 
@@ -398,6 +412,10 @@ void Gizmo::drawRotate()
 			}
 		}
 	}
+
+	Debug::Drawing::drawLine(v3(0), Basis::X * 10.0f, GizmoColors::red);
+	Debug::Drawing::drawLine(v3(0), Basis::Y * 10.0f, GizmoColors::green);
+	Debug::Drawing::drawLine(v3(0), Basis::Z * 10.0f, GizmoColors::blue);
 }
 
 void Gizmo::rotateMesh(MeshReference cMesh)
@@ -426,30 +444,29 @@ void Gizmo::rotateMesh(MeshReference cMesh)
 
 	v4 lineColor;
 
-	v3 x = prevMousePosition;
-	v3 y = newMousePosition;
+	v3 a = prevMousePosition;
+	v3 b = newMousePosition;
 
 	float angle;
 	switch (activeAxis)
 	{
 		case GizmoAxis::X:
 			lineColor = GizmoColors::red;
-			angle = atan2(x.y, x.z) - atan2(y.y, y.z);
+			angle = atan2(a.y, a.z) - atan2(b.y, b.z);
 			break;
 		case GizmoAxis::Y:
 			lineColor = GizmoColors::green;
-			angle = atan2(x.z, x.x) - atan2(y.z, y.x);
+			angle = atan2(a.z, a.x) - atan2(b.z, b.x);
 			break;
 		case GizmoAxis::Z:
 			lineColor = GizmoColors::blue;
-			angle = atan2(x.x, x.y) - atan2(y.x, y.y);
+			angle = atan2(a.x, a.y) - atan2(b.x, b.y);
 			break;
 		default: 
 			return;
 	}
-
-	cMesh.rotationMatrix = glm::rotate(angle, planeNormal) * cMesh.rotationMatrix;
-	cMesh.applyAllTransforms();
+	cMesh.transform.rotation[activeAxis] += angle;
+	cMesh.setModelMatrix();
 	prevMousePosition = newMousePosition;
 
 	Debug::Drawing::drawLine(gizmoPosition, gizmoPosition + startMousePosition * ringScale * 0.95f, v4(1, 1, 1, 1));
@@ -556,8 +573,8 @@ void Gizmo::scaleMesh(MeshReference cMesh)
 			else {
 				scaleValue = 1 - delta;
 			}
-			cMesh.scaleValues *= scaleValue;
-			cMesh.applyAllTransforms();
+			cMesh.transform.scale *= scaleValue;
+			cMesh.setModelMatrix();
 			prevMouseDistance = newMouseDistance;
 		}
 	}
@@ -573,19 +590,19 @@ void Gizmo::scaleMesh(MeshReference cMesh)
 			{
 				case GizmoAxis::X:
 					scaleValue = 1 - delta;
-					cMesh.scaleValues.x *= scaleValue;
+					cMesh.transform.scale.x *= scaleValue;
 					break;
 				case GizmoAxis::Y:
 					scaleValue = 1 + delta;
-					cMesh.scaleValues.y *= scaleValue;
+					cMesh.transform.scale.y *= scaleValue;
 					break;
 				case GizmoAxis::Z:
 					scaleValue = 1 + delta;
-					cMesh.scaleValues.z *= scaleValue;
+					cMesh.transform.scale.z *= scaleValue;
 					break;
 				default: break;
 			}
-			cMesh.applyAllTransforms();
+			cMesh.setModelMatrix();
 			prevMouseOffset = newMouseOffset;
 		}
 	}

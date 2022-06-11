@@ -492,17 +492,20 @@ void MainProgram::queryMechanics()
         queryCamera();
     }
 
-    if (sculptGate.canUpdate())
+    if (!queryGizmo() and sculptGate.canUpdate())
     {
         brush.querySculpt(renderer.getActiveMeshReference());
     }
-
-    gizmo.queryGizmo(renderer.getActiveMeshReference());
 }
 void MainProgram::queryCamera()
 {
     cam.checkInput();
     cam.updateMatrix();
+}
+bool MainProgram::queryGizmo()
+{
+    gizmo.checkInput(renderer.getActiveMeshReference());
+    return gizmo.queryTransforms(renderer.getActiveMeshReference());
 }
 void MainProgram::draw3D()
 {
