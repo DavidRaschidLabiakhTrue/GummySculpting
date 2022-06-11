@@ -79,7 +79,7 @@ namespace Window_API
 			
 			v2 last;
 			v2 current;
-
+			v2 storedPos;
 	};
 
 	extern MouseDeltaPosition MouseDelta;

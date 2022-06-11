@@ -135,6 +135,7 @@ void CameraDefinition::Camera::checkMouseInput()
 	double scroll_val = WindowGlobal::ActiveWindow->scroll_val;
 	pos *= 1 - 0.1 * (scroll_val > 0) + 0.1 * (scroll_val < 0);
 	WindowGlobal::ActiveWindow->scroll_val = 0;
+	auto& io = ImGui::GetIO();
 
 	switch (cameraState)
 	{
@@ -180,18 +181,24 @@ void CameraDefinition::Camera::checkMouseInput()
 		if (CheckMouseHeld(GLFW_MOUSE_BUTTON_MIDDLE))
 		{
 			const auto winDim = WindowDimensions(); // get the window dimensions.
+			const auto ms = MouseCoordinates(); // get the mouse coordinates.
+
 			//check distance to center
 			float distance = glm::distance(pos, focalPoint);
 
 			Window_API::MouseDelta.update();
 
-
-
 			v2 mouseDelta;
 			if (firstClick)
 			{
+				io.MouseDrawCursor = false;
 				mouseDelta = v2(0);
 				firstClick = false;
+				if (!shouldResetMouse)
+				{
+					Window_API::MouseDelta.storedPos = v2(ms.msx, ms.msy);
+					shouldResetMouse = true;
+				}
 			}
 			else {
 				mouseDelta = Window_API::MouseDelta.getDelta();
@@ -219,7 +226,7 @@ void CameraDefinition::Camera::checkMouseInput()
 
 			pos -= offset;
 
-			const auto ms = MouseCoordinates(); // get the mouse coordinates.
+			
 
 			if (ms.msx <= 1 || ms.msx >= winDim.width - 1)
 			{
@@ -237,7 +244,13 @@ void CameraDefinition::Camera::checkMouseInput()
 		{
 			// Unhides cursor since camera is not looking around anymore
 			// Makes sure the next time the camera looks around it doesn't jump
+			if (shouldResetMouse)
+			{
+				setMousePosition(Window_API::MouseDelta.storedPos.x, Window_API::MouseDelta.storedPos.y);
+				shouldResetMouse = false;
+			}
 			firstClick = true;
+			io.MouseDrawCursor = true;
 			return;
 		}
 		break;
