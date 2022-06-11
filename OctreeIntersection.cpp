@@ -236,16 +236,9 @@ OctreeCollision OctreeDefinition::Octree::octreeRayIntersectionOriginal(v3 origi
     return collision;
 }
 
-void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction, bool isSymmetric, v3 planeOrigin, v3 planeNormal) ONOEXCEPT
+void Octree::octreeRayIntersectionCore(v3 origin, v3 direction, OctreeCollision &collisionRef) ONOEXCEPT
 {
-    if (isSymmetric)
-    {
-        v3 reflectOrigin, reflectDirection;
-        reflectRay(origin, direction, planeOrigin, planeNormal, reflectOrigin, reflectDirection);
-    }
-
     priority_queue<pair<float, int>, vector<pair<float, int>>, greater<pair<float, int>>> queue;
-    collision = OctreeCollision();
     OctreeCollision newCollision;
     float octantCollisionDistance = NoCollisionDistance;
     float triangleCollisionDistance = NoCollisionDistance;
@@ -353,7 +346,35 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction, bo
         }
     }
 
-    collision = newCollision;
+    collisionRef = newCollision;
+}
+
+void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction, bool isSymmetric, v3 planeOrigin, v3 planeNormal) ONOEXCEPT
+{
+    isSymmetric = true; // debug
+    thread reflectedThread;
+    if (isSymmetric)
+    {
+        v3 reflectOrigin, reflectDirection;
+        reflectRay(origin, direction, planeOrigin, planeNormal, reflectOrigin, reflectDirection);
+
+        reflectedThread = thread([&, reflectOrigin, reflectDirection]() {
+            octreeRayIntersectionCore(reflectOrigin, reflectDirection, reflectedCollision);
+        });
+    }
+
+    octreeRayIntersectionCore(origin, direction, collision);
+
+    if (isSymmetric)
+    {
+        reflectedThread.join();
+    }
+
+    if (collision.isCollision)
+        say "collision" spc collision.triangleID done;
+
+    if (reflectedCollision.isCollision)
+        say "reflection" spc reflectedCollision.triangleID done;
 }
 
 bool Octree::isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT
@@ -365,5 +386,20 @@ bool Octree::isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT
 
 void Octree::reflectRay(rv3 origin, rv3 direction, rv3 planeOrigin, rv3 planeNormal, rv3 reflectOrigin, rv3 reflectDirection) ONOEXCEPT
 {
+    reflectDirection = glm::reflect(direction, planeNormal);
 
+    if (glm::epsilonEqual(dot(origin - planeOrigin, planeNormal), 0.0f, 0.00001f))
+    {
+        reflectOrigin = origin;
+        return;
+    }
+
+    float distance;
+    if (!glm::intersectRayPlane(origin, planeNormal, planeOrigin, planeNormal, distance))
+    {
+        glm::intersectRayPlane(origin, -planeNormal, planeOrigin, planeNormal, distance);
+        distance = -distance;
+    }
+
+    reflectOrigin = origin + 2.0f * distance * planeNormal;
 }
