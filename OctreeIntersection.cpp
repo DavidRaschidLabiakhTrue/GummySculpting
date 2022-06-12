@@ -351,6 +351,9 @@ void Octree::octreeRayIntersectionCore(v3 origin, v3 direction, OctreeCollision 
 
 void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction, bool isSymmetric, v3 planeOrigin, v3 planeNormal) ONOEXCEPT
 {
+    origin = (v3) (v4(origin, 1.0) * model);
+    direction = normalize((v3) (v4(direction, 1.0) * model));
+
     isSymmetric = true; // debug
     thread reflectedThread;
     if (isSymmetric)
