@@ -215,6 +215,7 @@
     <ClCompile Include="SculptAlgos.cpp" />
     <ClCompile Include="SculptBrush.cpp" />
     <ClCompile Include="SculptPayload.cpp" />
+    <ClCompile Include="MeshToolsWindow.cpp" />
     <ClCompile Include="SmoothedColor.cpp" />
     <ClCompile Include="Smoothing.cpp" />
     <ClCompile Include="StaticCircle.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="SculptAlgos.hpp" />
     <ClInclude Include="SculptBrush.hpp" />
     <ClInclude Include="SculptPayload.hpp" />
+    <ClInclude Include="MeshToolsWindow.hpp" />
     <ClInclude Include="SmoothedColor.hpp" />
     <ClInclude Include="Smoothing.hpp" />
     <ClInclude Include="StaticCircle.hpp" />
