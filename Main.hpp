@@ -29,6 +29,8 @@
 
 #include <variant>
 
+#include "StaticCircle.hpp"
+
 using namespace MathTypeDefinitions;
 using namespace Window_Class;
 
@@ -48,11 +50,17 @@ using namespace GizmoDefinition;
 
 using namespace TimeGateDefinition;
 
+using namespace StaticCircleDefinition;
+
 using DebugConsoleDefinition::debug;
 
 using MainDirectiveDefinition::Directives; // command list main must execute
 
-template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
+
+
+
+
+template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; }; // sussy
 class MainProgram
 {
 	public:
@@ -88,6 +96,7 @@ class MainProgram
 		void generateMaps(); // generate needed maps on all meshes
 		void queryMechanics(); // perform an action query from the user
 		void queryCamera(); // query for camera input from the user.
+		bool queryGizmo(); // query for camera input from the user.
 
 		void draw3D(); // drawing meshes
 
@@ -96,6 +105,8 @@ class MainProgram
 		void checkDebugConsole();
 
 		void buildGuiFrame();
+
+		void updateMeshes();
 
 		Window win;
 		Camera cam;
@@ -114,10 +125,11 @@ class MainProgram
 		VisualObjects visualObjects;
 
 		TimeGate cameraGate = TimeGate(30);
-		TimeGate sculptGate = TimeGate(15.0f);
-		TimeGate renderGate = TimeGate(45.0f);
+		TimeGate sculptGate = TimeGate(16.0f);
+		TimeGate renderGate = TimeGate(60.0f);
+		TimeGate updateGate = TimeGate(10.0f); // need to limit the amount of times a mesh is being sent from the CPU to the GPU. 
 
-
+		StaticCircle circle;
 };
 
 

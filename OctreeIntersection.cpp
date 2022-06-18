@@ -236,11 +236,9 @@ OctreeCollision OctreeDefinition::Octree::octreeRayIntersectionOriginal(v3 origi
     return collision;
 }
 
-void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT
+void Octree::octreeRayIntersectionCore(v3 origin, v3 direction, OctreeCollision &collisionRef) ONOEXCEPT
 {
-    //say glm::to_string(origin) << " " << glm::to_string(direction) done;
     priority_queue<pair<float, int>, vector<pair<float, int>>, greater<pair<float, int>>> queue;
-    collision = OctreeCollision();
     OctreeCollision newCollision;
     float octantCollisionDistance = NoCollisionDistance;
     float triangleCollisionDistance = NoCollisionDistance;
@@ -348,7 +346,38 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction) ON
         }
     }
 
-    collision = newCollision;
+    collisionRef = newCollision;
+}
+
+void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction, bool isSymmetric, v3 planeOrigin, v3 planeNormal) ONOEXCEPT
+{
+    origin = (v3) (v4(origin, 1.0) * model);
+    direction = normalize((v3) (v4(direction, 1.0) * model));
+
+    isSymmetric = true; // debug
+    thread reflectedThread;
+    if (isSymmetric)
+    {
+        v3 reflectOrigin, reflectDirection;
+        reflectRay(origin, direction, planeOrigin, planeNormal, reflectOrigin, reflectDirection);
+
+        reflectedThread = thread([&, reflectOrigin, reflectDirection]() {
+            octreeRayIntersectionCore(reflectOrigin, reflectDirection, reflectedCollision);
+        });
+    }
+
+    octreeRayIntersectionCore(origin, direction, collision);
+
+    if (isSymmetric)
+    {
+        reflectedThread.join();
+    }
+
+    if (collision.isCollision)
+        say "collision" spc collision.triangleID done;
+
+    if (reflectedCollision.isCollision)
+        say "reflection" spc reflectedCollision.triangleID done;
 }
 
 bool Octree::isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT
@@ -358,101 +387,22 @@ bool Octree::isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT
             abs(origin.z - octant.octantCenter.z) <= octant.octantHalfSize);
 }
 
-// Parallel functions
-
-// Don't use, slower than sequential
-void Octree::collectVerticesAroundCollisionParallel(float range, bool loadAffectedTriangles) ONOEXCEPT
+void Octree::reflectRay(rv3 origin, rv3 direction, rv3 planeOrigin, rv3 planeNormal, rv3 reflectOrigin, rv3 reflectDirection) ONOEXCEPT
 {
-    int nThreads = thread::hardware_concurrency();
-    if (nThreads == 0)
+    reflectDirection = glm::reflect(direction, planeNormal);
+
+    if (glm::epsilonEqual(dot(origin - planeOrigin, planeNormal), 0.0f, 0.00001f))
     {
-        nThreads = 1;
+        reflectOrigin = origin;
+        return;
     }
 
-    concurrency::concurrent_vector<KeyData> results;        // list of keys returned from collecting method
-    concurrency::concurrent_queue<KeyData> unchecked;       // List of vertices to check if they're within range
-    concurrency::concurrent_unordered_set<KeyData> checked; // Every vertex that has been checked
-
-    // Prime the unchecked set with the triangle vertices
-    unchecked.push(triangles[collision.triangleID][0]);
-    unchecked.push(triangles[collision.triangleID][1]);
-    unchecked.push(triangles[collision.triangleID][2]);
-    checked.insert(triangles[collision.triangleID][0]);
-    checked.insert(triangles[collision.triangleID][1]);
-    checked.insert(triangles[collision.triangleID][2]);
-
-    while (unchecked.unsafe_size() < nThreads && !unchecked.empty())
+    float distance;
+    if (!glm::intersectRayPlane(origin, planeNormal, planeOrigin, planeNormal, distance))
     {
-        KeyData v;
-        unchecked.try_pop(v);
-
-        if (distance(collision.position, vertices[v].position) <= range)
-        {
-            foreach (otherV, edges[v].vertexEdges)
-            {
-                if (checked.insert(otherV).second)
-                {
-                    unchecked.push(otherV);
-                }
-            }
-            results.push_back(v);
-        }
+        glm::intersectRayPlane(origin, -planeNormal, planeOrigin, planeNormal, distance);
+        distance = -distance;
     }
 
-    vector<thread> threads;
-    for (int i = 0; i < nThreads; i++)
-    {
-        threads.push_back(thread([&]() {
-            KeyData v;
-            while (unchecked.try_pop(v))
-            {
-                if (distance(collision.position, vertices[v].position) <= range)
-                {
-                    foreach (otherV, edges[v].vertexEdges)
-                    {
-                        if (checked.insert(otherV).second)
-                        {
-                            unchecked.push(otherV);
-                        }
-                    }
-                    results.push_back(v);
-                }
-            }
-        }));
-    }
-    foreach (t, threads)
-    {
-        t.join();
-    }
-
-    verticesInRange.clear();
-    foreach (vertexID, results)
-    {
-        verticesInRange.push_back(vertexID);
-    }
-
-    if (loadAffectedTriangles)
-    {
-        affectedTriangles = getTrianglesFromVertices(verticesInRange);
-    }
+    reflectOrigin = origin + 2.0f * distance * planeNormal;
 }
-
-// void OctreeDefinition::Octree::collectTrianglesAroundCollision(float range) ONOEXCEPT
-// {
-//     collectVerticesAroundCollision(range);
-
-//     TriangleIDList tempAffectedTriangles = affectedTriangles;
-//     TriangleIDList tempTrianglesInRange;
-
-//     foreach (tri, tempAffectedTriangles)
-//     {
-//         if (abs(distance(vertices[triangles[tri][0]].position, collision.position)) <= range &&
-//             abs(distance(vertices[triangles[tri][1]].position, collision.position)) <= range &&
-//             abs(distance(vertices[triangles[tri][2]].position, collision.position)) <= range)
-//         {
-//             tempTrianglesInRange.emplace_back(tri);
-//         }
-//     }
-
-//     trianglesInRange = tempTrianglesInRange;
-// }

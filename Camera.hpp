@@ -19,6 +19,11 @@ namespace CameraDefinition
 	class Camera : public CameraParameters, public CameraTransformer
 	{
 		public:
+			enum CameraState
+			{
+				FREEFOCUS,
+				ORBIT
+			};
 			Camera();
 			~Camera();
 
@@ -27,13 +32,14 @@ namespace CameraDefinition
 
 			m4 cameraMatrix;
 
+			CameraState cameraState = ORBIT;
 
 		protected:
 			void checkKeyInput(); // checks for user key input
 			void checkMouseInput(); // checks for mouse input from the user
 
 			bool firstClick = false;
-
+			bool shouldResetMouse = false;
 	};
 	typedef Camera* CameraPTR;
 

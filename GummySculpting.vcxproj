@@ -215,9 +215,12 @@
     <ClCompile Include="SculptAlgos.cpp" />
     <ClCompile Include="SculptBrush.cpp" />
     <ClCompile Include="SculptPayload.cpp" />
+    <ClCompile Include="MeshToolsWindow.cpp" />
     <ClCompile Include="SmoothedColor.cpp" />
     <ClCompile Include="Smoothing.cpp" />
+    <ClCompile Include="StaticCircle.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
+    <ClCompile Include="StrokeDirac.cpp" />
     <ClCompile Include="Stroking.cpp" />
     <ClCompile Include="SubdivisionSurface.cpp" />
     <ClCompile Include="TimeGate.cpp" />
@@ -293,9 +296,12 @@
     <ClInclude Include="SculptAlgos.hpp" />
     <ClInclude Include="SculptBrush.hpp" />
     <ClInclude Include="SculptPayload.hpp" />
+    <ClInclude Include="MeshToolsWindow.hpp" />
     <ClInclude Include="SmoothedColor.hpp" />
     <ClInclude Include="Smoothing.hpp" />
+    <ClInclude Include="StaticCircle.hpp" />
     <ClInclude Include="StaticMesh.hpp" />
+    <ClInclude Include="StrokeDirac.hpp" />
     <ClInclude Include="Stroking.hpp" />
     <ClInclude Include="SubdivisionSurface.hpp" />
     <ClInclude Include="TimeGate.hpp" />
@@ -333,6 +339,8 @@
   <ItemGroup>
     <None Include="4star.gum" />
     <None Include="arrow.gum" />
+    <None Include="CircleShader.frag" />
+    <None Include="CircleShader.vert" />
     <None Include="cube.gum" />
     <None Include="GridShader.frag" />
     <None Include="GridShader.vert" />

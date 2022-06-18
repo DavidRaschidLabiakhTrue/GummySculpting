@@ -49,6 +49,9 @@ namespace MeshDefinition
 
 			KeyData searchLinear(rv3 direction, rv3 origin);
 
+
+			void applyTransformation();
+
 			void revertHistory();
 
 			void forwardHistory();
@@ -63,6 +66,7 @@ namespace MeshDefinition
 
 			void computeNormals();
 			
+			void computeNormalsFromMatrix();
 
 			void recomputeNormals(HistoryKeyVertexMap& apply);
 
@@ -73,8 +77,7 @@ namespace MeshDefinition
 
 			int meshID;
 
-			bool needToRefresh = false; // need to refresh GPU binding
-
+			
 			string name;
 
 			unordered_map<string, variableVariantType> meshVariables;

@@ -91,7 +91,8 @@ void GraphicsData::refresh()
 
 	unbindActiveVAO();
 
-
+	
+	needToRefresh = false;
 }
 
 void GraphicsData::render()

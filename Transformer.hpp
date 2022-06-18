@@ -13,12 +13,17 @@ namespace TransformerDefinition
 	class ModelMatrix
 	{
 		public:
-
+			struct Transform {
+				v3 rotation = v3(0);
+				v3 translation = v3(0);
+				v3 scale = v3(1);
+				v3 worldTranslation = v3(0);
+			};
 			ModelMatrix();
 			~ModelMatrix();
 
 			void resetModelMatrix();
-			void applyAllTransforms();
+			void setModelMatrix();
 			
 			// rotate the model x rad
 			void rotateX(const float x);
@@ -62,11 +67,14 @@ namespace TransformerDefinition
 			// set scale in all axes
 			void setScale(const v3 t);
 
-			m4 model = m4(1.0f);
+			m4 model = m4(1);
 
-			v3 translationValues = v3(0, 0, 0);
+			Transform transform;
+			v3 position;
+
+			v3 translationValues = v3(0);
 			m4 rotationMatrix = m4(1);
-			v3 scaleValues = v3(1, 1, 1);
+			v3 scaleValues = v3(1);
 	};
 
 	class CameraTransformer
@@ -80,9 +88,14 @@ namespace TransformerDefinition
 			m4 projection = m4(1.0f);
 
 			v3 pos;
+			v3 startPos;
+			v3 focalPoint;
 
 			v3 orientation;
+			
 			v3 up;
+
+
 	};
 
 }

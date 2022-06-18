@@ -71,6 +71,7 @@ namespace DebugConsoleDefinition
 		PRINT,
 		SET,
 		DEBUG,
+        SETTINGS,
 		UNDO,
 		REDO,
 		DEMO,
@@ -78,12 +79,17 @@ namespace DebugConsoleDefinition
 		STROKE,
 		COLOR,
 		NOISE,
+		DIRAC,
 		SMOOTHEDCOLOR,
         SUBDLEVEL,
 		IMPORT,
 		EXPORT,
-		FILEMANGEMENT
-
+		FILEMANGEMENT,
+        DRAWMODE,
+        ALLOCTANTS,
+        LEAFOCTANTS,
+        INTERSECTEDOCTANTS,
+        INTERSECTEDLEAFOCTANTS
     };
 
     const unordered_map<string, CONSOLECOMMAND> commandMap = {
@@ -103,6 +109,7 @@ namespace DebugConsoleDefinition
 		{"print", PRINT},
 		{"set", SET},
 		{"debug", DEBUG},
+        {"settings", SETTINGS},
 		{"undo", UNDO},
 		{"redo", REDO},
 		{"demo", DEMO},
@@ -115,6 +122,12 @@ namespace DebugConsoleDefinition
 		{"file", FILEMANGEMENT},
 		{"import", IMPORT},
 		{"export", EXPORT},
+		{"dirac", DIRAC},
+        {"drawmode", DRAWMODE},
+        {"alloctants", ALLOCTANTS},
+        {"leafoctants", LEAFOCTANTS},
+        {"intersectedoctants", INTERSECTEDOCTANTS},
+        {"intersectedleafoctants", INTERSECTEDLEAFOCTANTS}
 	};
 
     static CONSOLECOMMAND getCommand(string command)

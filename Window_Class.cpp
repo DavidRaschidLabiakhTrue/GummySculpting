@@ -7,7 +7,7 @@ namespace Window_Class
 	{
 		Window* ActiveWindow = UnassignedPTR;
 		WinPtr ActiveWindowPTR = UnassignedPTR;
-		InputBuffer inputBuffer;
+		InputBuffer inputBuffer = InputBuffer();
 	}
 
 	// implementation of GLFW callback functions.
@@ -22,14 +22,16 @@ namespace Window_Class
 
 		void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 		{
-			WindowGlobal::ActiveWindow->scroll_state = yoffset;
+			WindowGlobal::ActiveWindow->scroll_val = yoffset;
 		}
 
 		void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			if (action == GLFW_PRESS)
 			{
+
 				WindowGlobal::inputBuffer.push_back(key);
+
 			}
 		}
 	}

@@ -42,7 +42,7 @@ namespace Window_Class
 
 		Public_Variables
 
-			int scroll_state = 0; // holds the scroll state.
+			double scroll_val = 0; // holds the scroll value.
 			bool canRender = true;
 		private:
 			

@@ -266,4 +266,5 @@ bool KeyInputDefinition::isPressed(int keycode)
 	{
 		return true;
 	}
+	return false;
 }

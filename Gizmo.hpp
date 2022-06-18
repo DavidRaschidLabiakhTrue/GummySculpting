@@ -55,7 +55,8 @@ namespace GizmoDefinition
 		~Gizmo();
 		Gizmo(bool trueConstructor);
 
-		void queryGizmo(MeshReference cMesh);
+		void checkInput(MeshReference cMesh);
+		bool queryTransforms(MeshReference cMesh);
 		void drawGizmo();
 		void setState(GizmoState newState);
 		void iterateState();
@@ -90,10 +91,14 @@ namespace GizmoDefinition
 		v3 startMousePosition;
 		v3 prevMousePosition;
 		bool didChangeState = false;
+		bool didTransform = false;
+		v3 gizmoPosition = v3(0);
+
+		// I like there are no pointers anymore.
 
 		//Translate
 		vector<Handle> arrows;
-		string arrowFileName = "arrow.gum";
+		string arrowFileName = "arrow.gum"; 
 		float arrowScale = 0.5f;
 		
 		//Rotate

@@ -14,14 +14,32 @@ TransformerDefinition::ModelMatrix::~ModelMatrix()
 void TransformerDefinition::ModelMatrix::resetModelMatrix()
 {
 	this->model = m4(1.0f);
+
 }
 
-void TransformerDefinition::ModelMatrix::applyAllTransforms()
+void TransformerDefinition::ModelMatrix::setModelMatrix()
 {
-	resetModelMatrix();
-	setScale(scaleValues);	
-	setRotation(rotationMatrix);
-	setTranslation(translationValues);
+	//resetModelMatrix();
+	//setScale(scaleValues);	
+	//setRotation(rotationMatrix);
+	//setTranslation(translationValues);
+
+	v3 s = transform.scale;
+	v3 r = transform.rotation;
+
+	say "x:" spc r.x spc "y:" spc r.y spc "z:" spc r.z done;
+
+	model = scale(s);
+	model *= rotate(r.z, Basis::Z);
+	model *= rotate(r.y, Basis::Y);
+	model *= rotate(r.x, Basis::X);
+
+	// Add world translation
+	model[3][0] += transform.worldTranslation.x;
+	model[3][1] += transform.worldTranslation.y;
+	model[3][2] += transform.worldTranslation.z;
+
+	position = v3(model[3][0], model[3][1], model[3][2]);
 }
 
 void TransformerDefinition::ModelMatrix::rotateX(const float x)
@@ -62,7 +80,7 @@ void TransformerDefinition::ModelMatrix::rotateZ_deg(const float z)
 
 void TransformerDefinition::ModelMatrix::setRotation(const m4 r)
 {
-	model = model * rotationMatrix;
+	model = rotationMatrix * model;
 }
 
 void TransformerDefinition::ModelMatrix::translateX(const float x)
@@ -85,9 +103,8 @@ void TransformerDefinition::ModelMatrix::translateZ(const float z)
 
 void TransformerDefinition::ModelMatrix::setTranslation(const v3 t)
 {
-	model[3][0] = t.x;
-	model[3][1] = t.y;
-	model[3][2] = t.z;
+	m4 translationMatrix = translate(t);
+	model = translationMatrix * model;
 }
 
 void TransformerDefinition::ModelMatrix::scaleUniform(const float scalar)

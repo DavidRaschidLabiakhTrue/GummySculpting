@@ -25,13 +25,12 @@ inline void RendererDefinition::Renderer::drawStandard()
 	const int meshSize = meshes.size();
 	for (int i = 0; i < meshSize; i++)
 	{
-		if (meshes[i].needToRefresh)
-		{
-			meshes[i].refresh();
-			meshes[i].needToRefresh = false;
-		}
 		StandardShader.uploadModelMatrixToGPU(meshes[i].model);
 		meshes[i].render();
+	}
+	if (activeMesh->octreeWireframe.shouldDraw)
+	{
+		activeMesh->drawOctreeWireframe();
 	}
 
 }
@@ -50,7 +49,6 @@ inline void RendererDefinition::Renderer::drawWireFrame()
 			StandardShader.uploadModelMatrixToGPU(meshes[i].model);
 			meshes[i].render();
 		}
-
 		GL::drawFilled();
 	}
 	
