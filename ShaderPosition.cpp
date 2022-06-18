@@ -42,10 +42,23 @@ void ShaderPosition::loadCameraMatrix()
 	position = 0;
 }
 
+
+
+void ShaderPositionDefinition::ShaderPosition::loadProjectionMatrix()
+{
+	slot = "projectionMatrix";
+	position = 15;
+}
+
+void ShaderPositionDefinition::ShaderPosition::loadViewMatrix()
+{
+	slot = "viewMatrix";
+	position = 20;
+}
 void ShaderPosition::loadModelMatrix()
 {
 	slot = "modelMatrix";
-	position = 1;
+	position = 25;
 }
 
 void ShaderPositionDefinition::ShaderPosition::loadOffset()
@@ -61,6 +74,18 @@ void ShaderPositionDefinition::ShaderPosition::loadScale()
 	position = 2;
 }
 
+void ShaderPositionDefinition::ShaderPosition::loadStaticColor()
+{
+	slot = "staticColor";
+	position = 10;
+}
+
+void ShaderPositionDefinition::ShaderPosition::loadStaticColorBool()
+{
+	slot = "useStaticColor";
+	position = 11;
+}
+
 ShaderPositionData::ShaderPositionData()
 {
 	position.loadPosition();
@@ -70,6 +95,10 @@ ShaderPositionData::ShaderPositionData()
 	modelMatrix.loadModelMatrix();
 	offset.loadOffset();
 	scale.loadScale();
+	staticColor.loadStaticColor();
+	staticColorBool.loadStaticColorBool();
+	view.loadViewMatrix();
+	projection.loadProjectionMatrix();
 }
 
 ShaderPositionData::~ShaderPositionData()

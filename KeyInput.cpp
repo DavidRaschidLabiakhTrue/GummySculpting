@@ -2,7 +2,8 @@
 Usage WindowGlobal;
 Usage KeyInputDefinition;
 
-bool KeyInputDefinition::CheckIfAnyKeyPressed()
+
+bool KeyInputDefinition::CheckIfAnyKeyHeld()
 {
 	struct funcs { static bool IsLegacyNativeDupe(ImGuiKey key) { return key < 512 && ImGui::GetIO().KeyMap[key] != -1; } }; // Hide Native<>ImGuiKey duplicates when both exists in the array
 	const ImGuiKey key_first = 0;
@@ -20,7 +21,7 @@ bool KeyInputDefinition::CheckIfAnyKeyPressed()
 	return false;
 }
 
-bool KeyInputDefinition::isPressed(KeyInputCode keycode)
+bool KeyInputDefinition::isHeld(KeyInputCode keycode)
 {
 	
 	switch (keycode)
@@ -139,7 +140,7 @@ bool KeyInputDefinition::isPressed(KeyInputCode keycode)
     return false;
 }
 
-bool KeyInputDefinition::isNotPressed(KeyInputCode keycode)
+bool KeyInputDefinition::isNotHeld(KeyInputCode keycode)
 {
 
 	switch (keycode)
@@ -257,4 +258,12 @@ bool KeyInputDefinition::isNotPressed(KeyInputCode keycode)
 	}
 	return false;
 	
+}
+
+bool KeyInputDefinition::isPressed(int keycode)
+{
+	if (find(inputBuffer.begin(), inputBuffer.end(), keycode) != inputBuffer.end())
+	{
+		return true;
+	}
 }

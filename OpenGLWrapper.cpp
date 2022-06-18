@@ -61,3 +61,9 @@ void GL::drawLined()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
+
+// clears all depth information to allow objects to be drawn on top of currently drawn objects
+void GL::clearDepthBuffer()
+{
+	glClear(GL_DEPTH_BUFFER_BIT);
+}

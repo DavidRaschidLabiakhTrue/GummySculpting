@@ -68,23 +68,23 @@ void CameraDefinition::Camera::checkKeyInput()
 	// Handles key inputs
 	if(!io.WantCaptureMouse)
 	{
-		if (CheckKeyPressed(GLFW_KEY_W))
+		if (CheckKeyHeld(GLFW_KEY_W))
 		{
 			pos += speed * orientation;
 
 		}
-		else if (CheckKeyPressed(GLFW_KEY_S))
+		else if (CheckKeyHeld(GLFW_KEY_S))
 		{
 			pos += speed * -orientation;
 
 		}
 
-		if (CheckKeyPressed(GLFW_KEY_A))
+		if (CheckKeyHeld(GLFW_KEY_A))
 		{
 			pos += speed * -glm::normalize(glm::cross(orientation, up));
 
 		}
-		else if (CheckKeyPressed(GLFW_KEY_D))
+		else if (CheckKeyHeld(GLFW_KEY_D))
 		{
 			pos += speed * glm::normalize(glm::cross(orientation, up));
 
@@ -100,21 +100,21 @@ void CameraDefinition::Camera::checkKeyInput()
 		}
 		*/
 
-		if (CheckKeyPressed(GLFW_KEY_R))
+		if (CheckKeyHeld(GLFW_KEY_R))
 		{
 			//resetViewAndPos(); // unimplemented
 		}
-		if (CheckKeyPressed(GLFW_KEY_SPACE))
+		if (CheckKeyHeld(GLFW_KEY_SPACE))
 		{
 			pos += speed * up;
 		}
-		else if (CheckKeyPressed(GLFW_KEY_X))
+		else if (CheckKeyHeld(GLFW_KEY_X))
 		{
 			pos += speed * -up;
 		}
 
 		// speed
-		if (CheckKeyPressed(GLFW_KEY_LEFT_SHIFT))
+		if (CheckKeyHeld(GLFW_KEY_LEFT_SHIFT))
 		{
 			speed = 0.04f;
 		}
@@ -127,7 +127,7 @@ void CameraDefinition::Camera::checkKeyInput()
 
 void CameraDefinition::Camera::checkMouseInput()
 {
-	if (CheckMousePressed(GLFW_MOUSE_BUTTON_MIDDLE))
+	if (CheckMouseHeld(GLFW_MOUSE_BUTTON_MIDDLE))
 	{
 		const auto winDim = WindowDimensions(); // get the window dimensions.
 

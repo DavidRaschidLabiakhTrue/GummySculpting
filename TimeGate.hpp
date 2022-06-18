@@ -6,6 +6,8 @@
 namespace TimeGateDefinition
 {
 	// gates function call based on time ticks.
+	extern double nowTime;
+	void tick();
 	class TimeGate
 	{
 		public:
@@ -13,15 +15,15 @@ namespace TimeGateDefinition
 			TimeGate();
 			TimeGate(double tickInterval);
 
-			void begin();
+
 			void update();
-			void tick();
+
 			const bool canUpdate();
 
 			~TimeGate();
 
 			double lastTime;
-			double nowTime;
+
 			const double RATE_INTERVAL;
 	};
 }

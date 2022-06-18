@@ -90,6 +90,8 @@ void GraphicsData::refresh()
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void*)offsetof(V3D, V3D::normal)); // color data reserves 4 slots.
 
 	unbindActiveVAO();
+
+
 }
 
 void GraphicsData::render()
@@ -99,4 +101,14 @@ void GraphicsData::render()
 	glDrawElements(GL_TRIANGLES, triangleCountAsindiceCount(), GL_UNSIGNED_INT, NULL); // this is what actually draws to the screen
 
 	GL::unbindActiveVAO();
+}
+
+void GraphicsData::invertFaces()
+{
+	forall(tri, this->triangles)
+	{
+		int temp = tri.indice[1];
+		tri.indice[1] = tri.indice[2];
+		tri.indice[2] = temp;
+	}
 }

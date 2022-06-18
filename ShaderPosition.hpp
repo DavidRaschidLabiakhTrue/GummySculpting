@@ -26,9 +26,13 @@ namespace ShaderPositionDefinition
 
 		void loadCameraMatrix(); // load camera matrix shader data
 		void loadModelMatrix(); // load model matrix shader data
+		void loadProjectionMatrix();
+		void loadViewMatrix();
 
 		void loadOffset();
 		void loadScale();
+		void loadStaticColor();
+		void loadStaticColorBool();
 	};
 
 	// basically a global constant that contains all relevant data needed.
@@ -37,14 +41,18 @@ namespace ShaderPositionDefinition
 		public:
 		Construct ShaderPositionData();
 		Construct ~ShaderPositionData();
+
 		ShaderPosition position;
 		ShaderPosition color;
 		ShaderPosition data;
 		ShaderPosition cameraMatrix;
 		ShaderPosition modelMatrix;
+		ShaderPosition projection;
+		ShaderPosition view;
 		ShaderPosition offset;
 		ShaderPosition scale;
-		
+		ShaderPosition staticColor;
+		ShaderPosition staticColorBool;
 	};
 
 	extern ShaderPositionData ShaderSlotInfo;

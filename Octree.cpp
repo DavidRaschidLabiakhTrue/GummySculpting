@@ -2,7 +2,7 @@
 #include "VertexIDHashing.hpp"
 
 using namespace OctreeDefinition;
-
+concurrency::concurrent_vector<unique_ptr<mutex>> octantMutexes;
 /**
  * @brief Print octree information for debugging.
  */
@@ -19,8 +19,8 @@ void OctreeDefinition::Octree::octreePrintStats() ONOEXCEPT
     say "\tVertices: " << verticeCount() done;
     say "\tTriangles:" spc totalTriangles() done;
     say "\tOctants:" spc octants.size() done;
-    say "\tTriangles in Root:" spc octants[root].triangleIDs.size() done;
-    say "\tLeaves:" spc leaves.size() done;
+    say "\tTriangles in Root:" spc octants[root].triangleIDs->size() done;
+    // say "\tLeaves:" spc leaves.size() done;
 
     int count = 0; // Counts leaves and pseudo-leaves
     int owt = 0;   // Octants with triangles
@@ -32,7 +32,7 @@ void OctreeDefinition::Octree::octreePrintStats() ONOEXCEPT
             count++;
         }
 
-        if (o.triangleIDs.size())
+        if (o.triangleIDs->size())
         {
             owt++;
             if (o.octantState == OctantState::OctantNotEmptyInternal)
@@ -86,7 +86,7 @@ void OctreeDefinition::Octree::testOctree() ONOEXCEPT
     int count = 0;
     foreach (octant, octants)
     {
-        count += (int)octant.triangleIDs.size();
+        count += (int)octant.triangleIDs->size();
     }
     say "Triangles in Octree: " << count done;
     say "Triangles in Mesh (should be same ^): " << totalTriangles() done;
@@ -99,7 +99,7 @@ void OctreeDefinition::Octree::testOctree() ONOEXCEPT
     count = 0;
     foreach (octant, octants)
     {
-        count += (int)octant.triangleIDs.size();
+        count += (int)octant.triangleIDs->size();
     }
     say "Triangles in Octree after Removal (should be 0): " << count done;
 
@@ -118,9 +118,10 @@ void OctreeDefinition::Octree::testOctree() ONOEXCEPT
  */
 void OctreeDefinition::Octree::buildOctree() ONOEXCEPT
 {
-    say "Initializing Octree...";
+    say "Initializing Octree..." done;
 
-    TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
+    // TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
+    loadTriangleOctantList();
 
     // Adjust the extents of the mesh vertices wrt the center
     float maxExtent = compMax(abs(this->center - limMax));
@@ -132,16 +133,13 @@ void OctreeDefinition::Octree::buildOctree() ONOEXCEPT
     rootOctant.octantCenter = this->center;
     rootOctant.octantHalfSize = glm::max(maxExtent, minExtent) * octreeBuffer;
     // rootOctant.octantState = ;
-    octants.emplace_back(rootOctant);
-
-    say "done" done;
+    octants.push_back(rootOctant);
+    octantMutexes.push_back(make_unique<mutex>());
 
     // Insert all triangles into the octree
-    int triangleCount = totalTriangles();
-    for (int i = 0; i < triangleCount; i++)
-    {
-        Octree::insertTriangle(i);
-    }
+    insertTrianglesParallel();
+
+    say "Octree Initialization Complete" done;
 }
 
 /**
@@ -151,6 +149,7 @@ void OctreeDefinition::Octree::buildOctree() ONOEXCEPT
 void OctreeDefinition::Octree::clearOctree() ONOEXCEPT
 {
     octants.clear();
+    octantMutexes.clear();
     octreeDepth = 0;
     octreeCurrentDepth = 0;
     triangleToOctantList.clear();
@@ -170,6 +169,15 @@ void OctreeDefinition::Octree::rebuildOctree() ONOEXCEPT
     buildOctree();
 }
 
+void Octree::loadTriangleOctantList() ONOEXCEPT {
+    // triangleToOctantList.clear();
+    const int triCount = totalTriangles();
+    triangleToOctantList.reserve(triCount);
+    for (int i = 0; i < triCount; i++) {
+        triangleToOctantList.push_back(-1);
+    }
+}
+
 /**
  * @brief Resize octree to fit the given triangle by creating a new root
  * octant and placing the old root as a child
@@ -178,18 +186,17 @@ void OctreeDefinition::Octree::rebuildOctree() ONOEXCEPT
  */
 void OctreeDefinition::Octree::resizeOctree(TriangleID tri) ONOEXCEPT
 {
-    // If the depth limit is currently reached, increase limit to allow resizing
-    if (octreeDepth == octreeDepthLimit)
-    {
-        octreeDepth++;
-        octreeDepthLimit++;
-    }
-
     v3 triangleCentroid = getTriangleCentroid(tri); // Get the triangle's centroid
 
     // Continuously resize until triangle fits into the root octant
     while (!isTriangleInOctantBounds(tri, root))
     {
+        // If the depth limit is currently reached, increase limit to allow resizing
+        if (octreeDepth == octreeDepthLimit)
+        {
+            octreeDepth++;
+            octreeDepthLimit++;
+        }
 
         Octant oldRoot = octants[root]; // Save oldRoot to replace one of the new root's children
 
@@ -228,9 +235,9 @@ void OctreeDefinition::Octree::resizeOctree(TriangleID tri) ONOEXCEPT
         oldRoot.octantIndex = oldRootNewIndex;
         octants[oldRootNewIndex] = oldRoot;
 
-        foreach (triangleID, oldRoot.triangleIDs)
+        foreach (triangleID, *(oldRoot.triangleIDs))
         {
-            triangleToOctantList[triangleID].octantIndex = oldRootNewIndex;
+            triangleToOctantList[triangleID] = oldRootNewIndex;
         }
 
         // Adjust the parent values of the old roots children to point to its new index
@@ -242,6 +249,67 @@ void OctreeDefinition::Octree::resizeOctree(TriangleID tri) ONOEXCEPT
             }
         }
     }
+}
 
-    // octreeReinsertTriangles();
+/**
+ * @brief Resize octree to fit the given triangle by creating a new root
+ * octant and placing the old root as a child
+ *
+ * @param tri
+ */
+mutex mtxResize;
+void OctreeDefinition::Octree::resizeOctreeParallel(TriangleID tri) ONOEXCEPT
+{
+    // Only one thread can resize at a time
+    lock_guard<mutex> lock(mtxResize);
+
+    v3 triangleCentroid = getTriangleCentroid(tri); // Get the triangle's centroid
+
+    // Loop until triangle fits
+    while (!isTriangleInOctantBounds(tri, root))
+    {
+        if (octreeDepth == octreeDepthLimit)
+        {
+            octreeDepth++;
+            octreeDepthLimit++;
+        }
+        OctantReference oldRoot = octants[root]; // Save oldRoot to replace one of the new root's children
+
+        // Get morton code of triangle centroid to determine direction to grow octree
+        OctantPosition newRootDirection = (OctantPosition)mortonCodeHash(triangleCentroid, oldRoot.octantCenter);
+        v3 newRootPositionVector = octantPositionVectors[newRootDirection]; // Vector from old root to new root
+
+        // Adjusted halfsize removing looseness
+        // New Root's halfsize, already loose no need for adjustment
+        float oldRootAdjustedHalfSize = (float)(oldRoot.octantHalfSize / octreeLooseness);
+        float newRootHalfsize = oldRootAdjustedHalfSize * 2;
+
+        // Adjusted old root center, based on old root's center and adjusted half size
+        // New Root's Center based on old root's center and adjusted half size
+        // Obtain morton code of old root in relation to new root
+        v3 oldRootAdjustedCenter = oldRoot.octantCenter - newRootPositionVector * (oldRoot.octantHalfSize - oldRootAdjustedHalfSize);
+        v3 newRootCenter = oldRootAdjustedCenter + newRootPositionVector * oldRootAdjustedHalfSize;
+        OctantPosition oldRootNewPosition = (OctantPosition)mortonCodeHash(oldRootAdjustedCenter, newRootCenter);
+
+        Octant newRoot;                                          // Initialize new root
+        newRoot.octantState = OctantEmptyInternal;               // Assign new root state
+        newRoot.octantHalfSize = newRootHalfsize;                // Assign new root halfsize
+        newRoot.octantCenter = newRootCenter;                    // Assign new root center
+        newRoot.children[oldRootNewPosition] = root;             // Place old root as child
+        OctantIndex octantIndex = insertOctantParallel(newRoot); // insert new root into octree
+        octants[root].parent = octantIndex;                      // Set old root's parent to new root
+
+        // Create new root's children
+        for (int i = 0; i < 8; i++)
+        {
+            if (i == oldRootNewPosition) // Skip old root's position
+            {
+                continue;
+            }
+            octants[octantIndex].children[i] = createChildOctantParallel((OctantPosition)i, octantIndex);
+            // OctantIndex childIndex = createChildOctantParallel((OctantPosition)i, octantIndex);
+            // octantMutexes[childIndex]->unlock();
+        }
+        root = octantIndex; // Set root to new root
+    }
 }

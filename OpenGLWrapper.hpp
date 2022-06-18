@@ -16,6 +16,7 @@ namespace GL
 	extern inline void unbindActiveVAO(); // unbinds current VAO binding to GPU.
     extern inline void drawFilled();
 	extern inline void drawLined();
+	extern inline void clearDepthBuffer();
 	extern inline void set3DRenderingParameters();
 
 	extern inline void printOpenGLEnviromentInfo();

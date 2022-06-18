@@ -1,10 +1,18 @@
 #include "Mesh.hpp"
 #include <limits>
 
+namespace MeshDefinition
+{
+	int MeshIDTracker = 0;
+}
+
 using namespace MeshDefinition;
+
+
 
 Mesh::Mesh()
 {
+	this->meshID = MeshIDTracker++;
 }
 
 Mesh::~Mesh()
@@ -43,9 +51,22 @@ void MeshDefinition::Mesh::computeNormals()
 	say "Normals Calculated" done;
 }
 
+void Mesh::applyModelMatrix()
+{
+	const auto totalvert = this->verticeCount();
+	for (auto i = 0; i < totalvert; i++)
+	{
+		vertices[i].position = v3(model * v4(vertices[i].position, 1.0));
+	}
+	this->resetModelMatrix();
+	computeNormals();
+	rebuildOctree();
+	this->needToRefresh = true;
+}
+
 void MeshDefinition::Mesh::recomputeNormals(HistoryKeyVertexMap& apply)
 {
-	const int totTri = this->affectedTriangles.size();
+	const int totTri = (int)this->affectedTriangles.size();
 
 	unordered_map< TriangleID, v3> newNormals;
 	newNormals.reserve(totTri);

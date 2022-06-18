@@ -17,7 +17,7 @@ void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReferenc
 
 
 	Algos::storeCurrentElementsToMap(apply, cHistory, cMesh);
-	Algos::applyMaptoMeshThenApplySmoothedMap(apply, cMesh);
+	Algos::applyMaptoMeshThenApplySmoothedMap(apply, cMesh, 1);
 	for (int i = 0; i < iterations; i++)
 	{
 		forall(element, apply)
@@ -26,7 +26,7 @@ void Sculpting::Stroking::applyStroke(MeshReference cMesh, SculptPayloadReferenc
 		}
 	}
 
-	Algos::applyMaptoMeshThenApplySmoothedMap(apply, cMesh);
+	Algos::applyMaptoMeshThenApplySmoothedMap(apply, cMesh, 1);
 
 	cMesh.recomputeNormals(apply);
 

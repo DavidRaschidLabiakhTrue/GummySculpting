@@ -75,6 +75,7 @@ class MainProgram
 		void processRendererCommand(StringList& arguments, int numArgs); // process renderer command
 		void processMeshCommand(StringList& arguments, int numArgs); // process mesh command
 		void processVariableCommand(StringList& arguments, int numArgs); // process variable command
+		void processFileManagementCommand(StringList& arguments, int numArgs);
 		// pair< getVariable()
 
 		void processSculptorCommand(StringList& arguments, int numArgs);
@@ -109,11 +110,12 @@ class MainProgram
 
 		bool showDebugConsole = false;
 		bool showDemoDebugger = false;
+
 		VisualObjects visualObjects;
 
-		TimeGate cameraGate = TimeGate(45.0f);
+		TimeGate cameraGate = TimeGate(30);
 		TimeGate sculptGate = TimeGate(15.0f);
-		TimeGate renderGate = TimeGate(30.0f);
+		TimeGate renderGate = TimeGate(45.0f);
 
 
 };

@@ -11,13 +11,16 @@ void MeshFileLoader::loadGumFile(string filepath, Mesh& mesh)
 	mesh.generateGraphsAndTrees();
 }
 
-void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh)
+// static mesh overload
+void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh, bool shouldBind)
 {
 	GumLoading::readGumMesh(filepath, mesh);
 
-	mesh.collectStats();
-	mesh.bind(); // this mesh is going to be only modified in the shader as it is static.
-
+	if (shouldBind)
+	{
+		mesh.collectStats();
+		mesh.bind(); // this mesh is going to be only modified in the shader as it is static.
+	}
 }
 
 namespace MeshFileLoader::Util

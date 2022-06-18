@@ -2,8 +2,8 @@
 
 using namespace TopBarDefinition;
 
-static int toolbarHeight = 45;
-static int buttonHeight = 30;
+static float toolbarHeight = 45;
+static float buttonHeight = 30;
 
 ToolbarDefinition::Toolbar::Toolbar()
 {

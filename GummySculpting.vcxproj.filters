@@ -202,14 +202,26 @@
     <ClCompile Include="Lighting.cpp">
       <Filter>Rendering\Lighting</Filter>
     </ClCompile>
-    <ClCompile Include="Gizmo.cpp">
-      <Filter>Mechanics\Gizmos\Imple</Filter>
-    </ClCompile>
     <ClCompile Include="StaticMesh.cpp">
       <Filter>3D Objects\Static Mesh</Filter>
     </ClCompile>
     <ClCompile Include="TimeGate.cpp">
       <Filter>Utility and Macros\Time Gate</Filter>
+    </ClCompile>
+    <ClCompile Include="Gizmo.cpp">
+      <Filter>Mechanics\Gizmos\Imple</Filter>
+    </ClCompile>
+    <ClCompile Include="Transformer.cpp">
+      <Filter>Mechanics\Transformer</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugLine.cpp">
+      <Filter>Rendering\Debug\DebugLine</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Rendering\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugPlane.cpp">
+      <Filter>Rendering\Debug\DebugPlane</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -429,14 +441,29 @@
     <ClInclude Include="Lighting.hpp">
       <Filter>Rendering\Lighting</Filter>
     </ClInclude>
-    <ClInclude Include="Gizmo.hpp">
-      <Filter>Mechanics\Gizmos\Imple</Filter>
-    </ClInclude>
     <ClInclude Include="TimeGate.hpp">
       <Filter>Utility and Macros\Time Gate</Filter>
     </ClInclude>
     <ClInclude Include="StaticMesh.hpp">
       <Filter>3D Objects\Static Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Gizmo.hpp">
+      <Filter>Mechanics\Gizmos\Imple</Filter>
+    </ClInclude>
+    <ClInclude Include="Transformer.hpp">
+      <Filter>Mechanics\Transformer</Filter>
+    </ClInclude>
+    <ClInclude Include="MathDefinitions.cpp">
+      <Filter>Mathematics\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugLine.hpp">
+      <Filter>Rendering\Debug\DebugLine</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.hpp">
+      <Filter>Rendering\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugPlane.hpp">
+      <Filter>Rendering\Debug\DebugPlane</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -472,6 +499,21 @@
     </None>
     <None Include="StaticMeshShader.vert">
       <Filter>Rendering\Shaders\Shader Files\Static Mesh Shader</Filter>
+    </None>
+    <None Include="arrow.gum">
+      <Filter>3D Models\gum Models</Filter>
+    </None>
+    <None Include="GridShader.frag">
+      <Filter>Rendering\Shaders\Shader Files\Grid</Filter>
+    </None>
+    <None Include="GridShader.vert">
+      <Filter>Rendering\Shaders\Shader Files\Grid</Filter>
+    </None>
+    <None Include="ring.gum">
+      <Filter>3D Models\gum Models</Filter>
+    </None>
+    <None Include="scale_arm.gum">
+      <Filter>3D Models\gum Models</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -792,6 +834,24 @@
     </Filter>
     <Filter Include="Rendering\Shaders\Shader Files\Static Mesh Shader">
       <UniqueIdentifier>{a138c809-f1b3-4678-aa86-8df514566261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Transformer">
+      <UniqueIdentifier>{500e6174-be7c-4aff-9e5a-2044bcab53f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader Files\Grid">
+      <UniqueIdentifier>{688d1aa1-6354-44e1-9504-2788ad7406a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility and Macros\Boost">
+      <UniqueIdentifier>{0784c592-add2-49e3-88d2-1ac93a51d5ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Debug">
+      <UniqueIdentifier>{5710fd8e-310d-42fd-ac01-76d044426bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Debug\DebugLine">
+      <UniqueIdentifier>{0947d1ee-1aac-4886-8ff9-b1e8a707a186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Debug\DebugPlane">
+      <UniqueIdentifier>{20edbe0d-f8af-478b-9c30-1657cd32d906}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

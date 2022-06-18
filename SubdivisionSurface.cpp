@@ -30,6 +30,9 @@ using namespace Subdivision;
  */
 void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bool refreshDisplay) SUBNOEXCEPT
 {
+    // int nThreads = glm::max((int)std::thread::hardware_concurrency(), 1);
+    // vector<thread> threads;
+
     // Loops for number of levels to subdivide
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
     {
@@ -51,7 +54,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
 
         // Fill midpoint map with all midpoints
         // Parallelizable
-        for (KeyData vertexID = 0; vertexID < vertexOffset; vertexID++)
+        for (KeyData vertexID = 0; vertexID < (KeyData)vertexOffset; vertexID++)
         {
             foreach (otherVertexID, edges[vertexID].vertexEdges)
             {
@@ -75,6 +78,19 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
             vertices[vertexID].triangleIDs.clear();
             vertices[vertexID].ABCDmap.clear();
         }
+        // for (int i = 0; i < nThreads; i++)
+        // {
+        //     int id = i;
+        //     threads.push_back(thread([&, id]() {
+        //         for (int vertexID = id; vertexID < vertexOffset; vertexID += nThreads)
+        //         {
+        //             edges[vertexID].vertexEdges.clear();
+        //             vertices[vertexID].triangleIDs.clear();
+        //             vertices[vertexID].ABCDmap.clear();
+        //         }
+        //     }));
+        // }
+        // joinAndClearThreads;
 
         // Fill triangle midpoint map with all triangle midpoints
         // Parallelizable
@@ -154,7 +170,7 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
     if (octreeRebuild)
     {
         // rebuildOctree();
-        octreeReinsertTriangles();
+        octreeReinsertTrianglesParallel();
     }
     if (refreshDisplay)
     {
@@ -170,12 +186,63 @@ inline v3 SubdivisionSurface::getEdgeMidpoint(KeyData v1, KeyData v2) SUBNOEXCEP
 // TODO: Need to adapt to include calculation for boundary vertices
 // Currently Assumes that all vertices are interior
 // Can Optimize with precomputed constants
+mutex loopmtx;
 void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh) SUBNOEXCEPT
 {
+    // int nThreads = glm::max((int)std::thread::hardware_concurrency(), 1);
+    // std::vector<std::thread> threads;
+
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
     {
         simpleSubdivision4to1(1, false, false); // 4:1 subdivision. First step of loop subdivision
-        Vertices newVertexList = vertices;      // New vertex list
+
+        Vertices newVertexList = vertices; // New vertex list
+
+        // vector<int> vertexIDs(vertexOffset);
+        // std::generate(std::execution::par, vertexIDs.begin(), vertexIDs.end(), [n = 0]() mutable { return n++; });
+
+        // for_each(std::execution::par_unseq, begin(vertexIDs), end(vertexIDs), [&](int vertexID) {
+        //     int k = (int)edges[vertexID].vertexEdges.size(); // Number of neighboring vertices
+        //     float beta = getBeta(k);                         // Get Beta
+        //     loopmtx.lock();
+        //     v3 ksum = sumNeighbors(edges[vertexID].vertexEdges); // Sum of neighboring vertices
+        //     loopmtx.unlock();
+        //     newVertexList[vertexID] = (vertices[vertexID].position * (1.0f - (k * beta))) + (ksum * beta);
+        // });
+
+        // vertexIDs = vector<int>((int)vertices.size() - vertexOffset);
+        // std::generate(std::execution::par, vertexIDs.begin(), vertexIDs.end(), [n = vertexOffset]() mutable { return n++; });
+
+        // for_each(std::execution::par_unseq, begin(vertexIDs), end(vertexIDs), [&](int vertexID) {
+        //     unordered_map<char, int> ABCDmap = vertices[vertexID].ABCDmap; // Map of ABCD vector
+        //     newVertexList[vertexID] = (0.375f * (vertices[ABCDmap['A']].position + vertices[ABCDmap['B']].position)) +
+        //                               (0.125f * (vertices[ABCDmap['C']].position + vertices[ABCDmap['D']].position));
+        // });
+
+        // int verticesSize = (int)vertices.size();
+        // for (int i = 0; i < nThreads; i++)
+        // {
+        //     int id = i;
+        //     threads.push_back(thread([&, id]() {
+        //         for (int vertexID = id; vertexID < vertexOffset; vertexID += nThreads)
+        //         {
+        //             int k = (int)edges[vertexID].vertexEdges.size(); // Number of neighboring vertices
+        //             float beta = getBeta(k);                         // Get Beta
+        //             loopmtx.lock();
+        //             v3 ksum = sumNeighbors(edges[vertexID].vertexEdges); // Sum of neighboring vertices
+        //             loopmtx.unlock();
+        //             newVertexList[vertexID] = (vertices[vertexID].position * (1.0f - (k * beta))) + (ksum * beta);
+        //         }
+
+        //         for (int vertexID = vertexOffset + id; vertexID < verticesSize; vertexID += nThreads)
+        //         {
+        //             unordered_map<char, int> ABCDmap = vertices[vertexID].ABCDmap; // Map of ABCD vector
+        //             newVertexList[vertexID] = (0.375f * (vertices[ABCDmap['A']].position + vertices[ABCDmap['B']].position)) +
+        //                                       (0.125f * (vertices[ABCDmap['C']].position + vertices[ABCDmap['D']].position));
+        //         }
+        //     }));
+        // }
+        // joinAndClearThreads;
 
         // Calculate new position for every original vertex before subdivision
         for (int vertexID = 0; vertexID < vertexOffset; vertexID++)
@@ -188,7 +255,7 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh) SUBNOEX
         }
 
         // Calculate new position for every vertex that was created during subdivision
-        int verticesSize = vertices.size();
+        int verticesSize = (int)vertices.size();
         for (int vertexID = vertexOffset; vertexID < verticesSize; vertexID++)
         {
             // vector<int> ABCD = vertices[vertexID].ABCD;                    // Get the ABCD vector for the vertex
@@ -240,10 +307,11 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh) SUBNOEX
 
         vertices = newVertexList;
     }
+
     if (rebuildRefresh)
     {
         // rebuildOctree();
-        octreeReinsertTriangles();
+        octreeReinsertTrianglesParallel();
         refresh();
     }
 }

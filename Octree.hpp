@@ -9,9 +9,13 @@
 #include "VertexIDHashing.hpp"
 
 #include <chrono>
+#include <mutex>
 #include <queue>
+#include <thread>
 #include <unordered_set>
-// #include <bits/stdc++.h>
+#include <concurrent_vector.h>
+#include <concurrent_unordered_set.h>
+#include <concurrent_queue.h>
 
 namespace OctreeDefinition
 {
@@ -34,7 +38,6 @@ namespace OctreeDefinition
 #else
 #define ONOEXCEPT noexcept
 #endif
-
     class Octree : public OctreeStats
     {
         public:
@@ -45,6 +48,10 @@ namespace OctreeDefinition
             void resizeOctree(TriangleID tri) ONOEXCEPT;
             void clearOctree() ONOEXCEPT;
             void rebuildOctree() ONOEXCEPT;
+            void loadTriangleOctantList() ONOEXCEPT;
+
+            // Parallel Octree functions
+            void resizeOctreeParallel(TriangleID tri) ONOEXCEPT;
 
             // OctreeOctant.cpp
             void subdivideOctant(OctantIndex octantID) ONOEXCEPT;
@@ -52,36 +59,58 @@ namespace OctreeDefinition
             OctantIndex findOctantForTriangle(TriangleID tri) ONOEXCEPT;
             bool isTriangleInOctantBounds(TriangleID tri, OctantIndex octantID) ONOEXCEPT;
 
+            // Parallel Octant Functions
+            OctantIndex insertOctantParallel(OctantReference octant) ONOEXCEPT;
+            OctantIndex createChildOctantParallel(OctantPosition octantPosition, OctantIndex parentIndex) ONOEXCEPT;
+            void subdivideOctantParallel(OctantIndex oix, int localDepth) ONOEXCEPT;
+            pair<OctantIndex, int> findOctantForTriangleParallel(TriangleID triangle, OctantIndex start) ONOEXCEPT;
+
             // OctreeElements.cpp
             bool insertTriangle(TriangleID tri) ONOEXCEPT;
+            bool insertTriangles() ONOEXCEPT;
             bool updateTriangleInOctree(TriangleID tri) ONOEXCEPT;
-            bool updateTrianglesInOctree(TriangleIDList tri) ONOEXCEPT;
+            bool updateTrianglesInOctree(TriangleIDList tris) ONOEXCEPT;
             bool removeTriangleFromOctree(TriangleID tri) ONOEXCEPT;
             void octreeReinsertTriangles();
             void updateAffectedTriangles();
+            void clearCollision() ONOEXCEPT;
+
+            // Parallel OctreeElements functions
+            bool insertTriangleParallel(TriangleID tri) ONOEXCEPT;
+            bool insertTrianglesParallel() ONOEXCEPT;
+            void octreeReinsertTrianglesParallel() ONOEXCEPT;
+            bool updateTriangleInOctreeParallel(TriangleID tri) ONOEXCEPT;
+            bool updateTrianglesInOctreeParallel(TriangleIDList tris) ONOEXCEPT;
+            bool removeTriangleFromOctreeParallel(TriangleID tri) ONOEXCEPT;
+            void updateAffectedTrianglesParallel() ONOEXCEPT;
 
             // OctreeIntersection.cpp
-            KeyList collectVerticesAroundCollisionOriginal(OctreeCollision collision, double range) ONOEXCEPT;
-            TriangleIDList collectTrianglesAroundCollisionOriginal(OctreeCollision collision, double range) ONOEXCEPT;
+            KeyList collectVerticesAroundCollisionOriginal(OctreeCollision collision, float range) ONOEXCEPT;
+            TriangleIDList collectTrianglesAroundCollisionOriginal(OctreeCollision collision, float range) ONOEXCEPT;
             OctreeCollision octreeRayIntersectionOriginal(v3 origin, v3 direction) ONOEXCEPT;
 
             void collectVerticesAroundCollision(float range) ONOEXCEPT;
-            void collectTrianglesAroundCollision(double range) ONOEXCEPT;
+            void collectTrianglesAroundCollision(float range) ONOEXCEPT;
             void octreeRayIntersection(v3 origin, v3 direction) ONOEXCEPT;
-            bool isOriginInOctantBounds(v3 origin, Octant octant) ONOEXCEPT;
+            bool isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT;
+
+            // Parallel OctreeIntersection functions
+            void collectVerticesAroundCollisionParallel(float range, bool loadAffectedTriangles = true) ONOEXCEPT;
 
             int mortonCodeHash(v3 point, v3 center) ONOEXCEPT; // returns the morton code position with respect to octant
 
             // List of octants which contain triangles
             // OctantIndexList activeOctants;
 
-            OctantList octants;
-            OctantList leaves;
+            concurrency::concurrent_vector<Octant> octants;
+            // OctantList octants;
+            // OctantList leaves;
 
             OctreeCollision collision;
             KeyList verticesInRange;
             TriangleIDList affectedTriangles;
             TriangleIDList trianglesInRange;
+            concurrency::concurrent_vector<OctantIndex> triangleToOctantList;
 
             // Plane normals may be wrong here, need to double check
             v3 planeNormals[3] = {
@@ -92,5 +121,4 @@ namespace OctreeDefinition
     };
 
 } // namespace OctreeDefinition
-
 #endif // Octree_HPP

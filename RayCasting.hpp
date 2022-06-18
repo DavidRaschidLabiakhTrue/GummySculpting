@@ -6,6 +6,10 @@
 #include "IndiceList.hpp"
 #include "Window_API.hpp"
 
+
+
+
+
 namespace RayCastDefinition
 {
 	using namespace GraphicsDataDefinition;
@@ -36,7 +40,7 @@ namespace RayCastDefinition
 			RV3D origin();
 			RV3D end();
 
-			bool shouldDrawRay = false;
+			bool shouldDrawRay = true;
 			v3 direction = v3(0,0,0);
 			void screenToWorld();
 			void bindRay();

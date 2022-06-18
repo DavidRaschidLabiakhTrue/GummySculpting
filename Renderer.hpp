@@ -26,6 +26,7 @@ namespace RendererDefinition
 
 			void setDrawWireOn();
 			void setDrawWireOff();
+			void clearDepthInfo();
 
 		protected:
 

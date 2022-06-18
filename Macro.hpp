@@ -6,6 +6,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <chrono>
+#include <thread>
 
 
 
@@ -45,6 +47,13 @@ namespace Macros
 	#define foreach(item,items) for(auto &item: (items))
 
 	#define variableVariantType variant<reference_wrapper<int>, reference_wrapper<float>, reference_wrapper<bool>>
+
+	#define getNThreads glm::max(1, (int)std::thread::hardware_concurrency())
+	#define joinThreads foreach(t, threads) {t.join();}
+	#define joinAndClearThreads joinThreads threads.clear();
+
+	#define timerStart auto start = std::chrono::system_clock::now()
+	#define timerEnd(name) say name spc "elapsed time" spc (std::chrono::duration<double>(std::chrono::system_clock::now() - start)).count() << "s" done
 }
 
 

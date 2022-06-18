@@ -59,7 +59,7 @@ RayCast::~RayCast()
 bool RayCastDefinition::RayCast::cast()
 {
 	auto& io = ImGui::GetIO();
-	if (!io.WantCaptureMouse && !CheckIfAnyKeyPressed() && CheckMousePressed(GLFW_MOUSE_BUTTON_LEFT))
+	if (!io.WantCaptureMouse && !CheckIfAnyKeyHeld() && CheckMouseHeld(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		screenToWorld();
 		return true;
@@ -119,7 +119,6 @@ void RayCastDefinition::RayCast::drawRay()
 
 	if (shouldDrawRay)
 	{
-		StandardShader.use();
 		bindVAO();
 		glDrawElements(GL_LINES, (GLsizei) indices.size(), GL_UNSIGNED_INT, NULL);
 		unbindActiveVAO();

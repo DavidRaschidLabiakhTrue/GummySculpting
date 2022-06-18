@@ -130,6 +130,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <Optimization>Disabled</Optimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +138,9 @@
       <AdditionalLibraryDirectories>$(ProjectDir)\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;nfd_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -157,6 +161,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <MinimalRebuild>false</MinimalRebuild>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -172,7 +177,10 @@
     <ClCompile Include="CameraNav.cpp" />
     <ClCompile Include="CameraParameters.cpp" />
     <ClCompile Include="Coloring.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DebuggingConsole.cpp" />
+    <ClCompile Include="DebugLine.cpp" />
+    <ClCompile Include="DebugPlane.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeList.cpp" />
     <ClCompile Include="Gizmo.cpp" />
@@ -217,6 +225,7 @@
     <ClCompile Include="ToolsWindow.cpp" />
     <ClCompile Include="TopBar.cpp" />
     <ClCompile Include="TopologyComputation.cpp" />
+    <ClCompile Include="Transformer.cpp" />
     <ClCompile Include="TriangleList.cpp" />
     <ClCompile Include="Indices.cpp" />
     <ClCompile Include="KeyInput.cpp" />
@@ -244,7 +253,10 @@
     <ClInclude Include="CameraNav.hpp" />
     <ClInclude Include="CameraParameters.hpp" />
     <ClInclude Include="Coloring.hpp" />
+    <ClInclude Include="Debug.hpp" />
     <ClInclude Include="DebuggingConsole.hpp" />
+    <ClInclude Include="DebugLine.hpp" />
+    <ClInclude Include="DebugPlane.hpp" />
     <ClInclude Include="Edge.hpp" />
     <ClInclude Include="EdgeList.hpp" />
     <ClInclude Include="Gizmo.hpp" />
@@ -266,6 +278,7 @@
     <ClInclude Include="IndiceList.hpp" />
     <ClInclude Include="Lighting.hpp" />
     <ClInclude Include="MainDirective.hpp" />
+    <ClInclude Include="MathDefinitions.cpp" />
     <ClInclude Include="MeshChangeLog.hpp" />
     <ClInclude Include="MeshHistory.hpp" />
     <ClInclude Include="Noise.hpp" />
@@ -290,6 +303,7 @@
     <ClInclude Include="ToolsWindow.hpp" />
     <ClInclude Include="TopBar.hpp" />
     <ClInclude Include="TopologyComputation.hpp" />
+    <ClInclude Include="Transformer.hpp" />
     <ClInclude Include="TriangleList.hpp" />
     <ClInclude Include="Indices.hpp" />
     <ClInclude Include="KeyInput.hpp" />
@@ -318,8 +332,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="4star.gum" />
+    <None Include="arrow.gum" />
     <None Include="cube.gum" />
+    <None Include="GridShader.frag" />
+    <None Include="GridShader.vert" />
     <None Include="plane.gum" />
+    <None Include="ring.gum" />
+    <None Include="scale_arm.gum" />
     <None Include="sphere.gum" />
     <None Include="StandardShader.frag" />
     <None Include="StandardShader.geom">

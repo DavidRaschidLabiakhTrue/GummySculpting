@@ -17,6 +17,8 @@
 #include "mini/ini.h"
 #include "nfd/nfd.h"
 
+//#include "KeyInput.hpp"
+
 
 #define DEFAULT_openglVersionMajor 4
 #define DEFAULT_openGLVersionMinor 6
@@ -27,6 +29,7 @@ namespace Window_Class
 
 	
 	typedef GLFWwindow* WinPtr;
+	typedef std::vector<int> InputBuffer;
 
 	// Window Class
 	// Singleton in nature.
@@ -60,7 +63,7 @@ namespace Window_Class
 
 		extern void scroll_callback(GLFWwindow* window, double xoffset, double yoffset); // mouse wheel scroll call back
 
-
+		extern void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods); // push key to input buffer when pressed
 
 	}
 
@@ -68,6 +71,7 @@ namespace Window_Class
 	{
 		extern Window* ActiveWindow;
 		extern WinPtr ActiveWindowPTR; // the window ptr everything else may access.
+		extern InputBuffer inputBuffer;
 	}
 	namespace winGB = WindowGlobal;
 }
