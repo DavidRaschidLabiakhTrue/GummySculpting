@@ -89,7 +89,8 @@ namespace DebugConsoleDefinition
         ALLOCTANTS,
         LEAFOCTANTS,
         INTERSECTEDOCTANTS,
-        INTERSECTEDLEAFOCTANTS
+        INTERSECTEDLEAFOCTANTS,
+		TESSELLATE
     };
 
     const unordered_map<string, CONSOLECOMMAND> commandMap = {
@@ -127,7 +128,9 @@ namespace DebugConsoleDefinition
         {"alloctants", ALLOCTANTS},
         {"leafoctants", LEAFOCTANTS},
         {"intersectedoctants", INTERSECTEDOCTANTS},
-        {"intersectedleafoctants", INTERSECTEDLEAFOCTANTS}
+        {"intersectedleafoctants", INTERSECTEDLEAFOCTANTS},
+		{"tessellate", TESSELLATE},
+
 	};
 
     static CONSOLECOMMAND getCommand(string command)

@@ -106,6 +106,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 		case BrushState::BrushDirac:
 			StrokingDirac::applyStrokeDirac(cMesh, payload, 1);
 			break;
+
 		case BrushState::BrushTessellate:
 			Tessellate::applyTessellate(cMesh, payload);
 			break;

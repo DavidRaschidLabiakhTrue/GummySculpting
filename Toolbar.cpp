@@ -13,6 +13,7 @@ static bool isSmoothedColorToggled = false;
 static bool isNoiseToggled = false;
 static bool isSimpleSubToggled = false;
 static bool isLoopToggled = false;
+static bool isTessellationToggled = false;
 
 ToolbarDefinition::Toolbar::Toolbar()
 {
@@ -220,6 +221,7 @@ void SimpleSubdivToggleButton()
 	ImGui::SameLine();
 }
 
+
 void loopToggleButton()
 {
 	int pushedColors = 0;
@@ -239,6 +241,28 @@ void loopToggleButton()
 		resetToggleButtons();
 		isLoopToggled = !isLoopToggled;
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "loopsubdivide", "1" });
+	};
+	ImGui::PopStyleColor(pushedColors);
+	ImGui::SameLine();
+}
+void TessellationToggleButton()
+{
+	int pushedColors = 0;
+	if (isSimpleSubToggled)
+	{
+		toggleTrue();
+		pushedColors += 4;
+	}
+	else
+	{
+		toggleFalse();
+		pushedColors += 4;
+	}
+	if (ImGui::Button("Tessellation", ImVec2(0, buttonHeight)))
+	{
+		resetToggleButtons();
+		isTessellationToggled = !isTessellationToggled;
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "tessellate" });
 	};
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
@@ -270,6 +294,7 @@ void ToolbarDefinition::Toolbar::build()
 	NoiseToggleButton();
 	SimpleSubdivToggleButton();
 	loopToggleButton();
+	TessellationToggleButton();
 
 	ImGui::End();
 }
