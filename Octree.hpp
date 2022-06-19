@@ -91,10 +91,14 @@ namespace OctreeDefinition
 
             void collectVerticesAroundCollision(float range) ONOEXCEPT;
             void collectTrianglesAroundCollision(float range) ONOEXCEPT;
+
             void octreeRayIntersectionCore(v3 origin, v3 direction, OctreeCollision& collisionRef) ONOEXCEPT;
             void octreeRayIntersection(v3 origin, v3 direction, bool isSymmetric = false, v3 planeOrigin = v3(0), v3 planeNormal = v3(1,0,0)) ONOEXCEPT;
             bool isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT;
             void reflectRay(rv3 origin, rv3 direction, rv3 planeOrigin, rv3 planeNormal, rv3 reflectOrigin, rv3 reflectDirection) ONOEXCEPT;
+
+            void collectAroundCollision(float range, bool collectAffectedTriangles = true, bool collectTrianglesInRange = false, bool isSymmetric = false) ONOEXCEPT;
+            void collectVerticesWithReflection(float range) ONOEXCEPT;
 
             int mortonCodeHash(v3 point, v3 center) ONOEXCEPT; // returns the morton code position with respect to octant
 
@@ -106,10 +110,14 @@ namespace OctreeDefinition
             // OctantList leaves;
 
             OctreeCollision collision;
-            OctreeCollision reflectedCollision;
             KeyList verticesInRange;
             TriangleIDList affectedTriangles;
             TriangleIDList trianglesInRange;
+
+            OctreeCollision reflectedCollision;
+            KeyList reflectedVerticesInRange;
+            TriangleIDList reflectedTrianglesInRange;
+
             concurrency::concurrent_vector<OctantIndex> triangleToOctantList;
 
             // Plane normals may be wrong here, need to double check

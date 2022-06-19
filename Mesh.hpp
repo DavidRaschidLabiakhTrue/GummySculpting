@@ -48,6 +48,7 @@ namespace MeshDefinition
 			void generateGraphsAndTrees();
 
 			KeyData searchLinear(rv3 direction, rv3 origin);
+			KeyData searchLinearParallel(rv3 direction, rv3 origin);
 
 
 			void applyTransformation();
@@ -65,7 +66,7 @@ namespace MeshDefinition
 
 
 			void computeNormals();
-			
+
 			void computeNormalsFromMatrix();
 
 			void recomputeNormals(HistoryKeyVertexMap& apply);
@@ -77,7 +78,7 @@ namespace MeshDefinition
 
 			int meshID;
 
-			
+
 			string name;
 
 			unordered_map<string, variableVariantType> meshVariables;

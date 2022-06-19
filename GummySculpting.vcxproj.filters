@@ -229,6 +229,9 @@
     <ClCompile Include="StaticCircle.cpp">
       <Filter>3D Objects\Static Circle</Filter>
     </ClCompile>
+    <ClCompile Include="Tessellate.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Tessellate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -476,6 +479,9 @@
     </ClInclude>
     <ClInclude Include="StaticCircle.hpp">
       <Filter>3D Objects\Static Circle</Filter>
+    </ClInclude>
+    <ClInclude Include="Tessellate.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Tessellate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -879,6 +885,9 @@
     </Filter>
     <Filter Include="Rendering\Shaders\Shader Files\CircleShader">
       <UniqueIdentifier>{fba5d588-f4df-497c-a3be-d17891e610d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Tessellate">
+      <UniqueIdentifier>{d0d079ed-79d7-4227-b157-f031fb78b756}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

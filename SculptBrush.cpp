@@ -6,6 +6,7 @@
 #include "Stroking.hpp"
 #include "StrokeDirac.hpp"
 #include "SmoothedColor.hpp"
+#include "Tessellate.hpp"
 
 #include "ToolsWindow.hpp"
 
@@ -16,7 +17,6 @@ using namespace Sculpting;
 
 SculptBrushDefinition::SculptBrush::SculptBrush()
 {
-	
 }
 
 SculptBrushDefinition::SculptBrush::~SculptBrush()
@@ -75,11 +75,6 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 }
 void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 {
-	
-
-
-
-
 	cMesh.Octree::collectTrianglesAroundCollision(payload.radius);
 
 	switch (this->currentState)
@@ -107,9 +102,13 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 		case BrushState::BrushStateSmoothedColor:
 			SmoothingColor::applySmoothingColor(cMesh, payload);
 			break;
-		
+
 		case BrushState::BrushDirac:
 			StrokingDirac::applyStrokeDirac(cMesh, payload, 1);
+			break;
+		case BrushState::BrushTessellate:
+			Tessellate::applyTessellate(cMesh, payload);
+			break;
 	}
 	payload.wasRun = true;
 	cMesh.updateAffectedTriangles();

@@ -238,6 +238,10 @@ OctreeCollision OctreeDefinition::Octree::octreeRayIntersectionOriginal(v3 origi
 
 void Octree::octreeRayIntersectionCore(v3 origin, v3 direction, OctreeCollision &collisionRef) ONOEXCEPT
 {
+    // Correct ray for model matrix
+    origin = (v3)(v4(origin, 1.0) * model);
+    direction = normalize((v3)(v4(direction, 1.0) * model));
+
     priority_queue<pair<float, int>, vector<pair<float, int>>, greater<pair<float, int>>> queue;
     OctreeCollision newCollision;
     float octantCollisionDistance = NoCollisionDistance;
@@ -351,10 +355,8 @@ void Octree::octreeRayIntersectionCore(v3 origin, v3 direction, OctreeCollision 
 
 void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction, bool isSymmetric, v3 planeOrigin, v3 planeNormal) ONOEXCEPT
 {
-    origin = (v3) (v4(origin, 1.0) * model);
-    direction = normalize((v3) (v4(direction, 1.0) * model));
-
-    isSymmetric = true; // debug
+    timerStart;
+    // isSymmetric = true; // debug
     thread reflectedThread;
     if (isSymmetric)
     {
@@ -373,11 +375,7 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction, bo
         reflectedThread.join();
     }
 
-    if (collision.isCollision)
-        say "collision" spc collision.triangleID done;
-
-    if (reflectedCollision.isCollision)
-        say "reflection" spc reflectedCollision.triangleID done;
+    timerEnd("octreeRayIntersection");
 }
 
 bool Octree::isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT
@@ -405,4 +403,147 @@ void Octree::reflectRay(rv3 origin, rv3 direction, rv3 planeOrigin, rv3 planeNor
     }
 
     reflectOrigin = origin + 2.0f * distance * planeNormal;
+}
+
+// New collection functions
+/**
+ * @brief Collects vertices withing range of collision and the reflected collision
+ * Can also collect the affected vertices of both collisions into one array
+ * Can also collect the triangles within range of collision and the reflected collision (separate arrays)
+ *
+ * @param range
+ * @param isSymmetric
+ * @param collectAffectedTriangles
+ * @param collectTrianglesInRange
+ */
+void Octree::collectAroundCollision(float range, bool collectAffectedTriangles, bool collectTrianglesInRange, bool isSymmetric) ONOEXCEPT
+{
+    if (collectTrianglesInRange)
+    {
+        collectAffectedTriangles = true;
+    }
+
+    if (isSymmetric)
+    {
+        collectVerticesWithReflection(range);
+    }
+    else
+    {
+        collectVerticesAroundCollision(range);
+    }
+
+    if (collectAffectedTriangles)
+    {
+        TriangleIDList reflectedAffectedTriangles;
+        affectedTriangles = getTrianglesFromVertices(verticesInRange);
+
+        if (isSymmetric)
+        {
+            reflectedAffectedTriangles = getTrianglesFromVertices(reflectedVerticesInRange);
+            affectedTriangles.insert(affectedTriangles.end(), reflectedAffectedTriangles.begin(), reflectedAffectedTriangles.end());
+        }
+
+        if (collectTrianglesInRange)
+        {
+            foreach (tri, affectedTriangles)
+            {
+                if (abs(distance(vertices[triangles[tri][0]].position, collision.position)) <= range &&
+                    abs(distance(vertices[triangles[tri][1]].position, collision.position)) <= range &&
+                    abs(distance(vertices[triangles[tri][2]].position, collision.position)) <= range)
+                {
+                    trianglesInRange.emplace_back(tri);
+                }
+            }
+
+            if (isSymmetric)
+            {
+                foreach (tri, reflectedAffectedTriangles)
+                {
+                    if (abs(distance(vertices[triangles[tri][0]].position, collision.position)) <= range &&
+                        abs(distance(vertices[triangles[tri][1]].position, collision.position)) <= range &&
+                        abs(distance(vertices[triangles[tri][2]].position, collision.position)) <= range)
+                    {
+                        reflectedTrianglesInRange.emplace_back(tri);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void Octree::collectVerticesWithReflection(float range) ONOEXCEPT
+{
+    mutex checkedmtx;
+    std::unordered_set<KeyData> checked; // Every vertex that has been checked
+
+    thread reflectedThread([&]() {
+        std::unordered_set<KeyData> unchecked;
+
+        unchecked.insert(triangles[reflectedCollision.triangleID][0]);
+        unchecked.insert(triangles[reflectedCollision.triangleID][1]);
+        unchecked.insert(triangles[reflectedCollision.triangleID][2]);
+
+        while (!unchecked.empty())
+        {
+            KeyData element = *unchecked.begin();
+            unchecked.erase(unchecked.begin());
+            checkedmtx.lock();
+            checked.insert(element);
+            checkedmtx.unlock();
+
+            if (distance(vertices[element].position, collision.position) <= range)
+            {
+                reflectedVerticesInRange.emplace_back(element);
+
+                foreach (vertex, edges[element].vertexEdges)
+                {
+                    checkedmtx.lock();
+                    if (!checked.contains(vertex))
+                    {
+                        unchecked.insert(vertex);
+                    }
+                    checkedmtx.unlock();
+                }
+            }
+        }
+    });
+
+    std::unordered_set<KeyData> unchecked; // List of vertices to check if they're within range
+
+    // Prime the unchecked set with the triangle vertices
+    unchecked.insert(triangles[collision.triangleID][0]);
+    unchecked.insert(triangles[collision.triangleID][1]);
+    unchecked.insert(triangles[collision.triangleID][2]);
+
+    // While there are still unchecked vertices
+    while (!unchecked.empty())
+    {
+        // Copy and move the first element of the unchecked set to checked
+        KeyData element = *unchecked.begin();
+        unchecked.erase(unchecked.begin());
+        checkedmtx.lock();
+        checked.insert(element);
+        checkedmtx.unlock();
+
+        // Check distance between the collision and the element
+        if (distance(vertices[element].position, collision.position) <= range)
+        {
+            verticesInRange.emplace_back(element); // Add the element to the results list
+
+            // Add each vertex that is connected by an edge to this vertex
+            // and has not already been checked.
+            // Using unordered set allows us to insert into unchecked whether or not it already exists.
+            foreach (vertex, edges[element].vertexEdges)
+            {
+                checkedmtx.lock();
+                if (!checked.contains(vertex))
+                {
+                    unchecked.insert(vertex);
+                }
+                checkedmtx.unlock();
+            }
+        }
+    }
+
+    reflectedThread.join();
 }

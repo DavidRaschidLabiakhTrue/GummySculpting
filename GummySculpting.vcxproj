@@ -222,6 +222,7 @@
     <ClCompile Include="StrokeDirac.cpp" />
     <ClCompile Include="Stroking.cpp" />
     <ClCompile Include="SubdivisionSurface.cpp" />
+    <ClCompile Include="Tessellate.cpp" />
     <ClCompile Include="TimeGate.cpp" />
     <ClCompile Include="Toolbar.cpp" />
     <ClCompile Include="ToolsWindow.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="StrokeDirac.hpp" />
     <ClInclude Include="Stroking.hpp" />
     <ClInclude Include="SubdivisionSurface.hpp" />
+    <ClInclude Include="Tessellate.hpp" />
     <ClInclude Include="TimeGate.hpp" />
     <ClInclude Include="Toolbar.hpp" />
     <ClInclude Include="ToolsWindow.hpp" />

@@ -22,6 +22,13 @@ namespace IndexedTriangleDefinition
 			IndexedTriangle();
 			~IndexedTriangle();
 
+			IndexedTriangle(KeyData v0, KeyData v1, KeyData v2)
+			{
+				indice[0] = v0;
+				indice[1] = v1;
+				indice[2] = v2;
+			}
+
 			KeyData& operator[](const int pos) TRINOEXCEPT; // look up operator to directly access the underlying component of the indices
 
 			void print(); // print the 3 indices in order to console
