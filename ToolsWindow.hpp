@@ -18,7 +18,7 @@ namespace ToolsWindowDefinition
 		~ToolsWindow();
 
 		void build();
-
+		void toggleWindow();
 	};
 
 	extern v4 ColorSlider_Color_Values;

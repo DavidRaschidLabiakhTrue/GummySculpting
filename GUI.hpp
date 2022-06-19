@@ -5,6 +5,7 @@
 #include "TopBar.hpp"
 #include "Toolbar.hpp"
 #include "CameraNav.hpp"
+#include "MeshToolsWindow.hpp"
 #include "ToolsWindow.hpp"
 
 
@@ -14,6 +15,7 @@ namespace GuiDefinition
 	using namespace TopBarDefinition;
 	using namespace ToolbarDefinition;
 	using namespace CameraNavDefinition;
+	using namespace MeshToolsWindowDefinition;
 	using namespace ToolsWindowDefinition;
 
 	ImGuiIO& InitializeImGUI();
@@ -36,6 +38,7 @@ namespace GuiDefinition
 			TopBar topBar;
 			Toolbar toolbar;
 			CameraNav cameraNav;
+			MeshToolsWindow meshToolsWindow;
 			ToolsWindow toolsWindow;
 	};
 }

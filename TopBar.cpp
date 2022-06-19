@@ -2,6 +2,9 @@
 
 static int topBarHeight = 0;
 
+using namespace MeshToolsWindowDefinition;
+using namespace ToolsWindowDefinition;
+
 TopBarDefinition::TopBar::TopBar()
 {
 }
@@ -69,7 +72,16 @@ void TopBarDefinition::TopBar::build()
 	}
 	if (ImGui::BeginMenu("Settings"))
 	{
-		ImGui::MenuItem("Advanced Settings");
+		if (ImGui::MenuItem("Mesh Tools"))
+		{
+			meshToolsWindow.toggleWindow();
+			//MainDirectiveDefinition::Directives.push_back({ "settings", "toggle" });
+		}
+		if (ImGui::MenuItem("Brush Tools"))
+		{
+			toolsWindow.toggleWindow();
+			//MainDirectiveDefinition::Directives.push_back({ "settings", "toggle" });
+		}
 		ImGui::EndMenu();
 	}
 	if (ImGui::BeginMenu("Help"))

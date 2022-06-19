@@ -39,7 +39,15 @@ void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference 
 	//}
 
 
-	Algos::applyMapToMesh(apply, cMesh);
+	forall(element, apply)
+	{
+		// element.first is an id value that accesses the vertices of any vertice we collected from octree
+		// element.second is the vertice itself copied.
+		//
+		// // See smoothing and coloring
+		//
+		//cMesh.vertices[element.first] = ... // Apply the algo here.
+	}
 
 	cMesh.recomputeNormals(apply);
 

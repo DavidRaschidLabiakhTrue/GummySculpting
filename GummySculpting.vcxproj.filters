@@ -231,6 +231,9 @@
     </ClCompile>
     <ClCompile Include="Tessellate.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Tessellate</Filter>
+      </ClCompile>
+    <ClCompile Include="MeshToolsWindow.cpp">
+      <Filter>GUI\Tools Windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -482,6 +485,9 @@
     </ClInclude>
     <ClInclude Include="Tessellate.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Tessellate</Filter>
+      </ClInclude>
+    <ClInclude Include="MeshToolsWindow.hpp">
+      <Filter>GUI\Tools Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -888,6 +894,9 @@
     </Filter>
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Tessellate">
       <UniqueIdentifier>{d0d079ed-79d7-4227-b157-f031fb78b756}</UniqueIdentifier>
+      </Filter>
+    <Filter Include="GUI\Tools Windows">
+      <UniqueIdentifier>{29cb21a0-3784-44dd-a5af-50ddc39f9179}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
