@@ -108,6 +108,7 @@ int MainProgram::ProgramCycle()
 
 MainProgram::MainProgram()
 {
+
 }
 
 MainProgram::MainProgram(StringList &arguments)
@@ -123,7 +124,7 @@ MainProgram::MainProgram(StringList &arguments)
 
     visualObjects = VisualObjects(TrueConstructor);
 
-    circle = StaticCircle(TrueConstructor);
+    cursor = Cursor(TrueConstructor);
 
     preprocess(arguments);
 }
@@ -515,7 +516,7 @@ void MainProgram::draw3D()
 {
     renderer.draw();
 
-    circle.drawCircle();
+	cursor.drawCursor();
 }
 void MainProgram::drawStatic()
 {

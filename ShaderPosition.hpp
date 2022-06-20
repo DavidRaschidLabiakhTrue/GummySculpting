@@ -36,6 +36,10 @@ namespace ShaderPositionDefinition
 		void loadRandomColor();
 
 		void loadTimeModifier();
+
+		void loadOrientation();
+
+		void loadRadius();
 	};
 
 	// basically a global constant that contains all relevant data needed.
@@ -58,6 +62,8 @@ namespace ShaderPositionDefinition
 		ShaderPosition staticColorBool;
 		ShaderPosition randomColor;
 		ShaderPosition timeModifier;
+		ShaderPosition orientation;
+		ShaderPosition radius; // float
 	};
 
 	extern ShaderPositionData ShaderSlotInfo;

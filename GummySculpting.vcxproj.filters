@@ -231,10 +231,11 @@
     </ClCompile>
     <ClCompile Include="Tessellate.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Tessellate</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="MeshToolsWindow.cpp">
       <Filter>GUI\Tools Windows</Filter>
     </ClCompile>
+    <ClCompile Include="Cursor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -485,9 +486,12 @@
     </ClInclude>
     <ClInclude Include="Tessellate.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Tessellate</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="MeshToolsWindow.hpp">
       <Filter>GUI\Tools Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.hpp">
+      <Filter>3D Objects\Cursor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -544,6 +548,12 @@
     </None>
     <None Include="CircleShader.vert">
       <Filter>Rendering\Shaders\Shader Files\CircleShader</Filter>
+    </None>
+    <None Include="CursorShader.frag">
+      <Filter>Rendering\Shaders\Shader Files\Cursor Shader</Filter>
+    </None>
+    <None Include="CursorShader.vert">
+      <Filter>Rendering\Shaders\Shader Files\Cursor Shader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -894,9 +904,15 @@
     </Filter>
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Tessellate">
       <UniqueIdentifier>{d0d079ed-79d7-4227-b157-f031fb78b756}</UniqueIdentifier>
-      </Filter>
+    </Filter>
     <Filter Include="GUI\Tools Windows">
       <UniqueIdentifier>{29cb21a0-3784-44dd-a5af-50ddc39f9179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Cursor">
+      <UniqueIdentifier>{e333eee3-5e8c-4f5f-b268-353ef2cbb054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader Files\Cursor Shader">
+      <UniqueIdentifier>{a0892e34-3948-4cbe-91ee-d961adab1120}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

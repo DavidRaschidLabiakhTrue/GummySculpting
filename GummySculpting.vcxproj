@@ -177,6 +177,7 @@
     <ClCompile Include="CameraNav.cpp" />
     <ClCompile Include="CameraParameters.cpp" />
     <ClCompile Include="Coloring.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DebuggingConsole.cpp" />
     <ClCompile Include="DebugLine.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="CameraNav.hpp" />
     <ClInclude Include="CameraParameters.hpp" />
     <ClInclude Include="Coloring.hpp" />
+    <ClInclude Include="Cursor.hpp" />
     <ClInclude Include="Debug.hpp" />
     <ClInclude Include="DebuggingConsole.hpp" />
     <ClInclude Include="DebugLine.hpp" />
@@ -344,6 +346,8 @@
     <None Include="CircleShader.frag" />
     <None Include="CircleShader.vert" />
     <None Include="cube.gum" />
+    <None Include="CursorShader.frag" />
+    <None Include="CursorShader.vert" />
     <None Include="GridShader.frag" />
     <None Include="GridShader.vert" />
     <None Include="plane.gum" />

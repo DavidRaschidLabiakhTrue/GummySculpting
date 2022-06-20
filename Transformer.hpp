@@ -67,6 +67,8 @@ namespace TransformerDefinition
 			// set scale in all axes
 			void setScale(const v3 t);
 
+			void scaleWithRadius(const float radius); // resets the model matrix then applies scale.
+
 			m4 model = m4(1);
 
 			Transform transform;

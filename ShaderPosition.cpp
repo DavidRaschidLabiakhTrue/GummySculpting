@@ -98,6 +98,18 @@ void ShaderPositionDefinition::ShaderPosition::loadTimeModifier()
 	position = 13;
 }
 
+void ShaderPositionDefinition::ShaderPosition::loadOrientation()
+{
+	slot = "orientation";
+	position = 30;
+}
+
+void ShaderPositionDefinition::ShaderPosition::loadRadius()
+{
+	slot = "radius";
+	position = 69; // No one will ever read this.
+}
+
 ShaderPositionData::ShaderPositionData()
 {
 	position.loadPosition();
@@ -114,6 +126,8 @@ ShaderPositionData::ShaderPositionData()
 
 	randomColor.loadRandomColor();
 	timeModifier.loadTimeModifier();
+	orientation.loadOrientation();
+	radius.loadRadius();
 }
 
 ShaderPositionData::~ShaderPositionData()

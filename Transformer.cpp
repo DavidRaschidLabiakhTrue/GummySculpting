@@ -137,6 +137,12 @@ void TransformerDefinition::ModelMatrix::setScale(const v3 s)
 	model = scaleMatrix * model;
 }
 
+void TransformerDefinition::ModelMatrix::scaleWithRadius(const float radius)
+{
+	model = m4(1.0f);
+	model = scale(model, v3(radius));
+}
+
 TransformerDefinition::CameraTransformer::CameraTransformer()
 {
 }
