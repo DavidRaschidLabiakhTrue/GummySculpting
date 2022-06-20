@@ -132,7 +132,7 @@ class MainProgram
 		TimeGate renderGate = TimeGate(60.0f);
 		TimeGate updateGate = TimeGate(10.0f); // need to limit the amount of times a mesh is being sent from the CPU to the GPU. 
 
-		Cursor cursor;
+		
 };
 
 

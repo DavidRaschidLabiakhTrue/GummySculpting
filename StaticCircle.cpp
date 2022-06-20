@@ -25,6 +25,8 @@ StaticCircleDefinition::StaticCircle::StaticCircle(bool trueConstructor)
 	}
 	this->indices[(this->indices.size() - 1)] = 0;
 
+	collectStats();
+
 	this->bindCircle();
 }
 

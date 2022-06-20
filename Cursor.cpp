@@ -25,7 +25,14 @@ void _Cursor::Cursor::drawCursor()
 	{
 		this->radius = ToolsWindowDefinition::RadiusSlider;
 		scaleWithRadius(radius);
+		for (auto& v : this->vertices)
+		{
+			v.position = v3(model * v4(v.position, 1.0f));
+		}
+		this->model = m4(1.0f);
 	}
+	v3 newPosition = offset + center;
+	CursorShader.uploadOffsetVectorToGPU(newPosition);
 	CursorShader.uploadTimeToGPU();
 	CursorShader.uploadModelMatrixToGPU(this->model);
 

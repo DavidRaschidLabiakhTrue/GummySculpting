@@ -17,7 +17,7 @@ namespace RayCastDefinition
 	using namespace Window_API;
 
 	// implementation of a ray casting mechanic
-	class RayCast : protected GraphicsData, public IndiceList
+	class RayCast : public GraphicsData, public IndiceList
 	{
 		public:
 			Empty_Construct RayCast();
@@ -42,6 +42,7 @@ namespace RayCastDefinition
 
 			bool shouldDrawRay = true;
 			v3 direction = v3(0,0,0);
+			v3 start = v3(0, 0, 0);
 			void screenToWorld();
 			void bindRay();
 			void refreshRay();

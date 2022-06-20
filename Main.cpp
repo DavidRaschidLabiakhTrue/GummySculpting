@@ -16,8 +16,17 @@ using namespace TimeGateDefinition;
 
 using namespace StaticCircleDefinition;
 
+void handleAtExit()
+{
+	say "Program Exit" done;
+
+}
+
+
+
 int main(int argc, char **argv)
 {
+	atexit(handleAtExit);
     // _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     StringList arguments(argv + 1, argv + argc); // loads the arguments as a string vector.
 
@@ -36,14 +45,17 @@ int main(int argc, char **argv)
 
     MainProgram mainProgram = MainProgram(arguments);
 
-    return mainProgram.ProgramCycle();
+	while (mainProgram.ProgramCycle()){}
+
+    return 0;
 }
+
 void MainProgram::parseCommandLineArguments(StringList &arguments)
 {
     string parser = "";
     if (arguments.size() == 0)
     {
-        arguments.emplace_back("4star.gum"); // default argument
+        arguments.emplace_back("plane.gum"); // default argument
     }
     else
     {
@@ -124,7 +136,7 @@ MainProgram::MainProgram(StringList &arguments)
 
     visualObjects = VisualObjects(TrueConstructor);
 
-    cursor = Cursor(TrueConstructor);
+   
 
     preprocess(arguments);
 }
@@ -494,11 +506,16 @@ void MainProgram::queryMechanics()
 
     if (cameraGate.canUpdate() && win.canRender)
     {
+
         queryCamera();
     }
 
     if (!queryGizmo() and sculptGate.canUpdate())
     {
+		brush.screenToWorld();
+		
+		
+
         brush.querySculpt(renderer.getActiveMeshReference());
     }
 }
@@ -515,8 +532,8 @@ bool MainProgram::queryGizmo()
 void MainProgram::draw3D()
 {
     renderer.draw();
-
-	cursor.drawCursor();
+	brush.cursor.drawCursor();
+	
 }
 void MainProgram::drawStatic()
 {
@@ -524,6 +541,7 @@ void MainProgram::drawStatic()
     visualObjects.drawVisualObjects();
     brush.drawRay();
     Debug::Drawing::renderPlanes();
+	
     // clear depth buffer to draw newly rendered objects on top
     renderer.clearDepthInfo();
     Debug::Drawing::renderLines();

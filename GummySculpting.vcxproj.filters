@@ -235,7 +235,9 @@
     <ClCompile Include="MeshToolsWindow.cpp">
       <Filter>GUI\Tools Windows</Filter>
     </ClCompile>
-    <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="Cursor.cpp">
+      <Filter>3D Objects\Cursor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
