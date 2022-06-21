@@ -23,6 +23,14 @@ void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh, bool
 	}
 }
 
+void MeshFileLoader::loadObjFile(string filepath, Mesh& mesh)
+{
+	ObjLoading::readObjMesh(filepath, mesh);
+	mesh.bind();
+	mesh.createVariableMap();
+	mesh.generateGraphsAndTrees();
+}
+
 namespace MeshFileLoader::Util
 {
 	void skipFileLines(FILE* file, int linestoSkip)
@@ -253,3 +261,78 @@ namespace MeshFileLoader::GumLoading
 	}
 }
 
+
+
+void MeshFileLoader::ObjLoading::readObjTriangle(string& str, Mesh& mesh)
+{
+	using IndexedTriangleDefinition::IndexedTriangle;
+
+	IndexedTriangle tri;
+	sscanf(str.c_str(), "%d %d %d", &tri.indice[0], &tri.indice[1], &tri.indice[2]);
+	tri.delevel();
+	mesh.triangles.push_back(tri); // not a fan of not being able to use reserve on this.
+
+	
+
+}
+
+void MeshFileLoader::ObjLoading::readOBJVertex(string& vertexString, Mesh& mesh)
+{
+	v3 vert;
+	sscanf(vertexString.c_str(), "%f %f %f", &vert.x, &vert.y, &vert.z);
+	mesh.vertices.push_back(vert);
+}
+
+void MeshFileLoader::ObjLoading::readObjMesh(string filePath, Mesh& mesh)
+{
+	ifstream reader;
+	string str;
+	reader.open(filePath);
+
+	if (!reader.is_open())
+	{
+		say "Cannot open file" spc filePath done;
+		return;
+	}
+	
+	while (getline(reader, str))
+	{
+		if (str.size() == 0 || str[0] == '#')
+			continue;
+
+		if (str.substr(0, 2) == "v ")
+		{
+			str = str.substr(2, str.length());
+			readOBJVertex(str, mesh);
+			continue;
+		}
+		if (str.substr(0, 2) == "f ")
+		{
+			str = str.substr(2, str.length());
+			readObjTriangle(str, mesh);
+			continue;
+
+		}
+		if (str.substr(0, 2) == "s ") // don't care
+		{
+			continue; // not implemented
+		}
+		if (str.substr(0, 3) == "vt ") // don't care
+		{
+			continue; // not implemented
+		}
+		if (str.substr(0, 3) == "vn ") // don't care
+		{
+			continue; // not implemented
+		}
+		if (str.substr(0, 2) == "o ")
+		{
+			mesh.name = str;
+			continue; // not implemented
+
+		}
+	}
+
+
+	return;
+}

@@ -27,6 +27,13 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 		makeLastMeshActive();
 		return;
 	}
+	else if (fileType == ".obj")
+	{
+		MeshFileLoader::loadObjFile(meshFilePath, mesh);
+		meshes.push_back(mesh);
+		makeLastMeshActive();
+		return;
+	}
 	else
 	{
 		say "Error: cannot load .gum from Mesh_Manager::loadMeshFromFile" done;

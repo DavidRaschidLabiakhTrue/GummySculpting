@@ -55,7 +55,7 @@ void MainProgram::parseCommandLineArguments(StringList &arguments)
     string parser = "";
     if (arguments.size() == 0)
     {
-        arguments.emplace_back("smoothSphere.gum"); // default argument
+        arguments.emplace_back("smoothSphere.obj"); // default argument
     }
     else
     {
@@ -79,7 +79,7 @@ void MainProgram::parseCommandLineArguments(StringList &arguments)
         {
             parser = strArg.substr(strArg.size() - 4, strArg.size());
 
-            if (parser == ".gum")
+            if (parser == ".gum" || parser == ".obj")
             {
                 renderer.loadMeshFromFile(strArg);
             }
