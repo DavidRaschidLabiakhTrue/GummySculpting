@@ -73,20 +73,39 @@ namespace MeshFileLoader::GumLoading
 	void readVertex(FILE** file, string& str, MeshReference mesh)
 	{
 		char buffer;
-		int lim = 0;
+		int n = 0;
 
-		while (lim != 3)
+		//read position data
+		for (int i = 0; i < 3; i++)
 		{
 			while ((buffer = fgetc(*file)) != ' ')
 			{
 				str.push_back(buffer);
 			}
 			str.push_back(' ');
-			lim++;
 		}
-		V3D vert;
-		
+
 		sscanf(str.c_str(), "%f %f %f", &vert.position.x, &vert.position.y, &vert.position.z); // load the vertex from the string.
+		str.clear();
+
+		//check for and read color data
+		if ((buffer = fgetc(*file)) != '/')
+		{
+			str.push_back(buffer);
+			while ((buffer = fgetc(*file)) != '/')
+			{
+				str.push_back(buffer);
+			}
+			str.push_back(' ');
+		}
+		else {
+			vert.color = Mesh::defaultMeshColor;
+		}
+
+		sscanf(str.c_str(), "%f %f %f %f", &vert.color.r, &vert.color.g, &vert.color.b, &vert.color.a); // load the color from the string.
+
+		str.clear();
+
 		mesh.vertices.push_back(vert);
 
 		return;
@@ -111,7 +130,7 @@ namespace MeshFileLoader::GumLoading
 		char parser;
 		while ((parser = fgetc(*file)) != ' ')
 		{
-			if (parser == '\n')
+			if (parser == EOF)
 				break;
 			str.push_back(parser);
 		}
@@ -188,28 +207,19 @@ namespace MeshFileLoader::GumLoading
 		std::string retname;
 		std::string retvertcount;
 		std::string retindicecount;
-		std::string retcolorcount;
 
 		std::getline(reader, retname);
 		std::getline(reader, retvertcount);
 		std::getline(reader, retindicecount);
-		std::getline(reader, retcolorcount);
 
 		mesh.name = retname.substr(6, retvertcount.size());
 		retvertcount = retvertcount.substr(14, retvertcount.size());
 		retindicecount = retindicecount.substr(14, retindicecount.size());
 
-		if (retcolorcount.substr(13, retcolorcount.size()) == "")
-		{
-			retcolorcount = "0";
 
-		}
-		else
-			retcolorcount = retcolorcount.substr(12, retcolorcount.size());
 
 		int vertexLim = std::stoi(retvertcount);
 		int indiceLim = std::stoi(retindicecount);
-		int colorLim = std::stoi(retcolorcount);
 
 		reader.close();
 		// this may seem odd to do...
@@ -221,7 +231,7 @@ namespace MeshFileLoader::GumLoading
 			say "Error: Cannot Open .gum file" done;
 			return;
 		}
-		MeshFileLoader::Util::skipFileLines(file, 4);
+		MeshFileLoader::Util::skipFileLines(file, 3);
 
 		mesh.vertices.reserve(vertexLim);
 		mesh.triangles.reserve(indiceLim / 3);
@@ -237,23 +247,14 @@ namespace MeshFileLoader::GumLoading
 
 		str.clear();
 
+		MeshFileLoader::Util::skipMessage(file);
+
 		const int triLimit = indiceLim / 3;
 		for (int j = 0; j < triLimit; j++)
 		{
 			readTriangle(&file, str, mesh);
 		}
 
-		str.clear();
-
-		MeshFileLoader::Util::skipMessage(file);
-
-		auto uniformcolor = Mesh::defaultMeshColor;
-		mesh.colorDataUniformly(uniformcolor);
-
-		for (int k = 0; k < colorLim; k++)
-		{
-			readColor(&file, str, mesh);
-		}
 
 		fclose(file);
 
