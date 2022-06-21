@@ -168,6 +168,7 @@ void MainProgram::processFileManagementCommand(StringList &arguments, int numArg
         renderer.loadMeshFromFile(arguments[2]);
         break;
     case EXPORT: // this case will need to be expanded to also include .obj and probably .stl
+        renderer.exportMeshToFile(arguments[2]);
         break;
     }
 }

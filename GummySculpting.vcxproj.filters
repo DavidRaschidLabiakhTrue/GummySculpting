@@ -239,6 +239,9 @@
       <Filter>3D Objects\Cursor</Filter>
     </ClCompile>
     <ClCompile Include="Cursor3D.cpp" />
+    <ClCompile Include="MeshFileExporter.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -499,6 +502,9 @@
     <ClInclude Include="Cursor3D.hpp">
       <Filter>3D Objects\Cursor3D</Filter>
     </ClInclude>
+    <ClInclude Include="MeshFileExporter.hpp">
+      <Filter>File</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cube.gum">
@@ -560,6 +566,9 @@
     </None>
     <None Include="CursorShader.vert">
       <Filter>Rendering\Shaders\Shader Files\Cursor Shader</Filter>
+    </None>
+    <None Include="test_triangle.gum">
+      <Filter>3D Models\gum Models</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

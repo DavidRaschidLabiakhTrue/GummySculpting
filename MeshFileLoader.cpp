@@ -187,6 +187,7 @@ namespace MeshFileLoader::GumLoading
 		std::getline(reader, retindicecount);
 		std::getline(reader, retcolorcount);
 
+		mesh.name = retname.substr(6, retvertcount.size());
 		retvertcount = retvertcount.substr(14, retvertcount.size());
 		retindicecount = retindicecount.substr(14, retindicecount.size());
 
@@ -238,7 +239,7 @@ namespace MeshFileLoader::GumLoading
 
 		MeshFileLoader::Util::skipMessage(file);
 
-		auto uniformcolor = v4(0.5, 0.5, 0.5, 1.0);
+		auto uniformcolor = Mesh::defaultMeshColor;
 		mesh.colorDataUniformly(uniformcolor);
 
 		for (int k = 0; k < colorLim; k++)

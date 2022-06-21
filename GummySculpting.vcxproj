@@ -204,6 +204,7 @@
     <ClCompile Include="LinearAlgebra.cpp" />
     <ClCompile Include="MainDirective.cpp" />
     <ClCompile Include="MeshChangeLog.cpp" />
+    <ClCompile Include="MeshFileExporter.cpp" />
     <ClCompile Include="MeshHistory.cpp" />
     <ClCompile Include="Noise.cpp" />
     <ClCompile Include="Octree.cpp" />
@@ -288,6 +289,7 @@
     <ClInclude Include="MainDirective.hpp" />
     <ClInclude Include="MathDefinitions.cpp" />
     <ClInclude Include="MeshChangeLog.hpp" />
+    <ClInclude Include="MeshFileExporter.hpp" />
     <ClInclude Include="MeshHistory.hpp" />
     <ClInclude Include="Noise.hpp" />
     <ClInclude Include="Octant.hpp" />
@@ -364,6 +366,7 @@
     <None Include="StandardShader.vert" />
     <None Include="StaticMeshShader.frag" />
     <None Include="StaticMeshShader.vert" />
+    <None Include="test_triangle.gum" />
     <None Include="WireFrameShader.frag" />
     <None Include="WireFrameShader.vert" />
   </ItemGroup>

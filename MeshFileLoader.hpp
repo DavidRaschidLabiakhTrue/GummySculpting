@@ -21,7 +21,7 @@ namespace MeshFileLoader
 namespace MeshFileLoader::Util
 {
 	void skipFileLines(FILE* file, int linestoSkip); // skip lines in a FILE*
-
+	void skipMessage(FILE* file); //skips beginning text of a line in a FILE*
 }
 
 namespace MeshFileLoader::GumLoading

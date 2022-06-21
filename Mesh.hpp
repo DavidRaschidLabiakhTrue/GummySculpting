@@ -50,6 +50,7 @@ namespace MeshDefinition
 			KeyData searchLinear(rv3 direction, rv3 origin);
 			KeyData searchLinearParallel(rv3 direction, rv3 origin);
 
+			static const inline v4 defaultMeshColor = v4(0.5, 0.5, 0.5, 1.0);
 
 			void applyTransformation();
 

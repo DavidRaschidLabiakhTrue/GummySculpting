@@ -44,7 +44,28 @@ void TopBarDefinition::TopBar::build()
 			}
 		}
 		
-		ImGui::MenuItem("Export Mesh");
+		if (ImGui::MenuItem("Export Mesh")) {
+			nfdchar_t* outPath = NULL;
+			nfdresult_t result = NFD_SaveDialog("gum,obj", NULL, &outPath);
+			string path;
+
+			if (result == NFD_ERROR)
+			{
+				// do nothing
+			}
+			else if (result == NFD_CANCEL)
+			{
+				// also do nothing
+			}
+			else
+			{
+				buildCommand.emplace_back("file");
+				buildCommand.emplace_back("export");
+				path = outPath;
+				buildCommand.emplace_back(path);
+				MainDirectiveDefinition::Directives.emplace_back(buildCommand);
+			}
+		}
 		ImGui::EndMenu();
 	}
 	if (ImGui::BeginMenu("Edit"))

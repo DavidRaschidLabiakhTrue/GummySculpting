@@ -37,6 +37,25 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 
 }
 
+void Mesh_Manager::exportMeshToFile(string meshFilePath)
+{
+	string fileType = meshFilePath.substr(meshFilePath.size() - 4, meshFilePath.size());
+
+	if (fileType == ".gum")
+	{
+		MeshFileExporter::exportGumFile(meshFilePath, getActiveMeshReference());
+		return;
+	}
+	else
+	{
+		say "Error: unsupported file type" done;
+		// raise error
+	}
+
+
+
+}
+
 MeshPTR Mesh_Manager_Definition::Mesh_Manager::getActiveMesh()
 {
 	if (activeMesh == UnassignedPTR)
