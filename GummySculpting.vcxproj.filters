@@ -238,9 +238,11 @@
     <ClCompile Include="Cursor.cpp">
       <Filter>3D Objects\Cursor</Filter>
     </ClCompile>
-    <ClCompile Include="Cursor3D.cpp" />
     <ClCompile Include="MeshFileExporter.cpp">
       <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor3D.cpp">
+      <Filter>3D Objects\Cursor3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

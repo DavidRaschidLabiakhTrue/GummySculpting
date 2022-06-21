@@ -3,7 +3,7 @@
 using namespace MeshDefinition;
 
 // the call implementation
-void MeshFileLoader::loadGumFile(string filepath, Mesh& mesh)
+void MeshFileLoader::loadGumFile(string filepath, MeshReference mesh)
 {
 	GumLoading::readGumMesh(filepath, mesh); // the actual implementation
 	mesh.bind();
@@ -23,7 +23,7 @@ void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh, bool
 	}
 }
 
-void MeshFileLoader::loadObjFile(string filepath, Mesh& mesh)
+void MeshFileLoader::loadObjFile(string filepath, MeshReference mesh)
 {
 	ObjLoading::readObjMesh(filepath, mesh);
 	mesh.bind();
@@ -70,7 +70,7 @@ namespace MeshFileLoader::Util
 }
 namespace MeshFileLoader::GumLoading
 {
-	void readVertex(FILE** file, string& str, Mesh& mesh)
+	void readVertex(FILE** file, string& str, MeshReference mesh)
 	{
 		char buffer;
 		int lim = 0;
@@ -94,7 +94,7 @@ namespace MeshFileLoader::GumLoading
 
 #ifdef IMPLEMENT_LINEAR_INDICES
 	// UNIMPLEMENTED - COLLAPSE
-	void readIndice(FILE** file, string& str, Mesh& mesh)
+	void readIndice(FILE** file, string& str, MeshReference mesh)
 	{
 		char parser;
 		while ((parser = fgetc(*file)) != ' ')
@@ -130,7 +130,7 @@ namespace MeshFileLoader::GumLoading
     }
 
 
-	void GumLoading::readTriangle(FILE** file, string& str, Mesh& mesh)
+	void GumLoading::readTriangle(FILE** file, string& str, MeshReference mesh)
 	{
 		IndexedTriangle tri;
 		tri[0] = readTriangleIndice(file, str);
@@ -148,7 +148,7 @@ namespace MeshFileLoader::GumLoading
 		mesh.triangles.push_back(tri);
 	}
 
-	void readColor(FILE** file, string& str, Mesh& mesh)
+	void readColor(FILE** file, string& str, MeshReference mesh)
 	{
 		//read index of vertex
 		char parser;
@@ -179,7 +179,7 @@ namespace MeshFileLoader::GumLoading
 		return;
 	}
 
-	void readGumMesh(string filePath, Mesh& mesh)
+	void readGumMesh(string filePath, MeshReference mesh)
 	{
 
 		std::ifstream reader;
@@ -263,7 +263,7 @@ namespace MeshFileLoader::GumLoading
 
 
 
-void MeshFileLoader::ObjLoading::readObjTriangle(string& str, Mesh& mesh)
+void MeshFileLoader::ObjLoading::readObjTriangle(string& str, MeshReference mesh)
 {
 	using IndexedTriangleDefinition::IndexedTriangle;
 
@@ -276,14 +276,14 @@ void MeshFileLoader::ObjLoading::readObjTriangle(string& str, Mesh& mesh)
 
 }
 
-void MeshFileLoader::ObjLoading::readOBJVertex(string& vertexString, Mesh& mesh)
+void MeshFileLoader::ObjLoading::readOBJVertex(string& vertexString, MeshReference mesh)
 {
 	v3 vert;
 	sscanf(vertexString.c_str(), "%f %f %f", &vert.x, &vert.y, &vert.z);
 	mesh.vertices.push_back(vert);
 }
 
-void MeshFileLoader::ObjLoading::readObjMesh(string filePath, Mesh& mesh)
+void MeshFileLoader::ObjLoading::readObjMesh(string filePath, MeshReference mesh)
 {
 	ifstream reader;
 	string str;

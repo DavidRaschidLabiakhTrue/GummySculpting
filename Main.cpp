@@ -55,7 +55,7 @@ void MainProgram::parseCommandLineArguments(StringList &arguments)
     string parser = "";
     if (arguments.size() == 0)
     {
-        arguments.emplace_back("smoothSphere.obj"); // default argument
+        arguments.emplace_back("smoothSphere.gum"); // default argument
     }
     else
     {
