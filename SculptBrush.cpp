@@ -29,7 +29,7 @@ SculptBrushDefinition::SculptBrush::SculptBrush(bool trueConstructor) : Sampler(
 
 	sculptRate = 1.0f / 24.0f; // 24 times a second.
 
-	cursor = Cursor(trueConstructor);
+	/*cursor = Cursor(trueConstructor);*/
 
 }
 
@@ -52,14 +52,14 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 		
 		if (cMesh.collision.isCollision == false or (cMesh.collision.triangleID == payload.last))
 		{
-			cursor.offset = v3(300.0f);
+			//cursor.offset = v3(300.0f);
 			return;
 		}
 		else
 		{
-			cursor.offset = cMesh.collision.position;
+			//cursor.offset = cMesh.collision.position;
 			payload.updateLast(cMesh.collision.triangleID, cMesh.collision.position, cMesh.getTriangleNormal(cMesh.collision.triangleID));
-
+			cursor.orientation = payload.hitNorm;
 		}
 
 
@@ -73,7 +73,7 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 	else if (cMesh.history.sealChange == false && CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		payload.wasRun = false;
-		cursor.offset = v3(200.0f); // just pop it out of frame.
+		//cursor.offset = v3(200.0f); // just pop it out of frame.
 		cMesh.history.sealChange = true;
 		cMesh.history.adjustLevelUp();
 

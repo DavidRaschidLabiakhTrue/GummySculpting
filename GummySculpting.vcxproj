@@ -178,6 +178,7 @@
     <ClCompile Include="CameraParameters.cpp" />
     <ClCompile Include="Coloring.cpp" />
     <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="Cursor3D.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DebuggingConsole.cpp" />
     <ClCompile Include="DebugLine.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="CameraParameters.hpp" />
     <ClInclude Include="Coloring.hpp" />
     <ClInclude Include="Cursor.hpp" />
+    <ClInclude Include="Cursor3D.hpp" />
     <ClInclude Include="Debug.hpp" />
     <ClInclude Include="DebuggingConsole.hpp" />
     <ClInclude Include="DebugLine.hpp" />

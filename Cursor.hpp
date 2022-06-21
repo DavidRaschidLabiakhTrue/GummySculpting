@@ -19,8 +19,11 @@ namespace _Cursor
 			~Cursor();
 
 			void drawCursor();
-
+			void rotateCursor();
 			void updateRadius();
+
+			v3 orientation = v3(0,0,0);
+			v3 lastOrientation = v3(0, 0, 0);
 		
 	};
 }

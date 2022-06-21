@@ -10,7 +10,7 @@ _Cursor::Cursor::Cursor()
 
 _Cursor::Cursor::Cursor(bool trueConstructor) : StaticCircle(trueConstructor)
 {
-	this->radius = 0;
+	
 }
 
 _Cursor::Cursor::~Cursor()
@@ -21,17 +21,11 @@ void _Cursor::Cursor::drawCursor()
 {
 
 	CursorShader.use();
-	if (ToolsWindowDefinition::RadiusSlider != this->radius)
-	{
-		this->radius = ToolsWindowDefinition::RadiusSlider;
-		scaleWithRadius(radius);
-		for (auto& v : this->vertices)
-		{
-			v.position = v3(model * v4(v.position, 1.0f));
-		}
-		this->model = m4(1.0f);
-	}
-	v3 newPosition = offset + center;
+	setTranslation(offset + center);
+
+	rotateCursor();
+	
+	v3 newPosition = v3(0.0f);
 	CursorShader.uploadOffsetVectorToGPU(newPosition);
 	CursorShader.uploadTimeToGPU();
 	CursorShader.uploadModelMatrixToGPU(this->model);
@@ -40,9 +34,40 @@ void _Cursor::Cursor::drawCursor()
 	glDrawElements(GL_LINES, (GLsizei)indices.size(), GL_UNSIGNED_INT, NULL);
 	unbindActiveVAO();
 
+	this->resetModelMatrix();
+	updateRadius();
+
+}
+
+void _Cursor::Cursor::rotateCursor()
+{
+	//if (orientation != lastOrientation)
+	//{
+	//	lastOrientation = orientation;
+	//	model = m4(1.0f);
+	//	say to_string(orientation) done;
+
+	//	v3 newvec;
+
+	//	newvec.x = atan(orientation.x);
+	//	newvec.y = atan(orientation.y);
+	//	newvec.z = atan(orientation.z);
+
+	//	this->rotateX(newvec.x);
+	//	this->rotateY(newvec.y);
+	//	this->rotateZ(newvec.z);
+
+
+	//	say to_string(newvec) done;
+	//}
 }
 
 void _Cursor::Cursor::updateRadius()
 {
-
+	if (ToolsWindowDefinition::RadiusSlider != this->diameter)
+	{
+		this->diameter = ToolsWindowDefinition::RadiusSlider;
+		this->radius = diameter / 2.0f;
+		scaleWithRadius(radius);
+	}
 }

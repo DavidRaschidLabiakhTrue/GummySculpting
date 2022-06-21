@@ -238,6 +238,7 @@
     <ClCompile Include="Cursor.cpp">
       <Filter>3D Objects\Cursor</Filter>
     </ClCompile>
+    <ClCompile Include="Cursor3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -494,6 +495,9 @@
     </ClInclude>
     <ClInclude Include="Cursor.hpp">
       <Filter>3D Objects\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor3D.hpp">
+      <Filter>3D Objects\Cursor3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -915,6 +919,9 @@
     </Filter>
     <Filter Include="Rendering\Shaders\Shader Files\Cursor Shader">
       <UniqueIdentifier>{a0892e34-3948-4cbe-91ee-d961adab1120}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Cursor3D">
+      <UniqueIdentifier>{15d8a28d-6777-4334-b0f8-a87175804ddb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
