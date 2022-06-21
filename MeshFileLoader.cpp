@@ -75,6 +75,8 @@ namespace MeshFileLoader::GumLoading
 		char buffer;
 		int n = 0;
 
+		V3D vert;
+
 		//read position data
 		for (int i = 0; i < 3; i++)
 		{
