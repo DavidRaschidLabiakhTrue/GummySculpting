@@ -44,6 +44,21 @@ namespace MeshFileLoader::Util
 		//std::cout << "end of skip\n";
 		return;
 	}
+
+	void skipMessage(FILE* file)
+	{
+		string message;
+		char parser;
+		while ((parser = fgetc(file)) != ' ')
+		{
+			if (parser == EOF)
+				break;
+			message += parser;
+		}
+
+		message.clear();
+		return;
+	}
 }
 namespace MeshFileLoader::GumLoading
 {
@@ -125,6 +140,36 @@ namespace MeshFileLoader::GumLoading
 		mesh.triangles.push_back(tri);
 	}
 
+	void readColor(FILE** file, string& str, Mesh& mesh)
+	{
+		//read index of vertex
+		char parser;
+		while ((parser = fgetc(*file)) != ' ')
+		{
+			say parser;
+			if (parser == EOF)
+				break;
+			str.push_back(parser);
+		}
+		int idx = stoi(str);
+		str.clear();
+
+		//read float color values
+		for (int i = 0; i < 4; i++)
+		{
+			while ((parser = fgetc(*file)) != ' ')
+			{
+				if (parser == EOF)
+					break;
+				str.push_back(parser);
+			}
+			str.push_back(' ');
+		}
+		sscanf(str.c_str(), "%f %f %f %f", &mesh.vertices[idx].color.r, &mesh.vertices[idx].color.g, &mesh.vertices[idx].color.b, &mesh.vertices[idx].color.a);
+		str.clear();
+
+		return;
+	}
 
 	void readGumMesh(string filePath, Mesh& mesh)
 	{
@@ -172,14 +217,7 @@ namespace MeshFileLoader::GumLoading
 		mesh.vertices.reserve(vertexLim);
 		mesh.triangles.reserve(indiceLim / 3);
 
-		string message;
-		char parser;
-		while ((parser = fgetc(file)) != ' ')
-		{
-			message += parser;
-		}
-
-		message.clear();
+		MeshFileLoader::Util::skipMessage(file);
 
 		string str;
 		for (int i = 0; i < vertexLim; i++)
@@ -197,8 +235,16 @@ namespace MeshFileLoader::GumLoading
 		}
 
 		str.clear();
+
+		MeshFileLoader::Util::skipMessage(file);
+
 		auto uniformcolor = v4(0.5, 0.5, 0.5, 1.0);
 		mesh.colorDataUniformly(uniformcolor);
+
+		for (int k = 0; k < colorLim; k++)
+		{
+			readColor(&file, str, mesh);
+		}
 
 		fclose(file);
 

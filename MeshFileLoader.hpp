@@ -29,6 +29,7 @@ namespace MeshFileLoader::GumLoading
 	void readVertex(FILE** file, string& str, Mesh& mesh); // read a vertex into memory
 	KeyData readTriangleIndice(FILE** file, string& str); // read a triangle into memory from indice
 	void readTriangle(FILE** file, string& str, Mesh& mesh); // read a triangle into memory
+	void readColor(FILE** file, string& str, Mesh& mesh); // read vertex colors into memory
 
 	// actual implementation of reading .gum files into mesh
 	void readGumMesh(string filePath, Mesh& mesh); // read a .gum mesh into memory
