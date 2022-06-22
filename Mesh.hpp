@@ -52,8 +52,6 @@ namespace MeshDefinition
 
 			static const inline v4 defaultMeshColor = v4(0.7, 0.7, 0.7, 1.0);
 
-			void applyTransformation();
-
 			void revertHistory();
 
 			void forwardHistory();

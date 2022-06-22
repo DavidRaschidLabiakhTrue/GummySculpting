@@ -182,14 +182,6 @@ KeyData Mesh::searchLinearParallel(rv3 direction, rv3 origin)
     return result;
 }
 
-void MeshDefinition::Mesh::applyTransformation()
-{
-    translationValues = v3(0);
-    rotationMatrix = m4(1);
-    scaleValues = v3(1);
-    this->applyModelMatrix();
-}
-
 void MeshDefinition::Mesh::undoHistory()
 {
     say "Undoing History" done;

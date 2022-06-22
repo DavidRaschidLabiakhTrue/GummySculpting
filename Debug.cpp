@@ -43,6 +43,7 @@ void Debug::Printing::printMatrix(m4 M)
 			if (j == m - 1) cout << setw(1) << " |";
 		}
 	}
+	cout << '\n';
 }
 
 void Debug::Drawing::drawLine(v3 origin, v3 end, v4 color)
