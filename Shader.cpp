@@ -18,6 +18,8 @@ namespace ShaderDefinition
 
 	Shader CircleShader;
 
+	Shader CursorShader;
+
 	std::random_device ColorRandomizer;
 	std::mt19937 ColorGenerator;
 	std::uniform_real_distribution<float> ColorDistribution;
@@ -34,6 +36,7 @@ namespace ShaderDefinition
 		GridShader.compileShader("GridShader.vert", "GridShader.frag", "Grid Shader");
 		CircleShader.compileShader("CircleShader.vert", "CircleShader.frag", "Circle Shader");
 
+		CursorShader.compileShader("CursorShader.vert", "CursorShader.frag", "Cursor Shader");
 	}
 }
 
@@ -154,6 +157,11 @@ void ShaderDefinition::Shader::setStaticColorBool(bool useStaticColor)
 void ShaderDefinition::Shader::uploadTimeToGPU()
 {
 	glUniform1f(ShaderSlotInfo.timeModifier.position, nowTime);
+}
+
+void ShaderDefinition::Shader::uploadRadiusToGPU(const float radius)
+{
+	glUniform1f(ShaderSlotInfo.radius.position, radius);
 }
 
 void ShaderDefinition::Shader::uploadProjectionMatrixToGPU()

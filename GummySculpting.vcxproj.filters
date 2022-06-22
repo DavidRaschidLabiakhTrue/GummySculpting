@@ -231,9 +231,18 @@
     </ClCompile>
     <ClCompile Include="Tessellate.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Tessellate</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="MeshToolsWindow.cpp">
       <Filter>GUI\Tools Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>3D Objects\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFileExporter.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor3D.cpp">
+      <Filter>3D Objects\Cursor3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -485,9 +494,18 @@
     </ClInclude>
     <ClInclude Include="Tessellate.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Tessellate</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="MeshToolsWindow.hpp">
       <Filter>GUI\Tools Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.hpp">
+      <Filter>3D Objects\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor3D.hpp">
+      <Filter>3D Objects\Cursor3D</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFileExporter.hpp">
+      <Filter>File</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -544,6 +562,15 @@
     </None>
     <None Include="CircleShader.vert">
       <Filter>Rendering\Shaders\Shader Files\CircleShader</Filter>
+    </None>
+    <None Include="CursorShader.frag">
+      <Filter>Rendering\Shaders\Shader Files\Cursor Shader</Filter>
+    </None>
+    <None Include="CursorShader.vert">
+      <Filter>Rendering\Shaders\Shader Files\Cursor Shader</Filter>
+    </None>
+    <None Include="test_triangle.gum">
+      <Filter>3D Models\gum Models</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -894,9 +921,18 @@
     </Filter>
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Tessellate">
       <UniqueIdentifier>{d0d079ed-79d7-4227-b157-f031fb78b756}</UniqueIdentifier>
-      </Filter>
+    </Filter>
     <Filter Include="GUI\Tools Windows">
       <UniqueIdentifier>{29cb21a0-3784-44dd-a5af-50ddc39f9179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Cursor">
+      <UniqueIdentifier>{e333eee3-5e8c-4f5f-b268-353ef2cbb054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders\Shader Files\Cursor Shader">
+      <UniqueIdentifier>{a0892e34-3948-4cbe-91ee-d961adab1120}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3D Objects\Cursor3D">
+      <UniqueIdentifier>{15d8a28d-6777-4334-b0f8-a87175804ddb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

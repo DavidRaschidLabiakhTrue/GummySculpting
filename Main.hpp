@@ -31,6 +31,8 @@
 
 #include "StaticCircle.hpp"
 
+#include "Cursor.hpp"
+
 using namespace MathTypeDefinitions;
 using namespace Window_Class;
 
@@ -56,6 +58,7 @@ using DebugConsoleDefinition::debug;
 
 using MainDirectiveDefinition::Directives; // command list main must execute
 
+using _Cursor::Cursor;
 
 
 
@@ -129,7 +132,7 @@ class MainProgram
 		TimeGate renderGate = TimeGate(60.0f);
 		TimeGate updateGate = TimeGate(10.0f); // need to limit the amount of times a mesh is being sent from the CPU to the GPU. 
 
-		StaticCircle circle;
+		
 };
 
 

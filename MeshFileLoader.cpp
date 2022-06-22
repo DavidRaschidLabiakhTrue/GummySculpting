@@ -3,7 +3,7 @@
 using namespace MeshDefinition;
 
 // the call implementation
-void MeshFileLoader::loadGumFile(string filepath, Mesh& mesh)
+void MeshFileLoader::loadGumFile(string filepath, MeshReference mesh)
 {
 	GumLoading::readGumMesh(filepath, mesh); // the actual implementation
 	mesh.bind();
@@ -21,6 +21,14 @@ void MeshFileLoader::loadGumFile(string filepath, StaticMeshReference mesh, bool
 		mesh.collectStats();
 		mesh.bind(); // this mesh is going to be only modified in the shader as it is static.
 	}
+}
+
+void MeshFileLoader::loadObjFile(string filepath, MeshReference mesh)
+{
+	ObjLoading::readObjMesh(filepath, mesh);
+	mesh.bind();
+	mesh.createVariableMap();
+	mesh.generateGraphsAndTrees();
 }
 
 namespace MeshFileLoader::Util
@@ -44,10 +52,25 @@ namespace MeshFileLoader::Util
 		//std::cout << "end of skip\n";
 		return;
 	}
+
+	void skipMessage(FILE* file)
+	{
+		string message;
+		char parser;
+		while ((parser = fgetc(file)) != ' ')
+		{
+			if (parser == EOF)
+				break;
+			message += parser;
+		}
+
+		message.clear();
+		return;
+	}
 }
 namespace MeshFileLoader::GumLoading
 {
-	void readVertex(FILE** file, string& str, Mesh& mesh)
+	void readVertex(FILE** file, string& str, MeshReference mesh)
 	{
 		char buffer;
 		int lim = 0;
@@ -71,7 +94,7 @@ namespace MeshFileLoader::GumLoading
 
 #ifdef IMPLEMENT_LINEAR_INDICES
 	// UNIMPLEMENTED - COLLAPSE
-	void readIndice(FILE** file, string& str, Mesh& mesh)
+	void readIndice(FILE** file, string& str, MeshReference mesh)
 	{
 		char parser;
 		while ((parser = fgetc(*file)) != ' ')
@@ -107,7 +130,7 @@ namespace MeshFileLoader::GumLoading
     }
 
 
-	void GumLoading::readTriangle(FILE** file, string& str, Mesh& mesh)
+	void GumLoading::readTriangle(FILE** file, string& str, MeshReference mesh)
 	{
 		IndexedTriangle tri;
 		tri[0] = readTriangleIndice(file, str);
@@ -125,8 +148,38 @@ namespace MeshFileLoader::GumLoading
 		mesh.triangles.push_back(tri);
 	}
 
+	void readColor(FILE** file, string& str, MeshReference mesh)
+	{
+		//read index of vertex
+		char parser;
+		while ((parser = fgetc(*file)) != ' ')
+		{
+			say parser;
+			if (parser == EOF)
+				break;
+			str.push_back(parser);
+		}
+		int idx = stoi(str);
+		str.clear();
 
-	void readGumMesh(string filePath, Mesh& mesh)
+		//read float color values
+		for (int i = 0; i < 4; i++)
+		{
+			while ((parser = fgetc(*file)) != ' ')
+			{
+				if (parser == EOF)
+					break;
+				str.push_back(parser);
+			}
+			str.push_back(' ');
+		}
+		sscanf(str.c_str(), "%f %f %f %f", &mesh.vertices[idx].color.r, &mesh.vertices[idx].color.g, &mesh.vertices[idx].color.b, &mesh.vertices[idx].color.a);
+		str.clear();
+
+		return;
+	}
+
+	void readGumMesh(string filePath, MeshReference mesh)
 	{
 
 		std::ifstream reader;
@@ -142,6 +195,7 @@ namespace MeshFileLoader::GumLoading
 		std::getline(reader, retindicecount);
 		std::getline(reader, retcolorcount);
 
+		mesh.name = retname.substr(6, retvertcount.size());
 		retvertcount = retvertcount.substr(14, retvertcount.size());
 		retindicecount = retindicecount.substr(14, retindicecount.size());
 
@@ -172,14 +226,7 @@ namespace MeshFileLoader::GumLoading
 		mesh.vertices.reserve(vertexLim);
 		mesh.triangles.reserve(indiceLim / 3);
 
-		string message;
-		char parser;
-		while ((parser = fgetc(file)) != ' ')
-		{
-			message += parser;
-		}
-
-		message.clear();
+		MeshFileLoader::Util::skipMessage(file);
 
 		string str;
 		for (int i = 0; i < vertexLim; i++)
@@ -197,8 +244,16 @@ namespace MeshFileLoader::GumLoading
 		}
 
 		str.clear();
-		auto uniformcolor = v4(0.5, 0.5, 0.5, 1.0);
+
+		MeshFileLoader::Util::skipMessage(file);
+
+		auto uniformcolor = Mesh::defaultMeshColor;
 		mesh.colorDataUniformly(uniformcolor);
+
+		for (int k = 0; k < colorLim; k++)
+		{
+			readColor(&file, str, mesh);
+		}
 
 		fclose(file);
 
@@ -206,3 +261,78 @@ namespace MeshFileLoader::GumLoading
 	}
 }
 
+
+
+void MeshFileLoader::ObjLoading::readObjTriangle(string& str, MeshReference mesh)
+{
+	using IndexedTriangleDefinition::IndexedTriangle;
+
+	IndexedTriangle tri;
+	sscanf(str.c_str(), "%d %d %d", &tri.indice[0], &tri.indice[1], &tri.indice[2]);
+	tri.delevel();
+	mesh.triangles.push_back(tri); // not a fan of not being able to use reserve on this.
+
+	
+
+}
+
+void MeshFileLoader::ObjLoading::readOBJVertex(string& vertexString, MeshReference mesh)
+{
+	v3 vert;
+	sscanf(vertexString.c_str(), "%f %f %f", &vert.x, &vert.y, &vert.z);
+	mesh.vertices.push_back(vert);
+}
+
+void MeshFileLoader::ObjLoading::readObjMesh(string filePath, MeshReference mesh)
+{
+	ifstream reader;
+	string str;
+	reader.open(filePath);
+
+	if (!reader.is_open())
+	{
+		say "Cannot open file" spc filePath done;
+		return;
+	}
+	
+	while (getline(reader, str))
+	{
+		if (str.size() == 0 || str[0] == '#')
+			continue;
+
+		if (str.substr(0, 2) == "v ")
+		{
+			str = str.substr(2, str.length());
+			readOBJVertex(str, mesh);
+			continue;
+		}
+		if (str.substr(0, 2) == "f ")
+		{
+			str = str.substr(2, str.length());
+			readObjTriangle(str, mesh);
+			continue;
+
+		}
+		if (str.substr(0, 2) == "s ") // don't care
+		{
+			continue; // not implemented
+		}
+		if (str.substr(0, 3) == "vt ") // don't care
+		{
+			continue; // not implemented
+		}
+		if (str.substr(0, 3) == "vn ") // don't care
+		{
+			continue; // not implemented
+		}
+		if (str.substr(0, 2) == "o ")
+		{
+			mesh.name = str;
+			continue; // not implemented
+
+		}
+	}
+
+
+	return;
+}

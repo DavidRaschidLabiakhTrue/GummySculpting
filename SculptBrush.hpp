@@ -4,10 +4,13 @@
 #include "Sampler.hpp"
 #include "SculptPayload.hpp"
 
+#include "Cursor.hpp"
+
 namespace SculptBrushDefinition
 {
 	using namespace SamplerDefinition;
 	using namespace SculptPayloadDefinition;
+	using namespace _Cursor;
 
 	enum BrushState{BrushStateSmooth, BrushStateStroke, BrushStateColor, BrushStateNoise, BrushStateSmoothedColor, BrushDirac, BrushTessellate};
 
@@ -25,8 +28,10 @@ namespace SculptBrushDefinition
 
 			BrushState currentState = BrushStateColor;
 			bool shouldApplySymmetrically = false;
-		protected:
 			SculptPayload payload;
+			Cursor cursor;
+		protected:
+			
 
 			double rateTime;
 			double offsetTime;

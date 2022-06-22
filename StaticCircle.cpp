@@ -11,11 +11,13 @@ StaticCircleDefinition::StaticCircle::StaticCircle(bool trueConstructor)
 
 	float heading;
 
+	this->radius = this->diameter / 2.0f;
+
 	for (int i = 0; i < circleResolution; i++)
 	{
 		heading = radians((float)i);
 
-		this->vertices.emplace_back(V3D(v3(cos(heading) * radius, sin(heading) * radius, 0.0f)));
+		this->vertices.emplace_back(V3D(v3(cos(heading) * diameter, sin(heading) * diameter, 0.0f)));
 	}
 
 	for (int i = 0; i < circleResolution; i++)
@@ -23,7 +25,9 @@ StaticCircleDefinition::StaticCircle::StaticCircle(bool trueConstructor)
 		this->indices.emplace_back(i);
 		this->indices.emplace_back(i + 1);
 	}
-	this->indices[(this->indices.size() - 1)] = 0;
+	this->indices[(this->indices.size() - 1)] = 0; // complete the circle
+
+	collectStats();
 
 	this->bindCircle();
 }

@@ -35,6 +35,7 @@ namespace ShaderDefinition
 			void setStaticColorBool(bool useStaticColor);
 
 			void uploadTimeToGPU();
+			void uploadRadiusToGPU(const float radius);
 
 			string name; // name of shader for debugging
 			
@@ -52,6 +53,7 @@ namespace ShaderDefinition
 	extern Shader StaticMeshShader;
 	extern Shader GridShader;
 	extern Shader CircleShader;
+	extern Shader CursorShader;
 	extern std::random_device ColorRandomizer;
 	extern std::mt19937 ColorGenerator;
 	extern std::uniform_real_distribution<float> ColorDistribution;

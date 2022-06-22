@@ -22,7 +22,8 @@ namespace StaticCircleDefinition
 
 		~StaticCircle();
 
-		float radius = 3.0f;
+		float diameter = 1.0f;
+		float radius = 0.5f;
 
 		
 

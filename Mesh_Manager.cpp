@@ -27,9 +27,35 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 		makeLastMeshActive();
 		return;
 	}
+	else if (fileType == ".obj")
+	{
+		MeshFileLoader::loadObjFile(meshFilePath, mesh);
+		meshes.push_back(mesh);
+		makeLastMeshActive();
+		return;
+	}
 	else
 	{
 		say "Error: cannot load .gum from Mesh_Manager::loadMeshFromFile" done;
+		// raise error
+	}
+
+
+
+}
+
+void Mesh_Manager::exportMeshToFile(string meshFilePath)
+{
+	string fileType = meshFilePath.substr(meshFilePath.size() - 4, meshFilePath.size());
+
+	if (fileType == ".gum")
+	{
+		MeshFileExporter::exportGumFile(meshFilePath, getActiveMeshReference());
+		return;
+	}
+	else
+	{
+		say "Error: unsupported file type" done;
 		// raise error
 	}
 

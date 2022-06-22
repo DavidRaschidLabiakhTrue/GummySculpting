@@ -16,8 +16,17 @@ using namespace TimeGateDefinition;
 
 using namespace StaticCircleDefinition;
 
+void handleAtExit()
+{
+	say "Program Exit" done;
+
+}
+
+
+
 int main(int argc, char **argv)
 {
+	atexit(handleAtExit);
     // _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     StringList arguments(argv + 1, argv + argc); // loads the arguments as a string vector.
 
@@ -36,14 +45,17 @@ int main(int argc, char **argv)
 
     MainProgram mainProgram = MainProgram(arguments);
 
-    return mainProgram.ProgramCycle();
+	while (mainProgram.ProgramCycle()){}
+
+    return 0;
 }
+
 void MainProgram::parseCommandLineArguments(StringList &arguments)
 {
     string parser = "";
     if (arguments.size() == 0)
     {
-        arguments.emplace_back("4star.gum"); // default argument
+        arguments.emplace_back("smoothSphere.gum"); // default argument
     }
     else
     {
@@ -67,7 +79,7 @@ void MainProgram::parseCommandLineArguments(StringList &arguments)
         {
             parser = strArg.substr(strArg.size() - 4, strArg.size());
 
-            if (parser == ".gum")
+            if (parser == ".gum" || parser == ".obj")
             {
                 renderer.loadMeshFromFile(strArg);
             }
@@ -108,6 +120,7 @@ int MainProgram::ProgramCycle()
 
 MainProgram::MainProgram()
 {
+
 }
 
 MainProgram::MainProgram(StringList &arguments)
@@ -123,7 +136,7 @@ MainProgram::MainProgram(StringList &arguments)
 
     visualObjects = VisualObjects(TrueConstructor);
 
-    circle = StaticCircle(TrueConstructor);
+   
 
     preprocess(arguments);
 }
@@ -155,6 +168,7 @@ void MainProgram::processFileManagementCommand(StringList &arguments, int numArg
         renderer.loadMeshFromFile(arguments[2]);
         break;
     case EXPORT: // this case will need to be expanded to also include .obj and probably .stl
+        renderer.exportMeshToFile(arguments[2]);
         break;
     }
 }
@@ -493,11 +507,16 @@ void MainProgram::queryMechanics()
 
     if (cameraGate.canUpdate() && win.canRender)
     {
+
         queryCamera();
     }
 
     if (!queryGizmo() and sculptGate.canUpdate())
     {
+		brush.screenToWorld();
+		
+		
+
         brush.querySculpt(renderer.getActiveMeshReference());
     }
 }
@@ -514,8 +533,8 @@ bool MainProgram::queryGizmo()
 void MainProgram::draw3D()
 {
     renderer.draw();
-
-    circle.drawCircle();
+	/*brush.cursor.drawCursor();*/
+	
 }
 void MainProgram::drawStatic()
 {
@@ -523,6 +542,7 @@ void MainProgram::drawStatic()
     visualObjects.drawVisualObjects();
     brush.drawRay();
     Debug::Drawing::renderPlanes();
+	
     // clear depth buffer to draw newly rendered objects on top
     renderer.clearDepthInfo();
     Debug::Drawing::renderLines();

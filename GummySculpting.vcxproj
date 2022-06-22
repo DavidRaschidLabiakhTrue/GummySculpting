@@ -177,6 +177,8 @@
     <ClCompile Include="CameraNav.cpp" />
     <ClCompile Include="CameraParameters.cpp" />
     <ClCompile Include="Coloring.cpp" />
+    <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="Cursor3D.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DebuggingConsole.cpp" />
     <ClCompile Include="DebugLine.cpp" />
@@ -202,6 +204,7 @@
     <ClCompile Include="LinearAlgebra.cpp" />
     <ClCompile Include="MainDirective.cpp" />
     <ClCompile Include="MeshChangeLog.cpp" />
+    <ClCompile Include="MeshFileExporter.cpp" />
     <ClCompile Include="MeshHistory.cpp" />
     <ClCompile Include="Noise.cpp" />
     <ClCompile Include="Octree.cpp" />
@@ -257,6 +260,8 @@
     <ClInclude Include="CameraNav.hpp" />
     <ClInclude Include="CameraParameters.hpp" />
     <ClInclude Include="Coloring.hpp" />
+    <ClInclude Include="Cursor.hpp" />
+    <ClInclude Include="Cursor3D.hpp" />
     <ClInclude Include="Debug.hpp" />
     <ClInclude Include="DebuggingConsole.hpp" />
     <ClInclude Include="DebugLine.hpp" />
@@ -284,6 +289,7 @@
     <ClInclude Include="MainDirective.hpp" />
     <ClInclude Include="MathDefinitions.cpp" />
     <ClInclude Include="MeshChangeLog.hpp" />
+    <ClInclude Include="MeshFileExporter.hpp" />
     <ClInclude Include="MeshHistory.hpp" />
     <ClInclude Include="Noise.hpp" />
     <ClInclude Include="Octant.hpp" />
@@ -344,6 +350,8 @@
     <None Include="CircleShader.frag" />
     <None Include="CircleShader.vert" />
     <None Include="cube.gum" />
+    <None Include="CursorShader.frag" />
+    <None Include="CursorShader.vert" />
     <None Include="GridShader.frag" />
     <None Include="GridShader.vert" />
     <None Include="plane.gum" />
@@ -358,6 +366,7 @@
     <None Include="StandardShader.vert" />
     <None Include="StaticMeshShader.frag" />
     <None Include="StaticMeshShader.vert" />
+    <None Include="test_triangle.gum" />
     <None Include="WireFrameShader.frag" />
     <None Include="WireFrameShader.vert" />
   </ItemGroup>
