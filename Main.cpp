@@ -505,12 +505,7 @@ void MainProgram::generateMaps()
 }
 void MainProgram::queryMechanics()
 {
-
-    if (cameraGate.canUpdate() && win.canRender)
-    {
-
-        queryCamera();
-    }
+    queryCamera();
 
     if (!queryGizmo() and sculptGate.canUpdate())
     {
@@ -523,8 +518,16 @@ void MainProgram::queryMechanics()
 }
 void MainProgram::queryCamera()
 {
-    cam.checkInput();
-    cam.updateMatrix();
+    if (!cam.shouldDrawCursor)
+    {
+        ImGui::SetMouseCursor(ImGuiMouseCursor_None);
+    }
+
+    if (cameraGate.canUpdate() && win.canRender)
+    {
+        cam.checkInput();
+        cam.updateMatrix();
+    }
 }
 bool MainProgram::queryGizmo()
 {
