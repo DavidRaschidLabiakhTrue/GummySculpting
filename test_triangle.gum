@@ -1,7 +1,5 @@
 Name: test_triangle
 Vertex Count: 3
 Indice Count: 3
-Color Count: 2
-VertexData: 0 0 0 0 0 -1 1 0 -0.5
+vertexData: 0 0 0 /0 0 -1 0 1 0.1 1 /1 0 -0.5 0 0 1 1 /
 IndiceData: 0 2 1
-ColorData: 1 0.0 1.0 0.1 1.0 2 0.0 0.0 1.0 1.0
