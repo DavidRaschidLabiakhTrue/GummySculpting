@@ -6,7 +6,7 @@ using namespace Sculpting::Tessellate;
 void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference payload)
 {
     payload.last = -1;
-    if(payload.wasRun)
+    if (payload.wasRun)
     {
         return;
     }
@@ -26,10 +26,10 @@ void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference pay
     unordered_set<int> allVerticesInRange(make_move_iterator(cMesh.verticesInRange.begin()), make_move_iterator(cMesh.verticesInRange.end()));
     allVerticesInRange.insert(cMesh.reflectedVerticesInRange.begin(), cMesh.reflectedVerticesInRange.end());
 
-    int innerVertexCount = (int) allVerticesInRange.size();
+    int innerVertexCount = (int)allVerticesInRange.size();
 
     // Get outer triangles (exactly 2 vertices in range)
-    TriangleIDList outerTriangleList;
+    unordered_set<int> outerTriangleSet;
 
     foreach (tri, cMesh.affectedTriangles)
     {
@@ -45,7 +45,7 @@ void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference pay
 
             if (count == 2)
             {
-                outerTriangleList.emplace_back(tri);
+                outerTriangleSet.insert(tri);
             }
         }
     }
@@ -100,8 +100,84 @@ void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference pay
         vertices[midpoints[2]].triangleIDs.emplace_back(tri);
     }
 
+    // Find adjacent outer triangles
+    foreach (tri, outerTriangleSet)
+    {
+        KeyData outsideVertex;
+        KeyData insideVertexLeft;
+        KeyData insideVertexRight;
+
+        if (abs(distance(cMesh.vertices[triangles[tri][0]].position, cMesh.collision.position)) > payload.radius)
+        {
+            outsideVertex = triangles[tri][0];
+            insideVertexLeft = triangles[tri][1];
+            insideVertexRight = triangles[tri][2];
+        }
+        else if (abs(distance(cMesh.vertices[triangles[tri][1]].position, cMesh.collision.position)) > payload.radius)
+        {
+            outsideVertex = triangles[tri][1];
+            insideVertexLeft = triangles[tri][2];
+            insideVertexRight = triangles[tri][0];
+        }
+        else if (abs(distance(cMesh.vertices[triangles[tri][2]].position, cMesh.collision.position)) > payload.radius)
+        {
+            outsideVertex = triangles[tri][2];
+            insideVertexLeft = triangles[tri][0];
+            insideVertexRight = triangles[tri][1];
+        }
+
+        // Check if a neighboring outer triangle exists
+        KeyData neighborTri = -1;
+        foreach (otherTri, vertices[outsideVertex].triangleIDs)
+        {
+            if (outerTriangleSet.contains(otherTri))
+            {
+                neighborTri = otherTri;
+                break;
+            }
+        }
+        if (neighborTri == -1)
+        {
+            continue;
+        }
+
+        // Find shared vertex
+        KeyData sharedVertex;
+        KeyData origNonSharedVertex;
+        KeyData neighborNonSharedVertex;
+        for (int i = 0; i < 3; i++)
+        {
+            if (triangles[neighborTri][i] == insideVertexLeft)
+            {
+                sharedVertex = insideVertexLeft;
+                origNonSharedVertex = insideVertexRight;
+                neighborNonSharedVertex = (triangles[neighborTri][(i + 1) % 3] != outsideVertex) ? triangles[neighborTri][(i + 1) % 3] : triangles[neighborTri][(i + 2) % 3];
+                break;
+            }
+            else if (triangles[neighborTri][i] == insideVertexRight)
+            {
+                sharedVertex = insideVertexRight;
+                origNonSharedVertex = insideVertexLeft;
+                neighborNonSharedVertex = (triangles[neighborTri][(i + 1) % 3] != outsideVertex) ? triangles[neighborTri][(i + 1) % 3] : triangles[neighborTri][(i + 2) % 3];
+                break;
+            }
+        }
+
+        // Create Midpoint
+        v3 midpoint = getEdgeMidpoint(cMesh, outsideVertex, sharedVertex);
+        V3D newVert = midpoint;
+        KeyData midpointIndex = vertexIndex++;
+        newVert.color = (vertices[outsideVertex].color + vertices[sharedVertex].color) * 0.5f;
+        vertices.emplace_back(newVert);
+
+
+
+        outerTriangleSet.erase(tri);
+        outerTriangleSet.erase(neighborTri);
+    }
+
     // Divide outer triangles
-    foreach (tri, outerTriangleList)
+    foreach (tri, outerTriangleSet)
     {
         KeyData outsideVertex;
         KeyData insideVertexLeft;

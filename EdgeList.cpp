@@ -17,7 +17,6 @@ EdgeReference EdgeList::getEdge(KeyData key) EDGENOEXCEPT
 
 void EdgeList::generateEdges()
 {
-	timerStart;
     edges.clear();
     const auto countUniqueVertices = vertices.size();
     edges.reserve(countUniqueVertices);
@@ -73,10 +72,6 @@ void EdgeList::generateEdges()
         }));
     }
     joinThreads;
-
-    // this->cleanUpEdges();
-    // printAllEdges();
-	timerEnd("generateEdges");
 }
 
 void EdgeList::cleanUpEdges()

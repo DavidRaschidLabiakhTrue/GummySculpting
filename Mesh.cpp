@@ -137,7 +137,6 @@ KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
 
 KeyData Mesh::searchLinearParallel(rv3 direction, rv3 origin)
 {
-	timerStart;
     const int triangleCount = totalTriangles();
     KeyData result = ImpossibleKey;
     float closestDistance = numeric_limits<float>::max();
@@ -176,8 +175,6 @@ KeyData Mesh::searchLinearParallel(rv3 direction, rv3 origin)
     }
 
 	joinThreads;
-
-	timerEnd("searchLinearParallel");
     return result;
 }
 
