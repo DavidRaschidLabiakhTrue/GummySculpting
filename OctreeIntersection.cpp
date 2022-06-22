@@ -355,7 +355,7 @@ void Octree::octreeRayIntersectionCore(v3 origin, v3 direction, OctreeCollision 
 
 void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction, bool isSymmetric, v3 planeOrigin, v3 planeNormal) ONOEXCEPT
 {
-    timerStart;
+   // timerStart;
     // isSymmetric = true; // debug
     thread reflectedThread;
     if (isSymmetric)
@@ -375,7 +375,7 @@ void OctreeDefinition::Octree::octreeRayIntersection(v3 origin, v3 direction, bo
         reflectedThread.join();
     }
 
-    timerEnd("octreeRayIntersection");
+   // timerEnd("octreeRayIntersection");
 }
 
 bool Octree::isOriginInOctantBounds(v3 origin, OctantReference octant) ONOEXCEPT

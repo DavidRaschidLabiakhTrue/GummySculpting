@@ -11,10 +11,10 @@
       <Filter>Window\Window Class</Filter>
     </ClCompile>
     <ClCompile Include="V3D.cpp">
-      <Filter>Data Structures\Unit\V3D</Filter>
+      <Filter>Data Structures\Search\Unit\V3D</Filter>
     </ClCompile>
     <ClCompile Include="Edge.cpp">
-      <Filter>Data Structures\Unit\Edge</Filter>
+      <Filter>Data Structures\Search\Unit\Edge</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Rendering\Camera\Imple</Filter>
@@ -65,13 +65,13 @@
       <Filter>GUI\ImGUI Base Files</Filter>
     </ClCompile>
     <ClCompile Include="IndexedTriangle.cpp">
-      <Filter>Data Structures\Unit\IndexedTriangle</Filter>
+      <Filter>Data Structures\Search\Unit\IndexedTriangle</Filter>
     </ClCompile>
     <ClCompile Include="IndiceList.cpp">
       <Filter>Data Structures\Search\Lists\Indice List</Filter>
     </ClCompile>
     <ClCompile Include="Indices.cpp">
-      <Filter>Data Structures\Unit\Indices</Filter>
+      <Filter>Data Structures\Search\Unit\Indices</Filter>
     </ClCompile>
     <ClCompile Include="KeyInput.cpp">
       <Filter>Window\Window API\KeyInput</Filter>
@@ -256,10 +256,10 @@
       <Filter>Window\Window Class</Filter>
     </ClInclude>
     <ClInclude Include="V3D.hpp">
-      <Filter>Data Structures\Unit\V3D</Filter>
+      <Filter>Data Structures\Search\Unit\V3D</Filter>
     </ClInclude>
     <ClInclude Include="Edge.hpp">
-      <Filter>Data Structures\Unit\Edge</Filter>
+      <Filter>Data Structures\Search\Unit\Edge</Filter>
     </ClInclude>
     <ClInclude Include="Camera.hpp">
       <Filter>Rendering\Camera\Imple</Filter>
@@ -313,13 +313,13 @@
       <Filter>GUI\ImGUI Base Files</Filter>
     </ClInclude>
     <ClInclude Include="IndexedTriangle.hpp">
-      <Filter>Data Structures\Unit\IndexedTriangle</Filter>
+      <Filter>Data Structures\Search\Unit\IndexedTriangle</Filter>
     </ClInclude>
     <ClInclude Include="IndiceList.hpp">
       <Filter>Data Structures\Search\Lists\Indice List</Filter>
     </ClInclude>
     <ClInclude Include="Indices.hpp">
-      <Filter>Data Structures\Unit\Indices</Filter>
+      <Filter>Data Structures\Search\Unit\Indices</Filter>
     </ClInclude>
     <ClInclude Include="KeyInput.hpp">
       <Filter>Window\Window API\KeyInput</Filter>
@@ -604,20 +604,11 @@
     <Filter Include="Data Structures\Search">
       <UniqueIdentifier>{649c8ebe-b6c1-43ad-8a0e-9097f95f3775}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data Structures\Unit">
-      <UniqueIdentifier>{48ac2dfa-ce64-4921-b2a4-e25a974df0f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Mathematics">
       <UniqueIdentifier>{a7302d47-c520-4c4b-960e-1dcf21ff35a1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Mechanics">
       <UniqueIdentifier>{ea8393c8-fc4a-4f77-a19c-1724a6ac647d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Unit\V3D">
-      <UniqueIdentifier>{5338d416-59d9-41be-a679-1414272a6e17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Unit\Edge">
-      <UniqueIdentifier>{af1c8f3a-8c1d-446b-b7f7-a450f66b10e0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Rendering">
       <UniqueIdentifier>{ea0e97d2-b90e-4a86-aa6e-03853ff4cb57}</UniqueIdentifier>
@@ -681,12 +672,6 @@
     </Filter>
     <Filter Include="GUI\ImGUI Base Files">
       <UniqueIdentifier>{94ec6613-e58f-4041-82fa-3310aa3dab81}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Unit\IndexedTriangle">
-      <UniqueIdentifier>{3b0d85cb-67b2-4710-93ea-b2ca337e0c86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structures\Unit\Indices">
-      <UniqueIdentifier>{74d3382a-228e-440e-a9de-8cb977c04745}</UniqueIdentifier>
     </Filter>
     <Filter Include="Window\Window API\KeyInput">
       <UniqueIdentifier>{ad2ece7f-0549-4fc6-ae95-8e7344719b27}</UniqueIdentifier>
@@ -933,6 +918,21 @@
     </Filter>
     <Filter Include="3D Objects\Cursor3D">
       <UniqueIdentifier>{15d8a28d-6777-4334-b0f8-a87175804ddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Unit">
+      <UniqueIdentifier>{48ac2dfa-ce64-4921-b2a4-e25a974df0f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Unit\V3D">
+      <UniqueIdentifier>{5338d416-59d9-41be-a679-1414272a6e17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Unit\Edge">
+      <UniqueIdentifier>{af1c8f3a-8c1d-446b-b7f7-a450f66b10e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Unit\IndexedTriangle">
+      <UniqueIdentifier>{3b0d85cb-67b2-4710-93ea-b2ca337e0c86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Unit\Indices">
+      <UniqueIdentifier>{74d3382a-228e-440e-a9de-8cb977c04745}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -108,6 +108,7 @@ void MeshDefinition::Mesh::generateGraphsAndTrees()
     computeNormals();
     collectStats();
     this->buildOctree();
+	
 }
 
 KeyData Mesh::searchLinear(rv3 direction, rv3 origin)

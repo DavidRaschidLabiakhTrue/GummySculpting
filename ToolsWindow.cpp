@@ -17,7 +17,7 @@ ToolsWindowDefinition::ToolsWindow::~ToolsWindow()
 
 void ToolsWindowDefinition::ToolsWindow::build()
 {
-	static float floatSlider = 0.25f;
+	static float floatSlider = 1.0f;
 	static int integerSlider = 0;
 	static float rgba[4] = { 0.5, 0.5, 0.5, 1.0f };
 	static bool checkbox1 = false;		//Edit Here
@@ -34,7 +34,7 @@ void ToolsWindowDefinition::ToolsWindow::build()
 		else
 		{
 			ImGui::LabelText("", "Size");
-			ImGui::SliderFloat("Brush Radius Slider", &floatSlider, 0.f, 0.5f);
+			ImGui::SliderFloat("Brush Radius Slider", &floatSlider, 0.f,2.0f);
 			ImGui::SliderInt("Integer Slider", &integerSlider, 0, 100);
 			ImGui::LabelText("", "Color");
 			ImGui::ColorEdit4("Color Picker", rgba);
