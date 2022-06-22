@@ -46,7 +46,7 @@ void TopBarDefinition::TopBar::build()
 		
 		if (ImGui::MenuItem("Export Mesh")) {
 			nfdchar_t* outPath = NULL;
-			nfdresult_t result = NFD_SaveDialog("gum,obj", NULL, &outPath);
+			nfdresult_t result = NFD_SaveDialog("gum,obj,stl", NULL, &outPath);
 			string path;
 
 			if (result == NFD_ERROR)
