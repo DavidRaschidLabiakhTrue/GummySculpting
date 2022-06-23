@@ -12,6 +12,9 @@ namespace Sculpting::Tessellate
     using namespace SculptPayloadDefinition;
 
     void applyTessellate(MeshReference cMesh, SculptPayloadReference payload);
-    inline v3 getEdgeMidpoint(MeshReference cMesh, KeyData v1, KeyData v2);
+    void splitAdjacentOuterTriangles(MeshReference cMesh, SculptPayloadReference payload, std::unordered_set<int>& outerTriangleSet, std::unordered_set<int>& allVerticesInRange);
+    void splitOuterTriangles(MeshReference cMesh, SculptPayloadReference payload, std::unordered_set<int>& outerTriangleSet, unordered_map<v3, KeyData>& midpointMap, unordered_set<int>& allVerticesInRange);
+    unordered_map<v3, KeyData> createMidpointMap(MeshReference cMesh, std::unordered_set<int>& allVerticesInRange);
+    void subdivideInnerTriangles(MeshReference cMesh, unordered_map<v3, KeyData>& midpointMap, std::unordered_set<int>& innerTriangleSet);
 } // namespace Sculpting::Tessellate
 #endif

@@ -5,6 +5,7 @@ using namespace Sculpting::Tessellate;
 
 void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference payload)
 {
+    cMesh.vertices[0].color = v4(1, 0, 0, 1);
     payload.last = -1;
     if (payload.wasRun)
     {
@@ -33,14 +34,14 @@ void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference pay
 
     foreach (tri, cMesh.affectedTriangles)
     {
-        int count = 0;
         if (!innerTriangleSet.contains(tri))
         {
-            if (abs(distance(vertices[triangles[tri][0]].position, cMesh.collision.position)) <= payload.radius)
+            int count = 0;
+            if (allVerticesInRange.contains(triangles[tri][0]))
                 count++;
-            if (abs(distance(vertices[triangles[tri][1]].position, cMesh.collision.position)) <= payload.radius)
+            if (allVerticesInRange.contains(triangles[tri][1]))
                 count++;
-            if (abs(distance(vertices[triangles[tri][2]].position, cMesh.collision.position)) <= payload.radius)
+            if (allVerticesInRange.contains(triangles[tri][2]))
                 count++;
 
             if (count == 2)
@@ -50,9 +51,24 @@ void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference pay
         }
     }
 
-    // Generate midpoints
+    splitAdjacentOuterTriangles(cMesh, payload, outerTriangleSet, allVerticesInRange);
+
+    unordered_map<v3, KeyData> midpointMap = createMidpointMap(cMesh, allVerticesInRange);
+
+    subdivideInnerTriangles(cMesh, midpointMap, innerTriangleSet);
+
+    splitOuterTriangles(cMesh, payload, outerTriangleSet, midpointMap, allVerticesInRange);
+
+    cMesh.generateEdges();
+    cMesh.updateAffectedTrianglesParallel();
+    cMesh.computeNormals();
+    cMesh.refresh();
+}
+
+unordered_map<v3, KeyData> Tessellate::createMidpointMap(MeshReference cMesh, std::unordered_set<int> &allVerticesInRange)
+{
     unordered_map<v3, KeyData> midpointMap;
-    int vertexIndex = (int)vertices.size();
+    int vertexIndex = (int)cMesh.vertices.size();
 
     foreach (vertexID, allVerticesInRange)
     {
@@ -60,10 +76,10 @@ void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference pay
         {
             if (allVerticesInRange.contains(otherVertexID))
             {
-                v3 midpoint = getEdgeMidpoint(cMesh, vertexID, otherVertexID);
+                v3 midpoint = cMesh.getEdgeMidpoint(vertexID, otherVertexID);
                 V3D newVert = midpoint;
-                newVert.color = (vertices[vertexID].color + vertices[otherVertexID].color) * 0.5f;
-                vertices.emplace_back(newVert);
+                newVert.color = (cMesh.vertices[vertexID].color + cMesh.vertices[otherVertexID].color) * 0.5f;
+                cMesh.vertices.emplace_back(newVert);
                 midpointMap.emplace(midpoint, vertexIndex);
 
                 vertexIndex++;
@@ -71,24 +87,170 @@ void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference pay
         }
     }
 
-    // Generate new triangles
+    return midpointMap;
+}
+
+void Tessellate::splitAdjacentOuterTriangles(MeshReference cMesh, SculptPayloadReference payload, std::unordered_set<int> &outerTriangleSet, std::unordered_set<int> &allVerticesInRange)
+{
+    IndexedTriangles &triangles = cMesh.triangles;
+    Vertices &vertices = cMesh.vertices;
+    unordered_set<int> adjacentTriangleSet;
+
+    foreach (tri, outerTriangleSet)
+    {
+        if (adjacentTriangleSet.contains(tri))
+        {
+            continue;
+        }
+
+        KeyData outsideVertex;
+        KeyData insideVertexLeft;
+        KeyData insideVertexRight;
+
+        if (!allVerticesInRange.contains(triangles[tri][0]))
+        {
+            outsideVertex = triangles[tri][0];
+            insideVertexLeft = triangles[tri][1];
+            insideVertexRight = triangles[tri][2];
+        }
+        else if (!allVerticesInRange.contains(triangles[tri][1]))
+        {
+            outsideVertex = triangles[tri][1];
+            insideVertexLeft = triangles[tri][2];
+            insideVertexRight = triangles[tri][0];
+        }
+        else if (!allVerticesInRange.contains(triangles[tri][2]))
+        {
+            outsideVertex = triangles[tri][2];
+            insideVertexLeft = triangles[tri][0];
+            insideVertexRight = triangles[tri][1];
+        }
+
+        // Check if a neighboring outer triangle exists
+        // Prefer neighbor with lower index
+        KeyData neighborTri = std::numeric_limits<int>::max();
+        bool noNeighborFound = true;
+
+        foreach (otherTri, vertices[outsideVertex].triangleIDs)
+        {
+            if (otherTri != tri &&
+                outerTriangleSet.contains(otherTri) &&
+                (triangles[otherTri][0] == insideVertexLeft || triangles[otherTri][0] == insideVertexRight ||
+                 triangles[otherTri][1] == insideVertexLeft || triangles[otherTri][1] == insideVertexRight ||
+                 triangles[otherTri][2] == insideVertexLeft || triangles[otherTri][2] == insideVertexRight))
+            {
+                neighborTri = glm::min((int)neighborTri, otherTri);
+                noNeighborFound = false;
+                adjacentTriangleSet.insert(otherTri);
+            }
+        }
+
+        if (noNeighborFound)
+        {
+            continue;
+        }
+
+        /*
+         * Find shared vertex and set variables
+         *
+         *          outsideVertex
+         *         /|\
+         *        / | \
+         *       /t2|t3\
+         *      /   -mp \
+         *     /    |    \
+         *    / t0  |  t1 \
+         *   /______|______\
+         * v0     shared    v1
+         *
+         */
+        KeyData sharedVertex;
+        KeyData v0, v1;
+        KeyData t0, t1;
+        for (int i = 0; i < 3; i++)
+        {
+            if (triangles[neighborTri][i] == insideVertexLeft)
+            {
+                t0 = neighborTri;
+                t1 = tri;
+                sharedVertex = insideVertexLeft;
+                v0 = (triangles[t0][(i + 1) % 3] != outsideVertex) ? triangles[t0][(i + 1) % 3] : triangles[t0][(i + 2) % 3];
+                v1 = insideVertexRight;
+                break;
+            }
+
+            if (triangles[neighborTri][i] == insideVertexRight)
+            {
+                t0 = tri;
+                t1 = neighborTri;
+                sharedVertex = insideVertexRight;
+                v0 = insideVertexLeft;
+                v1 = (triangles[t1][(i + 1) % 3] != outsideVertex) ? triangles[t1][(i + 1) % 3] : triangles[t1][(i + 2) % 3];
+                break;
+            }
+        }
+
+        // Create Midpoint
+        v3 midpoint = cMesh.getEdgeMidpoint(outsideVertex, sharedVertex);
+        V3D newVert = midpoint;
+        KeyData midpointIndex = (KeyData)vertices.size();
+        newVert.color = (vertices[outsideVertex].color + vertices[sharedVertex].color) * 0.5f;
+        vertices.emplace_back(newVert);
+
+        // Adjust old triangles
+        triangles[t0] = IndexedTriangle(midpointIndex, v0, sharedVertex);
+        triangles[t1] = IndexedTriangle(midpointIndex, sharedVertex, v1);
+
+        // Remove old triangles from outside vertex
+        vertices[outsideVertex].removeTriangle(t0);
+        vertices[outsideVertex].removeTriangle(t1);
+
+        // Add new triangles
+        KeyData t2 = (KeyData)triangles.size();
+        KeyData t3 = t2 + 1;
+        triangles.emplace_back(IndexedTriangle(v0, midpointIndex, outsideVertex));
+        triangles.emplace_back(IndexedTriangle(v1, outsideVertex, midpointIndex));
+        cMesh.insertTriangle(t2);
+        cMesh.insertTriangle(t3);
+
+        // Add new triangles to their vertices
+        vertices[v0].triangleIDs.emplace_back(t2);
+        vertices[outsideVertex].triangleIDs.emplace_back(t2);
+
+        vertices[v1].triangleIDs.emplace_back(t3);
+        vertices[outsideVertex].triangleIDs.emplace_back(t3);
+
+        // Add all triangles to midpoint
+        vertices[midpointIndex].triangleIDs.emplace_back(t0);
+        vertices[midpointIndex].triangleIDs.emplace_back(t1);
+        vertices[midpointIndex].triangleIDs.emplace_back(t2);
+        vertices[midpointIndex].triangleIDs.emplace_back(t3);
+    }
+}
+
+void Tessellate::subdivideInnerTriangles(MeshReference cMesh, unordered_map<v3, KeyData> &midpointMap, std::unordered_set<int> &innerTriangleSet)
+{
+    IndexedTriangles &triangles = cMesh.triangles;
+    Vertices &vertices = cMesh.vertices;
     int triangleIndex = (int)triangles.size();
 
+    // Generate new triangles
     foreach (tri, innerTriangleSet)
     {
         KeyList midpoints = {
-            midpointMap[getEdgeMidpoint(cMesh, triangles[tri][0], triangles[tri][1])],
-            midpointMap[getEdgeMidpoint(cMesh, triangles[tri][1], triangles[tri][2])],
-            midpointMap[getEdgeMidpoint(cMesh, triangles[tri][2], triangles[tri][0])]};
+            midpointMap[cMesh.getEdgeMidpoint(triangles[tri][0], triangles[tri][1])],
+            midpointMap[cMesh.getEdgeMidpoint(triangles[tri][1], triangles[tri][2])],
+            midpointMap[cMesh.getEdgeMidpoint(triangles[tri][2], triangles[tri][0])]};
 
         for (int i = 0; i < 3; i++)
         {
-            vertices[triangles[tri][i]].triangleIDs.erase(find(vertices[triangles[tri][i]].triangleIDs.begin(), vertices[triangles[tri][i]].triangleIDs.end(), tri));
+            vertices[triangles[tri][i]].removeTriangle(tri);
             IndexedTriangle newTriangle(triangles[tri][i], midpoints[i], midpoints[(i + 2) % 3]);
             vertices[newTriangle[0]].triangleIDs.emplace_back(triangleIndex);
             vertices[newTriangle[1]].triangleIDs.emplace_back(triangleIndex);
             vertices[newTriangle[2]].triangleIDs.emplace_back(triangleIndex);
             triangles.emplace_back(newTriangle);
+            cMesh.insertTriangle(triangleIndex);
             triangleIndex++;
         }
 
@@ -99,114 +261,38 @@ void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference pay
         vertices[midpoints[1]].triangleIDs.emplace_back(tri);
         vertices[midpoints[2]].triangleIDs.emplace_back(tri);
     }
+}
 
-    // Find adjacent outer triangles
+void Tessellate::splitOuterTriangles(MeshReference cMesh, SculptPayloadReference payload, std::unordered_set<int> &outerTriangleSet, unordered_map<v3, KeyData> &midpointMap, unordered_set<int> &allVerticesInRange)
+{
+    IndexedTriangles &triangles = cMesh.triangles;
+    Vertices &vertices = cMesh.vertices;
+    int triangleIndex = (int)triangles.size();
+
     foreach (tri, outerTriangleSet)
     {
-        KeyData outsideVertex;
-        KeyData insideVertexLeft;
-        KeyData insideVertexRight;
+        KeyData outsideVertex = triangles[tri][0];
+        KeyData insideVertexLeft = triangles[tri][1];
+        KeyData insideVertexRight = triangles[tri][2];
 
-        if (abs(distance(cMesh.vertices[triangles[tri][0]].position, cMesh.collision.position)) > payload.radius)
-        {
-            outsideVertex = triangles[tri][0];
-            insideVertexLeft = triangles[tri][1];
-            insideVertexRight = triangles[tri][2];
-        }
-        else if (abs(distance(cMesh.vertices[triangles[tri][1]].position, cMesh.collision.position)) > payload.radius)
+        if (!allVerticesInRange.contains(triangles[tri][1]))
         {
             outsideVertex = triangles[tri][1];
             insideVertexLeft = triangles[tri][2];
             insideVertexRight = triangles[tri][0];
         }
-        else if (abs(distance(cMesh.vertices[triangles[tri][2]].position, cMesh.collision.position)) > payload.radius)
+        else if (!allVerticesInRange.contains(triangles[tri][2]))
         {
             outsideVertex = triangles[tri][2];
             insideVertexLeft = triangles[tri][0];
             insideVertexRight = triangles[tri][1];
         }
 
-        // Check if a neighboring outer triangle exists
-        KeyData neighborTri = -1;
-        foreach (otherTri, vertices[outsideVertex].triangleIDs)
-        {
-            if (outerTriangleSet.contains(otherTri))
-            {
-                neighborTri = otherTri;
-                break;
-            }
-        }
-        if (neighborTri == -1)
-        {
-            continue;
-        }
-
-        // Find shared vertex
-        KeyData sharedVertex;
-        KeyData origNonSharedVertex;
-        KeyData neighborNonSharedVertex;
-        for (int i = 0; i < 3; i++)
-        {
-            if (triangles[neighborTri][i] == insideVertexLeft)
-            {
-                sharedVertex = insideVertexLeft;
-                origNonSharedVertex = insideVertexRight;
-                neighborNonSharedVertex = (triangles[neighborTri][(i + 1) % 3] != outsideVertex) ? triangles[neighborTri][(i + 1) % 3] : triangles[neighborTri][(i + 2) % 3];
-                break;
-            }
-            else if (triangles[neighborTri][i] == insideVertexRight)
-            {
-                sharedVertex = insideVertexRight;
-                origNonSharedVertex = insideVertexLeft;
-                neighborNonSharedVertex = (triangles[neighborTri][(i + 1) % 3] != outsideVertex) ? triangles[neighborTri][(i + 1) % 3] : triangles[neighborTri][(i + 2) % 3];
-                break;
-            }
-        }
-
-        // Create Midpoint
-        v3 midpoint = getEdgeMidpoint(cMesh, outsideVertex, sharedVertex);
-        V3D newVert = midpoint;
-        KeyData midpointIndex = vertexIndex++;
-        newVert.color = (vertices[outsideVertex].color + vertices[sharedVertex].color) * 0.5f;
-        vertices.emplace_back(newVert);
-
-
-
-        outerTriangleSet.erase(tri);
-        outerTriangleSet.erase(neighborTri);
-    }
-
-    // Divide outer triangles
-    foreach (tri, outerTriangleSet)
-    {
-        KeyData outsideVertex;
-        KeyData insideVertexLeft;
-        KeyData insideVertexRight;
-
-        if (abs(distance(cMesh.vertices[triangles[tri][0]].position, cMesh.collision.position)) > payload.radius)
-        {
-            outsideVertex = triangles[tri][0];
-            insideVertexLeft = triangles[tri][1];
-            insideVertexRight = triangles[tri][2];
-        }
-        else if (abs(distance(cMesh.vertices[triangles[tri][1]].position, cMesh.collision.position)) > payload.radius)
-        {
-            outsideVertex = triangles[tri][1];
-            insideVertexLeft = triangles[tri][2];
-            insideVertexRight = triangles[tri][0];
-        }
-        else if (abs(distance(cMesh.vertices[triangles[tri][2]].position, cMesh.collision.position)) > payload.radius)
-        {
-            outsideVertex = triangles[tri][2];
-            insideVertexLeft = triangles[tri][0];
-            insideVertexRight = triangles[tri][1];
-        }
-
-        KeyData midpointVertex = midpointMap[getEdgeMidpoint(cMesh, insideVertexLeft, insideVertexRight)];
+        KeyData midpointVertex = midpointMap[cMesh.getEdgeMidpoint(insideVertexLeft, insideVertexRight)];
         IndexedTriangle leftTri(outsideVertex, insideVertexLeft, midpointVertex);
         triangles[tri] = IndexedTriangle(outsideVertex, midpointVertex, insideVertexRight);
 
-        vertices[insideVertexLeft].triangleIDs.erase(find(vertices[insideVertexLeft].triangleIDs.begin(), vertices[insideVertexLeft].triangleIDs.end(), tri));
+        vertices[insideVertexLeft].removeTriangle(tri);
 
         vertices[midpointVertex].triangleIDs.emplace_back(tri);
         vertices[midpointVertex].triangleIDs.emplace_back(triangleIndex);
@@ -214,14 +300,7 @@ void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference pay
         vertices[outsideVertex].triangleIDs.emplace_back(triangleIndex);
 
         triangles.emplace_back(leftTri);
+        cMesh.insertTriangle(triangleIndex);
         triangleIndex++;
     }
-
-    cMesh.generateEdges();
-    cMesh.octreeReinsertTrianglesParallel();
-}
-
-inline v3 Tessellate::getEdgeMidpoint(MeshReference cMesh, KeyData v1, KeyData v2)
-{
-    return (cMesh.vertices[v1].position + cMesh.vertices[v2].position) * 0.5f;
 }

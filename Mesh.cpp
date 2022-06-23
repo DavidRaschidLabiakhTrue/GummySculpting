@@ -27,25 +27,65 @@ void Mesh::createVariableMap()
 
 void MeshDefinition::Mesh::computeNormals()
 {
-    normalList.clear();
-    const int totalTri = this->totalTriangles();
-    normalList.reserve(totalTri);
-    // first calculate all the normals
-    for (int i = 0; i < totalTri; i++)
-    {
-        normalList.emplace_back(this->getTriangleNormal(i));
-    }
+    computeNormalsParallel();
+    // normalList.clear();
+    // const int totalTri = this->totalTriangles();
+    // normalList.reserve(totalTri);
+    // // first calculate all the normals
+    // for (int i = 0; i < totalTri; i++)
+    // {
+    //     normalList.emplace_back(this->getTriangleNormal(i));
+    // }
 
-    forall(vert, this->vertices)
-    {
-        v3 tempNorm = v3(0);
-        forall(id, vert.triangleIDs)
-        {
-            tempNorm += normalList[id]; // add them up
-        }
-        vert.normal = normalize(tempNorm / (float)vert.triangleIDs.size()); // average them
-    }
+    // forall(vert, this->vertices)
+    // {
+    //     v3 tempNorm = v3(0);
+    //     forall(id, vert.triangleIDs)
+    //     {
+    //         tempNorm += normalList[id]; // add them up
+    //     }
+    //     vert.normal = normalize(tempNorm / (float)vert.triangleIDs.size()); // average them
+    // }
     say "Normals Calculated" done;
+}
+
+void MeshDefinition::Mesh::computeNormalsParallel()
+{
+    const int totalTri = this->totalTriangles();
+    normalList = vector<v3>(totalTri);
+
+    int nThreads = getNThreads;
+    vector<thread> threads;
+
+    for (int threadID = 0; threadID < nThreads; threadID++)
+    {
+        const int id = threadID;
+        threads.push_back(thread([&, id]() {
+            for (int i = id; i < totalTri; i += nThreads)
+            {
+                normalList[i] = this->getTriangleNormal(i);
+            }
+        }));
+    }
+    joinAndClearThreads;
+
+    const int totalVert = this->vertices.size();
+    for (int threadID = 0; threadID < nThreads; threadID++)
+    {
+        const int id = threadID;
+        threads.push_back(thread([&, id]() {
+            for (int i = id; i < totalVert; i += nThreads)
+            {
+                v3 tempNorm = v3(0);
+                foreach (id, vertices[i].triangleIDs)
+                {
+                    tempNorm += normalList[id]; // add them up
+                }
+                vertices[i].normal = normalize(tempNorm / (float)vertices[i].triangleIDs.size()); // average them
+            }
+        }));
+    }
+    joinThreads;
 }
 
 void MeshDefinition::Mesh::computeNormalsFromMatrix()
@@ -174,7 +214,7 @@ KeyData Mesh::searchLinearParallel(rv3 direction, rv3 origin)
         }));
     }
 
-	joinThreads;
+    joinThreads;
     return result;
 }
 

@@ -22,7 +22,7 @@ namespace VertexDefinition
 	}
 
 
-	
+
 
 
 	struct V3D
@@ -54,6 +54,7 @@ namespace VertexDefinition
 		void printColor(); // print color to console - excludes alpha which is assumed 1.0
 
 		void printSlots(); // print all slot data.
+		void removeTriangle(int triangleIndex); // erase a triangle from the vertex
 
 
 		v3 position;
@@ -61,14 +62,14 @@ namespace VertexDefinition
 		v3 normal = v3(0);
 		BitData bitData; // reserve first 14 starting from right to represent weight data with a resolution of 100.00 total.
 
-		
+
 
 		vector<int> triangleIDs; // Triangles that this vertex is a part of. TODO: Using vector<int> for now, but should have proper data type
 
 		unordered_map<char, int> ABCDmap; // Reserved for subdivision to keep track of which vertices to use for Loop's equation. - not sussy, trust - COMPLETEY FUCKING SUSSY BRO
 #ifndef NOTUSINGNORMALORUV
 		// Don't use these unless specified. They aren't needed.
-		
+
 		v2 uv;
 #endif // !NOTUSINGNORMALORUV
 	};

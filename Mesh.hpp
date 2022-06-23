@@ -67,6 +67,7 @@ namespace MeshDefinition
 
 
 			void computeNormals();
+			void computeNormalsParallel();
 
 			void computeNormalsFromMatrix();
 

@@ -55,7 +55,7 @@ void MainProgram::parseCommandLineArguments(StringList &arguments)
     string parser = "";
     if (arguments.size() == 0)
     {
-        arguments.emplace_back("smoothSphere.gum"); // default argument
+        arguments.emplace_back("sphere.gum"); // default argument
     }
     else
     {
@@ -136,7 +136,7 @@ MainProgram::MainProgram(StringList &arguments)
 
     visualObjects = VisualObjects(TrueConstructor);
 
-   
+
 
     preprocess(arguments);
 }
@@ -514,8 +514,8 @@ void MainProgram::queryMechanics()
     if (!queryGizmo() and sculptGate.canUpdate())
     {
 		brush.screenToWorld();
-		
-		
+
+
 
         brush.querySculpt(renderer.getActiveMeshReference());
     }
@@ -534,7 +534,7 @@ void MainProgram::draw3D()
 {
     renderer.draw();
 	/*brush.cursor.drawCursor();*/
-	
+
 }
 void MainProgram::drawStatic()
 {
@@ -542,7 +542,7 @@ void MainProgram::drawStatic()
     visualObjects.drawVisualObjects();
     brush.drawRay();
     Debug::Drawing::renderPlanes();
-	
+
     // clear depth buffer to draw newly rendered objects on top
     renderer.clearDepthInfo();
     Debug::Drawing::renderLines();
