@@ -53,6 +53,10 @@ void Mesh_Manager::exportMeshToFile(string meshFilePath)
 		MeshFileExporter::exportGumFile(meshFilePath, getActiveMeshReference());
 		return;
 	}
+	else if(fileType == ".stl")
+	{
+		MeshFileExporter::exportStlFile(meshFilePath, getActiveMeshReference());
+	}
 	else
 	{
 		say "Error: unsupported file type" done;

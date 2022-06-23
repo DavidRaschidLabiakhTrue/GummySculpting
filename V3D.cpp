@@ -7,8 +7,9 @@ Usage ColorDefinition;
 
 // Vertex Parameter Globals
 const float GlobalVertexParameters::DefaultAlphaValue = 1.0f;
-const v4 GlobalVertexParameters::DefaultColorLoader = v4(0.5, 0.5, 0.5, GlobalVertexParameters::DefaultAlphaValue); // start off with color of grey
-const BitData GlobalVertexParameters::DefaultBinaryWeightData = 10000;                                              // start off with a weight of 100.00 *technically*
+const v4 GlobalVertexParameters::DefaultColorLoader = v4(0.7, 0.7, 0.7, GlobalVertexParameters::DefaultAlphaValue); // start off with color of grey
+const BitData GlobalVertexParameters::DefaultBinaryWeightData = 10000; // start off with a weight of 100.00 *technically*
+
 
 V3D::V3D()
 {

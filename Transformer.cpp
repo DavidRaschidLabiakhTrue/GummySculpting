@@ -1,5 +1,5 @@
 #include "Transformer.hpp"
-#include "MathDefinitions.hpp"
+#include "Debug.hpp"
 
 using namespace MathTypeDefinitions::CoordinateDefine::Basis;
 
@@ -14,32 +14,20 @@ TransformerDefinition::ModelMatrix::~ModelMatrix()
 void TransformerDefinition::ModelMatrix::resetModelMatrix()
 {
 	this->model = m4(1.0f);
-
 }
 
 void TransformerDefinition::ModelMatrix::setModelMatrix()
 {
-	//resetModelMatrix();
-	//setScale(scaleValues);	
-	//setRotation(rotationMatrix);
-	//setTranslation(translationValues);
+	resetModelMatrix();
+	//translate model matrix to world origin
+	translateAll(-1.0f * transform.worldTranslation);
 
-	v3 s = transform.scale;
-	v3 r = transform.rotation;
+	model = scale(transform.scale) * transform.rotationMatrix * model;
 
-	say "x:" spc r.x spc "y:" spc r.y spc "z:" spc r.z done;
+	//translate matrix back then add new translation
+	translateAll(transform.worldTranslation + transform.translation);
 
-	model = scale(s);
-	model *= rotate(r.z, Basis::Z);
-	model *= rotate(r.y, Basis::Y);
-	model *= rotate(r.x, Basis::X);
-
-	// Add world translation
-	model[3][0] += transform.worldTranslation.x;
-	model[3][1] += transform.worldTranslation.y;
-	model[3][2] += transform.worldTranslation.z;
-
-	position = v3(model[3][0], model[3][1], model[3][2]);
+	position = transform.worldTranslation + transform.translation;
 }
 
 void TransformerDefinition::ModelMatrix::rotateX(const float x)
@@ -81,6 +69,13 @@ void TransformerDefinition::ModelMatrix::rotateZ_deg(const float z)
 void TransformerDefinition::ModelMatrix::setRotation(const m4 r)
 {
 	model = rotationMatrix * model;
+}
+
+void TransformerDefinition::ModelMatrix::translateAll(v3 t)
+{
+	model[3][0] += t.x;
+	model[3][1] += t.y;
+	model[3][2] += t.z;
 }
 
 void TransformerDefinition::ModelMatrix::translateX(const float x)

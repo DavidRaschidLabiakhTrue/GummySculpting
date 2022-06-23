@@ -4,9 +4,9 @@
 #include "LinearAlgebra.hpp"
 #include "MathDefinitions.hpp"
 
-
 namespace TransformerDefinition
 {
+	using namespace MathTypeDefinitions;
 	using namespace MathTypeDefinitions::CoordinateDefine;
 	using namespace MathTypeDefinitions::MatrixDefine;
 
@@ -14,7 +14,7 @@ namespace TransformerDefinition
 	{
 		public:
 			struct Transform {
-				v3 rotation = v3(0);
+				m4 rotationMatrix = m4(1);
 				v3 translation = v3(0);
 				v3 scale = v3(1);
 				v3 worldTranslation = v3(0);
@@ -41,7 +41,8 @@ namespace TransformerDefinition
 			// set rotation in all axes
 			void setRotation(const m4 t);
 
-
+			// translate the model by a vector
+			void translateAll(v3 t);
 			// translate the model x units in x
 			void translateX(const float x);
 			// translate the model y units in y

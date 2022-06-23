@@ -34,6 +34,8 @@ namespace CameraDefinition
 
 			CameraState cameraState = ORBIT;
 
+			bool shouldDrawCursor = true;
+
 		protected:
 			void checkKeyInput(); // checks for user key input
 			void checkMouseInput(); // checks for mouse input from the user

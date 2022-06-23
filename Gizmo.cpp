@@ -64,14 +64,14 @@ void Gizmo::checkInput(MeshReference cMesh)
 {
 	if (KeyInputDefinition::isPressed(GLFW_KEY_Q))
 	{
-		iterateState();
+		iterateState(cMesh);
 	}
 	if (KeyInputDefinition::isPressed(GLFW_KEY_P))
 	{
-		cMesh.resetModelMatrix();
-		cMesh.rotationMatrix = m4(1);
-		cMesh.translationValues = v3(0, 0, 0);
-		cMesh.scaleValues = v3(1, 1, 1);
+		//cMesh.resetModelMatrix();
+		//cMesh.rotationMatrix = m4(1);
+		//cMesh.translationValues = v3(0, 0, 0);
+		//cMesh.scaleValues = v3(1, 1, 1);
 	}
 }
 
@@ -82,7 +82,7 @@ void Gizmo::setState(GizmoState newState)
 	didChangeState = true;
 }
 
-void Gizmo::iterateState()
+void Gizmo::iterateState(MeshReference cMesh)
 {
 	switch (state)
 	{
@@ -97,6 +97,15 @@ void Gizmo::iterateState()
 			break;
 		case SCALE: 
 			setState(INACTIVE);
+			if (didTransform)
+			{
+				cMesh.transform.rotationMatrix = m4(1);
+				cMesh.transform.scale = v3(1);
+				cMesh.transform.worldTranslation += cMesh.transform.translation;
+				cMesh.transform.translation = v3(0);
+				cMesh.position = cMesh.transform.worldTranslation;
+				cMesh.applyModelMatrix();
+			}
 			break;
 	}
 }
@@ -141,10 +150,6 @@ bool Gizmo::queryTransforms(MeshReference cMesh)
 				scaleMesh(cMesh);
 				break;
 		}
-	}
-	else if (didTransform)
-	{
-		//cMesh.applyTransformation();
 	}
 
 	return true;
@@ -330,7 +335,7 @@ void Gizmo::translateMesh(MeshReference cMesh)
 
 	if (delta != 0)
 	{
-		cMesh.transform.worldTranslation[activeAxis] += delta;
+		cMesh.transform.translation[activeAxis] += delta;
 		gizmoPosition[activeAxis] += delta;
 		cMesh.setModelMatrix();
 		prevMouseOffset = newMouseOffset;
@@ -448,24 +453,30 @@ void Gizmo::rotateMesh(MeshReference cMesh)
 	v3 b = newMousePosition;
 
 	float angle;
+	v3 axis;
 	switch (activeAxis)
 	{
 		case GizmoAxis::X:
 			lineColor = GizmoColors::red;
 			angle = atan2(a.y, a.z) - atan2(b.y, b.z);
+			axis = Basis::X;
 			break;
 		case GizmoAxis::Y:
 			lineColor = GizmoColors::green;
 			angle = atan2(a.z, a.x) - atan2(b.z, b.x);
+			axis = Basis::Y;
 			break;
 		case GizmoAxis::Z:
 			lineColor = GizmoColors::blue;
 			angle = atan2(a.x, a.y) - atan2(b.x, b.y);
+			axis = Basis::Z;
 			break;
 		default: 
 			return;
 	}
-	cMesh.transform.rotation[activeAxis] += angle;
+	
+	cMesh.transform.rotationMatrix = glm::rotate(angle, axis) * cMesh.transform.rotationMatrix;
+
 	cMesh.setModelMatrix();
 	prevMousePosition = newMousePosition;
 

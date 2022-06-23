@@ -55,7 +55,7 @@ void MainProgram::parseCommandLineArguments(StringList &arguments)
     string parser = "";
     if (arguments.size() == 0)
     {
-        arguments.emplace_back("sphere.gum"); // default argument
+        arguments.emplace_back("4star.gum"); // default argument
     }
     else
     {
@@ -164,12 +164,13 @@ void MainProgram::processFileManagementCommand(StringList &arguments, int numArg
     }
     switch (getCommand(arguments[1]))
     {
-    case IMPORT:
-        renderer.loadMeshFromFile(arguments[2]);
-        break;
-    case EXPORT: // this case will need to be expanded to also include .obj and probably .stl
-        renderer.exportMeshToFile(arguments[2]);
-        break;
+		case IMPORT:
+			renderer.loadMeshFromFile(arguments[2]);
+			break;
+
+		case EXPORT: // this case will need to be expanded to also include .obj and probably .stl
+			renderer.exportMeshToFile(arguments[2]);
+			break;
     }
 }
 void MainProgram::processDirectives()
@@ -504,12 +505,7 @@ void MainProgram::generateMaps()
 }
 void MainProgram::queryMechanics()
 {
-
-    if (cameraGate.canUpdate() && win.canRender)
-    {
-
-        queryCamera();
-    }
+    queryCamera();
 
     if (!queryGizmo() and sculptGate.canUpdate())
     {
@@ -522,8 +518,16 @@ void MainProgram::queryMechanics()
 }
 void MainProgram::queryCamera()
 {
-    cam.checkInput();
-    cam.updateMatrix();
+    if (!cam.shouldDrawCursor)
+    {
+        ImGui::SetMouseCursor(ImGuiMouseCursor_None);
+    }
+
+    if (cameraGate.canUpdate() && win.canRender)
+    {
+        cam.checkInput();
+        cam.updateMatrix();
+    }
 }
 bool MainProgram::queryGizmo()
 {

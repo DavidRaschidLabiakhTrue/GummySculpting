@@ -135,7 +135,6 @@ void CameraDefinition::Camera::checkMouseInput()
 	double scroll_val = WindowGlobal::ActiveWindow->scroll_val;
 	pos *= 1 - 0.1 * (scroll_val > 0) + 0.1 * (scroll_val < 0);
 	WindowGlobal::ActiveWindow->scroll_val = 0;
-	auto& io = ImGui::GetIO();
 
 	switch (cameraState)
 	{
@@ -191,7 +190,7 @@ void CameraDefinition::Camera::checkMouseInput()
 			v2 mouseDelta;
 			if (firstClick)
 			{
-				io.MouseDrawCursor = false;
+				shouldDrawCursor = false;
 				mouseDelta = v2(0);
 				firstClick = false;
 				if (!shouldResetMouse)
@@ -250,7 +249,7 @@ void CameraDefinition::Camera::checkMouseInput()
 				shouldResetMouse = false;
 			}
 			firstClick = true;
-			io.MouseDrawCursor = true;
+			shouldDrawCursor = true;
 			return;
 		}
 		break;

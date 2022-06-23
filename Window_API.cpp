@@ -86,7 +86,7 @@ Window_API_Structures::ScreenData& Window_API::WindowAPIData::reload()
 	return screendata;
 }
 
-v4 Global_Window_API_EnviromentVariables::WindowBackgroundColor = v4(0,0,0,1); // color of the background on OpenGL;
+v4 Global_Window_API_EnviromentVariables::WindowBackgroundColor = v4(.2,.2,.2,1); // color of the background on OpenGL;
 
 
 bool Window_API_Functions::shouldNotClose()

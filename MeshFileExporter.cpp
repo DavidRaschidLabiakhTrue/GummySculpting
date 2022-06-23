@@ -7,49 +7,97 @@ void MeshFileExporter::exportGumFile(string filepath, Mesh& mesh)
 	GumExporting::exportGumMesh(filepath, mesh);
 }
 
+void MeshFileExporter::exportStlFile(string filepath, Mesh& mesh)
+{
+	StlExporting::exportStlMesh(filepath, mesh);
+}
+
 namespace MeshFileExporter::GumExporting
 {
-
 	void exportGumMesh(string filePath, Mesh& mesh)
 	{
-		std::ofstream writer;
-		writer.open(filePath);
+		ofstream outfile;
+		outfile.open(filePath);
 
-		if (writer.is_open())
+		if (outfile.is_open())
 		{
-			writer << "Name: " << mesh.name << '\n';
-			writer << "Vertex Count: " << mesh.vertices.size() << '\n';
-			writer << "Indice Count: " << mesh.triangles.size() * 3 << '\n';
+			outfile << "Name: " << mesh.name << '\n';
+			outfile << "Vertex Count: " << mesh.vertices.size() << '\n';
+			outfile << "Indice Count: " << mesh.triangles.size() * 3 << '\n';
 
-			writer << "vertexData: ";
+			outfile << "vertexData: ";
 			for(int i = 0; i < mesh.vertices.size(); i++)
 			{
-				writer << mesh.vertices[i].position.x << ' ';
-				writer << mesh.vertices[i].position.y << ' ';
-				writer << mesh.vertices[i].position.z;
+				outfile << mesh.vertices[i].position.x << ' ';
+				outfile << mesh.vertices[i].position.y << ' ';
+				outfile << mesh.vertices[i].position.z;
 				if (mesh.vertices[i].color != Mesh::defaultMeshColor)
 				{
-					writer << ' ';
-					writer << mesh.vertices[i].color.r << ' ';
-					writer << mesh.vertices[i].color.g << ' ';
-					writer << mesh.vertices[i].color.b << ' ';
-					writer << mesh.vertices[i].color.a;
+					outfile << ' ';
+					outfile << mesh.vertices[i].color.r << ' ';
+					outfile << mesh.vertices[i].color.g << ' ';
+					outfile << mesh.vertices[i].color.b << ' ';
+					outfile << mesh.vertices[i].color.a;
 				}
-				writer << " /";
+				outfile << " /";
 			}
-			writer << '\n';
+			outfile << '\n';
 
-			writer << "IndiceData:";
+			outfile << "IndiceData:";
 			forall(tri, mesh.triangles)
 			{
-				writer << ' ';
-				writer << tri.indice[0] << ' ';
-				writer << tri.indice[1] << ' ';
-				writer << tri.indice[2];
+				outfile << ' ';
+				outfile << tri.indice[0] << ' ';
+				outfile << tri.indice[1] << ' ';
+				outfile << tri.indice[2];
 			}
 		}
 		else {
 			//raise error
 		}
+
+		outfile.close();
+	}
+}
+
+namespace MeshFileExporter::StlExporting
+{
+	void exportStlMesh(string filePath, Mesh& mesh)
+	{
+		ofstream outfile = ofstream(filePath, ios::out | ios::binary);
+		if (outfile.is_open())
+		{
+			unsigned int numTriangles, attrByteCount;
+			v3 normal;
+			V3D vert1, vert2, vert3;
+
+			numTriangles = (unsigned int)mesh.triangles.size();
+			attrByteCount = 0;
+
+			outfile.write("Exported from Gummy", 0x50);
+			outfile.write((char*)&numTriangles, 0x4);
+
+			for(int i = 0; i < mesh.triangles.size(); i++)
+			{
+				normal = mesh.getTriangleNormal(i);
+				vert1 = mesh.vertices[mesh.triangles[i][0]];
+				vert2 = mesh.vertices[mesh.triangles[i][1]];
+				vert3 = mesh.vertices[mesh.triangles[i][2]];
+
+				//write normal vector
+				outfile.write((char*)&normal, 0xC);
+				//write vertices
+				outfile.write((char*)&vert1, 0xC);
+				outfile.write((char*)&vert2, 0xC);
+				outfile.write((char*)&vert3, 0xC);
+				//write "attribute byte count", should just be 0
+				outfile.write((char*)&attrByteCount, 0x2);
+			}
+		}
+		else {
+			//raise error
+		}
+
+		outfile.close();
 	}
 }

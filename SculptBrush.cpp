@@ -13,7 +13,7 @@
 using namespace SculptBrushDefinition;
 
 using namespace Sculpting;
-using namespace _Cursor;
+using namespace _Cursor3D;
 
 SculptBrushDefinition::SculptBrush::SculptBrush()
 {
@@ -59,7 +59,7 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 		{
 			//cursor.offset = cMesh.collision.position;
 			payload.updateLast(cMesh.collision.triangleID, cMesh.collision.position, cMesh.getTriangleNormal(cMesh.collision.triangleID));
-			cursor.orientation = payload.hitNorm;
+
 		}
 
 
