@@ -18,15 +18,76 @@ using namespace StaticCircleDefinition;
 
 void handleAtExit()
 {
-	say "Program Exit" done;
-
+    say "Program Exit" done;
 }
 
+bool exitAutoSave = false;
+void autoSave(MainProgram &mainProgram)
+{
+    while (!exitAutoSave)
+    {
+        int timeSlept = 0;
+        while (!exitAutoSave && timeSlept < 500)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            timeSlept++;
+        }
 
+        // Set flag and wait, not really time sensitive
+        if (!exitAutoSave)
+        {
+            mainProgram.doAutoSave = true;
+        }
+        while (mainProgram.doAutoSave)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+
+        ofstream outfile;
+        outfile.open(".autoSave.txt");
+
+        if (outfile.is_open())
+        {
+            outfile << "Name: " << mainProgram.renderer.getActiveMesh()->name << '\n'
+                    << "Vertex Count: " << mainProgram.verticesCopy.size() << '\n'
+                    << "Indice Count: " << mainProgram.trianglesCopy.size() * 3 << '\n';
+
+            outfile << "vertexData: ";
+            for (int i = 0; i < mainProgram.verticesCopy.size(); i++)
+            {
+                outfile << mainProgram.verticesCopy[i].position.x << ' '
+                        << mainProgram.verticesCopy[i].position.y << ' '
+                        << mainProgram.verticesCopy[i].position.z;
+                if (mainProgram.verticesCopy[i].color != Mesh::defaultMeshColor)
+                {
+                    outfile << ' '
+                            << mainProgram.verticesCopy[i].color.r << ' '
+                            << mainProgram.verticesCopy[i].color.g << ' '
+                            << mainProgram.verticesCopy[i].color.b << ' '
+                            << mainProgram.verticesCopy[i].color.a;
+                }
+                outfile << " /";
+            }
+            outfile << '\n';
+
+            outfile << "IndiceData:";
+            forall(tri, mainProgram.trianglesCopy)
+            {
+                outfile << ' ' << tri[0] << ' ' << tri[1] << ' ' << tri[2];
+            }
+        }
+        else
+        {
+            // raise error
+        }
+
+        outfile.close();
+    }
+}
 
 int main(int argc, char **argv)
 {
-	atexit(handleAtExit);
+    atexit(handleAtExit);
     // _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     StringList arguments(argv + 1, argv + argc); // loads the arguments as a string vector.
 
@@ -45,8 +106,17 @@ int main(int argc, char **argv)
 
     MainProgram mainProgram = MainProgram(arguments);
 
-	while (mainProgram.ProgramCycle()){}
+    thread autoSaveThread([&mainProgram]() { autoSave(mainProgram); });
 
+    while (mainProgram.ProgramCycle())
+    {
+    }
+
+    say "Main Ending" done;
+    exitAutoSave = true;
+    mainProgram.doAutoSave = true;
+    mainProgram.autoSaveCopy();
+    autoSaveThread.join();
     return 0;
 }
 
@@ -93,6 +163,8 @@ int MainProgram::ProgramCycle()
 
     while (shouldNotClose())
     {
+        autoSaveCopy();
+
         TimeGateDefinition::tick(); // global time delta checker
 
         queryMechanics(); // query for input
@@ -120,7 +192,6 @@ int MainProgram::ProgramCycle()
 
 MainProgram::MainProgram()
 {
-
 }
 
 MainProgram::MainProgram(StringList &arguments)
@@ -136,13 +207,21 @@ MainProgram::MainProgram(StringList &arguments)
 
     visualObjects = VisualObjects(TrueConstructor);
 
-
-
     preprocess(arguments);
 }
 
 MainProgram::~MainProgram()
 {
+}
+
+void MainProgram::autoSaveCopy()
+{
+    if (doAutoSave)
+    {
+        verticesCopy = renderer.getActiveMesh()->vertices;
+        trianglesCopy = renderer.getActiveMesh()->triangles;
+        doAutoSave = false;
+    }
 }
 
 void MainProgram::checkDirectives()
@@ -164,13 +243,13 @@ void MainProgram::processFileManagementCommand(StringList &arguments, int numArg
     }
     switch (getCommand(arguments[1]))
     {
-		case IMPORT:
-			renderer.loadMeshFromFile(arguments[2]);
-			break;
+    case IMPORT:
+        renderer.loadMeshFromFile(arguments[2]);
+        break;
 
-		case EXPORT: // this case will need to be expanded to also include .obj and probably .stl
-			renderer.exportMeshToFile(arguments[2]);
-			break;
+    case EXPORT: // this case will need to be expanded to also include .obj and probably .stl
+        renderer.exportMeshToFile(arguments[2]);
+        break;
     }
 }
 void MainProgram::processDirectives()
@@ -459,10 +538,10 @@ void MainProgram::processSculptorCommand(StringList &arguments, int numArgs)
         break;
     case DIRAC:
         brush.currentState = BrushState::BrushDirac;
-		break;
-	case TESSELLATE:
-		brush.currentState = BrushState::BrushTessellate;
-		break;
+        break;
+    case TESSELLATE:
+        brush.currentState = BrushState::BrushTessellate;
+        break;
     }
 }
 
@@ -509,9 +588,7 @@ void MainProgram::queryMechanics()
 
     if (!queryGizmo() and sculptGate.canUpdate())
     {
-		brush.screenToWorld();
-
-
+        brush.screenToWorld();
 
         brush.querySculpt(renderer.getActiveMeshReference());
     }
@@ -537,8 +614,7 @@ bool MainProgram::queryGizmo()
 void MainProgram::draw3D()
 {
     renderer.draw();
-	/*brush.cursor.drawCursor();*/
-
+    /*brush.cursor.drawCursor();*/
 }
 void MainProgram::drawStatic()
 {

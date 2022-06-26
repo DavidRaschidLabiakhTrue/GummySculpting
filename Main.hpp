@@ -74,6 +74,14 @@ class MainProgram
 
 		int ProgramCycle();
 
+		Renderer renderer;
+
+		void autoSaveCopy();
+		Vertices verticesCopy;
+		IndexedTriangles trianglesCopy;
+		bool doAutoSave = false;
+
+
 	private:
 
 
@@ -114,7 +122,7 @@ class MainProgram
 		Window win;
 		Camera cam;
 
-		Renderer renderer;
+
 
 		SculptBrush brush;
 
@@ -130,9 +138,9 @@ class MainProgram
 		TimeGate cameraGate = TimeGate(30);
 		TimeGate sculptGate = TimeGate(16.0f);
 		TimeGate renderGate = TimeGate(60.0f);
-		TimeGate updateGate = TimeGate(10.0f); // need to limit the amount of times a mesh is being sent from the CPU to the GPU. 
+		TimeGate updateGate = TimeGate(10.0f); // need to limit the amount of times a mesh is being sent from the CPU to the GPU.
 
-		
+
 };
 
 

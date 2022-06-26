@@ -25,6 +25,7 @@ void Mesh::createVariableMap()
     meshVariables.emplace("octreelooseness", ref(octreeLooseness));
 }
 
+// TODO: Test runtimes and scaling of each version
 void MeshDefinition::Mesh::computeNormals()
 {
     computeNormalsParallel();
@@ -148,7 +149,7 @@ void MeshDefinition::Mesh::generateGraphsAndTrees()
     computeNormals();
     collectStats();
     this->buildOctree();
-	
+
 }
 
 KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
