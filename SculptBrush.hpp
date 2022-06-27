@@ -30,6 +30,9 @@ namespace SculptBrushDefinition
 			bool shouldApplySymmetrically = false;
 			SculptPayload payload;
 			Cursor3D cursor;
+
+			void drawCursor();
+
 		protected:
 			
 

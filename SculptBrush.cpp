@@ -31,6 +31,7 @@ SculptBrushDefinition::SculptBrush::SculptBrush(bool trueConstructor) : Sampler(
 
 	/*cursor = Cursor(trueConstructor);*/
 
+	cursor = Cursor3D(true);
 }
 
 void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
@@ -52,12 +53,12 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 		
 		if (cMesh.collision.isCollision == false or (cMesh.collision.triangleID == payload.last))
 		{
-			//cursor.offset = v3(300.0f);
+			cursor.offset = v3(300.0f);
 			return;
 		}
 		else
 		{
-			//cursor.offset = cMesh.collision.position;
+			cursor.offset = cMesh.collision.position;
 			payload.updateLast(cMesh.collision.triangleID, cMesh.collision.position, cMesh.getTriangleNormal(cMesh.collision.triangleID));
 
 		}
@@ -80,6 +81,13 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 	}
 
 
+}
+void SculptBrushDefinition::SculptBrush::drawCursor()
+{
+	CursorShader.use();
+	CursorShader.uploadModelMatrixToGPU(cursor.model);
+	CursorShader.uploadOffsetVectorToGPU(cursor.offset);
+	cursor.render();
 }
 void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 {

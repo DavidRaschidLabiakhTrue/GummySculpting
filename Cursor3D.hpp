@@ -3,14 +3,18 @@
 
 #include "StaticMesh.hpp"
 
+
 namespace _Cursor3D
 {
 	using namespace StaticMeshDefinition;
+
+	
 
 	class Cursor3D : public StaticMesh
 	{
 		public:
 			Cursor3D();
+			Cursor3D(bool trueConstructor);
 			~Cursor3D();
 
 			float radius;
