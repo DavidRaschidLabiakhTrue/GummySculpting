@@ -84,6 +84,7 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 }
 void SculptBrushDefinition::SculptBrush::drawCursor()
 {
+
 	CursorShader.use();
 	CursorShader.uploadModelMatrixToGPU(cursor.model);
 	CursorShader.uploadOffsetVectorToGPU(cursor.offset);
