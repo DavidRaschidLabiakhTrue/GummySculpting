@@ -620,7 +620,7 @@ bool MainProgram::queryGizmo()
 void MainProgram::draw3D()
 {
     renderer.draw();
-	brush.drawCursor();
+	brush.cursor.drawCursor();
     /*brush.cursor.drawCursor();*/
 }
 void MainProgram::drawStatic()
