@@ -183,6 +183,8 @@
     <ClCompile Include="DebuggingConsole.cpp" />
     <ClCompile Include="DebugLine.cpp" />
     <ClCompile Include="DebugPlane.cpp" />
+    <ClCompile Include="DecimateBrush.cpp" />
+    <ClCompile Include="Decimation.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeList.cpp" />
     <ClCompile Include="Gizmo.cpp" />
@@ -266,6 +268,8 @@
     <ClInclude Include="DebuggingConsole.hpp" />
     <ClInclude Include="DebugLine.hpp" />
     <ClInclude Include="DebugPlane.hpp" />
+    <ClInclude Include="DecimateBrush.hpp" />
+    <ClInclude Include="Decimation.hpp" />
     <ClInclude Include="Edge.hpp" />
     <ClInclude Include="EdgeList.hpp" />
     <ClInclude Include="Gizmo.hpp" />

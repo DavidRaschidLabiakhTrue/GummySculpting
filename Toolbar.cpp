@@ -14,6 +14,7 @@ static bool isNoiseToggled = false;
 static bool isSimpleSubToggled = false;
 static bool isLoopToggled = false;
 static bool isTessellationToggled = false;
+static bool isDecimateToggled = false;
 
 ToolbarDefinition::Toolbar::Toolbar()
 {
@@ -53,16 +54,16 @@ void resetToggleButtons()
 	isLoopToggled = false;
 }
 
-void StrokeToggleButton() 
+void StrokeToggleButton()
 {
 	int pushedColors = 0;
 
-	if (isStrokeToggled) 
+	if (isStrokeToggled)
 	{
 		toggleTrue();
 		pushedColors += 4;
 	}
-	else 
+	else
 	{
 		toggleFalse();
 		pushedColors += 4;
@@ -77,16 +78,16 @@ void StrokeToggleButton()
 	ImGui::SameLine();
 }
 
-void StrokeSmoothToggleButton() 
+void StrokeSmoothToggleButton()
 {
 	int pushedColors = 0;
 
-	if (isStrokeSmoothToggled) 
+	if (isStrokeSmoothToggled)
 	{
 		toggleTrue();
 		pushedColors += 4;
 	}
-	else 
+	else
 	{
 		toggleFalse();
 		pushedColors += 4;
@@ -101,16 +102,16 @@ void StrokeSmoothToggleButton()
 	ImGui::SameLine();
 }
 
-void SmoothToggleButton() 
+void SmoothToggleButton()
 {
 	int pushedColors = 0;
 
-	if (isSmoothToggled) 
+	if (isSmoothToggled)
 	{
 		toggleTrue();
 		pushedColors += 4;
 	}
-	else 
+	else
 	{
 		toggleFalse();
 		pushedColors += 4;
@@ -268,6 +269,29 @@ void TessellationToggleButton()
 	ImGui::SameLine();
 }
 
+void DecimationToggleButton()
+{
+	int pushedColors = 0;
+	if (isSimpleSubToggled)
+	{
+		toggleTrue();
+		pushedColors += 4;
+	}
+	else
+	{
+		toggleFalse();
+		pushedColors += 4;
+	}
+	if (ImGui::Button("Decimation", ImVec2(0, buttonHeight)))
+	{
+		resetToggleButtons();
+		isDecimateToggled = !isDecimateToggled;
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
+	};
+	ImGui::PopStyleColor(pushedColors);
+	ImGui::SameLine();
+}
+
 void ToolbarDefinition::Toolbar::build()
 {
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -295,6 +319,7 @@ void ToolbarDefinition::Toolbar::build()
 	SimpleSubdivToggleButton();
 	loopToggleButton();
 	TessellationToggleButton();
+	DecimationToggleButton();
 
 	ImGui::End();
 }

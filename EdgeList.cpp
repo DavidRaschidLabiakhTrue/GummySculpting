@@ -50,7 +50,7 @@ void EdgeList::generateEdges()
                     // edges[vertexID].vertexEdges.insert(triangles[tri][0]);
                     // edges[vertexID].vertexEdges.insert(triangles[tri][1]);
                     // edges[vertexID].vertexEdges.insert(triangles[tri][2]);
-					// edges[vertexID].vertexEdges.erase(vertexID);
+                    // edges[vertexID].vertexEdges.erase(vertexID);
 
                     if (triangles[tri][0] == vertexID)
                     {
@@ -128,6 +128,23 @@ v3 EdgeListDefinition::EdgeList::averageAt(KeyData key) EDGENOEXCEPT
         res += vertices[element].position;
     }
     res /= (float)edge.size();
+
+    return res;
+}
+
+KeyList EdgeListDefinition::EdgeList::getEdgeTriangles(EdgePair edge) EDGENOEXCEPT
+{
+    KeyList res;
+    unordered_set<KeyData> v0Triangles(vertices[edge.first].triangleIDs.begin(),
+                                       vertices[edge.first].triangleIDs.end());
+
+    foreach (tri, vertices[edge.second].triangleIDs)
+    {
+        if (v0Triangles.contains(tri))
+        {
+            res.emplace_back(tri);
+        }
+    }
 
     return res;
 }

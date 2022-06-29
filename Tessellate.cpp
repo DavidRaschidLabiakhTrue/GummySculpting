@@ -5,7 +5,6 @@ using namespace Sculpting::Tessellate;
 
 void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference payload)
 {
-    cMesh.vertices[0].color = v4(1, 0, 0, 1);
     payload.last = -1;
     if (payload.wasRun)
     {

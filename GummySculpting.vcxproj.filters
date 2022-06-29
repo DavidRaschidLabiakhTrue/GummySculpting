@@ -244,6 +244,12 @@
     <ClCompile Include="Cursor3D.cpp">
       <Filter>3D Objects\Cursor3D</Filter>
     </ClCompile>
+    <ClCompile Include="Decimation.cpp">
+      <Filter>Mechanics\Decimation</Filter>
+    </ClCompile>
+    <ClCompile Include="DecimateBrush.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\DecimateBrush</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -506,6 +512,12 @@
     </ClInclude>
     <ClInclude Include="MeshFileExporter.hpp">
       <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="Decimation.hpp">
+      <Filter>Mechanics\Decimation</Filter>
+    </ClInclude>
+    <ClInclude Include="DecimateBrush.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\DecimateBrush</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -933,6 +945,12 @@
     </Filter>
     <Filter Include="Data Structures\Search\Unit\Indices">
       <UniqueIdentifier>{74d3382a-228e-440e-a9de-8cb977c04745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Decimation">
+      <UniqueIdentifier>{a9fc493d-6455-4daf-9e34-f92fc93c9e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\DecimateBrush">
+      <UniqueIdentifier>{4be4bb75-8a05-424f-b687-afceec1ab300}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

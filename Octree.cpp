@@ -118,8 +118,6 @@ void OctreeDefinition::Octree::testOctree() ONOEXCEPT
  */
 void OctreeDefinition::Octree::buildOctree() ONOEXCEPT
 {
-    say "Initializing Octree..." done;
-
     // TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
     loadTriangleOctantList();
 
@@ -138,8 +136,6 @@ void OctreeDefinition::Octree::buildOctree() ONOEXCEPT
 
     // Insert all triangles into the octree
     insertTrianglesParallel();
-
-    say "Octree Initialization Complete" done;
 }
 
 /**

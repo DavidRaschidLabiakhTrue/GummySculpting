@@ -44,7 +44,7 @@ void autoSave(MainProgram &mainProgram)
         }
 
         ofstream outfile;
-        outfile.open(".autoSave.txt");
+        outfile.open(".autoSave.gum");
 
         if (outfile.is_open())
         {
@@ -399,6 +399,10 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
             debug.AddLog("Main: Error: Bad Argument: %s", e.what());
             break;
         }
+    case DECIMATE:
+        renderer.getActiveMesh()->decimateMesh();
+        // renderer.getActiveMesh()->computeNormals();
+        break;
     case UNDO:
         renderer.getActiveMesh()->undoHistory();
         break;
@@ -542,6 +546,9 @@ void MainProgram::processSculptorCommand(StringList &arguments, int numArgs)
     case TESSELLATE:
         brush.currentState = BrushState::BrushTessellate;
         break;
+        // case DECIMATE:
+        //     brush.currentState = BrushState::BrushDecimate;
+        //     break;
     }
 }
 

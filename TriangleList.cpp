@@ -2,17 +2,12 @@
 
 Usage TriangleListDefinition;
 
-
-
-
 TriangleList::TriangleList()
 {
-
 }
 
 TriangleList::~TriangleList()
 {
-
 }
 
 const int TriangleList::triangleCountAsindiceCount() TRINOEXCEPT
@@ -22,7 +17,7 @@ const int TriangleList::triangleCountAsindiceCount() TRINOEXCEPT
 
 const int TriangleList::triangleMemorySize() TRINOEXCEPT
 {
-	return triangles.size() * (sizeof(IndexedTriangle));
+    return triangles.size() * (sizeof(IndexedTriangle));
 }
 
 const int TriangleListDefinition::TriangleList::totalTriangles() TRINOEXCEPT
@@ -32,11 +27,9 @@ const int TriangleListDefinition::TriangleList::totalTriangles() TRINOEXCEPT
 
 void TriangleList::printTriangleListToConsole() TRINOEXCEPT
 {
-	forall(tri, triangles)
-	{
-		tri.print();
-	}
-	say "\n";
+    forall(tri, triangles)
+    {
+        tri.print();
+    }
+    say "\n";
 }
-
-

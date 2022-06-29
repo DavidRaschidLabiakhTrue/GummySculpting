@@ -8,7 +8,7 @@
 
 
 #include "Octree.hpp"
-#include "SubdivisionSurface.hpp"
+#include "Decimation.hpp"
 
 #include "MeshChangeLog.hpp"
 
@@ -28,7 +28,7 @@ namespace MeshDefinition
 
 
 	using namespace OctreeDefinition;
-	using namespace Subdivision;
+	using namespace _Decimation;
 	using namespace MeshChangeLogDefinition;
 
 
@@ -39,7 +39,7 @@ namespace MeshDefinition
 
 	extern int MeshIDTracker;
 
-	class Mesh : public SubdivisionSurface //public ITreeVisualization
+	class Mesh : public Decimation //public ITreeVisualization
 	{
 		public:
 			Mesh();

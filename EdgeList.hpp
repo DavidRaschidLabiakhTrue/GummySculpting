@@ -2,7 +2,7 @@
 #define EdgeList_HPP
 
 #include "Edge.hpp"
-
+#include <unordered_set>
 
 namespace EdgeListDefinition
 {
@@ -10,6 +10,7 @@ namespace EdgeListDefinition
 
 
 	typedef vector<Edge> Edges;
+	typedef pair<KeyData, KeyData> EdgePair;
 
 	// a class that contains a list of edges *by indice*
 	/*
@@ -39,7 +40,7 @@ namespace EdgeListDefinition
 
 			v4 colorAverageAt(KeyData key) EDGENOEXCEPT;
 
-
+			KeyList getEdgeTriangles(EdgePair edge) EDGENOEXCEPT;
 
 			Edges edges;
 
