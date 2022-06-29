@@ -85,13 +85,13 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 
 	forall(element, apply)
 	{
-		V3D temp = V3D(0,0,0);
+		//V3D temp = V3D(0,0,0);
 		cMesh.vertices[element.first] = cMesh.averageAt(element.first);
-		std::cout << "using smoothing"<< endl;
+		//std::cout << "using smoothing"<< endl; // I don't remember adding this...
 	}
 
-	cMesh.updateAffectedTriangles();
-
+	//cMesh.updateAffectedTriangles();
+	cMesh.recomputeNormals(apply);
 	cMesh.history.currentChangeLog.clear();
 
 }

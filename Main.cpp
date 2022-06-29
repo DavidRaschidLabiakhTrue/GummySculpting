@@ -595,7 +595,6 @@ void MainProgram::queryMechanics()
 
     if (!queryGizmo() and sculptGate.canUpdate())
     {
-        brush.screenToWorld();
 
         brush.querySculpt(renderer.getActiveMeshReference());
     }
@@ -621,6 +620,7 @@ bool MainProgram::queryGizmo()
 void MainProgram::draw3D()
 {
     renderer.draw();
+	brush.drawCursor();
     /*brush.cursor.drawCursor();*/
 }
 void MainProgram::drawStatic()
