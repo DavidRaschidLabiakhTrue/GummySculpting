@@ -17,6 +17,8 @@ namespace _Cursor3D
 			Cursor3D(bool trueConstructor);
 			~Cursor3D();
 
+			void drawCursor();
+
 			float radius;
 	};
 }
