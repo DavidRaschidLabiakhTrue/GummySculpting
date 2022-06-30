@@ -128,13 +128,15 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
         Tessellate::applyTessellate(cMesh, payload);
         break;
 
-    case BrushState::BrushDecimate:
-        Decimate::applyDecimate(cMesh, payload);
-        break;
+    // case BrushState::BrushDecimate:
+    //     Decimate::applyDecimate(cMesh, payload);
+    //     break;
     }
     payload.wasRun = true;
     cMesh.updateAffectedTriangles();
 
     cMesh.history.currentChangeLog.clear();
     cMesh.needToRefresh = true;
+
+	cMesh.verifyMesh();
 }

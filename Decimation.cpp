@@ -35,7 +35,8 @@ void Decimation::decimateMesh(float percentage) DECNOEXCEPT
     removeVertices(vertexSet);
 
     refresh();
-    rebuildOctree();
+    verifyMesh();
+    // rebuildOctree();
 }
 
 void Decimation::verifyMesh()
@@ -46,6 +47,7 @@ void Decimation::verifyMesh()
     int badTriangles = 0;
     int badVertices = 0;
     int badEdges = 0;
+    int badOctants = 0;
 
     foreach (tri, triangles)
     {
@@ -87,9 +89,19 @@ void Decimation::verifyMesh()
         }
     }
 
+    foreach(octant, octants) {
+        foreach(tri, *(octant.triangleIDs)) {
+            if(tri >= numTriangles) {
+                badOctants++;
+            }
+        }
+    }
+
     say "Bad triangles: " << badTriangles done;
     say "Bad vertices: " << badVertices done;
     say "Bad edges: " << badEdges done;
+    say "Bad octants: " << badOctants done;
+    say "-----------------------------------------------------" done;
 }
 
 EdgePQ Decimation::parameterizeEdges() DECNOEXCEPT
@@ -265,12 +277,12 @@ void Decimation::removeTriangle(KeyData tri, bool skipResize, int replacement) T
 
         for (int i = 0; i < 3; i++)
         {
-            auto triter = find(vertices[triangles[replacement][i]].triangleIDs.begin(),
+            auto iter = find(vertices[triangles[replacement][i]].triangleIDs.begin(),
                                vertices[triangles[replacement][i]].triangleIDs.end(),
                                replacement);
-            if (triter != vertices[triangles[replacement][i]].triangleIDs.end())
+            if (iter != vertices[triangles[replacement][i]].triangleIDs.end())
             {
-                *triter = tri;
+                *iter = tri;
             }
         }
         insertTriangleParallel(tri);
@@ -279,10 +291,6 @@ void Decimation::removeTriangle(KeyData tri, bool skipResize, int replacement) T
     if (!skipResize)
     {
         triangles.resize(replacement);
-    }
-
-    if (!skipResize)
-    {
         triangleToOctantList.resize(replacement);
     }
 }

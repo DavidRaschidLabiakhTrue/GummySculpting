@@ -313,10 +313,6 @@ bool Octree::removeTriangleFromOctreeParallel(TriangleID tri) ONOEXCEPT
 
     lock_guard<mutex> lock(*octantMutexes[oix]);
 
-    // OctantReference octantRef = octants[oix]; // Get the octant reference for clarity
-
-    const int triangleIDsSize = (int)octants[oix].triangleIDs->size();
-
     if (octants[oix].triangleIDs->find(tri) != octants[oix].triangleIDs->end())
     {
         octants[oix].triangleIDs->erase(tri);
