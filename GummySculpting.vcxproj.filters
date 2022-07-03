@@ -250,6 +250,9 @@
     <ClCompile Include="DecimateBrush.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\DecimateBrush</Filter>
     </ClCompile>
+    <ClCompile Include="MeshUndoRedo.cpp">
+      <Filter>Data Structures\Search\Mesh\Mesh Change Log\MeshUndoRedo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -518,6 +521,9 @@
     </ClInclude>
     <ClInclude Include="DecimateBrush.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\DecimateBrush</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshUndoRedo.hpp">
+      <Filter>Data Structures\Search\Mesh\Mesh Change Log\MeshUndoRedo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -951,6 +957,9 @@
     </Filter>
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\DecimateBrush">
       <UniqueIdentifier>{4be4bb75-8a05-424f-b687-afceec1ab300}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Search\Mesh\Mesh Change Log\MeshUndoRedo">
+      <UniqueIdentifier>{9efc3ba6-01c3-478c-8e2a-c2cc5249cadf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

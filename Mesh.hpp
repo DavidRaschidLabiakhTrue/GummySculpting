@@ -18,6 +18,8 @@
 #include <unordered_map>
 #include <functional>
 
+#include "MeshUndoRedo.hpp"
+
 // #include "Octree.hpp" // too many issues
 
 namespace MeshDefinition
@@ -31,6 +33,7 @@ namespace MeshDefinition
 	using namespace _Decimation;
 	using namespace MeshChangeLogDefinition;
 
+	using MeshUndoRedo_::UndoRedo;
 
 	// a wrapper and container for all graphics and search structures used in the mesh.
 	// contains graphics data for drawing
@@ -39,7 +42,7 @@ namespace MeshDefinition
 
 	extern int MeshIDTracker;
 
-	class Mesh : public Decimation //public ITreeVisualization
+	class Mesh : public Decimation, public UndoRedo
 	{
 		public:
 			Mesh();
@@ -59,6 +62,8 @@ namespace MeshDefinition
 			void undoHistory();
 			void redoHistory();
 
+			void storeUndoAndCurrent();
+
 
 			void cullHistory(ChangeLogLevel levelsUpwardToCull);
 			void createVariableMap();
@@ -69,6 +74,7 @@ namespace MeshDefinition
 
 			void computeNormalsFromMatrix();
 
+			void recomputeNormalsFromCurrentVertices();
 			void recomputeNormals(HistoryKeyVertexMap& apply);
 
 

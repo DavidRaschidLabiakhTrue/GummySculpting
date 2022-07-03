@@ -60,11 +60,11 @@ namespace VertexDefinition
 		v3 position;
 		v4 color; // shrink to v3 eventually.
 		v3 normal = v3(0);
-		BitData bitData; // reserve first 14 starting from right to represent weight data with a resolution of 100.00 total.
+		BitData bitData; // reserve first 14 starting from right to represent weight data with a resolution of 100.00 total. I'm not adding weight this semester. Marked for removal.
 
 
 
-		vector<int> triangleIDs; // Triangles that this vertex is a part of. TODO: Using vector<int> for now, but should have proper data type
+		vector<int> triangleIDs; // Triangles that this vertex is a part of. TODO: Using vector<int> for now, but should have proper data type - definitely sussy
 
 		unordered_map<char, int> ABCDmap; // Reserved for subdivision to keep track of which vertices to use for Loop's equation. - not sussy, trust - COMPLETEY FUCKING SUSSY BRO
 #ifndef NOTUSINGNORMALORUV

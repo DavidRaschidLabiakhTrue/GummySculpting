@@ -29,7 +29,7 @@ void toggleTrue()
 {
 	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(ImColor(255, 255, 255)));
 	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(200, 50, 250)));
-	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(200, 150, 200)));
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(200, 150, 200))); // should probably change these colors, bright blue hard to see.
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(0, 0, 0)));
 }
 
@@ -311,7 +311,7 @@ void ToolbarDefinition::Toolbar::build()
 	ImGui::PopStyleVar();
 
 	StrokeToggleButton();
-	StrokeSmoothToggleButton();
+	//StrokeSmoothToggleButton();
 	SmoothToggleButton();
 	ColorToggleButton();
 	SmoothedColorToggleButton();

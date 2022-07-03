@@ -42,7 +42,6 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 
 		currentDir = direction; // update the current direction
 
-
 		cMesh.history.sealChange = false;
 		payload.direction = this->direction;
 		payload.origin = this->origin().position;
@@ -66,15 +65,21 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 
 		if (payload.wasRun == false) // if the payload has begun a stroke - collect info
 		{
-			say "beinning PayloadRun" done;
+			//say "beginning PayloadRun" done;
 
 		}
 		applySculpt(cMesh);
 	}
 	else if (cMesh.history.sealChange == false && CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT))
 	{
+
+		// here, the user is done stroking, so if Mesh::savedVertices has size() > 0 vertices, then we should save it to the undo redo queue.
+
+
 		payload.wasRun = false;
-		//cursor.offset = v3(200.0f); // just pop it out of frame.
+
+
+		
 		cMesh.history.sealChange = true;
 		cMesh.history.adjustLevelUp();
 
@@ -89,6 +94,7 @@ void SculptBrushDefinition::SculptBrush::drawCursor()
 void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 {
     cMesh.Octree::collectTrianglesAroundCollision(payload.radius);
+	cMesh.storeUndoAndCurrent(); // save the set of vertices we will operate on and save the vertices we wish to possibly undo to.
 
     switch (this->currentState)
     {
@@ -117,7 +123,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
         break;
 
     case BrushState::BrushDirac:
-        StrokingDirac::applyStrokeDirac(cMesh, payload, 1);
+        //StrokingDirac::applyStrokeDirac(cMesh, payload, 1);
         break;
 
     case BrushState::BrushTessellate:
@@ -128,9 +134,8 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
         Decimate::applyDecimate(cMesh, payload);
         break;
     }
+	cMesh.recomputeNormalsFromCurrentVertices();
     payload.wasRun = true;
     cMesh.updateAffectedTriangles();
-
-    cMesh.history.currentChangeLog.clear();
     cMesh.needToRefresh = true;
 }
