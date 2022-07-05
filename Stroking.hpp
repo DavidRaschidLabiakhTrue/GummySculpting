@@ -13,7 +13,7 @@ namespace Sculpting::Stroking
 	using namespace SculptPayloadDefinition;
 	using namespace TopologyComputationDefinition;
 	using namespace Sculpting;
-
+	// unused. Look at strokeDirac for now.
 	void applyStroke(MeshReference cMesh, SculptPayloadReference payload, const int iterations = 4);
 }
 

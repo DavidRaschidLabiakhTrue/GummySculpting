@@ -51,39 +51,9 @@ using namespace Sculpting::Smoothing;
 
 void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadReference payload)
 {
-	cMesh.octreeRayIntersection(payload.origin, payload.direction);
-	auto oPayload = cMesh.collision;
-
-	auto& cHistory = cMesh.history.currentChangeLog;
-	HistoryKeyVertexMap apply;
-
-	if (oPayload.isCollision == false)
-	{
-		return; // there was no collision with the octree
-	}
-	else
-	{
 
 
-
-	}
-
-	cMesh.Octree::collectTrianglesAroundCollision(payload.radius);
-	auto list = cMesh.trianglesInRange;
-
-
-
-	forall(element, list)
-	{
-		forall(id, cMesh.triangles[element].indice)
-		{
-
-			apply[id] = cHistory[id] = cMesh.vertices[id];
-		}
-
-	}
-
-	forall(element, apply)
+	forall(element, cMesh.currentVertices)
 	{
 		//V3D temp = V3D(0,0,0);
 		cMesh.vertices[element.first] = cMesh.averageAt(element.first);
@@ -91,8 +61,7 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 	}
 
 	//cMesh.updateAffectedTriangles();
-	cMesh.recomputeNormals(apply);
-	cMesh.history.currentChangeLog.clear();
+	cMesh.recomputeNormalsFromCurrentVertices();
 
 }
 

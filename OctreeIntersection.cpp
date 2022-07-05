@@ -119,7 +119,7 @@ void OctreeDefinition::Octree::collectTrianglesAroundCollision(float range) ONOE
         }
     }
 
-    trianglesInRange = tempTrianglesInRange;
+    trianglesInRange = tempTrianglesInRange; // this is copying twice.
 }
 
 /**

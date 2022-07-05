@@ -208,6 +208,7 @@
     <ClCompile Include="MeshChangeLog.cpp" />
     <ClCompile Include="MeshFileExporter.cpp" />
     <ClCompile Include="MeshHistory.cpp" />
+    <ClCompile Include="MeshUndoRedo.cpp" />
     <ClCompile Include="Noise.cpp" />
     <ClCompile Include="Octree.cpp" />
     <ClCompile Include="OctreeElements.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="MeshChangeLog.hpp" />
     <ClInclude Include="MeshFileExporter.hpp" />
     <ClInclude Include="MeshHistory.hpp" />
+    <ClInclude Include="MeshUndoRedo.hpp" />
     <ClInclude Include="Noise.hpp" />
     <ClInclude Include="Octant.hpp" />
     <ClInclude Include="Octree.hpp" />

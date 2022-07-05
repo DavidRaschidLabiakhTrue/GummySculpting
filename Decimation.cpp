@@ -36,7 +36,7 @@ void Decimation::decimateMesh(float percentage) DECNOEXCEPT
         numCulled += 2;
     }
 
-    say "Verifying after decimation";
+    say "Verifying after decimation" done;
     verifyMesh();
 }
 

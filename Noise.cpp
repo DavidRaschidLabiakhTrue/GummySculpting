@@ -81,8 +81,7 @@ v3 Sculpting::Noising::ExtendLine(v3 CenterPoint, v3 CurrentPoint, float NoiseVa
 
 void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference payload, const int interations)
 {
-	auto& cHistory = cMesh.history.currentChangeLog;
-	HistoryKeyVertexMap apply;
+
 
 	const auto rMult = payload.radius * 0.5f * 0.3f * payload.hitNorm;
 	const auto hitPoint = cMesh.collision.position + rMult;
@@ -93,11 +92,11 @@ void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference 
 
 
 
-	Algos::storeCurrentElementsToMap(apply, cHistory, cMesh);
+
 
 	int seed = 0;
 	srand(static_cast<unsigned int>(time(NULL)));
-	forall(element, apply)
+	forall(element, cMesh.currentVertices)
 	{
 		float r;
 		seed++;
@@ -132,7 +131,7 @@ void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference 
 
 	}
 
-	cMesh.recomputeNormals(apply);
+
 
 
 }

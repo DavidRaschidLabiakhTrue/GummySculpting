@@ -17,5 +17,11 @@ namespace Sculpting::Algos
 
 	void applyColorToMapAndSmoothColor(HistoryKeyVertexMap& apply, MeshReference cMesh);
 
+	void applySmoothToCurrentVertices(MeshReference cMesh, const int iterations = 4);
+	void applyCurrentVerticesToMesh(MeshReference cMesh);
+
+	void applySmoothAndApplyCurrentVerticesToMesh(MeshReference cMesh, const int iterations = 4);
+
+	void applyColorfromCurrent(MeshReference cMesh);
 }
 #endif

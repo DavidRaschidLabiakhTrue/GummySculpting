@@ -83,7 +83,7 @@ void MeshDefinition::Mesh::computeNormalsParallel()
     for (int threadID = 0; threadID < nThreads; threadID++)
     {
         const int id = threadID;
-        threads.push_back(thread([&, id]() {
+        threads.push_back(thread([&, id]() { // is that a fucking lambda
             for (int i = id; i < totalTri; i += nThreads)
             {
                 normalList[i] = this->getTriangleNormal(i);
@@ -142,7 +142,28 @@ void Mesh::applyModelMatrix()
     rebuildOctree();
     this->needToRefresh = true;
 }
+void MeshDefinition::Mesh::recomputeNormalsFromCurrentVertices()
+{
+	const int totTri = (int)this->affectedTriangles.size();
+	unordered_map<TriangleID, v3> newNormals;
+	newNormals.reserve(totTri);
 
+	v3 norm;
+
+	forall(id, this->affectedTriangles)
+	{
+		newNormals[id] = this->getTriangleNormal(id);
+	}
+	forall(element, currentVertices)
+	{
+		norm = v3(0);
+		forall(face, vertices[element.first].triangleIDs)
+		{
+			norm += newNormals[face];
+		}
+		element.second.normal = norm / (float)vertices[element.first].triangleIDs.size();
+	}
+}
 void MeshDefinition::Mesh::recomputeNormals(HistoryKeyVertexMap &apply)
 {
     const int totTri = (int)this->affectedTriangles.size();
@@ -238,7 +259,7 @@ KeyData Mesh::searchLinearParallel(rv3 direction, rv3 origin)
     }
 
     joinThreads;
-    return result;
+    return result; // based
 }
 
 void MeshDefinition::Mesh::undoHistory()
@@ -249,6 +270,23 @@ void MeshDefinition::Mesh::undoHistory()
 void MeshDefinition::Mesh::redoHistory()
 {
     say "Redoing History" done;
+}
+
+void MeshDefinition::Mesh::storeUndoAndCurrent()
+{
+	// can likely be parallelized but I've tormented ryan more than enough about that.
+	currentVertices.clear();
+	forall(element, trianglesInRange)
+	{
+		forall(id, triangles[element].indice)
+		{
+			if (!savedVertices.contains(id))
+			{
+				savedVertices[id] = vertices[id];
+			}
+			currentVertices[id] = vertices[id];
+		}
+	}
 }
 
 void MeshDefinition::Mesh::cullHistory(ChangeLogLevel levelsUpwardToCull)
