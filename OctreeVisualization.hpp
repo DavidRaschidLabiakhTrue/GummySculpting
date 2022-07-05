@@ -22,7 +22,8 @@ namespace OctreeVisualizationDefinition
     {
         NoDepthColor = 0,
         EnableDepthColor = 1,
-        EnableColorWithTriangles = 2
+        EnableColorWithTriangles = 2,
+        OctantColor = 3
     };
 
     enum DepthColor

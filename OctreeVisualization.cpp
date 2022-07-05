@@ -19,8 +19,8 @@ void OctreeVisualization::visualizeOctree(DepthColorMode depthColorMode)
     }
 
     colorTrianglePerOctant();
-	refreshOctreeWireFrame();
-	refresh();
+    refreshOctreeWireFrame();
+    refresh();
 }
 
 void OctreeVisualization::generateOctantWireframe(OctantIndex octantID)
@@ -50,6 +50,10 @@ void OctreeVisualization::generateOctantWireframe(OctantIndex octantID)
         {
             vertex.color = DepthColors[(DepthColor)octantDepth];
         }
+        else if (depthColorMode == OctantColor)
+        {
+            vertex.color = octant.color;
+        }
         octreeWireframe.octreeVertices.emplace_back(vertex);
     }
 
@@ -67,33 +71,34 @@ void OctreeVisualization::bindOctreeWireframe()
     glGenBuffers(1, &gboOctreeWireframe.vbo);
     glGenBuffers(1, &gboOctreeWireframe.ebo);
 
-	refreshOctreeWireFrame();
+    refreshOctreeWireFrame();
 }
 
 void OctreeVisualizationDefinition::OctreeVisualization::refreshOctreeWireFrame()
 {
-	glBindVertexArray(gboOctreeWireframe.vao);
+    glBindVertexArray(gboOctreeWireframe.vao);
 
-	// binding vertices
-	glBindBuffer(GL_ARRAY_BUFFER, gboOctreeWireframe.vbo);
-	glBufferData(GL_ARRAY_BUFFER, octreeWireframe.octreeVertices.size() * sizeof(V3D), octreeWireframe.octreeVertices.data(), GL_STATIC_DRAW);
+    // binding vertices
+    glBindBuffer(GL_ARRAY_BUFFER, gboOctreeWireframe.vbo);
+    glBufferData(GL_ARRAY_BUFFER, octreeWireframe.octreeVertices.size() * sizeof(V3D), octreeWireframe.octreeVertices.data(), GL_STATIC_DRAW);
 
-	// binding indices
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gboOctreeWireframe.ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, octreeWireframe.octreeIndices.size() * sizeof(KeyData), static_cast<void*>(octreeWireframe.octreeIndices.data()), GL_STATIC_DRAW);
+    // binding indices
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gboOctreeWireframe.ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, octreeWireframe.octreeIndices.size() * sizeof(KeyData), static_cast<void *>(octreeWireframe.octreeIndices.data()), GL_STATIC_DRAW);
 
-	// enable position data
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void*)0);
-	// enable color data
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void*)offsetof(V3D, V3D::color)); // color data reserves 4 slots.
+    // enable position data
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void *)0);
+    // enable color data
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void *)offsetof(V3D, V3D::color)); // color data reserves 4 slots.
 }
 
 void OctreeVisualization::drawOctreeWireframe()
 {
     if (octreeWireframe.shouldDraw)
     {
+        bindOctreeWireframe();
         GridShader.use(); // want it independent of wireframe
         gboOctreeWireframe.bindVAO();
         glDrawElements(GL_LINES, (GLsizei)octreeWireframe.octreeIndices.size(), GL_UNSIGNED_INT, NULL);
@@ -101,21 +106,18 @@ void OctreeVisualization::drawOctreeWireframe()
     }
 }
 
-random_device rd;
-mt19937 e2(rd());
-normal_distribution<> dist(50, 100);
+// random_device rd;
+// mt19937 e2(rd());
+// normal_distribution<> dist(50, 100);
 
 void OctreeVisualization::colorTrianglePerOctant()
 {
-    v4 black(0.0f, 0.0f, 0.0f, 1.0f);
+    v4 black(0.0f, 0.0f, 0.0f, 0.0f);
     colorDataUniformly(black);
 
     foreach (octant, octants)
     {
-        v4 color = v4((float)dist(e2) / 100.0f,
-                      (float)dist(e2) / 100.0f,
-                      (float)dist(e2) / 100.0f,
-                      1.0f);
+        v4 color = octant.color;
         foreach (triangle, *(octant.triangleIDs))
         {
             for (int i = 0; i < 3; i++)

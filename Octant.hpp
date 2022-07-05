@@ -83,6 +83,7 @@ namespace OctantDefinition
             v3 octantCenter;                      // center position of octant
             OctantState octantState = OctantLeaf; // State of the octant. Default = OctantLeaf
             bool intersected = false;             // debug
+            v4 color = v4(0.5, 0.5, 0.5, 1);
     };
 
     typedef Octant &OctantReference;

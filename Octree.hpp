@@ -16,6 +16,7 @@
 #include <concurrent_vector.h>
 #include <concurrent_unordered_set.h>
 #include <concurrent_queue.h>
+#include <random>
 
 namespace OctreeDefinition
 {

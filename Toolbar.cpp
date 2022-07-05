@@ -292,6 +292,30 @@ void DecimationToggleButton()
 	ImGui::SameLine();
 }
 
+void OctreeVisualizeToggleButton()
+{
+	int pushedColors = 0;
+
+	if (isLoopToggled)
+	{
+		toggleTrue();
+		pushedColors += 4;
+	}
+	else
+	{
+		toggleFalse();
+		pushedColors += 4;
+	}
+	if (ImGui::Button("Visualize Octree", ImVec2(0, buttonHeight)))
+	{
+		resetToggleButtons();
+		isLoopToggled = !isLoopToggled;
+		MainDirectiveDefinition::Directives.push_back({ "octree", "visualize"});
+	};
+	ImGui::PopStyleColor(pushedColors);
+	ImGui::SameLine();
+}
+
 void ToolbarDefinition::Toolbar::build()
 {
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -320,6 +344,7 @@ void ToolbarDefinition::Toolbar::build()
 	loopToggleButton();
 	TessellationToggleButton();
 	DecimationToggleButton();
+	OctreeVisualizeToggleButton();
 
 	ImGui::End();
 }

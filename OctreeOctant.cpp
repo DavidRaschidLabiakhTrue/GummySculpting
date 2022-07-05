@@ -122,7 +122,8 @@ void OctreeDefinition::Octree::subdivideOctant(OctantIndex oix) ONOEXCEPT
  */
 void OctreeDefinition::Octree::createChildOctant(OctantPosition octantPosition, OctantIndex parentIndex) ONOEXCEPT
 {
-    Octant childOctant;                                  // Empty octant
+    Octant childOctant; // Empty octant
+
     OctantReference parentOctant = octants[parentIndex]; // Get the parent octant reference
 
     float unadjustedHalfSize = parentOctant.octantHalfSize / 2.0f;     // Unadjusted half size for child octant
@@ -248,11 +249,21 @@ void OctreeDefinition::Octree::subdivideOctantParallel(OctantIndex oix, int loca
     octants[oix].children = children;
 }
 
-// WARNING: CHILD OCTANTS ARE LOCKED WHEN CREATED
+// Generating colors
+random_device rd;
+mt19937 e2(rd());
+normal_distribution<> dist(50, 100);
+
+// -- WARNING: CHILD OCTANTS ARE LOCKED WHEN CREATED -- Not currently
 OctantIndex OctreeDefinition::Octree::createChildOctantParallel(OctantPosition octantPosition, OctantIndex parentIndex) ONOEXCEPT
 {
     Octant childOctant;                         // Empty octant
     Octant parentOctant = octants[parentIndex]; // Get the parent octant reference
+
+    childOctant.color = v4((float)dist(e2) / 100.0f,
+                           (float)dist(e2) / 100.0f,
+                           (float)dist(e2) / 100.0f,
+                           1.0f); // Generate a random color for the child octant
 
     float unadjustedHalfSize = parentOctant.octantHalfSize / 2.0f;     // Unadjusted half size for child octant
     float looseHalfSize = (float)octreeLooseness * unadjustedHalfSize; // Looseness adjusted half size for child octant
