@@ -58,18 +58,22 @@ void MeshDefinition::Mesh::computeNormals()
         {
             tempNorm += normalList[id]; // add them up
         }
-        vert.normal = normalize(tempNorm / (float)vert.triangleIDs.size()); // average them
 
-        if (isnan(vert.normal.x) || isnan(-vert.normal.x) ||
-            isnan(vert.normal.y) || isnan(-vert.normal.y) ||
-            isnan(vert.normal.z) || isnan(-vert.normal.z))
-        {
-            say "Vertex Normal: " spc to_string(vert.normal) done;
-            say "triangleIDs size: " spc vert.triangleIDs.size() done;
-            say "---------------------------------" done;
-        }
+
+        vert.normal = (tempNorm / ((float)vert.triangleIDs.size())); // average them
+
+
+
+        //if (isnan(vert.normal.x) || isnan(-vert.normal.x) ||
+        //    isnan(vert.normal.y) || isnan(-vert.normal.y) ||
+        //    isnan(vert.normal.z) || isnan(-vert.normal.z))
+        //{
+        //    say "Vertex Normal: " spc to_string(vert.normal) done;
+        //    say "triangleIDs size: " spc vert.triangleIDs.size() done;
+        //    say "---------------------------------" done;
+        //}
     }
-    say "Normals Calculated" done;
+    //say "Normals Calculated" done;
 }
 
 void MeshDefinition::Mesh::computeNormalsParallel()

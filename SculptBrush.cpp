@@ -105,7 +105,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 
     case BrushState::BrushStateStroke:
 
-        Stroking::applyStroke(cMesh, payload, 1);
+        //Stroking::applyStroke(cMesh, payload, 1);
         break;
 
     case BrushState::BrushStateNoise:
@@ -123,7 +123,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
         break;
 
     case BrushState::BrushDirac:
-        //StrokingDirac::applyStrokeDirac(cMesh, payload, 1);
+        StrokingDirac::applyStrokeDirac(cMesh, payload, 4);
         break;
 
     case BrushState::BrushTessellate:
@@ -135,8 +135,8 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
     //     break;
     }
 
-    say "Verifying after sculpt" done;
-	cMesh.verifyMesh(); // Debug
+    //say "Verifying after sculpt" done;
+	//cMesh.verifyMesh(); // Debug
 	cMesh.recomputeNormalsFromCurrentVertices();
     payload.wasRun = true;
     cMesh.updateAffectedTriangles();
