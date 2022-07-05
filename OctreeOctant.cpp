@@ -286,9 +286,6 @@ OctantIndex Octree::insertOctantParallel(OctantReference octant) ONOEXCEPT
     octant.octantIndex = octantIndex;
     octants.push_back(octant);
     octantMutexes.push_back(make_unique<mutex>());
-    // auto octantIter = octants.push_back(octant);
-    // OctantIndex octantIndex = (OctantIndex)(octantIter - octants.begin());
-    // octant.octantIndex = octantIndex;
     return octantIndex;
 }
 

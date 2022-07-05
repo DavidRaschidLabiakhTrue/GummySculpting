@@ -401,7 +401,8 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
         }
     case DECIMATE:
         renderer.getActiveMesh()->decimateMesh();
-        // renderer.getActiveMesh()->computeNormals();
+        renderer.getActiveMesh()->computeNormals();
+        renderer.getActiveMesh()->refresh();
         break;
     case UNDO:
         renderer.getActiveMesh()->undoHistory();

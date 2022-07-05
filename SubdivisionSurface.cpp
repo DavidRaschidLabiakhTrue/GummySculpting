@@ -115,9 +115,9 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
                 newTriangle[0] = triangles[tri][i];
                 newTriangle[1] = midpoints[i];
                 newTriangle[2] = midpoints[(i + 2) % 3];
-                vertices[newTriangle[0]].triangleIDs.emplace_back(triangleIndex);
-                vertices[newTriangle[1]].triangleIDs.emplace_back(triangleIndex);
-                vertices[newTriangle[2]].triangleIDs.emplace_back(triangleIndex);
+                vertices[newTriangle[0]].triangleIDs.insert(triangleIndex);
+                vertices[newTriangle[1]].triangleIDs.insert(triangleIndex);
+                vertices[newTriangle[2]].triangleIDs.insert(triangleIndex);
                 newTriangles.emplace_back(newTriangle);
                 triangleIndex++;
             }
@@ -126,9 +126,9 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
             midpointTriangle[0] = midpoints[0];
             midpointTriangle[1] = midpoints[1];
             midpointTriangle[2] = midpoints[2];
-            vertices[midpointTriangle[0]].triangleIDs.emplace_back(triangleIndex);
-            vertices[midpointTriangle[1]].triangleIDs.emplace_back(triangleIndex);
-            vertices[midpointTriangle[2]].triangleIDs.emplace_back(triangleIndex);
+            vertices[midpointTriangle[0]].triangleIDs.insert(triangleIndex);
+            vertices[midpointTriangle[1]].triangleIDs.insert(triangleIndex);
+            vertices[midpointTriangle[2]].triangleIDs.insert(triangleIndex);
             newTriangles.emplace_back(midpointTriangle);
             triangleIndex++;
         }

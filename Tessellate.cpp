@@ -213,17 +213,17 @@ void Tessellate::splitAdjacentOuterTriangles(MeshReference cMesh, SculptPayloadR
         cMesh.insertTriangle(t3);
 
         // Add new triangles to their vertices
-        vertices[v0].triangleIDs.emplace_back(t2);
-        vertices[outsideVertex].triangleIDs.emplace_back(t2);
+        vertices[v0].addTriangle(t2);
+        vertices[outsideVertex].addTriangle(t2);
 
-        vertices[v1].triangleIDs.emplace_back(t3);
-        vertices[outsideVertex].triangleIDs.emplace_back(t3);
+        vertices[v1].addTriangle(t3);
+        vertices[outsideVertex].addTriangle(t3);
 
         // Add all triangles to midpoint
-        vertices[midpointIndex].triangleIDs.emplace_back(t0);
-        vertices[midpointIndex].triangleIDs.emplace_back(t1);
-        vertices[midpointIndex].triangleIDs.emplace_back(t2);
-        vertices[midpointIndex].triangleIDs.emplace_back(t3);
+        vertices[midpointIndex].addTriangle(t0);
+        vertices[midpointIndex].addTriangle(t1);
+        vertices[midpointIndex].addTriangle(t2);
+        vertices[midpointIndex].addTriangle(t3);
     }
 }
 
@@ -245,9 +245,9 @@ void Tessellate::subdivideInnerTriangles(MeshReference cMesh, unordered_map<v3, 
         {
             vertices[triangles[tri][i]].removeTriangle(tri);
             IndexedTriangle newTriangle(triangles[tri][i], midpoints[i], midpoints[(i + 2) % 3]);
-            vertices[newTriangle[0]].triangleIDs.emplace_back(triangleIndex);
-            vertices[newTriangle[1]].triangleIDs.emplace_back(triangleIndex);
-            vertices[newTriangle[2]].triangleIDs.emplace_back(triangleIndex);
+            vertices[newTriangle[0]].addTriangle(triangleIndex);
+            vertices[newTriangle[1]].addTriangle(triangleIndex);
+            vertices[newTriangle[2]].addTriangle(triangleIndex);
             triangles.emplace_back(newTriangle);
             cMesh.insertTriangle(triangleIndex);
             triangleIndex++;
@@ -256,9 +256,9 @@ void Tessellate::subdivideInnerTriangles(MeshReference cMesh, unordered_map<v3, 
         triangles[tri][0] = midpoints[0];
         triangles[tri][1] = midpoints[1];
         triangles[tri][2] = midpoints[2];
-        vertices[midpoints[0]].triangleIDs.emplace_back(tri);
-        vertices[midpoints[1]].triangleIDs.emplace_back(tri);
-        vertices[midpoints[2]].triangleIDs.emplace_back(tri);
+        vertices[midpoints[0]].addTriangle(tri);
+        vertices[midpoints[1]].addTriangle(tri);
+        vertices[midpoints[2]].addTriangle(tri);
     }
 }
 
@@ -293,10 +293,10 @@ void Tessellate::splitOuterTriangles(MeshReference cMesh, SculptPayloadReference
 
         vertices[insideVertexLeft].removeTriangle(tri);
 
-        vertices[midpointVertex].triangleIDs.emplace_back(tri);
-        vertices[midpointVertex].triangleIDs.emplace_back(triangleIndex);
-        vertices[insideVertexLeft].triangleIDs.emplace_back(triangleIndex);
-        vertices[outsideVertex].triangleIDs.emplace_back(triangleIndex);
+        vertices[midpointVertex].addTriangle(tri);
+        vertices[midpointVertex].addTriangle(triangleIndex);
+        vertices[insideVertexLeft].addTriangle(triangleIndex);
+        vertices[outsideVertex].addTriangle(triangleIndex);
 
         triangles.emplace_back(leftTri);
         cMesh.insertTriangle(triangleIndex);

@@ -414,6 +414,8 @@ void Octree::reflectRay(rv3 origin, rv3 direction, rv3 planeOrigin, rv3 planeNor
  */
 void Octree::collectAroundCollision(float range, bool collectAffectedTriangles, bool collectTrianglesInRange, bool isSymmetric) ONOEXCEPT
 {
+    clearCollision();
+
     if (collectTrianglesInRange)
     {
         collectAffectedTriangles = true;

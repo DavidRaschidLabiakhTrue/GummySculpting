@@ -182,6 +182,7 @@ void Octree::loadTriangleOctantList() ONOEXCEPT {
  */
 void OctreeDefinition::Octree::resizeOctree(TriangleID tri) ONOEXCEPT
 {
+    say "resizing octree" done;
     v3 triangleCentroid = getTriangleCentroid(tri); // Get the triangle's centroid
 
     // Continuously resize until triangle fits into the root octant
@@ -256,6 +257,12 @@ void OctreeDefinition::Octree::resizeOctree(TriangleID tri) ONOEXCEPT
 mutex mtxResize;
 void OctreeDefinition::Octree::resizeOctreeParallel(TriangleID tri) ONOEXCEPT
 {
+    if(tri >= triangleToOctantList.size())
+    {
+        say "Triangle ID out of bounds" done;
+        return;
+    }
+
     // Only one thread can resize at a time
     lock_guard<mutex> lock(mtxResize);
 

@@ -6,38 +6,47 @@ void Decimation::decimateMesh(float percentage) DECNOEXCEPT
 {
     EdgePQ edgePQ = parameterizeEdges();
     set<KeyData, greater<KeyData>> vertexSet;
+    set<KeyData, greater<KeyData>> visitedVertices;
     int cullTarget = (int)(triangles.size() * percentage);
     int numCulled = 0;
-    // cullTarget = 1;
+
     while (numCulled < cullTarget)
     {
-        EdgeTuple edge = edgePQ.top();
+        EdgeDistPair edgeDistPair = edgePQ.top();
         edgePQ.pop();
+        EdgePair edge = edgeDistPair.second;
 
-        if (!edges[get<1>(edge)].vertexEdges.contains(get<2>(edge)))
+        if (edge.first >= vertices.size() || edge.first < 0 ||
+            edge.second >= vertices.size() || edge.second < 0 ||
+            !edges[edge.first].vertexEdges.contains(edge.second) ||
+            !edges[edge.second].vertexEdges.contains(edge.first))
         {
             continue;
         }
 
         // Verify edge, push if distance is different
-        float dist = glm::distance(vertices[get<1>(edge)].position, vertices[get<2>(edge)].position);
-        if (get<0>(edge) != dist)
+        float dist = glm::distance(vertices[edge.first].position, vertices[edge.second].position);
+        if (dist != edgeDistPair.first)
         {
-            edgePQ.push(make_tuple(dist, get<1>(edge), get<2>(edge)));
+            edgePQ.push(EdgeDistPair(dist, edge));
             continue;
         }
 
-        removeTriangles(collapseEdge(make_pair(get<1>(edge), get<2>(edge))));
-        vertexSet.insert(get<2>(edge));
+        collapseEdge(edge);
         numCulled += 2;
     }
 
-    removeVertices(vertexSet);
-
-    refresh();
+    say "Verifying after decimation";
     verifyMesh();
-    // rebuildOctree();
 }
+
+struct pair_hash
+{
+        inline std::size_t operator()(const std::pair<int, int> &v) const
+        {
+            return v.first * 31 + v.second;
+        }
+};
 
 void Decimation::verifyMesh()
 {
@@ -48,60 +57,201 @@ void Decimation::verifyMesh()
     int badVertices = 0;
     int badEdges = 0;
     int badOctants = 0;
+    int badConnections = 0;
 
+    // Check for bad triangles
+    int trix = 0;
     foreach (tri, triangles)
     {
-        if (tri[0] >= numVertices || tri[1] >= numVertices || tri[2] >= numVertices)
+        // Check for bad vertex indices
+        if (tri[0] >= numVertices || tri[1] >= numVertices || tri[2] >= numVertices ||
+            tri[0] < 0 || tri[1] < 0 || tri[2] < 0)
         {
             badTriangles++;
+            trix++;
+            continue;
         }
-    }
 
-    foreach (vertex, vertices)
-    {
-        if (vertex.triangleIDs.size() == 0)
+        v3 triNormal = getTriangleNormal(trix);
+
+        if (isnan(triNormal.x) || isnan(-triNormal.x) ||
+            isnan(triNormal.y) || isnan(-triNormal.y) ||
+            isnan(triNormal.z) || isnan(-triNormal.z))
         {
-            badVertices++;
+            say "NAN triangle normal found" done;
+            break;
         }
-        foreach (triD, vertex.triangleIDs)
+
+        // check if vertex contains the triangle
+        for (int i = 0; i < 3; i++)
         {
-            if (triD >= numTriangles)
+            if (!vertices[tri[i]].triangleIDs.contains(trix))
+            {
+                // badConnections++;
+                break;
+            }
+
+            if (vertices[tri[i]].position == vertices[tri[(i + 1) % 3]].position ||
+                vertices[tri[i]].position == vertices[tri[(i + 2) % 3]].position)
             {
                 badVertices++;
                 break;
             }
         }
+
+        // check if octant contains the triangle
+        if (!octants[triangleToOctantList[trix]].triangleIDs->contains(trix))
+        {
+            badOctants++;
+        }
+
+        trix++;
     }
 
+    // Check for bad vertices
+    int emptyVertexTriangleList = 0;
+    int vertexID = 0;
+    foreach (vertex, vertices)
+    {
+        // check for empty triangle list
+        if (vertex.triangleIDs.size() == 0)
+        {
+            emptyVertexTriangleList++;
+        }
+
+        // check for bad positions
+        if (isnan(vertex.position.x) || isnan(-vertex.position.x) || isnan(vertex.position.y) || isnan(-vertex.position.y) || isnan(vertex.position.z) || isnan(-vertex.position.z))
+        {
+            say "NAN vertex found" done;
+        }
+        if (isinf(vertex.position.x) || isinf(-vertex.position.x) ||
+            isinf(vertex.position.y) || isinf(-vertex.position.y) ||
+            isinf(vertex.position.z) || isinf(-vertex.position.z))
+        {
+            say "inf vertex found" done;
+        }
+
+        unordered_set<pair<int, int>, pair_hash> triangleSet;
+
+        foreach (triD, vertex.triangleIDs)
+        {
+            // check bad triangle indices
+            if (triD >= numTriangles || triD < 0)
+            {
+                // badConnections++;
+                continue;
+            }
+
+            // check if triangle contains vertex
+            KeyData otherV1;
+            KeyData otherV2;
+            if (triangles[triD][0] == vertexID)
+            {
+                otherV1 = triangles[triD][1];
+                otherV2 = triangles[triD][2];
+            }
+            else if (triangles[triD][1] == vertexID)
+            {
+                otherV1 = triangles[triD][0];
+                otherV2 = triangles[triD][2];
+            }
+            else if (triangles[triD][2] == vertexID)
+            {
+                otherV1 = triangles[triD][0];
+                otherV2 = triangles[triD][1];
+            }
+            else
+            {
+                badConnections++;
+                continue;
+            }
+
+            // check if vertex edges contain the other vertices in triangle
+            if (!edges[vertexID].vertexEdges.contains(otherV1) || !edges[vertexID].vertexEdges.contains(otherV2))
+            {
+                badConnections++;
+            }
+
+            pair<KeyData, KeyData> triPair = make_pair(glm::min(otherV1, otherV2), glm::max(otherV1, otherV2));
+            if (triangleSet.contains(triPair))
+            {
+                say "Duplicate triangle found" done;
+            }
+            else
+            {
+                triangleSet.insert(triPair);
+            }
+        }
+
+        vertexID++;
+    }
+
+    // Edges
+    int eix = 0;
     foreach (edgeList, edges)
     {
+        // check for empty edge list
         if (edgeList.vertexEdges.size() == 0)
         {
             badEdges++;
         }
+
+        // check for bad vertex indices
         foreach (otherVertex, edgeList.vertexEdges)
         {
-            if (otherVertex >= numVertices)
+            if (otherVertex >= numVertices || otherVertex < 0)
             {
                 badEdges++;
-                break;
+            }
+
+            if (!edges[otherVertex].vertexEdges.contains(eix))
+            {
+                badEdges++;
+            }
+
+            if (glm::epsilonEqual(distance(vertices[eix].position, vertices[otherVertex].position), 0.0f, 0.00001f))
+            {
+                say "degenerate triangle found" done;
+                badEdges++;
             }
         }
+
+        eix++;
     }
 
-    foreach(octant, octants) {
-        foreach(tri, *(octant.triangleIDs)) {
-            if(tri >= numTriangles) {
+    // octants
+    int oix = 0;
+    foreach (octant, octants)
+    {
+        foreach (tri, *(octant.triangleIDs))
+        {
+            // check for bad triangle indices
+            if (tri >= numTriangles || tri < 0)
+            {
                 badOctants++;
             }
+
+            // check connection of triangle to octant
+            if (triangleToOctantList[tri] != oix)
+            {
+                // badConnections++;
+            }
         }
+
+        oix++;
     }
 
-    say "Bad triangles: " << badTriangles done;
-    say "Bad vertices: " << badVertices done;
-    say "Bad edges: " << badEdges done;
-    say "Bad octants: " << badOctants done;
-    say "-----------------------------------------------------" done;
+    if (badTriangles || badVertices || badEdges || badOctants || badConnections || emptyVertexTriangleList)
+    {
+
+        say "Bad triangles: " << badTriangles done;
+        say "Bad vertices: " << badVertices done;
+        say "Bad edges: " << badEdges done;
+        say "Bad octants: " << badOctants done;
+        say "Bad connections: " << badConnections done;
+        say "Empty vertex triangle list: " << emptyVertexTriangleList done;
+        say "-----------------------------------------------------" done;
+    }
 }
 
 EdgePQ Decimation::parameterizeEdges() DECNOEXCEPT
@@ -113,14 +263,14 @@ EdgePQ Decimation::parameterizeEdges() DECNOEXCEPT
     {
         foreach (otherVertexID, edges[vertexID].vertexEdges)
         {
+            // Avoid recreating the same edge
             if (otherVertexID < vertexID)
             {
                 continue;
             }
 
-            pq.push(make_tuple(glm::distance(vertices[vertexID].position, vertices[otherVertexID].position),
-                               vertexID,
-                               otherVertexID));
+            pq.push(make_pair(glm::distance(vertices[vertexID].position, vertices[otherVertexID].position),
+                              make_pair(vertexID, otherVertexID)));
         }
     }
 
@@ -139,106 +289,94 @@ EdgePQ Decimation::parameterizeEdges() DECNOEXCEPT
  * NOTE: This function performs no safety checks.
  *
  * @param edge
- * @return KeyList
  */
-KeyList Decimation::collapseEdge(EdgePair edge) DECNOEXCEPT
+void Decimation::collapseEdge(EdgePair edge) DECNOEXCEPT
 {
+    // Get Triangles that share this edge
     KeyList sharedTriangles = getEdgeTriangles(edge);
+    removeTriangles(sharedTriangles);
 
-    vertices[edge.first] = getEdgeMidpoint(edge.first, edge.second);
-    vertices[edge.first].color = (vertices[edge.first].color + vertices[edge.second].color) * 0.5f;
+    vertices[edge.first] = getEdgeMidpoint(edge.first, edge.second);                                // Move v1 to the midpoint of the edge
+    vertices[edge.first].color = (vertices[edge.first].color + vertices[edge.second].color) * 0.5f; // Average the colors of the two vertices
 
-    // Remove shared triangles from their vertices
-    foreach (tri, sharedTriangles)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            RV3D vertex = vertices[triangles[tri][i]];
-            vertex.triangleIDs.erase(find(vertex.triangleIDs.begin(), vertex.triangleIDs.end(), tri));
-        }
-    }
+    // Add the second vertex's triangles to the first vertex's triangles
+    vertices[edge.first].triangleIDs.insert(vertices[edge.second].triangleIDs.begin(), vertices[edge.second].triangleIDs.end());
 
-    // Add the other triangles connected to the second vertex to the first and replace the second vertex with the first
+    // Update the triangles of the the second vertex to point to the first vertex
     foreach (tri, vertices[edge.second].triangleIDs)
     {
-        vertices[edge.first].triangleIDs.emplace_back(tri);
-
-        if (triangles[tri][0] == edge.second)
-        {
-            triangles[tri][0] = edge.first;
-        }
-        else if (triangles[tri][1] == edge.second)
-        {
-            triangles[tri][1] = edge.first;
-        }
-        else
-        {
-            triangles[tri][2] = edge.first;
-        }
+        triangles[tri].swapVertexIndex(edge.second, edge.first);
     }
+
+    // Erase this edge from both vertices' edge lists
+    edges[edge.first].vertexEdges.erase(edge.second);
+    edges[edge.second].vertexEdges.erase(edge.first);
 
     // Replace the second vertex with the first in all the edges connected to the second vertex
     foreach (otherVertex, edges[edge.second].vertexEdges)
     {
         edges[otherVertex].vertexEdges.erase(edge.second);
-        if (otherVertex != edge.first)
-        {
-            edges[otherVertex].vertexEdges.insert(edge.first);
-            edges[edge.first].vertexEdges.insert(otherVertex);
-        }
+        edges[otherVertex].vertexEdges.insert(edge.first);
+        edges[edge.first].vertexEdges.insert(otherVertex);
     }
 
     edges[edge.second].vertexEdges.clear();
     vertices[edge.second].triangleIDs.clear();
 
-    return sharedTriangles;
+    removeVertex(edge.second);
 }
 
 void Decimation::collapseTriangle(KeyData tri) DECNOEXCEPT
 {
     IndexedTriangle triangle = triangles[tri];
-    removeTriangles(collapseEdge(make_pair(triangle[0], triangle[1])));
-    removeTriangles(collapseEdge(make_pair(triangle[0], triangle[2])));
+    collapseEdge(make_pair(triangle[0], triangle[1]));
+    collapseEdge(make_pair(triangle[0], triangle[2]));
 }
 
 void Decimation::removeVertex(KeyData vertexID) DECNOEXCEPT
 {
-    KeyData replacement = vertices.size() - 1;
-
-    if (vertexID != replacement)
+    if (!vertices[vertexID].triangleIDs.empty())
     {
-        // Replace the vertex's edges with the replacements
-        edges[vertexID].vertexEdges = edges[replacement].vertexEdges;
-
-        // Update the replacement's edges to point to its new index
-        foreach (otherVertex, edges[replacement].vertexEdges)
-        {
-            edges[otherVertex].vertexEdges.erase(replacement);
-            edges[otherVertex].vertexEdges.insert(vertexID);
-        }
-
-        // Update the replacement's triangles to point to its new index
-        foreach (tri, vertices[replacement].triangleIDs)
-        {
-            if (triangles[tri][0] == replacement)
-            {
-                triangles[tri][0] = vertexID;
-            }
-            else if (triangles[tri][1] == replacement)
-            {
-                triangles[tri][1] = vertexID;
-            }
-            else
-            {
-                triangles[tri][2] = vertexID;
-            }
-        }
-
-        vertices[vertexID] = vertices[replacement];
+        say "Error: vertex needs to be disconnected before it can be removed" done;
+        return;
     }
 
+    if (!edges[vertexID].vertexEdges.empty())
+    {
+        say "Error: vertex needs to be disconnected before it can be removed" done;
+        return;
+    }
+
+    KeyData replacement = vertices.size() - 1;
+
+    if (vertexID == replacement)
+    {
+        vertices.resize(replacement);
+        edges.resize(replacement);
+        return;
+    }
+
+    // Replace the vertex's edges with the replacements
+    edges[vertexID].vertexEdges = edges[replacement].vertexEdges;
+
+    // Update the replacement's edges to point to its new index
+    foreach (otherVertex, edges[replacement].vertexEdges)
+    {
+        edges[otherVertex].vertexEdges.erase(replacement);
+        edges[otherVertex].vertexEdges.insert(vertexID);
+    }
+
+    // Update the replacement's triangles to point to its new index
+    foreach (tri, vertices[replacement].triangleIDs)
+    {
+        triangles[tri].swapVertexIndex(replacement, vertexID);
+    }
+
+    // Replace the vertex with the replacement
+    vertices[vertexID] = vertices[replacement];
+
     vertices.resize(replacement);
-    edges.resize(edges.size() - 1);
+    edges.resize(replacement);
 }
 
 void Decimation::removeVertices(set<KeyData, greater<KeyData>> vertexSet) DECNOEXCEPT
@@ -258,41 +396,43 @@ void Decimation::removeVertices(set<KeyData, greater<KeyData>> vertexSet) DECNOE
  *          handled correctly outside this function.
  *
  * @param tri
- * @param skipResize
- * @param replacement
  */
-void Decimation::removeTriangle(KeyData tri, bool skipResize, int replacement) TRINOEXCEPT
+void Decimation::removeTriangle(KeyData tri) TRINOEXCEPT
 {
-    if (replacement == -1)
-    {
-        replacement = triangles.size() - 1;
-    }
+    removeTriangleFromOctreeParallel(tri); // Remove the triangle from the octree
 
-    removeTriangleFromOctreeParallel(tri);
+    // Remove triangle from its vertices' triangle lists
+    vertices[triangles[tri][0]].removeTriangle(tri);
+    vertices[triangles[tri][1]].removeTriangle(tri);
+    vertices[triangles[tri][2]].removeTriangle(tri);
 
-    if (replacement != tri)
-    {
-        removeTriangleFromOctreeParallel(replacement);
-        triangles[tri] = triangles[replacement];
+    KeyData replacement = triangles.size() - 1;
 
-        for (int i = 0; i < 3; i++)
-        {
-            auto iter = find(vertices[triangles[replacement][i]].triangleIDs.begin(),
-                               vertices[triangles[replacement][i]].triangleIDs.end(),
-                               replacement);
-            if (iter != vertices[triangles[replacement][i]].triangleIDs.end())
-            {
-                *iter = tri;
-            }
-        }
-        insertTriangleParallel(tri);
-    }
-
-    if (!skipResize)
+    // If the triangle to be removed is the last triangle in the list, then just resize the list.
+    if (replacement == tri)
     {
         triangles.resize(replacement);
         triangleToOctantList.resize(replacement);
+        return;
     }
+
+    // Remove the replacement from the octree
+    removeTriangleFromOctreeParallel(replacement);
+
+    // Update the vertices of the replacement to point to its new index
+    vertices[triangles[replacement][0]].removeTriangle(replacement);
+    vertices[triangles[replacement][1]].removeTriangle(replacement);
+    vertices[triangles[replacement][2]].removeTriangle(replacement);
+    vertices[triangles[replacement][0]].addTriangle(tri);
+    vertices[triangles[replacement][1]].addTriangle(tri);
+    vertices[triangles[replacement][2]].addTriangle(tri);
+
+    triangles[tri] = triangles[replacement]; // Replace the triangle with the replacement
+    insertTriangleParallel(tri);             // Insert the replacement into the octree
+
+    // Resize the lists
+    triangles.resize(replacement);
+    triangleToOctantList.resize(replacement);
 }
 
 /**
@@ -303,24 +443,9 @@ void Decimation::removeTriangle(KeyData tri, bool skipResize, int replacement) T
  */
 void Decimation::removeTriangles(KeyList triList) TRINOEXCEPT
 {
-    // Largest key first to avoid using larger indices as replacements
-    sort(triList.begin(), triList.end(), greater<int>());
-
-    int triListSize = triList.size();
-    int trianglesSize = triangles.size();
-
-    if (triListSize == trianglesSize)
-    {
-        triangles.clear();
-        return;
-    }
-
-    KeyData replacement = trianglesSize - 1;
+    sort(triList.begin(), triList.end(), greater<KeyData>()); // Sort the list so that we can remove the triangles in order
     foreach (tri, triList)
     {
-        removeTriangle(tri, true, replacement--);
+        removeTriangle(tri);
     }
-
-    triangles.resize(trianglesSize - triListSize);
-    triangleToOctantList.resize(trianglesSize - triListSize);
 }

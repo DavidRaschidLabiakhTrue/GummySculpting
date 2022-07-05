@@ -162,9 +162,9 @@ namespace MeshFileLoader::GumLoading
 		str.clear();
 
 		TriangleID triangleID = (TriangleID) mesh.triangles.size();
-		mesh.vertices[tri[0]].triangleIDs.emplace_back(triangleID);
-		mesh.vertices[tri[1]].triangleIDs.emplace_back(triangleID);
-		mesh.vertices[tri[2]].triangleIDs.emplace_back(triangleID);
+		mesh.vertices[tri[0]].triangleIDs.insert(triangleID);
+		mesh.vertices[tri[1]].triangleIDs.insert(triangleID);
+		mesh.vertices[tri[2]].triangleIDs.insert(triangleID);
 
 		mesh.triangles.push_back(tri);
 	}
@@ -275,7 +275,7 @@ void MeshFileLoader::ObjLoading::readObjTriangle(string& str, MeshReference mesh
 	tri.delevel();
 	mesh.triangles.push_back(tri); // not a fan of not being able to use reserve on this.
 
-	
+
 
 }
 
@@ -297,7 +297,7 @@ void MeshFileLoader::ObjLoading::readObjMesh(string filePath, MeshReference mesh
 		say "Cannot open file" spc filePath done;
 		return;
 	}
-	
+
 	while (getline(reader, str))
 	{
 		if (str.size() == 0 || str[0] == '#')

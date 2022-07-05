@@ -66,7 +66,7 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 
 		if (payload.wasRun == false) // if the payload has begun a stroke - collect info
 		{
-			say "beinning PayloadRun" done;
+			// say "beinning PayloadRun" done;
 
 		}
 		applySculpt(cMesh);
@@ -128,11 +128,12 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
     //     Decimate::applyDecimate(cMesh, payload);
     //     break;
     }
+
+    say "Verifying after sculpt" done;
+	cMesh.verifyMesh(); // Debug
     payload.wasRun = true;
     cMesh.updateAffectedTriangles();
 
     cMesh.history.currentChangeLog.clear();
     cMesh.needToRefresh = true;
-
-	cMesh.verifyMesh();
 }

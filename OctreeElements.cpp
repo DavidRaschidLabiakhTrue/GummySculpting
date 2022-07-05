@@ -306,7 +306,7 @@ bool Octree::removeTriangleFromOctreeParallel(TriangleID tri) ONOEXCEPT
     OctantIndex oix = triangleToOctantList[tri];
 
     // If triangle is not in an octant, return false
-    if (oix == NonExistentOctantIndex)
+    if (oix == NonExistentOctantIndex || oix >= octants.size())
     {
         return false;
     }
@@ -325,7 +325,7 @@ bool Octree::removeTriangleFromOctreeParallel(TriangleID tri) ONOEXCEPT
 void Octree::updateAffectedTrianglesParallel() ONOEXCEPT
 {
     updateTrianglesInOctreeParallel(affectedTriangles);
-    // octreeReinsertTrianglesParallel();
+    clearCollision();
 }
 
 void Octree::clearCollision() ONOEXCEPT
@@ -334,4 +334,8 @@ void Octree::clearCollision() ONOEXCEPT
     verticesInRange.clear();
     trianglesInRange.clear();
     affectedTriangles.clear();
+
+    reflectedCollision = OctreeCollision();
+    reflectedVerticesInRange.clear();
+    reflectedTrianglesInRange.clear();
 }

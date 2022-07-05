@@ -26,27 +26,49 @@ void Mesh::createVariableMap()
 }
 
 // TODO: Test runtimes and scaling of each version
+// Testing with normal function to find degenerate triangles
 void MeshDefinition::Mesh::computeNormals()
 {
-    computeNormalsParallel();
-    // normalList.clear();
-    // const int totalTri = this->totalTriangles();
-    // normalList.reserve(totalTri);
-    // // first calculate all the normals
-    // for (int i = 0; i < totalTri; i++)
-    // {
-    //     normalList.emplace_back(this->getTriangleNormal(i));
-    // }
+    // computeNormalsParallel();
+    normalList.clear();
+    const int totalTri = this->totalTriangles();
+    normalList.reserve(totalTri);
+    // first calculate all the normals
+    for (int i = 0; i < totalTri; i++)
+    {
+        normalList.emplace_back(this->getTriangleNormal(i));
 
-    // forall(vert, this->vertices)
-    // {
-    //     v3 tempNorm = v3(0);
-    //     forall(id, vert.triangleIDs)
-    //     {
-    //         tempNorm += normalList[id]; // add them up
-    //     }
-    //     vert.normal = normalize(tempNorm / (float)vert.triangleIDs.size()); // average them
-    // }
+        if (isnan(normalList[i].x) || isnan(-normalList[i].x) ||
+            isnan(normalList[i].y) || isnan(-normalList[i].y) ||
+            isnan(normalList[i].z) || isnan(-normalList[i].z))
+        {
+            say "Degenerate Triangle Found" done;
+            say "Triangle" spc i spc "Normal: " spc to_string(normalList[i]) done;
+            say "v0" spc triangles[i][0] spc to_string(vertices[triangles[i][0]].position) done;
+            say "v1" spc triangles[i][1] spc to_string(vertices[triangles[i][1]].position) done;
+            say "v2" spc triangles[i][2] spc to_string(vertices[triangles[i][2]].position) done;
+            say "---------------------------------" done;
+        }
+    }
+
+    forall(vert, this->vertices)
+    {
+        v3 tempNorm = v3(0);
+        forall(id, vert.triangleIDs)
+        {
+            tempNorm += normalList[id]; // add them up
+        }
+        vert.normal = normalize(tempNorm / (float)vert.triangleIDs.size()); // average them
+
+        if (isnan(vert.normal.x) || isnan(-vert.normal.x) ||
+            isnan(vert.normal.y) || isnan(-vert.normal.y) ||
+            isnan(vert.normal.z) || isnan(-vert.normal.z))
+        {
+            say "Vertex Normal: " spc to_string(vert.normal) done;
+            say "triangleIDs size: " spc vert.triangleIDs.size() done;
+            say "---------------------------------" done;
+        }
+    }
     say "Normals Calculated" done;
 }
 
@@ -149,7 +171,6 @@ void MeshDefinition::Mesh::generateGraphsAndTrees()
     computeNormals();
     collectStats();
     this->buildOctree();
-
 }
 
 KeyData Mesh::searchLinear(rv3 direction, rv3 origin)

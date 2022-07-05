@@ -8,8 +8,7 @@ Usage ColorDefinition;
 // Vertex Parameter Globals
 const float GlobalVertexParameters::DefaultAlphaValue = 1.0f;
 const v4 GlobalVertexParameters::DefaultColorLoader = v4(0.7, 0.7, 0.7, GlobalVertexParameters::DefaultAlphaValue); // start off with color of grey
-const BitData GlobalVertexParameters::DefaultBinaryWeightData = 10000; // start off with a weight of 100.00 *technically*
-
+const BitData GlobalVertexParameters::DefaultBinaryWeightData = 10000;                                              // start off with a weight of 100.00 *technically*
 
 V3D::V3D()
 {
@@ -119,9 +118,10 @@ void VertexDefinition::V3D::printSlots()
 
 void VertexDefinition::V3D::removeTriangle(int triangleIndex)
 {
-	auto it = std::find(triangleIDs.begin(), triangleIDs.end(), triangleIndex);
-	if(it != triangleIDs.end())
-	{
-		triangleIDs.erase(it);
-	}
+    triangleIDs.erase(triangleIndex);
+}
+
+void VertexDefinition::V3D::addTriangle(int triangleIndex)
+{
+    triangleIDs.insert(triangleIndex);
 }

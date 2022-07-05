@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <execution>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace _Decimation
 {
@@ -22,17 +23,16 @@ namespace _Decimation
 #define DECNOEXCEPT noexcept
 #endif
 
-    // maybe don't use tuple? pair is faster, but needs to work with pq
-    typedef tuple<float, KeyData, KeyData> EdgeTuple;
-    typedef priority_queue<EdgeTuple, vector<EdgeTuple>, greater<EdgeTuple>> EdgePQ;
+    typedef pair<float, EdgePair> EdgeDistPair;
+    typedef priority_queue<EdgeDistPair, vector<EdgeDistPair>, greater<EdgeDistPair>> EdgePQ;
     class Decimation : public SubdivisionSurface
     {
         public:
             void decimateMesh(float percentage = 0.25f) DECNOEXCEPT;
             EdgePQ parameterizeEdges() DECNOEXCEPT;
-            KeyList collapseEdge(EdgePair edge) DECNOEXCEPT;
+            void collapseEdge(EdgePair edge) DECNOEXCEPT;
             void collapseTriangle(KeyData tri) DECNOEXCEPT;
-            void removeTriangle(KeyData tri, bool skipResize = false, int replacement = -1) DECNOEXCEPT; // remove triangle from the list.
+            void removeTriangle(KeyData tri) DECNOEXCEPT; // remove triangle from the list.
             void removeTriangles(KeyList triList) DECNOEXCEPT;                                           // removes triangles from the list
             void removeVertex(KeyData vertexID) DECNOEXCEPT;
             void removeVertices(set<KeyData, greater<KeyData>> vertexSet) DECNOEXCEPT;
