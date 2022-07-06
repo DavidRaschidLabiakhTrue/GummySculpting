@@ -15,6 +15,7 @@ static bool isSimpleSubToggled = false;
 static bool isLoopToggled = false;
 static bool isTessellationToggled = false;
 static bool isDecimateToggled = false;
+static bool isOctreeToggled = false;
 
 ToolbarDefinition::Toolbar::Toolbar()
 {
@@ -28,16 +29,16 @@ ToolbarDefinition::Toolbar::~Toolbar()
 void toggleTrue()
 {
 	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(ImColor(255, 255, 255)));
-	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(200, 50, 250)));
-	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(200, 150, 200))); // should probably change these colors, bright blue hard to see.
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(250, 20, 20)));
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(150, 20, 20)));
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(0, 0, 0)));
 }
 
 void toggleFalse()
 {
 	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(ImColor(255, 255, 255)));
-	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(20, 200, 200)));
-	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(200, 150, 200)));
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(13, 125, 184)));
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(13, 100, 150)));
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(0, 0, 0)));
 }
 //=========================================================
@@ -52,6 +53,9 @@ void resetToggleButtons()
 	isNoiseToggled = false;
 	isSimpleSubToggled = false;
 	isLoopToggled = false;
+	isTessellationToggled = false;
+	isDecimateToggled = false;
+	isOctreeToggled = false;
 }
 
 void StrokeToggleButton()
@@ -246,10 +250,11 @@ void loopToggleButton()
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
+
 void TessellationToggleButton()
 {
 	int pushedColors = 0;
-	if (isSimpleSubToggled)
+	if (isTessellationToggled)
 	{
 		toggleTrue();
 		pushedColors += 4;
@@ -272,7 +277,7 @@ void TessellationToggleButton()
 void DecimationToggleButton()
 {
 	int pushedColors = 0;
-	if (isSimpleSubToggled)
+	if (isDecimateToggled)
 	{
 		toggleTrue();
 		pushedColors += 4;
@@ -296,7 +301,7 @@ void OctreeVisualizeToggleButton()
 {
 	int pushedColors = 0;
 
-	if (isLoopToggled)
+	if (isOctreeToggled)
 	{
 		toggleTrue();
 		pushedColors += 4;
@@ -309,7 +314,7 @@ void OctreeVisualizeToggleButton()
 	if (ImGui::Button("Visualize Octree", ImVec2(0, buttonHeight)))
 	{
 		resetToggleButtons();
-		isLoopToggled = !isLoopToggled;
+		isOctreeToggled = !isOctreeToggled;
 		MainDirectiveDefinition::Directives.push_back({ "octree", "visualize"});
 	};
 	ImGui::PopStyleColor(pushedColors);
