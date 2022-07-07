@@ -2,8 +2,11 @@
 
 using namespace TopBarDefinition;
 
-static float toolbarHeight = 45;
+static float toolbarHeight = 65;
 static float buttonHeight = 30;
+static float buttonWidth1 = 80;
+static float buttonWidth2 = 150;
+static float buttonWidth3 = 110;
 
 static bool isStrokeToggled = false;
 static bool isStrokeSmoothToggled = false;
@@ -72,7 +75,7 @@ void StrokeToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Stroke Brush", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Stroke", ImVec2(buttonWidth1, buttonHeight)))
 	{
 		resetToggleButtons();
 ;		isStrokeToggled = !isStrokeToggled;
@@ -96,7 +99,7 @@ void StrokeSmoothToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Stroke Smooth Brush", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Stroke Smoothing", ImVec2(buttonWidth2, buttonHeight)))
 	{
 		resetToggleButtons();
 		isStrokeSmoothToggled = !isStrokeSmoothToggled;
@@ -120,7 +123,7 @@ void SmoothToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Smooth Brush", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Smooth", ImVec2(buttonWidth1, buttonHeight)))
 	{
 		resetToggleButtons();
 		isSmoothToggled = !isSmoothToggled;
@@ -144,7 +147,7 @@ void ColorToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Color Brush", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Color", ImVec2(buttonWidth1, buttonHeight)))
 	{
 		resetToggleButtons();
 		isColorToggled = !isColorToggled;
@@ -168,7 +171,7 @@ void SmoothedColorToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Smoothed Color Brush", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Color Smoothing", ImVec2(buttonWidth2, buttonHeight)))
 	{
 		resetToggleButtons();
 		isSmoothedColorToggled = !isSmoothedColorToggled;
@@ -192,7 +195,7 @@ void NoiseToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Noise Brush", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Noise", ImVec2(buttonWidth1, buttonHeight)))
 	{
 		resetToggleButtons();
 		isNoiseToggled = !isNoiseToggled;
@@ -216,7 +219,7 @@ void SimpleSubdivToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Simple Subdivide", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Simple Subdivide", ImVec2(buttonWidth2, buttonHeight)))
 	{
 		resetToggleButtons();
 		isSimpleSubToggled = !isSimpleSubToggled;
@@ -241,7 +244,7 @@ void loopToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Loop Subdivide", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Loop Subdivide", ImVec2(buttonWidth2, buttonHeight)))
 	{
 		resetToggleButtons();
 		isLoopToggled = !isLoopToggled;
@@ -264,7 +267,7 @@ void TessellationToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Tessellation", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Tessellation", ImVec2(buttonWidth3, buttonHeight)))
 	{
 		resetToggleButtons();
 		isTessellationToggled = !isTessellationToggled;
@@ -287,7 +290,7 @@ void DecimationToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Decimation", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Decimation", ImVec2(buttonWidth3, buttonHeight)))
 	{
 		resetToggleButtons();
 		isDecimateToggled = !isDecimateToggled;
@@ -311,7 +314,7 @@ void OctreeVisualizeToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Visualize Octree", ImVec2(0, buttonHeight)))
+	if (ImGui::Button("Visualize Octree", ImVec2(buttonWidth2, buttonHeight)))
 	{
 		resetToggleButtons();
 		isOctreeToggled = !isOctreeToggled;
@@ -339,12 +342,20 @@ void ToolbarDefinition::Toolbar::build()
 	ImGui::Begin("TOOLBAR", NULL, window_flags);
 	ImGui::PopStyleVar();
 
+	ImGui::Text("Brushes");
+	ImGui::SameLine();
+	ImGui::Dummy(ImVec2(455, 0.0f));
+	ImGui::SameLine();
+	ImGui::Text("Operations");
+
 	StrokeToggleButton();
 	//StrokeSmoothToggleButton();
 	SmoothToggleButton();
 	ColorToggleButton();
 	SmoothedColorToggleButton();
 	NoiseToggleButton();
+	ImGui::Dummy(ImVec2(3, 0.0f)); //Change here if more brushes are added
+	ImGui::SameLine();
 	SimpleSubdivToggleButton();
 	loopToggleButton();
 	TessellationToggleButton();
