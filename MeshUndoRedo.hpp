@@ -31,6 +31,7 @@ namespace MeshUndoRedo_
 	struct UndoRedoHistory
 	{
 		public:
+			UndoRedoHistory(UndoMap& undomap);
 			UndoRedoHistory();
 			~UndoRedoHistory();
 
@@ -54,6 +55,7 @@ namespace MeshUndoRedo_
 			UndoRedo();
 			~UndoRedo();
 			
+			void saveOldToHistory();
 
 			int currentLevel = 0;
 			int cullLevel = 64; // if history makes it this far, cull half of the current slots in memory.
@@ -62,6 +64,9 @@ namespace MeshUndoRedo_
 			UndoMap currentVertices; // set of vertices being operated on
 			UndoMap savedVertices; // original set of vertices that are being stored to history.
 			HistoryList history; // a deque is much better as we can cull memory as needed.
+
+			bool needToStore = false;
+
 	};
 }
 

@@ -8,6 +8,22 @@ MeshUndoRedo_::UndoRedo::~UndoRedo()
 {
 }
 
+void MeshUndoRedo_::UndoRedo::saveOldToHistory()
+{
+	if (savedVertices.size() == 0)
+	{
+		return; // guard against saving empty changes.
+	}
+	say "Saving old vertices to history" done;
+	this->history.emplace_back(UndoRedoHistory(savedVertices));
+	this->savedVertices.clear();
+}
+
+MeshUndoRedo_::UndoRedoHistory::UndoRedoHistory(UndoMap& undomap)
+{
+	this->undoMap = undomap;
+}
+
 MeshUndoRedo_::UndoRedoHistory::UndoRedoHistory()
 {
 }

@@ -115,6 +115,7 @@ class MainProgram
 		void draw2D(); // draw gui and other 2d components
 		void checkDebugConsole();
 
+
 		void buildGuiFrame();
 
 		void updateMeshes();

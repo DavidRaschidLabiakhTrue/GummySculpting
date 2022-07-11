@@ -60,7 +60,7 @@ void MeshDefinition::Mesh::computeNormals()
         }
 
 
-        vert.normal = (tempNorm / ((float)vert.triangleIDs.size())); // average them
+        vert.normal = normalize(tempNorm / ((float)vert.triangleIDs.size())); // average them
 
 
 
@@ -266,16 +266,6 @@ KeyData Mesh::searchLinearParallel(rv3 direction, rv3 origin)
     return result; // based
 }
 
-void MeshDefinition::Mesh::undoHistory()
-{
-    say "Undoing History" done;
-}
-
-void MeshDefinition::Mesh::redoHistory()
-{
-    say "Redoing History" done;
-}
-
 void MeshDefinition::Mesh::storeUndoAndCurrent()
 {
 	// can likely be parallelized but I've tormented ryan more than enough about that.
@@ -291,6 +281,34 @@ void MeshDefinition::Mesh::storeUndoAndCurrent()
 			currentVertices[id] = vertices[id];
 		}
 	}
+}
+
+void MeshDefinition::Mesh::undoHistory()
+{
+    say "Undoing History" done;
+
+	if (history.size() > 0)
+	{
+		forall(element, history[history.size() - 1].undoMap)
+		{
+			vertices[element.first] = element.second;
+		}
+		needToRefresh = true;
+	}
+
+}
+
+void MeshDefinition::Mesh::redoHistory()
+{
+    say "Redoing History" done;
+}
+
+
+
+void MeshDefinition::Mesh::saveSavedVerticesToUndo()
+{
+	saveOldToHistory();
+	needToStore = true;
 }
 
 void MeshDefinition::Mesh::cullHistory(ChangeLogLevel levelsUpwardToCull)

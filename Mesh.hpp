@@ -64,6 +64,9 @@ namespace MeshDefinition
 
 			void storeUndoAndCurrent();
 
+			void saveSavedVerticesToUndo();
+
+
 
 			void cullHistory(ChangeLogLevel levelsUpwardToCull);
 			void createVariableMap();
@@ -80,7 +83,7 @@ namespace MeshDefinition
 
 			void applyModelMatrix();
 
-			ChangeLog history; // mesh reversion history.
+			//ChangeLog history; // mesh reversion history.
 
 			int meshID;
 

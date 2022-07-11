@@ -42,7 +42,7 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 
 		currentDir = direction; // update the current direction
 
-		cMesh.history.sealChange = false;
+		cMesh.needToStore = false;
 		payload.direction = this->direction;
 		payload.origin = this->origin().position;
 		payload.radius = ToolsWindowDefinition::RadiusSlider;
@@ -70,18 +70,13 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 		}
 		applySculpt(cMesh);
 	}
-	else if (cMesh.history.sealChange == false && CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT))
+	else if (cMesh.needToStore == false && CheckMouseReleased(GLFW_MOUSE_BUTTON_LEFT))
 	{
 
 		// here, the user is done stroking, so if Mesh::savedVertices has size() > 0 vertices, then we should save it to the undo redo queue.
-
-
+		cMesh.saveSavedVerticesToUndo();
 		payload.wasRun = false;
 
-
-
-		cMesh.history.sealChange = true;
-		cMesh.history.adjustLevelUp();
 
 	}
 
