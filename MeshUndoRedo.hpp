@@ -8,12 +8,15 @@
 
 #include <deque>
 
+#include <stack>
+
 namespace MeshUndoRedo_
 {
 	using namespace GraphicsDataDefinition;
 	using std::unordered_map;
 	using namespace MathTypeDefinitions::MatrixDefine;
 	using std::deque;
+	using std::stack;
 
 	typedef unordered_map<KeyData, V3D> UndoMap; // the extra slots used here are really showing themselves.
 
@@ -48,6 +51,7 @@ namespace MeshUndoRedo_
 	};
 
 	typedef deque<UndoRedoHistory> HistoryList;
+	typedef deque<UndoRedoHistory> RedoStack;
 	
 	class HistoryIndexTracker
 	{
@@ -65,6 +69,9 @@ namespace MeshUndoRedo_
 			bool isCurrentBeyondCull(); // safety check if the current is beyond the cull point.
 
 			bool shouldCullMaxToCurrent(); // check if a new step is made but there is history on top of the position, cull memory otherwise
+
+			bool currentStepIsLessOrEqualThanMaxStep(); // checks if the current step is not equal to the max step. if the current step < max step, this is used to *redo* a vertex map
+
 
 			int currentStep(); // get the current step level
 			int maxStep();
@@ -95,13 +102,15 @@ namespace MeshUndoRedo_
 
 			void displayUndoRedoStat();
 
+			bool canMeshRedo();
+			bool stackIsNotEmpty();
 			HistoryIndexTracker stepTracker;
 
 			// a vector is a bad idea to use for this as it can't be culled directly.
 			UndoMap currentVertices; // set of vertices being operated on
 			UndoMap savedVertices; // original set of vertices that are being stored to history.
 			HistoryList history; // a deque is much better as we can cull memory as needed.
-
+			RedoStack redoStack;
 			bool needToStore = false;
 
 	};

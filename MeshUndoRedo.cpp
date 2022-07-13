@@ -67,7 +67,7 @@ void MeshUndoRedo_::UndoRedo::displayCurrentHistoryCount()
 void MeshUndoRedo_::UndoRedo::emptyOutHistory()
 {
 	const int elementsToPop = history.size();
-
+	say "clearing history" done;
 	for (int i = 0; i < elementsToPop; i++)
 	{
 		history.pop_front();
@@ -85,9 +85,46 @@ void MeshUndoRedo_::UndoRedo::displayStep()
 
 void MeshUndoRedo_::UndoRedo::displayUndoRedoStat()
 {
+	say "\n";
 	displayCurrentHistoryCount();
 	displayStep();
 	
+}
+
+bool MeshUndoRedo_::UndoRedo::canMeshRedo()
+{
+	bool canStepForward = stepTracker.currentStep() < stepTracker.maxStep();
+	if (canStepForward)
+	{
+		say "The Mesh *can* step" done;
+	}
+	else
+	{
+		say "The Mesh *cannot* step" done;
+	}
+
+	// deque with size 1 means 1 element at 0
+	// deque with size 2 means 2 elements at 0, 1
+
+	
+
+	bool doesNotExceedBounds = stepTracker.currentStep() + 1 < history.size();
+	
+	if (doesNotExceedBounds)
+	{
+		say "Redoing does not exceed bounds" done;
+	}
+	else
+	{
+		say "Redoing exceeds bounds at step:" spc stepTracker.currentStep() spc "with size:" spc history.size() done;
+	}
+
+	return canStepForward && doesNotExceedBounds;
+}
+
+bool MeshUndoRedo_::UndoRedo::stackIsNotEmpty()
+{
+	return redoStack.size() > 0;
 }
 
 
@@ -171,6 +208,11 @@ bool MeshUndoRedo_::HistoryIndexTracker::shouldCullMaxToCurrent()
 		return true;
 	}
 	return false;
+}
+
+bool MeshUndoRedo_::HistoryIndexTracker::currentStepIsLessOrEqualThanMaxStep()
+{
+	return currentStep() < maxStep();
 }
 
 int MeshUndoRedo_::HistoryIndexTracker::currentStep()

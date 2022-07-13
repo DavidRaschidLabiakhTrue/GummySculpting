@@ -65,7 +65,7 @@ namespace MeshDefinition
 
 			void saveSavedVerticesToUndo();
 
-
+			void saveCurrentSetToStack();
 
 			void cullHistory(ChangeLogLevel levelsUpwardToCull);
 			void createVariableMap();

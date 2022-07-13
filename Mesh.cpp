@@ -285,11 +285,15 @@ void MeshDefinition::Mesh::storeUndoAndCurrent()
 
 void MeshDefinition::Mesh::undoHistory()
 {
-    say "Undoing History" done;
+	
 
 	if (isThereHistory() && stepTracker.isStepValid())
 	{
-		forall(element, history[stepTracker.currentStep()].undoMap)
+		int step = stepTracker.currentStep();
+		//saveCurrentSetToStack();
+		say "\nUndoing History\nStepping to" spc step spc "of history in undo\n" done;
+		
+		forall(element, history[step].undoMap)
 		{
 			vertices[element.first] = element.second;
 		}
@@ -302,7 +306,24 @@ void MeshDefinition::Mesh::undoHistory()
 
 void MeshDefinition::Mesh::redoHistory()
 {
-    say "Redoing History" done;
+    
+	/*
+	if (isThereHistory() && canMeshRedo() && stackIsNotEmpty())
+	{
+		int step = stepTracker.currentStep() + 1;
+		say "redoing History\nStepping to" spc step spc "of history in redo\n" done;
+		auto& thing = redoStack.top();
+		
+		forall(element, thing.undoMap)
+		{
+			vertices[element.first] = element.second;
+		}
+		redoStack.pop(
+		stepTracker.raiseStep(); // go up one the undo redo stack
+		needToRefresh = true;
+	}
+	displayUndoRedoStat();
+	*/
 }
 
 
@@ -317,6 +338,21 @@ void MeshDefinition::Mesh::saveSavedVerticesToUndo()
 	}
 	saveOldToHistory();
 	needToStore = true;
+}
+
+void MeshDefinition::Mesh::saveCurrentSetToStack()
+{
+	//using MeshUndoRedo_::UndoMap;
+	//using MeshUndoRedo_::UndoRedoHistory;
+	//int currentStep = stepTracker.currentStep();
+	//UndoMap map;
+
+	//forall(element, history[currentStep].undoMap)
+	//{
+	//	map[element.first] = vertices[element.first];
+	//}
+	//redoStack.push(UndoRedoHistory(map));
+
 }
 
 void MeshDefinition::Mesh::cullHistory(ChangeLogLevel levelsUpwardToCull)
