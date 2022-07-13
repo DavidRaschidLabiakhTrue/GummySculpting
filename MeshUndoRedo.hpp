@@ -48,6 +48,29 @@ namespace MeshUndoRedo_
 	};
 
 	typedef deque<UndoRedoHistory> HistoryList;
+	
+	class HistoryIndexTracker
+	{
+		public:
+			HistoryIndexTracker();
+			~HistoryIndexTracker();
+
+			void raiseStep();
+			void lowerStep();
+
+			bool isCurrentBeyondCull(); // safety check if the current is beyond the cull point.
+
+			bool shouldCullMaxToCurrent(); // check if a new step is made but there is history on top of the position, cull memory otherwise
+
+			int currentStep(); // get the current step level
+			int howManyToCull();
+			bool isStepValid();
+		private:
+			int currentStepLevel = -1;
+			int maxStepLevel = -1;
+			int cullLevel = 64; // if history makes it this far, cull half of the current slots in memory.
+
+	};
 
 	class UndoRedo
 	{
@@ -56,9 +79,13 @@ namespace MeshUndoRedo_
 			~UndoRedo();
 			
 			void saveOldToHistory();
+			bool isThereHistory();
+			void clearSaved();
+			bool isThereCurrentVerticesBeingSculpted();
+			void displayCurrentHistoryCount();
+		
 
-			int currentLevel = 0;
-			int cullLevel = 64; // if history makes it this far, cull half of the current slots in memory.
+			HistoryIndexTracker stepTracker;
 
 			// a vector is a bad idea to use for this as it can't be culled directly.
 			UndoMap currentVertices; // set of vertices being operated on

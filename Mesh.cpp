@@ -287,15 +287,17 @@ void MeshDefinition::Mesh::undoHistory()
 {
     say "Undoing History" done;
 
-	if (history.size() > 0)
+	if (isThereHistory() && stepTracker.isStepValid())
 	{
-		forall(element, history[history.size() - 1].undoMap)
+		forall(element, history[stepTracker.currentStep()].undoMap)
 		{
 			vertices[element.first] = element.second;
 		}
+		stepTracker.lowerStep();
 		needToRefresh = true;
 	}
-
+	displayCurrentHistoryCount();
+	
 }
 
 void MeshDefinition::Mesh::redoHistory()

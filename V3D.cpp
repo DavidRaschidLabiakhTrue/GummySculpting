@@ -18,21 +18,21 @@ VertexDefinition::V3D::V3D(v3 pos)
 {
     position = pos;
     color = GlobalVertexParameters::DefaultColorLoader;
-    bitData = GlobalVertexParameters::DefaultBinaryWeightData;
+
 }
 
 V3D::V3D(float x, float y, float z)
 {
     position = v3(x, y, z);
     color = GlobalVertexParameters::DefaultColorLoader;
-    bitData = GlobalVertexParameters::DefaultBinaryWeightData;
+
 }
 
 V3D::V3D(float x, float y, float z, float r, float g, float b)
 {
     position = v3(x, y, z);
     color = v4(r, g, b, GlobalVertexParameters::DefaultAlphaValue);
-    bitData = GlobalVertexParameters::DefaultBinaryWeightData;
+
 }
 
 V3D::~V3D()
