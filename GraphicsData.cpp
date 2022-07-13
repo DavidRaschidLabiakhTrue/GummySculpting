@@ -32,6 +32,11 @@ GraphicsData::~GraphicsData()
 {
 }
 
+void GraphicsDataDefinition::GraphicsData::handleDynamicVertexIndexModification()
+{
+	needToDumpHistory = true;
+}
+
 
 
 void GraphicsData::bind()

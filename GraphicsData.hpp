@@ -13,6 +13,7 @@
 
 #include "Transformer.hpp"
 
+
 namespace GraphicsDataDefinition
 {
 	using namespace TriangleListDefinition;
@@ -32,6 +33,8 @@ namespace GraphicsDataDefinition
 			Construct GraphicsData();
 			Deconstruct ~GraphicsData();
 
+			void handleDynamicVertexIndexModification();
+
 			void bind(); // bind to OpenGL
 
 			void refresh(); // reload vertex data to OpenGL.
@@ -42,6 +45,7 @@ namespace GraphicsDataDefinition
 
 			bool needToRefresh = true; // need to refresh GPU binding
 
+			bool needToDumpHistory = false;
 
 			// need to implement copy.
 

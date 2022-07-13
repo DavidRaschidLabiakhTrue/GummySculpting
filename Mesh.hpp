@@ -20,7 +20,6 @@
 
 #include "MeshUndoRedo.hpp"
 
-// #include "Octree.hpp" // too many issues
 
 namespace MeshDefinition
 {
