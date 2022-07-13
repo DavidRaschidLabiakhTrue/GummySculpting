@@ -37,16 +37,13 @@ namespace Subdivision
             v3 sumNeighbors(unordered_set<KeyData> neighbors) SUBNOEXCEPT;
             bool isVertexOnCrease(KeyData vertexID) SUBNOEXCEPT;
             float getCreaseAngleOfNewVertex(KeyData vertexID) SUBNOEXCEPT;
-            void simpleSubdivision4to1(int level = 1, bool octreeRebuild = true, bool refreshDisplay = true) SUBNOEXCEPT;
-            void gotoSubdivisionLevel(int level) SUBNOEXCEPT;
+            void simpleSubdivision4to1(int level = 1, bool octreeRebuild = true, bool refreshDisplay = true, bool isLoop = false) SUBNOEXCEPT;
 
             int vertexOffset;
             float angleLimit = 1.5708f; // Radians, 90 degrees
 
-            int currentSubdivisionLevel = 0;
-            vector<Edges> edgeLists;
-            vector<int> vertexOffsets;
-            vector<IndexedTriangles> triangleLists;
+            // vector<unordered_map<char, int>> vertexABCDs;
+            vector<vector<KeyData>> vertexABCDs;
     };
 
 
