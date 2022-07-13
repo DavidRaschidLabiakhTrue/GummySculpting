@@ -28,29 +28,22 @@ using namespace Subdivision;
  *       <v2,  mp2, mp1>
  *       <mp0, mp1, mp2> // This replaces the original triangle
  */
-void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bool refreshDisplay) SUBNOEXCEPT
+void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bool refreshDisplay, bool isLoop) SUBNOEXCEPT
 {
-    // int nThreads = glm::max((int)std::thread::hardware_concurrency(), 1);
-    // vector<thread> threads;
-
     // Loops for number of levels to subdivide
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
     {
-        currentSubdivisionLevel++;
         vertexOffset = (int)vertices.size(); // Offset to where new vertices are placed in the vertices vector.
         int vertexIndex = vertexOffset;      // Index for new vertices.
         const int trianglesSize = (int)triangles.size();
 
-        IndexedTriangles oldTriangles = triangles;
-        Edges oldEdges = edges;
-        vertexOffsets.emplace_back(vertexIndex);
-        triangleLists.emplace_back(oldTriangles);
-        edgeLists.emplace_back(oldEdges);
-
-        // int triangleOffset = (int)triangles.size(); // Offset to where new triangles are placed in the triangles vector.
-        // int triangleIndex = triangleOffset;         // Index for new triangles.
         unordered_map<v3, KeyData> midpointMap; // Map of midpoints to their index in the vertices vector.
         vector<KeyList> triangleMidpointMap;
+
+        if (isLoop)
+        {
+            vertexABCDs = vector<vector<KeyData>>(vertices.size() * 4);
+        }
 
         // Fill midpoint map with all midpoints
         // Parallelizable
@@ -65,35 +58,25 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
                     newVert.color = (vertices[vertexID].color + vertices[otherVertexID].color) * 0.5f;
                     vertices.emplace_back(newVert);
                     midpointMap.emplace(midpoint, vertexIndex);
+
+                    if (isLoop)
+                    {
+                        vertexABCDs[vertexIndex].emplace_back(vertexID);
+                        vertexABCDs[vertexIndex].emplace_back(otherVertexID);
+                    }
+
                     vertexIndex++;
                 }
             }
         }
 
         // Clear edges, triangles, ABCD of each vertex
-        // Easily Parallelizable
         for (int vertexID = 0; vertexID < vertexOffset; vertexID++)
         {
             edges[vertexID].vertexEdges.clear();
             vertices[vertexID].triangleIDs.clear();
-            vertices[vertexID].ABCDmap.clear();
         }
-        // for (int i = 0; i < nThreads; i++)
-        // {
-        //     int id = i;
-        //     threads.push_back(thread([&, id]() {
-        //         for (int vertexID = id; vertexID < vertexOffset; vertexID += nThreads)
-        //         {
-        //             edges[vertexID].vertexEdges.clear();
-        //             vertices[vertexID].triangleIDs.clear();
-        //             vertices[vertexID].ABCDmap.clear();
-        //         }
-        //     }));
-        // }
-        // joinAndClearThreads;
 
-        // Fill triangle midpoint map with all triangle midpoints
-        // Parallelizable
         for (TriangleID tri = 0; tri < trianglesSize; tri++)
         {
             KeyList midpointIDs = {
@@ -101,6 +84,13 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
                 midpointMap[getEdgeMidpoint(triangles[tri][1], triangles[tri][2])],
                 midpointMap[getEdgeMidpoint(triangles[tri][2], triangles[tri][0])]};
             triangleMidpointMap.push_back(midpointIDs);
+
+            if (isLoop)
+            {
+                vertexABCDs[midpointIDs[0]].emplace_back(triangles[tri][2]);
+                vertexABCDs[midpointIDs[1]].emplace_back(triangles[tri][0]);
+                vertexABCDs[midpointIDs[2]].emplace_back(triangles[tri][1]);
+            }
         }
 
         int triangleIndex = 0;
@@ -133,43 +123,12 @@ void SubdivisionSurface::simpleSubdivision4to1(int level, bool octreeRebuild, bo
             triangleIndex++;
         }
 
-        for (TriangleID tri = 0; tri < trianglesSize; tri++)
-        {
-            IndexedTriangle triangle = triangles[tri];
-
-            RV3D mp0 = vertices[triangleMidpointMap[tri][0]];
-            RV3D mp1 = vertices[triangleMidpointMap[tri][1]];
-            RV3D mp2 = vertices[triangleMidpointMap[tri][2]];
-
-            mp0.ABCDmap.try_emplace('A', triangle[0]);
-            mp0.ABCDmap.try_emplace('B', triangle[1]);
-            if (!mp0.ABCDmap.try_emplace('C', triangle[2]).second)
-            {
-                mp0.ABCDmap.try_emplace('D', triangle[2]);
-            }
-
-            mp1.ABCDmap.try_emplace('A', triangle[1]);
-            mp1.ABCDmap.try_emplace('B', triangle[2]);
-            if (!mp1.ABCDmap.try_emplace('C', triangle[0]).second)
-            {
-                mp1.ABCDmap.try_emplace('D', triangle[0]);
-            }
-
-            mp2.ABCDmap.try_emplace('A', triangle[2]);
-            mp2.ABCDmap.try_emplace('B', triangle[0]);
-            if (!mp2.ABCDmap.try_emplace('C', triangle[1]).second)
-            {
-                mp2.ABCDmap.try_emplace('D', triangle[1]);
-            }
-        }
-
         triangles = newTriangles;
         generateEdges();
     }
 
     if (octreeRebuild)
     {
-        // rebuildOctree();
         octreeReinsertTrianglesParallel();
     }
     if (refreshDisplay)
@@ -189,60 +148,12 @@ inline v3 SubdivisionSurface::getEdgeMidpoint(KeyData v1, KeyData v2) SUBNOEXCEP
 mutex loopmtx;
 void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh) SUBNOEXCEPT
 {
-    // int nThreads = glm::max((int)std::thread::hardware_concurrency(), 1);
-    // std::vector<std::thread> threads;
 
     for (int levelCounter = 0; levelCounter < level; levelCounter++)
     {
-        simpleSubdivision4to1(1, false, false); // 4:1 subdivision. First step of loop subdivision
+        simpleSubdivision4to1(1, false, false, true); // 4:1 subdivision. First step of loop subdivision
 
         Vertices newVertexList = vertices; // New vertex list
-
-        // vector<int> vertexIDs(vertexOffset);
-        // std::generate(std::execution::par, vertexIDs.begin(), vertexIDs.end(), [n = 0]() mutable { return n++; });
-
-        // for_each(std::execution::par_unseq, begin(vertexIDs), end(vertexIDs), [&](int vertexID) {
-        //     int k = (int)edges[vertexID].vertexEdges.size(); // Number of neighboring vertices
-        //     float beta = getBeta(k);                         // Get Beta
-        //     loopmtx.lock();
-        //     v3 ksum = sumNeighbors(edges[vertexID].vertexEdges); // Sum of neighboring vertices
-        //     loopmtx.unlock();
-        //     newVertexList[vertexID] = (vertices[vertexID].position * (1.0f - (k * beta))) + (ksum * beta);
-        // });
-
-        // vertexIDs = vector<int>((int)vertices.size() - vertexOffset);
-        // std::generate(std::execution::par, vertexIDs.begin(), vertexIDs.end(), [n = vertexOffset]() mutable { return n++; });
-
-        // for_each(std::execution::par_unseq, begin(vertexIDs), end(vertexIDs), [&](int vertexID) {
-        //     unordered_map<char, int> ABCDmap = vertices[vertexID].ABCDmap; // Map of ABCD vector
-        //     newVertexList[vertexID] = (0.375f * (vertices[ABCDmap['A']].position + vertices[ABCDmap['B']].position)) +
-        //                               (0.125f * (vertices[ABCDmap['C']].position + vertices[ABCDmap['D']].position));
-        // });
-
-        // int verticesSize = (int)vertices.size();
-        // for (int i = 0; i < nThreads; i++)
-        // {
-        //     int id = i;
-        //     threads.push_back(thread([&, id]() {
-        //         for (int vertexID = id; vertexID < vertexOffset; vertexID += nThreads)
-        //         {
-        //             int k = (int)edges[vertexID].vertexEdges.size(); // Number of neighboring vertices
-        //             float beta = getBeta(k);                         // Get Beta
-        //             loopmtx.lock();
-        //             v3 ksum = sumNeighbors(edges[vertexID].vertexEdges); // Sum of neighboring vertices
-        //             loopmtx.unlock();
-        //             newVertexList[vertexID] = (vertices[vertexID].position * (1.0f - (k * beta))) + (ksum * beta);
-        //         }
-
-        //         for (int vertexID = vertexOffset + id; vertexID < verticesSize; vertexID += nThreads)
-        //         {
-        //             unordered_map<char, int> ABCDmap = vertices[vertexID].ABCDmap; // Map of ABCD vector
-        //             newVertexList[vertexID] = (0.375f * (vertices[ABCDmap['A']].position + vertices[ABCDmap['B']].position)) +
-        //                                       (0.125f * (vertices[ABCDmap['C']].position + vertices[ABCDmap['D']].position));
-        //         }
-        //     }));
-        // }
-        // joinAndClearThreads;
 
         // Calculate new position for every original vertex before subdivision
         for (int vertexID = 0; vertexID < vertexOffset; vertexID++)
@@ -258,11 +169,14 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh) SUBNOEX
         int verticesSize = (int)vertices.size();
         for (int vertexID = vertexOffset; vertexID < verticesSize; vertexID++)
         {
-            // vector<int> ABCD = vertices[vertexID].ABCD;                    // Get the ABCD vector for the vertex
-            unordered_map<char, int> ABCDmap = vertices[vertexID].ABCDmap; // Map of ABCD vector
+            vector<KeyData> &ABCDmap = vertexABCDs[vertexID]; // Map of ABCD vector
 
-            newVertexList[vertexID] = (0.375f * (vertices[ABCDmap['A']].position + vertices[ABCDmap['B']].position)) +
-                                      (0.125f * (vertices[ABCDmap['C']].position + vertices[ABCDmap['D']].position));
+            newVertexList[vertexID] = (0.375f * (vertices[ABCDmap[0]].position + vertices[ABCDmap[1]].position));
+
+            if (ABCDmap.size() == 4)
+            {
+                newVertexList[vertexID] += (0.125f * (vertices[ABCDmap[2]].position + vertices[ABCDmap[3]].position));
+            }
         }
 
         // Calculate new position for every original vertex before subdivision
@@ -310,10 +224,11 @@ void SubdivisionSurface::loopSubdivision(int level, bool rebuildRefresh) SUBNOEX
 
     if (rebuildRefresh)
     {
-        // rebuildOctree();
         octreeReinsertTrianglesParallel();
         refresh();
     }
+
+    vertexABCDs.clear();
 }
 
 // Ignore for now
@@ -418,24 +333,4 @@ void SubdivisionSurface::subdivisionTest() SUBNOEXCEPT
 {
     loopSubdivision(2);
     octreePrintStats();
-}
-
-void SubdivisionSurface::gotoSubdivisionLevel(int subdLevel) SUBNOEXCEPT
-{
-    if (subdLevel > currentSubdivisionLevel)
-    {
-        loopSubdivision(subdLevel - currentSubdivisionLevel);
-    }
-    else if (subdLevel < currentSubdivisionLevel)
-    {
-        vertices.erase(vertices.begin() + vertexOffsets[subdLevel], vertices.end());
-        edges = edgeLists[subdLevel];
-        edgeLists.erase(edgeLists.begin() + subdLevel + 1, edgeLists.end());
-        triangles = triangleLists[subdLevel];
-        triangleLists.erase(triangleLists.begin() + subdLevel + 1, triangleLists.end());
-        rebuildOctree();
-        refresh();
-    }
-
-    currentSubdivisionLevel = subdLevel;
 }

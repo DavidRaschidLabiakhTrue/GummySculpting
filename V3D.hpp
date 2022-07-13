@@ -62,7 +62,6 @@ namespace VertexDefinition
 
             unordered_set<int> triangleIDs; // Triangles that this vertex is a part of.
 
-            unordered_map<char, int> ABCDmap; // Reserved for subdivision to keep track of which vertices to use for Loop's equation. - not sussy, trust - COMPLETEY FUCKING SUSSY BRO
 #ifndef NOTUSINGNORMALORUV
             // Don't use these unless specified. They aren't needed.
 
