@@ -20,25 +20,28 @@ void MeshUndoRedo_::UndoRedo::saveOldToHistory()
 
 	if (stepTracker.shouldCullMaxToCurrent()) // if there are elements beyond our current position, we are creating a new branch so we should pop the old branch.
 	{
-		int cullAmount = stepTracker.howManyToCull();
+		int cullAmount = stepTracker.howManyToCull(); // suspect
+
 		for (int i = 0; i < cullAmount; i++)
 		{
 			history.pop_back();
 		}
-		say "Removing" spc cullAmount spc "entries of history from the back" done;
+
+		stepTracker.synchronizeMaxStepWithCurrentStep();
+		say "Removed" spc cullAmount spc "entries of history from the back" done;
+		
 	}
 	
 	this->history.emplace_back(UndoRedoHistory(savedVertices));
-	say "Saving stored set to history" done;
+
 	stepTracker.raiseStep();
 	clearSaved();
 
-	displayCurrentHistoryCount();
+	displayUndoRedoStat();
 }
 
 bool MeshUndoRedo_::UndoRedo::isThereHistory()
 {
-
 	return history.size() > 0;
 }
 
@@ -59,6 +62,32 @@ bool MeshUndoRedo_::UndoRedo::isThereCurrentVerticesBeingSculpted()
 void MeshUndoRedo_::UndoRedo::displayCurrentHistoryCount()
 {
 	say "history has" spc history.size() spc "slots being used" done;
+}
+
+void MeshUndoRedo_::UndoRedo::emptyOutHistory()
+{
+	const int elementsToPop = history.size();
+
+	for (int i = 0; i < elementsToPop; i++)
+	{
+		history.pop_front();
+	}
+
+	stepTracker.resetStep();
+	displayUndoRedoStat();
+}
+
+void MeshUndoRedo_::UndoRedo::displayStep()
+{
+	say "Current Step" spc stepTracker.currentStep() done;
+	say "Current Max Step" spc stepTracker.maxStep() done;
+}
+
+void MeshUndoRedo_::UndoRedo::displayUndoRedoStat()
+{
+	displayCurrentHistoryCount();
+	displayStep();
+	
 }
 
 
@@ -119,6 +148,17 @@ void MeshUndoRedo_::HistoryIndexTracker::lowerStep()
 	}
 }
 
+void MeshUndoRedo_::HistoryIndexTracker::resetStep()
+{
+	currentStepLevel = 0;
+	maxStepLevel = 0;
+}
+
+void MeshUndoRedo_::HistoryIndexTracker::synchronizeMaxStepWithCurrentStep()
+{
+	maxStepLevel = currentStepLevel;
+}
+
 bool MeshUndoRedo_::HistoryIndexTracker::isCurrentBeyondCull()
 {
 	return maxStepLevel < cullLevel;
@@ -136,6 +176,11 @@ bool MeshUndoRedo_::HistoryIndexTracker::shouldCullMaxToCurrent()
 int MeshUndoRedo_::HistoryIndexTracker::currentStep()
 {
 	return currentStepLevel;
+}
+
+int MeshUndoRedo_::HistoryIndexTracker::maxStep()
+{
+	return maxStepLevel;
 }
 
 int MeshUndoRedo_::HistoryIndexTracker::howManyToCull()

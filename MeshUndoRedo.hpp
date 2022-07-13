@@ -58,11 +58,16 @@ namespace MeshUndoRedo_
 			void raiseStep();
 			void lowerStep();
 
+			void resetStep();
+
+			void synchronizeMaxStepWithCurrentStep();
+
 			bool isCurrentBeyondCull(); // safety check if the current is beyond the cull point.
 
 			bool shouldCullMaxToCurrent(); // check if a new step is made but there is history on top of the position, cull memory otherwise
 
 			int currentStep(); // get the current step level
+			int maxStep();
 			int howManyToCull();
 			bool isStepValid();
 		private:
@@ -83,7 +88,12 @@ namespace MeshUndoRedo_
 			void clearSaved();
 			bool isThereCurrentVerticesBeingSculpted();
 			void displayCurrentHistoryCount();
-		
+			
+			void emptyOutHistory();
+
+			void displayStep();
+
+			void displayUndoRedoStat();
 
 			HistoryIndexTracker stepTracker;
 

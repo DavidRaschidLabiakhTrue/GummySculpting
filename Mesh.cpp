@@ -296,7 +296,7 @@ void MeshDefinition::Mesh::undoHistory()
 		stepTracker.lowerStep();
 		needToRefresh = true;
 	}
-	displayCurrentHistoryCount();
+	displayUndoRedoStat();
 	
 }
 
@@ -309,6 +309,12 @@ void MeshDefinition::Mesh::redoHistory()
 
 void MeshDefinition::Mesh::saveSavedVerticesToUndo()
 {
+	if (needToDumpHistory)
+	{
+		emptyOutHistory();
+		// handle any big changes to the mesh.
+		needToDumpHistory = false;
+	}
 	saveOldToHistory();
 	needToStore = true;
 }
