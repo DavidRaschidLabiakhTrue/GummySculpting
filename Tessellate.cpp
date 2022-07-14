@@ -62,6 +62,7 @@ void Tessellate::applyTessellate(MeshReference cMesh, SculptPayloadReference pay
     cMesh.updateAffectedTrianglesParallel();
     cMesh.computeNormals();
     cMesh.refresh();
+    cMesh.verifyMesh();
 }
 
 unordered_map<v3, KeyData> Tessellate::createMidpointMap(MeshReference cMesh, std::unordered_set<int> &allVerticesInRange)
@@ -73,7 +74,7 @@ unordered_map<v3, KeyData> Tessellate::createMidpointMap(MeshReference cMesh, st
     {
         foreach (otherVertexID, cMesh.edges[vertexID].vertexEdges)
         {
-            if (allVerticesInRange.contains(otherVertexID))
+            if (otherVertexID > vertexID && allVerticesInRange.contains(otherVertexID))
             {
                 v3 midpoint = cMesh.getEdgeMidpoint(vertexID, otherVertexID);
                 V3D newVert = midpoint;
@@ -233,7 +234,6 @@ void Tessellate::subdivideInnerTriangles(MeshReference cMesh, unordered_map<v3, 
     Vertices &vertices = cMesh.vertices;
     int triangleIndex = (int)triangles.size();
 
-    // Generate new triangles
     foreach (tri, innerTriangleSet)
     {
         KeyList midpoints = {
