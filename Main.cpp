@@ -307,7 +307,7 @@ void MainProgram::processOctreeCommand(StringList &arguments, int numArgs)
         renderer.getActiveMesh()->rebuildOctree();
         break;
     case VISUALIZE:
-        renderer.getActiveMesh()->visualizeOctree();
+        renderer.getActiveMesh()->toggleOctreeVisualization();
         break;
     case TOGGLEWIREFRAME:
         renderer.getActiveMesh()->octreeWireframe.shouldDraw = !renderer.getActiveMesh()->octreeWireframe.shouldDraw;

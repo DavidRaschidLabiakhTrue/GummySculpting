@@ -2,11 +2,22 @@
 
 using namespace OctreeVisualizationDefinition;
 
+void OctreeVisualization::toggleOctreeVisualization(){
+    octreeWireframe.shouldDraw = !octreeWireframe.shouldDraw;
+    if(shouldBind) {
+        bindOctreeWireframe();
+        shouldBind = false;
+    }
+    if(octreeWireframe.shouldDraw) {
+        visualizeOctree();
+    }
+}
+
 void OctreeVisualization::visualizeOctree(DepthColorMode depthColorMode)
 {
     this->depthColorMode = depthColorMode;
 
-    octreeWireframe.shouldDraw = true;
+    // octreeWireframe.shouldDraw = true;
     octreeWireframe.octreeVertices.clear();
     octreeWireframe.octreeIndices.clear();
 
@@ -98,7 +109,7 @@ void OctreeVisualization::drawOctreeWireframe()
 {
     if (octreeWireframe.shouldDraw)
     {
-        bindOctreeWireframe();
+        refreshOctreeWireFrame();
         GridShader.use(); // want it independent of wireframe
         gboOctreeWireframe.bindVAO();
         glDrawElements(GL_LINES, (GLsizei)octreeWireframe.octreeIndices.size(), GL_UNSIGNED_INT, NULL);

@@ -56,11 +56,13 @@ namespace OctreeVisualizationDefinition
 			void refreshOctreeWireFrame();
             void drawOctreeWireframe();
             void colorTrianglePerOctant();
+            void toggleOctreeVisualization();
 
             DrawMode drawMode = LeafOctants;
             DepthColorMode depthColorMode = EnableDepthColor;
             OctreeWireframe octreeWireframe;
             GraphicsBufferObject gboOctreeWireframe;
+            bool shouldBind = true;
 
 
             v4 DepthColors[20] = {
