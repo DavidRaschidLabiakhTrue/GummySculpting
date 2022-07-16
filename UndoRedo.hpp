@@ -33,6 +33,9 @@ namespace UndoRedo_
 	{
 		public:
 			UndoRedoHistory(UndoMap& undomap);
+			UndoRedoHistory(rv3 translation);
+			UndoRedoHistory(rm4 mat, UndoRedoHistoryType typeOfMatrix);
+
 			UndoRedoHistory();
 			~UndoRedoHistory();
 
@@ -116,6 +119,11 @@ namespace UndoRedo_
 		void sayStoring();
 		void sayUndoing();
 		void sayRedoing();
+
+		void storeTranslation(rv3 translation);
+		void storeRotation(rm4 rotation);
+		void storeScale(rm4 scale);
+
 
 		bool compareLevel(const int baseLevel, const int cmp); // Sanity Check
 

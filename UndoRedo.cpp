@@ -118,6 +118,21 @@ void UndoRedo_::UndoRedo::sayRedoing()
 	}
 }
 
+void UndoRedo_::UndoRedo::storeTranslation(rv3 translation)
+{
+	this->history.emplace_back(UndoRedoHistory(translation));
+}
+
+void UndoRedo_::UndoRedo::storeRotation(rm4 rotation)
+{
+	this->history.emplace_back(UndoRedoHistory(rotation, UndoRedoHistoryType::ROTATION));
+}
+
+void UndoRedo_::UndoRedo::storeScale(rm4 scale)
+{
+	this->history.emplace_back(UndoRedoHistory(scale, UndoRedoHistoryType::SCALE));
+}
+
 bool UndoRedo_::UndoRedo::compareLevel(const int baseLevel, const int cmp)
 {
 	if (baseLevel == 0)
@@ -262,6 +277,17 @@ bool UndoRedo_::HistoryIndexController::shouldAdjust()
 UndoRedo_::UndoRedoHistory::UndoRedoHistory(UndoMap& undomap)
 {
 	this->undoMap = undomap;
+}
+
+UndoRedo_::UndoRedoHistory::UndoRedoHistory(rv3 translation)
+{
+	setPosition(translation);
+}
+
+UndoRedo_::UndoRedoHistory::UndoRedoHistory(rm4 mat, UndoRedoHistoryType typeOfMatrix)
+{
+	type = typeOfMatrix;
+	this->matrix = mat;
 }
 
 UndoRedo_::UndoRedoHistory::UndoRedoHistory()
