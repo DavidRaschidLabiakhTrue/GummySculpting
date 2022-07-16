@@ -256,6 +256,9 @@
     <ClCompile Include="UndoRedo.cpp">
       <Filter>Mechanics\Undo Redo</Filter>
     </ClCompile>
+    <ClCompile Include="OrbitRing.cpp">
+      <Filter>Data Structures\Utility Structures\Orbit Ring</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -530,6 +533,9 @@
     </ClInclude>
     <ClInclude Include="UndoRedo.hpp">
       <Filter>Mechanics\Undo Redo</Filter>
+    </ClInclude>
+    <ClInclude Include="OrbitRing.hpp">
+      <Filter>Data Structures\Utility Structures\Orbit Ring</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -969,6 +975,12 @@
     </Filter>
     <Filter Include="Mechanics\Undo Redo">
       <UniqueIdentifier>{a6c5f510-b3a5-4f88-bdea-658f3c03794a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Utility Structures">
+      <UniqueIdentifier>{73396731-b260-40ef-8014-65deaa87921b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Utility Structures\Orbit Ring">
+      <UniqueIdentifier>{80db87a2-302e-427d-be7f-4ab564415ad8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

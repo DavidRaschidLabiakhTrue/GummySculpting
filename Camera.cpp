@@ -82,6 +82,7 @@ void CameraDefinition::Camera::checkKeyInput()
 
 		if (CheckKeyHeld(GLFW_KEY_A))
 		{
+
 			changeInPos += speed * -glm::normalize(glm::cross(orientation, up));
 
 		}

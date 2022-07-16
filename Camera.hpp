@@ -6,6 +6,9 @@
 #include "Transformer.hpp"
 #include "MainStateMachine.hpp"
 
+
+#include "OrbitRing.hpp"
+
 Usage MathTypeDefinitions::CoordinateDefine;
 Usage MathTypeDefinitions::MatrixDefine;
 
@@ -35,6 +38,9 @@ namespace CameraDefinition
 			CameraState cameraState = ORBIT;
 
 			bool shouldDrawCursor = true;
+
+			OrbitRing_::OrbitRing ringXY;
+
 
 		protected:
 			void checkKeyInput(); // checks for user key input
