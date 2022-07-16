@@ -15,5 +15,5 @@ VisualObjectsDefinition::VisualObjects::~VisualObjects()
 
 void VisualObjectsDefinition::VisualObjects::drawVisualObjects()
 {
-	//this->grid.drawGrid();
+	this->grid.drawGrid();
 }

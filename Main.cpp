@@ -617,15 +617,8 @@ void MainProgram::drawStatic()
 
     // clear depth buffer to draw newly rendered objects on top
     renderer.clearDepthInfo();
-    Debug::Drawing::renderLines();
+    Debug::Drawing::renderLines(); // sussy
     StaticMeshShader.use();
-    /*
-     *	for all mesh that are static meshes
-     *
-     *		mesh.uploadOffsetandScaleToGPU(); // send the offset and the scale to the GPU
-     *		mesh.render(); // draw it to screen.
-     */
-
     gizmo.drawGizmo();
 }
 void MainProgram::draw2D()

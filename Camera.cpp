@@ -17,7 +17,10 @@ Usage MathTypeDefinitions;
 
 
 
-Camera::Camera()
+Camera::Camera() : 
+	XY(true, true, false, 10.0f),
+	YZ(false, true, true, 10.0f),
+	XZ(true, false, true, 10.0f)
 {
 	orientation = v3(0.0f, 0.0f, -1.0f);
 	up = v3(0.0f, 1.0f, 0.0f);
@@ -33,6 +36,7 @@ Camera::Camera()
 	sensitivity = 100.0f;
 	speed = 0.09f;
 	fov = 45.0f; // degrees
+
 }
 
 Camera::~Camera()
@@ -61,6 +65,78 @@ void CameraDefinition::Camera::updateMatrix()
 	cameraMatrix = projection * view;
 }
 
+void CameraDefinition::Camera::experimentalKeyInput()
+{
+}
+
+void CameraDefinition::Camera::standardKeyInput()
+{
+	v3 changeInPos = v3(0);
+	if (CheckKeyHeld(GLFW_KEY_W))
+	{
+		changeInPos += speed * orientation;
+
+	}
+	else if (CheckKeyHeld(GLFW_KEY_S))
+	{
+
+		changeInPos += speed * -orientation;
+
+	}
+
+	if (CheckKeyHeld(GLFW_KEY_A))
+	{
+
+
+		changeInPos += speed * -glm::normalize(glm::cross(orientation, up));
+
+	}
+	else if (CheckKeyHeld(GLFW_KEY_D))
+	{
+
+
+		changeInPos += speed * glm::normalize(glm::cross(orientation, up));
+
+	}
+
+	/*
+	* // Problematic system
+	// this case consumes mouse scroll wheel input and moves the view forward or backwards. It uses a distance multiplier to also operate.
+	if (WindowGlobal::ActiveWindow->scroll_state != 0)
+	{
+		pos += (float)(WindowGlobal::ActiveWindow->scroll_state * 10 * speed) * orientation;
+		WindowGlobal::ActiveWindow->scroll_state = 0;
+	}
+	*/
+
+	if (CheckKeyHeld(GLFW_KEY_R))
+	{
+		//resetViewAndPos(); // unimplemented
+	}
+	if (CheckKeyHeld(GLFW_KEY_SPACE))
+	{
+		changeInPos += speed * up;
+	}
+	else if (CheckKeyHeld(GLFW_KEY_X))
+	{
+		changeInPos += speed * -up;
+	}
+
+	focalPoint += changeInPos;
+	pos += changeInPos;
+
+	// speed
+	if (CheckKeyHeld(GLFW_KEY_LEFT_SHIFT))
+	{
+		speed = 0.1f;
+	}
+	else
+	{
+		speed = 0.06f;
+	}
+
+}
+
 void CameraDefinition::Camera::checkKeyInput()
 {
 	auto& io = ImGui::GetIO();
@@ -68,65 +144,15 @@ void CameraDefinition::Camera::checkKeyInput()
 	// Handles key inputs
 	if(!io.WantCaptureMouse)
 	{
-		v3 changeInPos = v3(0);
-		if (CheckKeyHeld(GLFW_KEY_W))
+		if (experimental)
 		{
-			changeInPos += speed * orientation;
-
-		}
-		else if (CheckKeyHeld(GLFW_KEY_S))
-		{
-			changeInPos += speed * -orientation;
-
-		}
-
-		if (CheckKeyHeld(GLFW_KEY_A))
-		{
-
-			changeInPos += speed * -glm::normalize(glm::cross(orientation, up));
-
-		}
-		else if (CheckKeyHeld(GLFW_KEY_D))
-		{
-			changeInPos += speed * glm::normalize(glm::cross(orientation, up));
-
-		}
-
-		/*
-		* // Problematic system
-		// this case consumes mouse scroll wheel input and moves the view forward or backwards. It uses a distance multiplier to also operate.
-		if (WindowGlobal::ActiveWindow->scroll_state != 0)
-		{
-			pos += (float)(WindowGlobal::ActiveWindow->scroll_state * 10 * speed) * orientation;
-			WindowGlobal::ActiveWindow->scroll_state = 0;
-		}
-		*/
-
-		if (CheckKeyHeld(GLFW_KEY_R))
-		{
-			//resetViewAndPos(); // unimplemented
-		}
-		if (CheckKeyHeld(GLFW_KEY_SPACE))
-		{
-			changeInPos += speed * up;
-		}
-		else if (CheckKeyHeld(GLFW_KEY_X))
-		{
-			changeInPos += speed * -up;
-		}
-
-		focalPoint += changeInPos;
-		pos += changeInPos;
-
-		// speed
-		if (CheckKeyHeld(GLFW_KEY_LEFT_SHIFT))
-		{
-			speed = 0.1f;
+			experimentalKeyInput();
 		}
 		else
 		{
-			speed = 0.06f;
+			standardKeyInput();
 		}
+
 	}
 }
 

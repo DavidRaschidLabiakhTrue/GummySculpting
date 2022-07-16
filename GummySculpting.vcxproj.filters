@@ -259,6 +259,9 @@
     <ClCompile Include="OrbitRing.cpp">
       <Filter>Data Structures\Utility Structures\Orbit Ring</Filter>
     </ClCompile>
+    <ClCompile Include="OrbitArray.cpp">
+      <Filter>Data Structures\Utility Structures\Orbit Ring</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -536,6 +539,12 @@
     </ClInclude>
     <ClInclude Include="OrbitRing.hpp">
       <Filter>Data Structures\Utility Structures\Orbit Ring</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleArray.hpp">
+      <Filter>Data Structures\Utility Structures\Circle Array</Filter>
+    </ClInclude>
+    <ClInclude Include="OrbitArray.hpp">
+      <Filter>Data Structures\Utility Structures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -981,6 +990,9 @@
     </Filter>
     <Filter Include="Data Structures\Utility Structures\Orbit Ring">
       <UniqueIdentifier>{80db87a2-302e-427d-be7f-4ab564415ad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Utility Structures\Circle Array">
+      <UniqueIdentifier>{a70cc1f6-138d-4b01-b0f6-eaf772240d22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

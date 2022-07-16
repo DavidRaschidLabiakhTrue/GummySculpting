@@ -215,6 +215,7 @@
     <ClCompile Include="OctreeIntersection.cpp" />
     <ClCompile Include="OctreeOctant.cpp" />
     <ClCompile Include="OctreeVisualization.cpp" />
+    <ClCompile Include="OrbitArray.cpp" />
     <ClCompile Include="OrbitRing.cpp" />
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
@@ -264,6 +265,7 @@
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="CameraNav.hpp" />
     <ClInclude Include="CameraParameters.hpp" />
+    <ClInclude Include="CircleArray.hpp" />
     <ClInclude Include="Coloring.hpp" />
     <ClInclude Include="Cursor.hpp" />
     <ClInclude Include="Cursor3D.hpp" />
@@ -305,6 +307,7 @@
     <ClInclude Include="OctreeCollision.hpp" />
     <ClInclude Include="OctreeStats.hpp" />
     <ClInclude Include="OctreeVisualization.hpp" />
+    <ClInclude Include="OrbitArray.hpp" />
     <ClInclude Include="OrbitRing.hpp" />
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />

@@ -9,6 +9,8 @@
 
 #include "OrbitRing.hpp"
 
+#include "OrbitArray.hpp"
+
 Usage MathTypeDefinitions::CoordinateDefine;
 Usage MathTypeDefinitions::MatrixDefine;
 
@@ -17,7 +19,7 @@ namespace CameraDefinition
 	using namespace CameraParametersDefinition;
 	using namespace MainStateMachineDefinition;
 	using TransformerDefinition::CameraTransformer;
-
+	using OrbitArray_::OrbitArray;
 	// Camera class that enables 3D rendering.
 	class Camera : public CameraParameters, public CameraTransformer
 	{
@@ -39,10 +41,18 @@ namespace CameraDefinition
 
 			bool shouldDrawCursor = true;
 
+			OrbitArray XY; // railing for moving about x & y -- left right up down
+			OrbitArray YZ; // railing for moving about y & z -- up down forward backward
+			OrbitArray XZ; // railing for moving about x & z -- left right forward backward -- we follow this array to circle around
+
 			OrbitRing_::OrbitRing ringXY;
+
+			bool experimental = false;
 
 
 		protected:
+			void experimentalKeyInput();
+			void standardKeyInput();
 			void checkKeyInput(); // checks for user key input
 			void checkMouseInput(); // checks for mouse input from the user
 
