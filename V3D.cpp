@@ -59,6 +59,12 @@ void V3D::operator=(rv4 newColor)
     color = newColor;
 }
 
+bool VertexDefinition::V3D::compare(const V3D& cmp) // just check the color and position
+{
+	return position == cmp.position && color == cmp.color;
+}
+
+
 void V3D::operator+=(v3 positionOffset)
 {
     position += positionOffset;

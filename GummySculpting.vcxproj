@@ -251,6 +251,7 @@
     <ClCompile Include="TriangleLookUp.cpp" />
     <ClCompile Include="TriangleOctantKeyPair.cpp" />
     <ClCompile Include="TriangleOctantKeyPairList.cpp" />
+    <ClCompile Include="UndoRedo.cpp" />
     <ClCompile Include="V3D.cpp" />
     <ClCompile Include="VertexList.cpp" />
     <ClCompile Include="VertexLookUp.cpp" />
@@ -342,6 +343,7 @@
     <ClInclude Include="TriangleLookUp.hpp" />
     <ClInclude Include="TriangleOctantKeyPair.hpp" />
     <ClInclude Include="TriangleOctantKeyPairList.hpp" />
+    <ClInclude Include="UndoRedo.hpp" />
     <ClInclude Include="V3D.hpp" />
     <ClInclude Include="VertexIDHashing.hpp" />
     <ClInclude Include="VertexList.hpp" />

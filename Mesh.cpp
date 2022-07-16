@@ -283,61 +283,34 @@ void MeshDefinition::Mesh::storeUndoAndCurrent()
 	}
 }
 
-void MeshDefinition::Mesh::undoHistory()
+
+
+
+
+void MeshDefinition::Mesh::storeChanged()
 {
-	
-
-	if (isThereHistory() && stepTracker.isStepValid())
+	forall(element, trianglesInRange)
 	{
-		int step = stepTracker.currentStep();
-		//saveCurrentSetToStack();
-		say "\nUndoing History\nStepping to" spc step spc "of history in undo\n" done;
-		
-		forall(element, history[step].undoMap)
+		forall(id, triangles[element].indice)
 		{
-			vertices[element.first] = element.second;
+			changedVertices[id] = vertices[id];
 		}
-		stepTracker.lowerStep();
-		needToRefresh = true;
 	}
-	displayUndoRedoStat();
-	
 }
-
-void MeshDefinition::Mesh::redoHistory()
-{
-    
-	/*
-	if (isThereHistory() && canMeshRedo() && stackIsNotEmpty())
-	{
-		int step = stepTracker.currentStep() + 1;
-		say "redoing History\nStepping to" spc step spc "of history in redo\n" done;
-		auto& thing = redoStack.top();
-		
-		forall(element, thing.undoMap)
-		{
-			vertices[element.first] = element.second;
-		}
-		redoStack.pop(
-		stepTracker.raiseStep(); // go up one the undo redo stack
-		needToRefresh = true;
-	}
-	displayUndoRedoStat();
-	*/
-}
-
-
 
 void MeshDefinition::Mesh::saveSavedVerticesToUndo()
 {
+	sayStoring();
 	if (needToDumpHistory)
 	{
-		emptyOutHistory();
-		// handle any big changes to the mesh.
+		resetHistory();
 		needToDumpHistory = false;
 	}
-	saveOldToHistory();
+
+	storeSavedAndChanged();
 	needToStore = true;
+
+	displayUndoRedoData();
 }
 
 void MeshDefinition::Mesh::saveCurrentSetToStack()
@@ -357,4 +330,62 @@ void MeshDefinition::Mesh::saveCurrentSetToStack()
 
 void MeshDefinition::Mesh::cullHistory(ChangeLogLevel levelsUpwardToCull)
 {
+
+}
+
+
+void MeshDefinition::Mesh::undoHistory()
+{
+	sayUndoing();
+
+	if (thereIsHistory() && stepTracker.canStepDown())
+	{
+		say "Stepping Down" done;
+		stepTracker.stepDown();
+		const int step = stepTracker.current();
+
+		if (verboseUndoRedo)
+		{
+			say "\nUndoing Map Size of" spc history[step].undoMap.size() done;
+		}
+
+		forall(element, history[step].undoMap)
+		{
+			vertices[element.first] = element.second;
+		}
+		needToRefresh = true;
+	}
+
+	displayUndoRedoData();
+
+}
+
+void MeshDefinition::Mesh::redoHistory()
+{
+	sayRedoing();
+
+	if (thereIsHistory() && stepTracker.canStepUp())
+	{
+		compareLevel(stepTracker.current(), 1); // an error exist somewhere
+
+		say "Stepping up" done;
+
+		stepTracker.stepUp();
+
+		const int step = stepTracker.current();
+
+		if (verboseUndoRedo)
+		{
+			say "\nRedoing Map Size of" spc history[step].undoMap.size() done;
+		}
+
+		forall(element, history[step].undoMap)
+		{
+			vertices[element.first] = element.second;
+		}
+
+		needToRefresh = true;
+	}
+
+	displayUndoRedoData();
 }

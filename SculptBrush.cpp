@@ -133,6 +133,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
     //say "Verifying after sculpt" done;
 	//cMesh.verifyMesh(); // Debug
 	cMesh.recomputeNormalsFromCurrentVertices();
+	cMesh.storeChanged(); // keep a record of all newly changed vertices.
     payload.wasRun = true;
     cMesh.updateAffectedTriangles();
     cMesh.needToRefresh = true;

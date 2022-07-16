@@ -61,7 +61,7 @@ void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadRefe
 	}
 
 	//cMesh.updateAffectedTriangles();
-	cMesh.recomputeNormalsFromCurrentVertices();
+
 
 }
 

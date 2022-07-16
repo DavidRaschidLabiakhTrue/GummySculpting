@@ -253,6 +253,9 @@
     <ClCompile Include="MeshUndoRedo.cpp">
       <Filter>Data Structures\Search\Mesh\Mesh Change Log\MeshUndoRedo</Filter>
     </ClCompile>
+    <ClCompile Include="UndoRedo.cpp">
+      <Filter>Mechanics\Undo Redo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -524,6 +527,9 @@
     </ClInclude>
     <ClInclude Include="MeshUndoRedo.hpp">
       <Filter>Data Structures\Search\Mesh\Mesh Change Log\MeshUndoRedo</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoRedo.hpp">
+      <Filter>Mechanics\Undo Redo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -960,6 +966,9 @@
     </Filter>
     <Filter Include="Data Structures\Search\Mesh\Mesh Change Log\MeshUndoRedo">
       <UniqueIdentifier>{9efc3ba6-01c3-478c-8e2a-c2cc5249cadf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Undo Redo">
+      <UniqueIdentifier>{a6c5f510-b3a5-4f88-bdea-658f3c03794a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

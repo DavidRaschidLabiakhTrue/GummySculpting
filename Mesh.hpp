@@ -18,7 +18,7 @@
 #include <unordered_map>
 #include <functional>
 
-#include "MeshUndoRedo.hpp"
+#include "UndoRedo.hpp"
 
 
 namespace MeshDefinition
@@ -32,7 +32,7 @@ namespace MeshDefinition
 	using namespace _Decimation;
 	using namespace MeshChangeLogDefinition;
 
-	using MeshUndoRedo_::UndoRedo;
+	using UndoRedo_::UndoRedo;
 
 	// a wrapper and container for all graphics and search structures used in the mesh.
 	// contains graphics data for drawing
@@ -62,7 +62,7 @@ namespace MeshDefinition
 			void redoHistory();
 
 			void storeUndoAndCurrent();
-
+			void storeChanged();
 			void saveSavedVerticesToUndo();
 
 			void saveCurrentSetToStack();

@@ -38,6 +38,8 @@ namespace VertexDefinition
             void operator=(v4 newColor);     // can be used to load a color directly into the vertex
             void operator=(rv4 newColor);    // can be used to load a color directly into the vertex
 
+			bool compare(const V3D& cmp);
+
             void operator+=(v3 positionOffset); // shift vertices
             void operator-=(v3 positionOffset); // shift vertices
 
