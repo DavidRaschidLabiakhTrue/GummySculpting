@@ -531,6 +531,15 @@ void MainProgram::processSculptorCommand(StringList &arguments, int numArgs)
     case TESSELLATE:
         brush.currentState = BrushState::BrushTessellate;
         break;
+	case INFLATE:
+		brush.currentState = BrushState::BrushInflate;
+		break;
+	case SPIN:
+		brush.currentState = BrushState::BrushSpin;
+		break;
+	case FOLD:
+		brush.currentState = BrushState::BrushFold;
+		break;
         // case DECIMATE:
         //     brush.currentState = BrushState::BrushDecimate;
         //     break;

@@ -15,7 +15,7 @@ float Sculpting::Noising::RandomDegree(float range_min, float range_max) {
 	return range_min + fraction * (range_max - range_min);
 }
 
-v3 Sculpting::Noising::ExtendLine(v3 CenterPoint, v3 CurrentPoint, float NoiseValueX, float NoiseValueY, float NoiseValueZ, float distanceX, float distanceY)
+v3 ExtendLine(v3 CenterPoint, v3 CurrentPoint, float NoiseValueX, float NoiseValueY, float NoiseValueZ, float distanceX, float distanceY)
 {
 
 	v3 NoisePoint = CurrentPoint;
@@ -98,6 +98,7 @@ void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference 
 	srand(static_cast<unsigned int>(time(NULL)));
 	forall(element, cMesh.currentVertices)
 	{
+
 		float r;
 		seed++;
 		// element.first is an id value that accesses the vertices of any vertice we collected from octree
@@ -108,30 +109,20 @@ void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference 
 		//cMesh.vertices[element.first] = ... // Apply the algo here.
 		if (seed % 2 == 0)
 		{
-			r = RandomDegree(60.0, 80.0);
+			r = RandomDegree(80.0, 100.0);
 		}
 		else {
 			r = RandomDegree(260.0, 280.0);
 		}
 		r = (r * float(3.14159)) / 180;
-		float randomNum = sin(r) / 100;
+		float randomNum = sin(r);
 
-		float NoiseValueX = randomNum + cMesh.vertices[element.first].position.x;
-		float NoiseValueY = randomNum + cMesh.vertices[element.first].position.y;
-		float NoiseValueZ = randomNum * 2 + cMesh.vertices[element.first].position.z;
-
-
-
-		float distanceX = cMesh.vertices[element.first].position.x - cMesh.center.x;
-		float distanceY = cMesh.vertices[element.first].position.y - cMesh.center.y;
-
-		v3 noisePoint = ExtendLine(cMesh.center, cMesh.vertices[element.first].position, NoiseValueX, NoiseValueY, NoiseValueZ, distanceX, distanceY);
-		cMesh.vertices[element.first].position = noisePoint;
-
+		element.second.position += randomNum * (1.0f / 100.0f) * element.second.position;
 
 	}
 
-
+	Algos::applyCurrentVerticesToMesh(cMesh);
+	
 
 
 }

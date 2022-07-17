@@ -19,6 +19,7 @@ static bool isLoopToggled = false;
 static bool isTessellationToggled = false;
 static bool isDecimateToggled = false;
 static bool isOctreeToggled = false;
+static bool isInflateToggled = false;
 
 ToolbarDefinition::Toolbar::Toolbar()
 {
@@ -59,6 +60,7 @@ void resetToggleButtons()
 	isTessellationToggled = false;
 	isDecimateToggled = false;
 	isOctreeToggled = false;
+	isInflateToggled = false;
 }
 
 void StrokeToggleButton()
@@ -205,6 +207,30 @@ void NoiseToggleButton()
 	ImGui::SameLine();
 }
 
+void InflateToggleButton()
+{
+	int pushedColors = 0;
+
+	if (isInflateToggled)
+	{
+		toggleTrue();
+		pushedColors += 4;
+	}
+	else
+	{
+		toggleFalse();
+		pushedColors += 4;
+	}
+	if (ImGui::Button("Inflate", ImVec2(buttonWidth1, buttonHeight)))
+	{
+		resetToggleButtons();
+		isInflateToggled = !isInflateToggled;
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "inflate" });
+	};
+	ImGui::PopStyleColor(pushedColors);
+	ImGui::SameLine();
+}
+
 void SimpleSubdivToggleButton()
 {
 	int pushedColors = 0;
@@ -344,7 +370,7 @@ void ToolbarDefinition::Toolbar::build()
 
 	ImGui::Text("Brushes");
 	ImGui::SameLine();
-	ImGui::Dummy(ImVec2(455, 0.0f));
+	ImGui::Dummy(ImVec2(545, 0.0f));
 	ImGui::SameLine();
 	ImGui::Text("Operations");
 
@@ -354,7 +380,8 @@ void ToolbarDefinition::Toolbar::build()
 	ColorToggleButton();
 	SmoothedColorToggleButton();
 	NoiseToggleButton();
-	ImGui::Dummy(ImVec2(3, 0.0f)); //Change here if more brushes are added
+	InflateToggleButton();
+	ImGui::Dummy(ImVec2(4, 0.0f)); //Change here if more brushes are added
 	ImGui::SameLine();
 	SimpleSubdivToggleButton();
 	loopToggleButton();

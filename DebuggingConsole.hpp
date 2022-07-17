@@ -91,7 +91,10 @@ namespace DebugConsoleDefinition
         INTERSECTEDOCTANTS,
         INTERSECTEDLEAFOCTANTS,
         TESSELLATE,
-        DECIMATE
+        DECIMATE,
+		INFLATE,
+		SPIN,
+		FOLD
     };
 
     const unordered_map<string, CONSOLECOMMAND> commandMap = {
@@ -131,7 +134,10 @@ namespace DebugConsoleDefinition
         {"intersectedoctants", INTERSECTEDOCTANTS},
         {"intersectedleafoctants", INTERSECTEDLEAFOCTANTS},
         {"tessellate", TESSELLATE},
-        {"decimate", DECIMATE}
+        {"decimate", DECIMATE},
+		{"inflate", INFLATE},
+		{"spin", SPIN},
+		{"fold", FOLD}
 
     };
 

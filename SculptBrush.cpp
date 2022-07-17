@@ -8,7 +8,7 @@
 #include "StrokeDirac.hpp"
 #include "Stroking.hpp"
 #include "Tessellate.hpp"
-
+#include "Inflate.hpp"
 #include "ToolsWindow.hpp"
 
 using namespace SculptBrushDefinition;
@@ -120,6 +120,18 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
     case BrushState::BrushDirac:
         StrokingDirac::applyStrokeDirac(cMesh, payload, 4);
         break;
+
+	case BrushState::BrushInflate:
+		Inflate::applyInflate(cMesh, payload, 4);
+		break;
+	
+	case BrushState::BrushFold:
+
+		break;
+
+	case BrushState::BrushSpin:
+
+		break;
 
     case BrushState::BrushTessellate:
         Tessellate::applyTessellate(cMesh, payload);

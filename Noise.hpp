@@ -8,7 +8,6 @@ namespace Sculpting::Noising // likely not grammatically correct
 	using namespace MeshDefinition;
 
 	float RandomDegree(float range_min, float range_max);
-	v3 ExtendLine(v3 CenterPoint, v3 CurrentPoint, float NoiseValueX, float NoiseValueY, float NoiseValueZ, float distanceX, float distanceY);
 	void applyNoise(MeshReference cMesh, SculptPayloadReference payload, const int interations = 4);
 }
 

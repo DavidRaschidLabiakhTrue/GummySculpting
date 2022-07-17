@@ -202,6 +202,7 @@
     <ClCompile Include="include\IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="IndexedTriangle.cpp" />
     <ClCompile Include="IndiceList.cpp" />
+    <ClCompile Include="Inflate.cpp" />
     <ClCompile Include="Lighting.cpp" />
     <ClCompile Include="LinearAlgebra.cpp" />
     <ClCompile Include="MainDirective.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="include\mini\ini.h" />
     <ClInclude Include="IndexedTriangle.hpp" />
     <ClInclude Include="IndiceList.hpp" />
+    <ClInclude Include="Inflate.hpp" />
     <ClInclude Include="Lighting.hpp" />
     <ClInclude Include="MainDirective.hpp" />
     <ClInclude Include="MathDefinitions.cpp" />

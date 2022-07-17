@@ -13,7 +13,7 @@ namespace SculptBrushDefinition
 	using namespace _Cursor3D;
 
 	enum BrushState{BrushStateSmooth, BrushStateStroke, BrushStateColor, BrushStateNoise, BrushStateSmoothedColor, BrushDirac, BrushTessellate,
-		BrushDecimate};
+		BrushDecimate, BrushInflate, BrushSpin, BrushFold};
 
 	class SculptBrush : public Sampler
 	{

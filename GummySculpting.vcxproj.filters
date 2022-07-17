@@ -262,6 +262,7 @@
     <ClCompile Include="OrbitArray.cpp">
       <Filter>Data Structures\Utility Structures\Orbit Ring</Filter>
     </ClCompile>
+    <ClCompile Include="Inflate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -545,6 +546,9 @@
     </ClInclude>
     <ClInclude Include="OrbitArray.hpp">
       <Filter>Data Structures\Utility Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Inflate.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Inflate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -993,6 +997,9 @@
     </Filter>
     <Filter Include="Data Structures\Utility Structures\Circle Array">
       <UniqueIdentifier>{a70cc1f6-138d-4b01-b0f6-eaf772240d22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Inflate">
+      <UniqueIdentifier>{3fe6130d-49a3-4a9e-9e9f-afeb89dcbea1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
