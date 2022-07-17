@@ -23,10 +23,12 @@ inline void RendererDefinition::Renderer::drawStandard()
 {
 	StandardShader.use();
 	const int meshSize = meshes.size();
-	for (int i = 0; i < meshSize; i++)
+
+
+	for (auto i = meshes.begin(); i != meshes.end(); ++i)
 	{
-		StandardShader.uploadModelMatrixToGPU(meshes[i].model);
-		meshes[i].render();
+		StandardShader.uploadModelMatrixToGPU((*i).model);
+		(*i).render();
 	}
 
 	activeMesh->drawOctreeWireframe(); // ShouldDraw handled inside function
@@ -41,11 +43,11 @@ inline void RendererDefinition::Renderer::drawWireFrame()
 		WireFrameShader.use();
 		GL::drawLined();
 		const int meshSize = meshes.size();
-		for (int i = 0; i < meshSize; i++)
+		for (auto i = meshes.begin(); i != meshes.end(); ++i)
 		{
 
-			StandardShader.uploadModelMatrixToGPU(meshes[i].model);
-			meshes[i].render();
+			WireFrameShader.uploadModelMatrixToGPU((*i).model);
+			(*i).render();
 		}
 		GL::drawFilled();
 	}

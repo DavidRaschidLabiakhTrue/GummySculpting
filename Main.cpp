@@ -655,11 +655,11 @@ void MainProgram::updateMeshes()
     {
         const int meshCount = renderer.meshes.size();
 
-        for (int i = 0; i < meshCount; i++)
+        for (auto i = renderer.meshes.begin(); i != renderer.meshes.end(); ++i)
         {
-            if (renderer.meshes[i].needToRefresh)
+            if ((*i).needToRefresh)
             {
-                renderer.meshes[i].refresh();
+				(*i).refresh();
             }
         }
     }

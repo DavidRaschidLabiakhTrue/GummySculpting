@@ -6,6 +6,8 @@
 
 #include "Cursor3D.hpp"
 
+#include "MainDirective.hpp" // Execute Mesh Switching.
+
 namespace SculptBrushDefinition
 {
 	using namespace SamplerDefinition;

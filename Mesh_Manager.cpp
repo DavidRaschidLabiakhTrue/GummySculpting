@@ -19,6 +19,8 @@ void Mesh_Manager::loadMeshFromFile(string meshFilePath)
 	Mesh mesh;
 	string fileType = meshFilePath.substr(meshFilePath.size() - 4, meshFilePath.size());
 
+
+
 	if (fileType == ".gum" )
 	{
 		//mesh.loadTriangleTest();

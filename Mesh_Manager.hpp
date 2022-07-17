@@ -4,12 +4,15 @@
 #include "MeshFileLoader.hpp" // also includes "Mesh.h"
 #include "MeshFileExporter.hpp"
 
+#include <list>
+
 namespace Mesh_Manager_Definition
 {
 	Usage MeshDefinition;
 	Usage MeshFileLoader;
 	Usage MeshFileExporter;
-	typedef vector<Mesh> MeshList;
+	typedef std::list<Mesh> MeshList;
+	//typedef vector<Mesh> MeshList;
 	typedef int MeshLevel;
 	// manages an array list of meshes
 	// binds to GPU
