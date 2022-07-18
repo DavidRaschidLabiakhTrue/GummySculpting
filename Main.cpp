@@ -389,9 +389,13 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 			break;
 		case UNDO:
 			renderer.getActiveMesh()->undoHistory();
+			renderer.getActiveMesh()->computeNormals();
+			renderer.getActiveMesh()->rebuildOctree();
 			break;
 		case REDO:
 			renderer.getActiveMesh()->redoHistory();
+			renderer.getActiveMesh()->computeNormals();
+			renderer.getActiveMesh()->rebuildOctree();
 			break;
 		case BEGINSELECT:
 			say "Beginning Switch" done;

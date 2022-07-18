@@ -75,7 +75,31 @@ void MeshDefinition::Mesh::computeNormals()
     }
     //say "Normals Calculated" done;
 }
+void MeshDefinition::Mesh::recomputeNormalsFromCurrentVertices()
+{
 
+	const int totalTri = affectedTriangles.size();
+	unordered_map<KeyData, v3> norm_map;
+	normalList.reserve(totalTri);
+
+	#pragma loop(hint_parallel(4))
+	for (int i = 0; i < totalTri; i++)
+	{
+		norm_map[affectedTriangles[i]] = getTriangleNormal(affectedTriangles[i]);
+	}
+	#pragma loop(hint_parallel(4))
+	for (auto element = currentVertices.begin(); element != currentVertices.end(); ++element)
+	{
+		v3 temp(0);
+		forall(id, (*element).second.triangleIDs)
+		{
+			temp += norm_map[id];
+		}
+		vertices[(*element).first].normal = normalize(temp / ((float)(*element).second.triangleIDs.size()));
+	}
+
+	this->needToRefresh = true;
+}
 void MeshDefinition::Mesh::computeNormalsParallel()
 {
     const int totalTri = this->totalTriangles();
@@ -155,28 +179,7 @@ void MeshDefinition::Mesh::cleanUpMesh()
 	this->octants.clear();
 
 }
-void MeshDefinition::Mesh::recomputeNormalsFromCurrentVertices()
-{
-	const int totTri = (int)this->affectedTriangles.size();
-	unordered_map<TriangleID, v3> newNormals;
-	newNormals.reserve(totTri);
 
-	v3 norm;
-
-	forall(id, this->affectedTriangles)
-	{
-		newNormals[id] = this->getTriangleNormal(id);
-	}
-	forall(element, currentVertices)
-	{
-		norm = v3(0);
-		forall(face, vertices[element.first].triangleIDs)
-		{
-			norm += newNormals[face];
-		}
-		element.second.normal = norm / (float)vertices[element.first].triangleIDs.size();
-	}
-}
 void MeshDefinition::Mesh::recomputeNormals(HistoryKeyVertexMap &apply)
 {
     const int totTri = (int)this->affectedTriangles.size();
@@ -298,11 +301,12 @@ void MeshDefinition::Mesh::storeUndoAndCurrent()
 
 void MeshDefinition::Mesh::storeChanged()
 {
-	forall(element, trianglesInRange)
+	#pragma loop(hint_parallel(8))
+	for (auto element = trianglesInRange.begin(); element != trianglesInRange.end(); ++element)
 	{
-		forall(id, triangles[element].indice)
+		for (int iter = 0; iter < 3; iter++)
 		{
-			changedVertices[id] = vertices[id];
+			changedVertices[triangles[(*element)].indice[iter]] = vertices[triangles[(*element)].indice[iter]];
 		}
 	}
 }
