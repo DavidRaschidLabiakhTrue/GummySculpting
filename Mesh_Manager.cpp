@@ -134,6 +134,7 @@ void Mesh_Manager_Definition::Mesh_Manager::switchMesh(SculptPayloadReference pa
 	if (switchedMesh != NULL)
 	{
 		activeMesh = switchedMesh;
+		activeMesh->rebuildOctree();
 		say "Mesh Switched successfully" done;
 	}
 	else
@@ -142,6 +143,11 @@ void Mesh_Manager_Definition::Mesh_Manager::switchMesh(SculptPayloadReference pa
 	}
 	
 
+}
+
+void Mesh_Manager_Definition::Mesh_Manager::deleteCurrent()
+{
+	
 }
 
 void Mesh_Manager::makeLastMeshActive()

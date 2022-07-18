@@ -82,6 +82,8 @@ namespace MeshDefinition
 
 			void applyModelMatrix();
 
+			void cleanUpMesh();
+
 			//ChangeLog history; // mesh reversion history.
 
 			int meshID;

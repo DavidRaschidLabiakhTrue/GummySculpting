@@ -146,6 +146,15 @@ void Mesh::applyModelMatrix()
     rebuildOctree();
     this->needToRefresh = true;
 }
+void MeshDefinition::Mesh::cleanUpMesh()
+{
+	this->deleteBuffers();
+
+	this->vertices.clear();
+	this->triangles.clear();
+	this->octants.clear();
+
+}
 void MeshDefinition::Mesh::recomputeNormalsFromCurrentVertices()
 {
 	const int totTri = (int)this->affectedTriangles.size();
