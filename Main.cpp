@@ -413,20 +413,22 @@ void MainProgram::processRendererCommand(StringList &arguments, int numArgs)
 
     switch (getCommand(arguments[1]))
     {
-    case TOGGLE:
-        if (numArgs < 3)
-        {
-            break;
-        }
+		case TOGGLE:
+			if (numArgs < 3)
+			{
+				break;
+			}
 
-        switch (getCommand(arguments[2]))
-        {
-        case WIREFRAME:
-            debug.AddLog("Main: Toggling wireframe Renderer");
-            renderer.toggleWireFrame();
-            break;
-        }
-        break;
+			switch (getCommand(arguments[2]))
+			{
+				case WIREFRAME:
+					debug.AddLog("Main: Toggling wireframe Renderer");
+					renderer.toggleWireFrame();
+					break;
+			}
+			break;
+		case DELETECURRENT:
+			renderer.deleteCurrent();
     }
 }
 

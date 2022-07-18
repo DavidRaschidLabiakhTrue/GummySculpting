@@ -34,7 +34,7 @@ namespace GraphicsDataDefinition
 			Deconstruct ~GraphicsData();
 
 			void handleDynamicVertexIndexModification();
-
+			void deleteBuffers(); // GPU memory management
 			void bind(); // bind to OpenGL
 
 			void refresh(); // reload vertex data to OpenGL.

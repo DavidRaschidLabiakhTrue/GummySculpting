@@ -37,6 +37,17 @@ void GraphicsDataDefinition::GraphicsData::handleDynamicVertexIndexModification(
 	needToDumpHistory = true;
 }
 
+void GraphicsDataDefinition::GraphicsData::deleteBuffers()
+{
+
+	glDeleteBuffers(1, &this->ebo);
+	glDeleteBuffers(1, &this->vbo);
+	glDeleteBuffers(1, &this->vao);
+
+	ebo = vbo = vao = 0; // set all to 0 for safety.
+
+}
+
 
 
 void GraphicsData::bind()

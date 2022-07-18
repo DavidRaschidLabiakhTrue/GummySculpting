@@ -22,7 +22,7 @@ namespace GraphicsBufferObjectsDefinition
 
 		void bindVAO(); // bind the VAO to the GPU to call it'd ID and begin rendering it.
 
-		void deleteBuffers(); // GPU memory management
+		
 
 		BufferID vao = 0; // vertex array buffer
 		BufferID vbo = 0; // vertex buffer

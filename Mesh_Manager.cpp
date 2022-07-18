@@ -147,7 +147,19 @@ void Mesh_Manager_Definition::Mesh_Manager::switchMesh(SculptPayloadReference pa
 
 void Mesh_Manager_Definition::Mesh_Manager::deleteCurrent()
 {
-	
+	activeMesh->deleteBuffers();
+	activeMesh->cleanUpMesh();
+
+	for (auto iter = meshes.begin(); iter != meshes.end(); ++iter)
+	{
+		if (&(*iter) == activeMesh)
+		{
+			meshes.erase(iter);
+			break;
+		}
+	}
+
+	makeLastMeshActive();
 }
 
 void Mesh_Manager::makeLastMeshActive()
