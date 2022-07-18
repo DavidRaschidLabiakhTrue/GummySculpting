@@ -39,6 +39,14 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 	// this logic is faulty and needs revised for proper state mechanics
 	if (cast() and this->currentDir != direction) [[likely]]
 	{
+		// for when the user selects a mesh.
+		if (this->currentState == BrushState::BrushProcessSelect) [[unlikely]]
+		{
+			MainDirectiveDefinition::Directives.push_back({ "mesh", "beginSelect" });
+			this->payload.selectionOrigin = this->origin().position;
+			this->payload.direction = this->direction;
+			return;
+		}
 
 		currentDir = direction; // update the current direction
 

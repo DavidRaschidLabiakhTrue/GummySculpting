@@ -20,7 +20,7 @@ static bool isTessellationToggled = false;
 static bool isDecimateToggled = false;
 static bool isOctreeToggled = false;
 static bool isInflateToggled = false;
-
+static bool isSelectorToggled = false;
 ToolbarDefinition::Toolbar::Toolbar()
 {
 }
@@ -61,6 +61,7 @@ void resetToggleButtons()
 	isDecimateToggled = false;
 	isOctreeToggled = false;
 	isInflateToggled = false;
+	isSelectorToggled = false;
 }
 
 void StrokeToggleButton()
@@ -325,6 +326,28 @@ void DecimationToggleButton()
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
+void SelectorToggleButton()
+{
+	int pushedColors = 0;
+	if (isSelectorToggled)
+	{
+		toggleTrue();
+		pushedColors += 4;
+	}
+	else
+	{
+		toggleFalse();
+		pushedColors += 4;
+	}
+	if (ImGui::Button("Select", ImVec2(buttonWidth3, buttonHeight)))
+	{
+		resetToggleButtons();
+		isSelectorToggled = !isSelectorToggled;
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "select" });
+	};
+	ImGui::PopStyleColor(pushedColors);
+	ImGui::SameLine();
+}
 
 void OctreeVisualizeToggleButton()
 {
@@ -387,6 +410,7 @@ void ToolbarDefinition::Toolbar::build()
 	loopToggleButton();
 	TessellationToggleButton();
 	DecimationToggleButton();
+	SelectorToggleButton();
 	OctreeVisualizeToggleButton();
 
 	ImGui::End();

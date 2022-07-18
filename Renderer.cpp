@@ -31,7 +31,7 @@ inline void RendererDefinition::Renderer::drawStandard()
 		(*i).render();
 	}
 
-	activeMesh->drawOctreeWireframe(); // ShouldDraw handled inside function
+	activeMesh->drawOctreeWireframe(); // ShouldDraw handled inside function // sussy
 
 }
 
@@ -62,8 +62,12 @@ void Renderer::clearDepthInfo()
 
 void Renderer::draw()
 {
-	drawStandard();
-	drawWireFrame();
+	if (thereIsMeshes()) // do not attempt to draw what doesn't exist(some functions are not memory safe inside).
+	{
+		drawStandard();
+		drawWireFrame();
+	}
+
 }
 
 void RendererDefinition::Renderer::toggleWireFrame()

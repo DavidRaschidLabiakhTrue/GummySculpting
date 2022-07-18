@@ -6,11 +6,14 @@
 
 #include <list>
 
+#include "SculptPayload.hpp"
+
 namespace Mesh_Manager_Definition
 {
 	Usage MeshDefinition;
 	Usage MeshFileLoader;
 	Usage MeshFileExporter;
+	using SculptPayloadDefinition::SculptPayloadReference;
 	typedef std::list<Mesh> MeshList;
 	//typedef vector<Mesh> MeshList;
 	typedef int MeshLevel;
@@ -31,13 +34,16 @@ namespace Mesh_Manager_Definition
 			void loadMeshFromFile(string meshFilePath); // load in a mesh from a file
 			void exportMeshToFile(string meshFilePath); // export mesh to a file
 			void setUpMeshResources();
+			bool thereIsMeshes();
+			void switchMesh(SculptPayloadReference payload);
 
 			MeshPTR getActiveMesh();
 
 			MeshReference getActiveMeshReference();
 
+			void removeMesh(int whichToRemove);
 
-			
+
 
 			
 

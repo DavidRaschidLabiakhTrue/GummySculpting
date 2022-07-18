@@ -88,7 +88,6 @@ void autoSave(MainProgram &mainProgram)
 int main(int argc, char **argv)
 {
     atexit(handleAtExit);
-    // _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     StringList arguments(argv + 1, argv + argc); // loads the arguments as a string vector.
 
     say "Command Line Arguments:\n\t";
@@ -106,7 +105,8 @@ int main(int argc, char **argv)
 
     MainProgram mainProgram = MainProgram(arguments);
 
-    thread autoSaveThread([&mainProgram]() { autoSave(mainProgram); });
+	thread autoSaveThread([&mainProgram]() { autoSave(mainProgram); });
+
 
     while (mainProgram.ProgramCycle())
     {
@@ -190,11 +190,9 @@ int MainProgram::ProgramCycle()
     return 0;
 }
 
-MainProgram::MainProgram()
-{
-}
 
-MainProgram::MainProgram(StringList &arguments)
+
+MainProgram::MainProgram(StringList& arguments)
 {
 
     win = Window(TrueConstructor);                   // load GLFW and OpenGL.
@@ -343,58 +341,66 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
     {
         return;
     }
+	if (renderer.thereIsMeshes()) // don't try to call mesh commands on references that don't exist.
+	{
+		switch (getCommand(arguments[1]))
+		{
+		case LOOPSUBDIVIDE:
+			if (numArgs < 3)
+			{
+				break;
+			}
+			// Make sure we have a valid integer
+			try
+			{
+				renderer.getActiveMesh()->loopSubdivision(stoi(arguments[2]));
+				renderer.getActiveMesh()->computeNormals();
+				renderer.getActiveMesh()->needToRefresh = true;
+			}
+			catch (exception& e)
+			{
+				debug.AddLog("Main: Error: Bad Argument: %s", e.what());
+				break;
+			}
+			break;
 
-    switch (getCommand(arguments[1]))
-    {
-    case LOOPSUBDIVIDE:
-        if (numArgs < 3)
-        {
-            break;
-        }
-        // Make sure we have a valid integer
-        try
-        {
-            renderer.getActiveMesh()->loopSubdivision(stoi(arguments[2]));
-            renderer.getActiveMesh()->computeNormals();
-            renderer.getActiveMesh()->needToRefresh = true;
-        }
-        catch (exception &e)
-        {
-            debug.AddLog("Main: Error: Bad Argument: %s", e.what());
-            break;
-        }
-        break;
+		case SIMPLESUBDIVIDE:
+			if (numArgs < 3)
+			{
+				break;
+			}
+			// Make sure we have a valid integer
+			try
+			{
+				renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
+				renderer.getActiveMesh()->computeNormals();
+				renderer.getActiveMesh()->needToRefresh = true;
+			}
+			catch (exception& e)
+			{
+				debug.AddLog("Main: Error: Bad Argument: %s", e.what());
+				break;
+			}
+			break;
+		case DECIMATE:
+			renderer.getActiveMesh()->decimateMesh();
+			renderer.getActiveMesh()->computeNormals();
+			renderer.getActiveMesh()->refresh();
+			break;
+		case UNDO:
+			renderer.getActiveMesh()->undoHistory();
+			break;
+		case REDO:
+			renderer.getActiveMesh()->redoHistory();
+			break;
+		case BEGINSELECT:
+			say "Beginning Switch" done;
+			renderer.switchMesh(this->brush.payload);
+			brush.currentState = BrushState::BrushNone;
+			break;
+		}
+	}
 
-    case SIMPLESUBDIVIDE:
-        if (numArgs < 3)
-        {
-            break;
-        }
-        // Make sure we have a valid integer
-        try
-        {
-            renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
-            renderer.getActiveMesh()->computeNormals();
-            renderer.getActiveMesh()->needToRefresh = true;
-        }
-        catch (exception &e)
-        {
-            debug.AddLog("Main: Error: Bad Argument: %s", e.what());
-            break;
-        }
-        break;
-    case DECIMATE:
-        renderer.getActiveMesh()->decimateMesh();
-        renderer.getActiveMesh()->computeNormals();
-        renderer.getActiveMesh()->refresh();
-        break;
-    case UNDO:
-        renderer.getActiveMesh()->undoHistory();
-        break;
-    case REDO:
-        renderer.getActiveMesh()->redoHistory();
-        break;
-    }
 }
 
 void MainProgram::processRendererCommand(StringList &arguments, int numArgs)
@@ -540,6 +546,9 @@ void MainProgram::processSculptorCommand(StringList &arguments, int numArgs)
 	case FOLD:
 		brush.currentState = BrushState::BrushFold;
 		break;
+	case SELECT:
+		brush.currentState = BrushState::BrushProcessSelect;
+		break;
         // case DECIMATE:
         //     brush.currentState = BrushState::BrushDecimate;
         //     break;
@@ -586,12 +595,15 @@ void MainProgram::generateMaps()
 void MainProgram::queryMechanics()
 {
     queryCamera();
+	if (renderer.thereIsMeshes()) // if there isn't meshes, don't try to do stuff to meshes.
+	{
+		if (!queryGizmo() and sculptGate.canUpdate())
+		{
 
-    if (!queryGizmo() and sculptGate.canUpdate())
-    {
+			brush.querySculpt(renderer.getActiveMeshReference());
+		}
+	}
 
-        brush.querySculpt(renderer.getActiveMeshReference());
-    }
 }
 void MainProgram::queryCamera()
 {

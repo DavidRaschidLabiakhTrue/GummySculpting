@@ -94,7 +94,9 @@ namespace DebugConsoleDefinition
         DECIMATE,
 		INFLATE,
 		SPIN,
-		FOLD
+		FOLD,
+		SELECT,
+		BEGINSELECT
     };
 
     const unordered_map<string, CONSOLECOMMAND> commandMap = {
@@ -137,7 +139,9 @@ namespace DebugConsoleDefinition
         {"decimate", DECIMATE},
 		{"inflate", INFLATE},
 		{"spin", SPIN},
-		{"fold", FOLD}
+		{"fold", FOLD},
+		{"select", SELECT},
+		{"beginSelect", BEGINSELECT}
 
     };
 

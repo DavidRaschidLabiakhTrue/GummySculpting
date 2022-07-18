@@ -67,10 +67,10 @@ template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; }; //
 class MainProgram
 {
 	public:
-		Empty_Construct MainProgram();
+		MainProgram() = delete; // fuck it
 
-		Construct MainProgram(StringList& arguments);
-		Deconstruct ~MainProgram();
+		MainProgram(StringList& arguments);
+		~MainProgram();
 
 		int ProgramCycle();
 

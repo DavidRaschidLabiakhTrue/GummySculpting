@@ -22,6 +22,9 @@ namespace SculptPayloadDefinition
 			v3 rDir;
 			v3 hit;
 
+			v3 selectionDirection;
+			v3 selectionOrigin;
+
 	};
 	typedef SculptPayload& SculptPayloadReference;
 }
