@@ -262,7 +262,9 @@
     <ClCompile Include="OrbitArray.cpp">
       <Filter>Data Structures\Utility Structures\Orbit Ring</Filter>
     </ClCompile>
-    <ClCompile Include="Inflate.cpp" />
+    <ClCompile Include="Inflate.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Inflate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
