@@ -14,6 +14,7 @@ layout (location = 20) uniform mat4 viewMatrix;
 layout (location = 25) uniform mat4 modelMatrix;
 
 
+
 void main()
 {
    myPosition = vec3(viewMatrix * modelMatrix * vec4(aPos, 1.0));

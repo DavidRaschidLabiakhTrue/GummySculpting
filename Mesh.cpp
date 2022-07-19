@@ -27,7 +27,7 @@ void Mesh::createVariableMap()
 
 // TODO: Test runtimes and scaling of each version
 // Testing with normal function to find degenerate triangles
-void MeshDefinition::Mesh::computeNormals()
+void MeshDefinition::Mesh::computeNormals() noexcept
 {
     // computeNormalsParallel();
     normalList.clear();
@@ -75,7 +75,7 @@ void MeshDefinition::Mesh::computeNormals()
     }
     //say "Normals Calculated" done;
 }
-void MeshDefinition::Mesh::recomputeNormalsFromCurrentVertices()
+void MeshDefinition::Mesh::recomputeNormalsFromCurrentVertices() noexcept
 {
 
 	const int totalTri = affectedTriangles.size();
@@ -282,6 +282,9 @@ void MeshDefinition::Mesh::storeUndoAndCurrent()
 {
 	// can likely be parallelized but I've tormented ryan more than enough about that.
 	currentVertices.clear();
+
+
+
 	forall(element, trianglesInRange)
 	{
 		forall(id, triangles[element].indice)

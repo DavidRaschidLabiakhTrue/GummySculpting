@@ -2,27 +2,27 @@
 
 using UndoRedo_::HistoryIndex;
 
-UndoRedo_::UndoRedo::UndoRedo()
+UndoRedo_::UndoRedo::UndoRedo() noexcept
 {
 
 }
 
-UndoRedo_::UndoRedo::~UndoRedo()
+UndoRedo_::UndoRedo::~UndoRedo() noexcept
 {
 }
 
-bool UndoRedo_::UndoRedo::thereIsHistory()
+bool UndoRedo_::UndoRedo::thereIsHistory() noexcept
 {
 	return history.size() > 0;
 }
 
-void UndoRedo_::UndoRedo::resetHistory()
+void UndoRedo_::UndoRedo::resetHistory() noexcept
 {
 	history.clear();
 	this->stepTracker.resetStep();
 }
 
-void UndoRedo_::UndoRedo::cullCleanUp()
+void UndoRedo_::UndoRedo::cullCleanUp() noexcept
 {
 	if (stepTracker.shouldCullToMax())
 	{
@@ -37,7 +37,7 @@ void UndoRedo_::UndoRedo::cullCleanUp()
 	}
 }
 
-void UndoRedo_::UndoRedo::storeSavedAndChanged()
+void UndoRedo_::UndoRedo::storeSavedAndChanged() noexcept
 {
 
 	cullCleanUp();
@@ -84,7 +84,7 @@ void UndoRedo_::UndoRedo::storeSavedAndChanged()
 	changedVertices.clear();
 }
 
-void UndoRedo_::UndoRedo::displayUndoRedoData()
+void UndoRedo_::UndoRedo::displayUndoRedoData() noexcept
 {
 	if (verboseUndoRedo)
 	{
@@ -94,7 +94,7 @@ void UndoRedo_::UndoRedo::displayUndoRedoData()
 
 }
 
-void UndoRedo_::UndoRedo::sayStoring()
+void UndoRedo_::UndoRedo::sayStoring() noexcept
 {
 	if (verboseUndoRedo)
 	{
@@ -102,7 +102,7 @@ void UndoRedo_::UndoRedo::sayStoring()
 	}
 }
 
-void UndoRedo_::UndoRedo::sayUndoing()
+void UndoRedo_::UndoRedo::sayUndoing() noexcept
 {
 	if (verboseUndoRedo)
 	{
@@ -110,7 +110,7 @@ void UndoRedo_::UndoRedo::sayUndoing()
 	}
 }
 
-void UndoRedo_::UndoRedo::sayRedoing()
+void UndoRedo_::UndoRedo::sayRedoing() noexcept
 {
 	if (verboseUndoRedo)
 	{
@@ -118,22 +118,22 @@ void UndoRedo_::UndoRedo::sayRedoing()
 	}
 }
 
-void UndoRedo_::UndoRedo::storeTranslation(rv3 translation)
+void UndoRedo_::UndoRedo::storeTranslation(rv3 translation) noexcept
 {
 	this->history.emplace_back(UndoRedoHistory(translation));
 }
 
-void UndoRedo_::UndoRedo::storeRotation(rm4 rotation)
+void UndoRedo_::UndoRedo::storeRotation(rm4 rotation) noexcept
 {
 	this->history.emplace_back(UndoRedoHistory(rotation, UndoRedoHistoryType::ROTATION));
 }
 
-void UndoRedo_::UndoRedo::storeScale(rm4 scale)
+void UndoRedo_::UndoRedo::storeScale(rm4 scale) noexcept
 {
 	this->history.emplace_back(UndoRedoHistory(scale, UndoRedoHistoryType::SCALE));
 }
 
-bool UndoRedo_::UndoRedo::compareLevel(const int baseLevel, const int cmp)
+bool UndoRedo_::UndoRedo::compareLevel(const int baseLevel, const int cmp) noexcept
 {
 	if (baseLevel == 0)
 	{
@@ -167,15 +167,15 @@ bool UndoRedo_::UndoRedo::compareLevel(const int baseLevel, const int cmp)
 	return true;
 }
 
-UndoRedo_::HistoryIndexController::HistoryIndexController()
+UndoRedo_::HistoryIndexController::HistoryIndexController() noexcept
 {
 }
 
-UndoRedo_::HistoryIndexController::~HistoryIndexController()
+UndoRedo_::HistoryIndexController::~HistoryIndexController() noexcept
 {
 }
 
-void UndoRedo_::HistoryIndexController::stepUp()
+void UndoRedo_::HistoryIndexController::stepUp() noexcept
 {
 	this->currentHistoryLevel++;
 	if (currentHistoryLevel > maxHistoryLevel)
@@ -184,7 +184,7 @@ void UndoRedo_::HistoryIndexController::stepUp()
 	}
 }
 
-void UndoRedo_::HistoryIndexController::stepDown()
+void UndoRedo_::HistoryIndexController::stepDown() noexcept
 {
 	if (!(currentHistoryLevel - 1 < 0)) // if going down a level doesn't make the index negative
 	{
@@ -192,55 +192,55 @@ void UndoRedo_::HistoryIndexController::stepDown()
 	}
 }
 
-bool UndoRedo_::HistoryIndexController::atTop()
+bool UndoRedo_::HistoryIndexController::atTop() noexcept
 {
 	return currentHistoryLevel == maxHistoryLevel;
 }
 
-bool UndoRedo_::HistoryIndexController::canStepUp()
+bool UndoRedo_::HistoryIndexController::canStepUp() noexcept
 {
 	return currentHistoryLevel < maxHistoryLevel;
 }
 
-bool UndoRedo_::HistoryIndexController::canStepDown()
+bool UndoRedo_::HistoryIndexController::canStepDown() noexcept
 {
 	return currentHistoryLevel > 0;
 }
 
-bool UndoRedo_::HistoryIndexController::shouldCullToMax()
+bool UndoRedo_::HistoryIndexController::shouldCullToMax() noexcept
 {
 	return currentHistoryLevel < maxHistoryLevel;
 }
 
 
 
-HistoryIndex UndoRedo_::HistoryIndexController::current()
+HistoryIndex UndoRedo_::HistoryIndexController::current() noexcept
 {
 	return currentHistoryLevel;
 }
-HistoryIndex UndoRedo_::HistoryIndexController::max()
+HistoryIndex UndoRedo_::HistoryIndexController::max() noexcept
 {
 	return maxHistoryLevel;
 }
 using UndoRedo_::HistoryThreshold;
 
-HistoryThreshold UndoRedo_::HistoryIndexController::threshold()
+HistoryThreshold UndoRedo_::HistoryIndexController::threshold() noexcept
 {
 	return this->cullThreshold;
 }
 
-int UndoRedo_::HistoryIndexController::getAdjustment()
+int UndoRedo_::HistoryIndexController::getAdjustment() noexcept
 {
 	return adjustment;
 }
 
-void UndoRedo_::HistoryIndexController::resetStep()
+void UndoRedo_::HistoryIndexController::resetStep() noexcept
 {
 	this->currentHistoryLevel = -1;
 	this->maxHistoryLevel = -1;
 }
 
-int UndoRedo_::HistoryIndexController::getTotalToCull()
+int UndoRedo_::HistoryIndexController::getTotalToCull() noexcept
 {
 	int res = maxHistoryLevel - currentHistoryLevel;
 	if (res <= 0)
@@ -250,12 +250,12 @@ int UndoRedo_::HistoryIndexController::getTotalToCull()
 	return res;
 }
 
-void UndoRedo_::HistoryIndexController::setMaxToCurrent()
+void UndoRedo_::HistoryIndexController::setMaxToCurrent() noexcept
 {
 	maxHistoryLevel = currentHistoryLevel;
 }
 
-void UndoRedo_::HistoryIndexController::adjust()
+void UndoRedo_::HistoryIndexController::adjust() noexcept
 {
 	if (adjustment % 2 != 0)
 	{
@@ -269,50 +269,50 @@ void UndoRedo_::HistoryIndexController::adjust()
 	}
 }
 
-bool UndoRedo_::HistoryIndexController::shouldAdjust()
+bool UndoRedo_::HistoryIndexController::shouldAdjust() noexcept
 {
 	return adjustment % 2 != 0;
 }
 
-UndoRedo_::UndoRedoHistory::UndoRedoHistory(UndoMap& undomap)
+UndoRedo_::UndoRedoHistory::UndoRedoHistory(UndoMap& undomap) noexcept
 {
 	this->undoMap = undomap;
 }
 
-UndoRedo_::UndoRedoHistory::UndoRedoHistory(rv3 translation)
+UndoRedo_::UndoRedoHistory::UndoRedoHistory(rv3 translation) noexcept
 {
 	setPosition(translation);
 }
 
-UndoRedo_::UndoRedoHistory::UndoRedoHistory(rm4 mat, UndoRedoHistoryType typeOfMatrix)
+UndoRedo_::UndoRedoHistory::UndoRedoHistory(rm4 mat, UndoRedoHistoryType typeOfMatrix) noexcept
 {
 	type = typeOfMatrix;
 	this->matrix = mat;
 }
 
-UndoRedo_::UndoRedoHistory::UndoRedoHistory()
+UndoRedo_::UndoRedoHistory::UndoRedoHistory() noexcept
 {
 
 }
 
-UndoRedo_::UndoRedoHistory::~UndoRedoHistory()
+UndoRedo_::UndoRedoHistory::~UndoRedoHistory() noexcept
 {
 
 }
 
-void UndoRedo_::UndoRedoHistory::setPosition(rv3 prevPosition)
+void UndoRedo_::UndoRedoHistory::setPosition(rv3 prevPosition) noexcept
 {
 	this->type = UndoRedoHistoryType::TRANSLATION;
 	this->previousPosition = previousPosition;
 }
 
-void UndoRedo_::UndoRedoHistory::setRotation(rm4 prevRotation)
+void UndoRedo_::UndoRedoHistory::setRotation(rm4 prevRotation) noexcept
 {
 	this->type = UndoRedoHistoryType::ROTATION;
 	this->matrix = prevRotation;
 }
 
-void UndoRedo_::UndoRedoHistory::setScale(rm4 prevScale)
+void UndoRedo_::UndoRedoHistory::setScale(rm4 prevScale) noexcept
 {
 	this->type = UndoRedoHistoryType::SCALE;
 	this->matrix = prevScale;

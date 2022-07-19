@@ -133,7 +133,9 @@ void Mesh_Manager_Definition::Mesh_Manager::switchMesh(SculptPayloadReference pa
 	}
 	if (switchedMesh != NULL)
 	{
+		activeMesh->isActive = false;
 		activeMesh = switchedMesh;
+		activeMesh->isActive = true;
 		activeMesh->rebuildOctree();
 		say "Mesh Switched successfully" done;
 	}
@@ -168,4 +170,16 @@ void Mesh_Manager::makeLastMeshActive()
 	{
 		activeMesh = &meshes.back(); // assigns the last mesh in the list to the active processed mesh.
 	}
+
+	activeMesh->isActive = true;
+
+	for (auto iter = meshes.begin(); iter != meshes.end(); ++iter)
+	{
+		if (&(*iter) != activeMesh)
+		{
+			(*iter).isActive = false;
+			break;
+		}
+	}
+
 }

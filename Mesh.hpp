@@ -71,12 +71,12 @@ namespace MeshDefinition
 			void createVariableMap();
 
 
-			void computeNormals();
+			void computeNormals() noexcept;
 			void computeNormalsParallel();
 
 			void computeNormalsFromMatrix();
 
-			void recomputeNormalsFromCurrentVertices();
+			void recomputeNormalsFromCurrentVertices() noexcept;
 			void recomputeNormals(HistoryKeyVertexMap& apply);
 
 
@@ -88,6 +88,7 @@ namespace MeshDefinition
 
 			int meshID;
 
+			bool isActive = false;
 
 			string name;
 

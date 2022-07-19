@@ -110,6 +110,12 @@ void ShaderPositionDefinition::ShaderPosition::loadRadius()
 	position = 69; // No one will ever read this.
 }
 
+void ShaderPositionDefinition::ShaderPosition::loadActive()
+{
+	slot = "activeMesh";
+	position = 31;
+}
+
 ShaderPositionData::ShaderPositionData()
 {
 	position.loadPosition();
@@ -128,6 +134,8 @@ ShaderPositionData::ShaderPositionData()
 	timeModifier.loadTimeModifier();
 	orientation.loadOrientation();
 	radius.loadRadius();
+
+	active.loadActive();
 }
 
 ShaderPositionData::~ShaderPositionData()

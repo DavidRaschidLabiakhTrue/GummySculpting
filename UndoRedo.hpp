@@ -32,16 +32,16 @@ namespace UndoRedo_
 	struct UndoRedoHistory
 	{
 		public:
-			UndoRedoHistory(UndoMap& undomap);
-			UndoRedoHistory(rv3 translation);
-			UndoRedoHistory(rm4 mat, UndoRedoHistoryType typeOfMatrix);
+			UndoRedoHistory(UndoMap& undomap) noexcept;
+			UndoRedoHistory(rv3 translation) noexcept;
+			UndoRedoHistory(rm4 mat, UndoRedoHistoryType typeOfMatrix) noexcept;
 
-			UndoRedoHistory();
-			~UndoRedoHistory();
+			UndoRedoHistory() noexcept;
+			~UndoRedoHistory() noexcept;
 
-			void setPosition(rv3 prevPosition);
-			void setRotation(rm4 prevRotation);
-			void setScale(rm4 prevScale);
+			void setPosition(rv3 prevPosition) noexcept;
+			void setRotation(rm4 prevRotation) noexcept;
+			void setScale(rm4 prevScale) noexcept;
 
 
 			UndoRedoHistoryType type = UndoRedoHistoryType::UNSET;
@@ -58,36 +58,36 @@ namespace UndoRedo_
 	class HistoryIndexController
 	{
 		public:
-			HistoryIndexController();
-			~HistoryIndexController();
+			HistoryIndexController() noexcept;
+			~HistoryIndexController() noexcept;
 
-			void stepUp(); // kick current up 1, and max up one to match it if needed
-			void stepDown(); // kick current down 1 if kicking down doesn't make it negative
+			void stepUp() noexcept; // kick current up 1, and max up one to match it if needed
+			void stepDown() noexcept; // kick current down 1 if kicking down doesn't make it negative
 
-			bool atTop(); // check if we are at the top of the history list
+			bool atTop() noexcept; // check if we are at the top of the history list
 
-			bool canStepUp(); // Redo Check - Check if we can take a step up in the history list - if current less than max
-			bool canStepDown(); // Undo Check - Check if we can take a step down in the history list - if 0 or below, No.
+			bool canStepUp() noexcept; // Redo Check - Check if we can take a step up in the history list - if current less than max
+			bool canStepDown() noexcept; // Undo Check - Check if we can take a step down in the history list - if 0 or below, No.
 
 
-			bool shouldCullToMax(); // check if there is history ahead of current position when wanting to add a new entry
+			bool shouldCullToMax() noexcept; // check if there is history ahead of current position when wanting to add a new entry
 
 			// getters
-			HistoryIndex current();
-			HistoryIndex max();
-			HistoryThreshold threshold();
+			HistoryIndex current() noexcept;
+			HistoryIndex max() noexcept;
+			HistoryThreshold threshold() noexcept;
 
-			int getAdjustment();
+			int getAdjustment() noexcept;
 
 
-			void resetStep();
+			void resetStep() noexcept;
 
-			int getTotalToCull();
-			void setMaxToCurrent();
+			int getTotalToCull() noexcept;
+			void setMaxToCurrent() noexcept;
 
-			void adjust();
+			void adjust() noexcept;
 
-			bool shouldAdjust();
+			bool shouldAdjust() noexcept;
 
 
 
@@ -104,28 +104,28 @@ namespace UndoRedo_
 	class UndoRedo
 	{
 		public:
-		UndoRedo();
-		~UndoRedo();
+		UndoRedo() noexcept;
+		~UndoRedo() noexcept;
 
-		bool thereIsHistory(); // safety check there is history in the history list
-		void resetHistory();
+		bool thereIsHistory() noexcept; // safety check there is history in the history list
+		void resetHistory() noexcept;
 
-		void cullCleanUp(); // check if we are trying to add vertices with history already in front of current and clean up if so
+		void cullCleanUp() noexcept; // check if we are trying to add vertices with history already in front of current and clean up if so
 
-		void storeSavedAndChanged();
+		void storeSavedAndChanged() noexcept;
 
-		void displayUndoRedoData();
+		void displayUndoRedoData() noexcept;
 
-		void sayStoring();
-		void sayUndoing();
-		void sayRedoing();
+		void sayStoring() noexcept;
+		void sayUndoing() noexcept;
+		void sayRedoing() noexcept;
 
-		void storeTranslation(rv3 translation);
-		void storeRotation(rm4 rotation);
-		void storeScale(rm4 scale);
+		void storeTranslation(rv3 translation) noexcept;
+		void storeRotation(rm4 rotation) noexcept;
+		void storeScale(rm4 scale) noexcept;
 
 
-		bool compareLevel(const int baseLevel, const int cmp); // Sanity Check
+		bool compareLevel(const int baseLevel, const int cmp) noexcept; // Sanity Check
 
 		UndoMap currentVertices; // set of vertices being operated on
 		UndoMap savedVertices; // original set of vertices that are being stored to history.
