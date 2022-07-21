@@ -50,15 +50,15 @@ bool OctreeDefinition::Octree::insertTriangle(TriangleID tri) ONOEXCEPT
     // return true;
 }
 
-bool Octree::insertTriangles() ONOEXCEPT
-{
-    int triangleCount = totalTriangles();
-    for (int i = 0; i < triangleCount; i++)
-    {
-        Octree::insertTriangle(i);
-    }
-    return true;
-}
+// bool Octree::insertTriangles() ONOEXCEPT
+// {
+//     int triangleCount = totalTriangles();
+//     for (int i = 0; i < triangleCount; i++)
+//     {
+//         Octree::insertTriangle(i);
+//     }
+//     return true;
+// }
 
 /**
  * @brief Remove triangle from octree
@@ -90,62 +90,61 @@ bool OctreeDefinition::Octree::removeTriangleFromOctree(TriangleID tri) ONOEXCEP
     return false; // Triangle was not found in the octant
 }
 
-/**
- * @brief Remove triangle from octree and reinsert it
- * Remove is O(1) due to saving the triangles' octant
- * Reinsertion is O(log n)? due to standard octree traversal
- *
- * @param tri
- * @return true
- * @return false
- */
-bool OctreeDefinition::Octree::updateTriangleInOctree(TriangleID tri) ONOEXCEPT
-{
-    if (removeTriangleFromOctree(tri))
-    {
-        insertTriangle(tri);
-        return true;
-    }
-    return false;
-}
+// /**
+//  * @brief Remove triangle from octree and reinsert it
+//  * Remove is O(1) due to saving the triangles' octant
+//  * Reinsertion is O(log n)? due to standard octree traversal
+//  *
+//  * @param tri
+//  * @return true
+//  * @return false
+//  */
+// bool OctreeDefinition::Octree::updateTriangleInOctree(TriangleID tri) ONOEXCEPT
+// {
+//     if (removeTriangleFromOctree(tri))
+//     {
+//         insertTriangle(tri);
+//         return true;
+//     }
+//     return false;
+// }
 
-/**
- * @brief Updates a list of triangles in the octree.
- * Returns false if any update has failed, but continues to update the list.
- *
- * @param tris
- * @return true
- * @return false
- */
-bool OctreeDefinition::Octree::updateTrianglesInOctree(TriangleIDList tris) ONOEXCEPT
-{
-    bool updateSuccessful = true;
-    if (tris.size() == 0)
-    {
-        return updateSuccessful;
-    }
+// /**
+//  * @brief Updates a list of triangles in the octree.
+//  * Returns false if any update has failed, but continues to update the list.
+//  *
+//  * @param tris
+//  * @return true
+//  * @return false
+//  */
+// bool OctreeDefinition::Octree::updateTrianglesInOctree(TriangleIDList tris) ONOEXCEPT
+// {
+//     bool updateSuccessful = true;
+//     if (tris.size() == 0)
+//     {
+//         return updateSuccessful;
+//     }
+//     foreach (tri, tris)
+//     {
+//         updateSuccessful = updateSuccessful && updateTriangleInOctree(tri);
+//     }
+//     return updateSuccessful;
+// }
 
-    foreach (tri, tris)
-    {
-        updateSuccessful = updateSuccessful && updateTriangleInOctree(tri);
-    }
-    return updateSuccessful;
-}
-
-void OctreeDefinition::Octree::octreeReinsertTriangles()
-{
-    // TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
-    loadTriangleOctantList();
-    foreach (octant, octants)
-    {
-        octant.triangleIDs->clear();
-    }
-    const int countofTriangles = this->totalTriangles();
-    for (int i = 0; i < countofTriangles; i++)
-    {
-        insertTriangle(i);
-    }
-}
+// void OctreeDefinition::Octree::octreeReinsertTriangles()
+// {
+//     // TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
+//     loadTriangleOctantList();
+//     foreach (octant, octants)
+//     {
+//         octant.triangleIDs->clear();
+//     }
+//     const int countofTriangles = this->totalTriangles();
+//     for (int i = 0; i < countofTriangles; i++)
+//     {
+//         insertTriangle(i);
+//     }
+// }
 
 void Octree::updateAffectedTriangles()
 {

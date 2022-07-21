@@ -132,7 +132,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 	case BrushState::BrushInflate:
 		Inflate::applyInflate(cMesh, payload, 4);
 		break;
-	
+
 	case BrushState::BrushFold:
 
 		break;
@@ -152,7 +152,8 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 
     //say "Verifying after sculpt" done;
 	//cMesh.verifyMesh(); // Debug
-	cMesh.recomputeNormalsFromCurrentVertices();
+	// cMesh.recomputeNormalsFromCurrentVertices();
+	cMesh.computeNormals();
 	cMesh.storeChanged(); // keep a record of all newly changed vertices.
     payload.wasRun = true;
     cMesh.updateAffectedTriangles();

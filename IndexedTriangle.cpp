@@ -26,7 +26,7 @@ void IndexedTriangleDefinition::IndexedTriangle::delevel()
     indice[2] = indice[2] - 1;
 }
 
-bool IndexedTriangleDefinition::IndexedTriangle::swapVertexIndex(int oldIndex, int newIndex) TRINOEXCEPT
+void IndexedTriangleDefinition::IndexedTriangle::swapVertexIndex(int oldIndex, int newIndex) TRINOEXCEPT
 {
     if (indice[0] == oldIndex)
     {
@@ -42,8 +42,7 @@ bool IndexedTriangleDefinition::IndexedTriangle::swapVertexIndex(int oldIndex, i
     }
     else
     {
-        return false;
+        say "Error:\tCannot swap vertex '" << oldIndex << "' for '" << newIndex << "'"
+                                          << "\n\tValid indices:" spc indice[0] spc indice[1] spc indice[2] done;
     }
-
-    return true;
 }

@@ -41,6 +41,7 @@ namespace EdgeListDefinition
 			v4 colorAverageAt(KeyData key) EDGENOEXCEPT;
 
 			KeyList getEdgeTriangles(EdgePair edge) EDGENOEXCEPT;
+			KeyList getEdgeTriangles(KeyData v1, KeyData v2) EDGENOEXCEPT;
 
 			Edges edges;
 

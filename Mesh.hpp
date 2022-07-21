@@ -79,6 +79,8 @@ namespace MeshDefinition
 			void recomputeNormalsFromCurrentVertices();
 			void recomputeNormals(HistoryKeyVertexMap& apply);
 
+			KeyList getTriangleNeighbors(KeyData tri);
+
 
 			void applyModelMatrix();
 

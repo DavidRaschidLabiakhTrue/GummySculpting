@@ -23,20 +23,42 @@ namespace _Decimation
 #define DECNOEXCEPT noexcept
 #endif
 
-    typedef pair<float, EdgePair> EdgeDistPair;
-    typedef priority_queue<EdgeDistPair, vector<EdgeDistPair>, greater<EdgeDistPair>> EdgePQ;
+    struct pair_hash
+    {
+            inline std::size_t operator()(const std::pair<int, int> &v) const
+            {
+                return v.first * 31 + v.second;
+            }
+    };
+
+    struct hash_tuple
+    {
+
+            template <class T1, class T2, class T3>
+
+            size_t operator()(
+                const tuple<T1, T2, T3> &x)
+                const
+            {
+                return get<0>(x) ^ get<1>(x) ^ get<2>(x);
+            }
+    };
+
+    typedef pair<float, EdgePair> DistEdgePair;
+    typedef priority_queue<DistEdgePair, vector<DistEdgePair>, greater<DistEdgePair>> EdgePQ;
     class Decimation : public SubdivisionSurface
     {
         public:
             void decimateMesh(float percentage = 0.25f) DECNOEXCEPT;
             EdgePQ parameterizeEdges() DECNOEXCEPT;
+            void parameterizeVertexEdges(KeyData vertexID, EdgePQ &pq) DECNOEXCEPT;
             void collapseEdge(EdgePair edge) DECNOEXCEPT;
-            void collapseTriangle(KeyData tri) DECNOEXCEPT;
-            void removeTriangle(KeyData tri) DECNOEXCEPT; // remove triangle from the list.
-            void removeTriangles(KeyList triList) DECNOEXCEPT;                                           // removes triangles from the list
-            void removeVertex(KeyData vertexID) DECNOEXCEPT;
-            void removeVertices(set<KeyData, greater<KeyData>> vertexSet) DECNOEXCEPT;
+            void swapTriangles(KeyData tri1, KeyData tri2) DECNOEXCEPT;
+            void deleteTriangle(KeyData tri) DECNOEXCEPT;          // remove triangle from the list.                                        // removes triangles from the list
+            void swapVertices(KeyData v1, KeyData v2) DECNOEXCEPT; // swap vertices in the list.                                     // swaps vertices in the list
+            void deleteVertex(KeyData vertexID) DECNOEXCEPT;
             void verifyMesh();
+            bool doesEdgeExist(KeyData v1, KeyData v2) DECNOEXCEPT;
     };
 
 } // namespace _Decimation

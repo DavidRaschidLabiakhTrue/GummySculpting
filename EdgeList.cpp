@@ -135,12 +135,25 @@ v3 EdgeListDefinition::EdgeList::averageAt(KeyData key) EDGENOEXCEPT
 KeyList EdgeListDefinition::EdgeList::getEdgeTriangles(EdgePair edge) EDGENOEXCEPT
 {
     KeyList res;
-    unordered_set<KeyData> v0Triangles(vertices[edge.first].triangleIDs.begin(),
-                                       vertices[edge.first].triangleIDs.end());
 
     foreach (tri, vertices[edge.second].triangleIDs)
     {
-        if (v0Triangles.contains(tri))
+        if (vertices[edge.first].triangleIDs.contains(tri))
+        {
+            res.emplace_back(tri);
+        }
+    }
+
+    return res;
+}
+
+KeyList EdgeListDefinition::EdgeList::getEdgeTriangles(KeyData v1, KeyData v2) EDGENOEXCEPT
+{
+    KeyList res;
+
+    foreach (tri, vertices[v2].triangleIDs)
+    {
+        if (vertices[v1].triangleIDs.contains(tri))
         {
             res.emplace_back(tri);
         }

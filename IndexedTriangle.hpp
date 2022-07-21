@@ -33,7 +33,7 @@ namespace IndexedTriangleDefinition
             void print();      // print the 3 indices in order to console
             KeyData indice[3]; // the actual key components - these values are fed straight into opengl to draw meshes by indice
             void delevel();
-            bool swapVertexIndex(int oldIndex, int newIndex) TRINOEXCEPT; // swap out a vertex with a new one.
+            void swapVertexIndex(int oldIndex, int newIndex) TRINOEXCEPT; // swap out a vertex with a new one.
     };
 
     typedef IndexedTriangle &RIndexTriangle;

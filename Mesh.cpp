@@ -25,6 +25,28 @@ void Mesh::createVariableMap()
     meshVariables.emplace("octreelooseness", ref(octreeLooseness));
 }
 
+KeyList Mesh::getTriangleNeighbors(KeyData tri)
+{
+    KeyList res, tmp;
+    tmp = getEdgeTriangles(triangles[tri][0], triangles[tri][1]);
+    if (tmp.size() == 2)
+    {
+        res.emplace_back((tmp[0] == tri) ? tmp[1] : tmp[0]);
+    }
+    tmp = getEdgeTriangles(triangles[tri][0], triangles[tri][2]);
+    if (tmp.size() == 2)
+    {
+        res.emplace_back((tmp[0] == tri) ? tmp[1] : tmp[0]);
+    }
+    tmp = getEdgeTriangles(triangles[tri][1], triangles[tri][2]);
+    if (tmp.size() == 2)
+    {
+        res.emplace_back((tmp[0] == tri) ? tmp[1] : tmp[0]);
+    }
+
+    return res;
+}
+
 // TODO: Test runtimes and scaling of each version
 // Testing with normal function to find degenerate triangles
 void MeshDefinition::Mesh::computeNormals()
@@ -33,15 +55,16 @@ void MeshDefinition::Mesh::computeNormals()
     normalList.clear();
     const int totalTri = this->totalTriangles();
     normalList.reserve(totalTri);
+
+    KeyList degenTriangles;
     // first calculate all the normals
     for (int i = 0; i < totalTri; i++)
     {
         normalList.emplace_back(this->getTriangleNormal(i));
 
-        if (isnan(normalList[i].x) || isnan(-normalList[i].x) ||
-            isnan(normalList[i].y) || isnan(-normalList[i].y) ||
-            isnan(normalList[i].z) || isnan(-normalList[i].z))
+        if (glm::any(glm::isnan(normalList[i])))
         {
+            degenTriangles.emplace_back(i);
             say "Degenerate Triangle Found" done;
             say "Triangle" spc i spc "Normal: " spc to_string(normalList[i]) done;
             say "v0" spc triangles[i][0] spc to_string(vertices[triangles[i][0]].position) done;
@@ -49,6 +72,36 @@ void MeshDefinition::Mesh::computeNormals()
             say "v2" spc triangles[i][2] spc to_string(vertices[triangles[i][2]].position) done;
             say "---------------------------------" done;
         }
+    }
+
+    // Calculate normals for degenerate triangles
+    for (int i = 0; i < degenTriangles.size(); i++)
+    {
+        // Gather non-degenerate neighbors
+        KeyList neighbors = getTriangleNeighbors(degenTriangles[i]);
+        KeyList nonDegen;
+        foreach (nbor, neighbors)
+        {
+            if (!glm::any(glm::isnan(normalList[i])))
+            {
+                nonDegen.emplace_back(nbor);
+            }
+        }
+
+        // Place this at the end of the list to check again when it should have a non degenerate neighbor
+        if (nonDegen.size() == 0)
+        {
+            degenTriangles.emplace_back(degenTriangles[i]);
+            continue;
+        }
+
+        // Average the normals of the neighbors
+        normalList[degenTriangles[i]] = v3(0);
+        foreach (nbor, nonDegen)
+        {
+            normalList[degenTriangles[i]] += normalList[nbor];
+        }
+        normalList[degenTriangles[i]] = normalize(normalList[degenTriangles[i]] / (float)nonDegen.size());
     }
 
     forall(vert, this->vertices)
@@ -59,21 +112,9 @@ void MeshDefinition::Mesh::computeNormals()
             tempNorm += normalList[id]; // add them up
         }
 
-
         vert.normal = normalize(tempNorm / ((float)vert.triangleIDs.size())); // average them
-
-
-
-        //if (isnan(vert.normal.x) || isnan(-vert.normal.x) ||
-        //    isnan(vert.normal.y) || isnan(-vert.normal.y) ||
-        //    isnan(vert.normal.z) || isnan(-vert.normal.z))
-        //{
-        //    say "Vertex Normal: " spc to_string(vert.normal) done;
-        //    say "triangleIDs size: " spc vert.triangleIDs.size() done;
-        //    say "---------------------------------" done;
-        //}
     }
-    //say "Normals Calculated" done;
+    // say "Normals Calculated" done;
 }
 
 void MeshDefinition::Mesh::computeNormalsParallel()
@@ -148,25 +189,25 @@ void Mesh::applyModelMatrix()
 }
 void MeshDefinition::Mesh::recomputeNormalsFromCurrentVertices()
 {
-	const int totTri = (int)this->affectedTriangles.size();
-	unordered_map<TriangleID, v3> newNormals;
-	newNormals.reserve(totTri);
+    const int totTri = (int)this->affectedTriangles.size();
+    unordered_map<TriangleID, v3> newNormals;
+    newNormals.reserve(totTri);
 
-	v3 norm;
+    v3 norm;
 
-	forall(id, this->affectedTriangles)
-	{
-		newNormals[id] = this->getTriangleNormal(id);
-	}
-	forall(element, currentVertices)
-	{
-		norm = v3(0);
-		forall(face, vertices[element.first].triangleIDs)
-		{
-			norm += newNormals[face];
-		}
-		element.second.normal = norm / (float)vertices[element.first].triangleIDs.size();
-	}
+    forall(id, this->affectedTriangles)
+    {
+        newNormals[id] = this->getTriangleNormal(id);
+    }
+    forall(element, currentVertices)
+    {
+        norm = v3(0);
+        forall(face, vertices[element.first].triangleIDs)
+        {
+            norm += newNormals[face];
+        }
+        element.second.normal = norm / (float)vertices[element.first].triangleIDs.size();
+    }
 }
 void MeshDefinition::Mesh::recomputeNormals(HistoryKeyVertexMap &apply)
 {
@@ -268,124 +309,116 @@ KeyData Mesh::searchLinearParallel(rv3 direction, rv3 origin)
 
 void MeshDefinition::Mesh::storeUndoAndCurrent()
 {
-	// can likely be parallelized but I've tormented ryan more than enough about that.
-	currentVertices.clear();
-	forall(element, trianglesInRange)
-	{
-		forall(id, triangles[element].indice)
-		{
-			if (!savedVertices.contains(id))
-			{
-				savedVertices[id] = vertices[id];
-			}
-			currentVertices[id] = vertices[id];
-		}
-	}
+    // can likely be parallelized but I've tormented ryan more than enough about that.
+    currentVertices.clear();
+    forall(element, trianglesInRange)
+    {
+        forall(id, triangles[element].indice)
+        {
+            if (!savedVertices.contains(id))
+            {
+                savedVertices[id] = vertices[id];
+            }
+            currentVertices[id] = vertices[id];
+        }
+    }
 }
-
-
-
-
 
 void MeshDefinition::Mesh::storeChanged()
 {
-	forall(element, trianglesInRange)
-	{
-		forall(id, triangles[element].indice)
-		{
-			changedVertices[id] = vertices[id];
-		}
-	}
+    forall(element, trianglesInRange)
+    {
+        forall(id, triangles[element].indice)
+        {
+            changedVertices[id] = vertices[id];
+        }
+    }
 }
 
 void MeshDefinition::Mesh::saveSavedVerticesToUndo()
 {
-	sayStoring();
-	if (needToDumpHistory)
-	{
-		resetHistory();
-		needToDumpHistory = false;
-	}
+    sayStoring();
+    if (needToDumpHistory)
+    {
+        resetHistory();
+        needToDumpHistory = false;
+    }
 
-	storeSavedAndChanged();
-	needToStore = true;
+    storeSavedAndChanged();
+    needToStore = true;
 
-	displayUndoRedoData();
+    displayUndoRedoData();
 }
 
 void MeshDefinition::Mesh::saveCurrentSetToStack()
 {
-	//using MeshUndoRedo_::UndoMap;
-	//using MeshUndoRedo_::UndoRedoHistory;
-	//int currentStep = stepTracker.currentStep();
-	//UndoMap map;
+    // using MeshUndoRedo_::UndoMap;
+    // using MeshUndoRedo_::UndoRedoHistory;
+    // int currentStep = stepTracker.currentStep();
+    // UndoMap map;
 
-	//forall(element, history[currentStep].undoMap)
-	//{
-	//	map[element.first] = vertices[element.first];
-	//}
-	//redoStack.push(UndoRedoHistory(map));
-
+    // forall(element, history[currentStep].undoMap)
+    //{
+    //	map[element.first] = vertices[element.first];
+    // }
+    // redoStack.push(UndoRedoHistory(map));
 }
 
 void MeshDefinition::Mesh::cullHistory(ChangeLogLevel levelsUpwardToCull)
 {
-
 }
-
 
 void MeshDefinition::Mesh::undoHistory()
 {
-	sayUndoing();
+    sayUndoing();
 
-	if (thereIsHistory() && stepTracker.canStepDown())
-	{
-		say "Stepping Down" done;
-		stepTracker.stepDown();
-		const int step = stepTracker.current();
+    if (thereIsHistory() && stepTracker.canStepDown())
+    {
+        say "Stepping Down" done;
+        stepTracker.stepDown();
+        const int step = stepTracker.current();
 
-		if (verboseUndoRedo)
-		{
-			say "\nUndoing Map Size of" spc history[step].undoMap.size() done;
-		}
+        if (verboseUndoRedo)
+        {
+            say "\nUndoing Map Size of" spc history[step].undoMap.size() done;
+        }
 
-		forall(element, history[step].undoMap)
-		{
-			vertices[element.first] = element.second;
-		}
-		needToRefresh = true;
-	}
+        forall(element, history[step].undoMap)
+        {
+            vertices[element.first] = element.second;
+        }
+        needToRefresh = true;
+    }
 
-	displayUndoRedoData();
-
+    displayUndoRedoData();
 }
 
 void MeshDefinition::Mesh::redoHistory()
 {
-	sayRedoing();
+    sayRedoing();
 
-	if (thereIsHistory() && stepTracker.canStepUp())
-	{
-		compareLevel(stepTracker.current(), 1); // an error exist somewhere
+    if (thereIsHistory() && stepTracker.canStepUp())
+    {
+        compareLevel(stepTracker.current(), 1); // an error exist somewhere
 
-		say "Stepping up" done;
+        say "Stepping up" done;
 
-		stepTracker.stepUp();
+        stepTracker.stepUp();
 
-		const int step = stepTracker.current();
+        const int step = stepTracker.current();
 
-		if (verboseUndoRedo)
-		{
-			say "\nRedoing Map Size of" spc history[step].undoMap.size() done;
-		}
+        if (verboseUndoRedo)
+        {
+            say "\nRedoing Map Size of" spc history[step].undoMap.size() done;
+        }
 
-		forall(element, history[step].undoMap)
-		{
-			vertices[element.first] = element.second;
-		}
+        forall(element, history[step].undoMap)
+        {
+            vertices[element.first] = element.second;
+        }
 
-		needToRefresh = true;
-	}
+        needToRefresh = true;
+    }
 
-	displayUndoRedoData();
+    displayUndoRedoData();
 }
