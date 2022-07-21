@@ -7,6 +7,7 @@ in vec3 myNormal;
 layout(location = 0) out vec4 FragColor;
 
 layout (location = 20) uniform mat4 viewMatrix;
+layout (location = 31) uniform bool activeMesh;
 
 vec3 light_position_world  = vec3(0.0, 10.0, 0.0);
 vec3 Ls = vec3(0.7, 0.7, 0.7); // white specular colour
@@ -23,9 +24,21 @@ float specular_exponent = 75.0; // specular 'power'
 
 void main()
 {
-	vec3 La = vec3(myColor);
+	vec3 La;
+	
+	vec3 color3;
+	if(activeMesh == true)
+	{
+		La = vec3(myColor);
+		color3 = vec3(myColor);
+	}
+	else
+	{
+		La = vec3(myColor) * 0.7f;
+		color3 = vec3(myColor) * 0.2f;
+	}
 	vec3 Ia = La * Ka;
-	vec3 color3 = vec3(myColor);
+
 	// diffuse intensity
 	// raise light position to eye space
 	vec3 light_position_eye = vec3(viewMatrix * vec4(light_position_world, 1.0));

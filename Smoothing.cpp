@@ -51,12 +51,11 @@ using namespace Sculpting::Smoothing;
 
 void Sculpting::Smoothing::applySmoothing(MeshReference cMesh, SculptPayloadReference payload)
 {
-
-
-	forall(element, cMesh.currentVertices)
+	#pragma loop(hint_parallel(6))
+	for(auto element = cMesh.currentVertices.begin(); element != cMesh.currentVertices.end(); ++element)
 	{
 		//V3D temp = V3D(0,0,0);
-		cMesh.vertices[element.first] = cMesh.averageAt(element.first);
+		cMesh.vertices[(*element).first] = cMesh.averageAt((*element).first);
 		//std::cout << "using smoothing"<< endl; // I don't remember adding this...
 	}
 

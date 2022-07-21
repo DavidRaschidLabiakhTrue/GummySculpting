@@ -390,9 +390,13 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
 			break;
 		case UNDO:
 			renderer.getActiveMesh()->undoHistory();
+			renderer.getActiveMesh()->computeNormals();
+			renderer.getActiveMesh()->rebuildOctree();
 			break;
 		case REDO:
 			renderer.getActiveMesh()->redoHistory();
+			renderer.getActiveMesh()->computeNormals();
+			renderer.getActiveMesh()->rebuildOctree();
 			break;
 		case BEGINSELECT:
 			say "Beginning Switch" done;
@@ -414,20 +418,22 @@ void MainProgram::processRendererCommand(StringList &arguments, int numArgs)
 
     switch (getCommand(arguments[1]))
     {
-    case TOGGLE:
-        if (numArgs < 3)
-        {
-            break;
-        }
+		case TOGGLE:
+			if (numArgs < 3)
+			{
+				break;
+			}
 
-        switch (getCommand(arguments[2]))
-        {
-        case WIREFRAME:
-            debug.AddLog("Main: Toggling wireframe Renderer");
-            renderer.toggleWireFrame();
-            break;
-        }
-        break;
+			switch (getCommand(arguments[2]))
+			{
+				case WIREFRAME:
+					debug.AddLog("Main: Toggling wireframe Renderer");
+					renderer.toggleWireFrame();
+					break;
+			}
+			break;
+		case DELETECURRENT:
+			renderer.deleteCurrent();
     }
 }
 

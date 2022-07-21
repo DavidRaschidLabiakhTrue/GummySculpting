@@ -78,6 +78,10 @@ void TopBarDefinition::TopBar::build()
 		{
 			MainDirectiveDefinition::Directives.push_back({ "mesh", "redo" });
 		}
+		if (ImGui::MenuItem("Delete Current Mesh"))
+		{
+			MainDirectiveDefinition::Directives.push_back({ "renderer", "deleteCurrent" });
+		}
 		ImGui::EndMenu();
 	}
 	if (ImGui::BeginMenu("View"))

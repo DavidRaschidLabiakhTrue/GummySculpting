@@ -96,7 +96,8 @@ namespace DebugConsoleDefinition
 		SPIN,
 		FOLD,
 		SELECT,
-		BEGINSELECT
+		BEGINSELECT,
+		DELETECURRENT,
     };
 
     const unordered_map<string, CONSOLECOMMAND> commandMap = {
@@ -141,7 +142,8 @@ namespace DebugConsoleDefinition
 		{"spin", SPIN},
 		{"fold", FOLD},
 		{"select", SELECT},
-		{"beginSelect", BEGINSELECT}
+		{"beginSelect", BEGINSELECT},
+		{"deleteCurrent", DELETECURRENT}
 
     };
 

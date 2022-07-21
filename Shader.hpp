@@ -37,6 +37,8 @@ namespace ShaderDefinition
 			void uploadTimeToGPU();
 			void uploadRadiusToGPU(const float radius);
 
+			void uploadActiveMeshBoolToGPU(bool isActive);
+
 			string name; // name of shader for debugging
 			
 		protected:

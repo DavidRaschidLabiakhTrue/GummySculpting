@@ -49,7 +49,7 @@ KeyList Mesh::getTriangleNeighbors(KeyData tri)
 
 // TODO: Test runtimes and scaling of each version
 // Testing with normal function to find degenerate triangles
-void MeshDefinition::Mesh::computeNormals()
+void MeshDefinition::Mesh::computeNormals() noexcept
 {
     // computeNormalsParallel();
     normalList.clear();
@@ -116,7 +116,31 @@ void MeshDefinition::Mesh::computeNormals()
     }
     // say "Normals Calculated" done;
 }
+void MeshDefinition::Mesh::recomputeNormalsFromCurrentVertices() noexcept
+{
 
+	const int totalTri = affectedTriangles.size();
+	unordered_map<KeyData, v3> norm_map;
+	normalList.reserve(totalTri);
+
+	#pragma loop(hint_parallel(4))
+	for (int i = 0; i < totalTri; i++)
+	{
+		norm_map[affectedTriangles[i]] = getTriangleNormal(affectedTriangles[i]);
+	}
+	#pragma loop(hint_parallel(4))
+	for (auto element = currentVertices.begin(); element != currentVertices.end(); ++element)
+	{
+		v3 temp(0);
+		forall(id, (*element).second.triangleIDs)
+		{
+			temp += norm_map[id];
+		}
+		vertices[(*element).first].normal = normalize(temp / ((float)(*element).second.triangleIDs.size()));
+	}
+
+	this->needToRefresh = true;
+}
 void MeshDefinition::Mesh::computeNormalsParallel()
 {
     const int totalTri = this->totalTriangles();
@@ -187,28 +211,16 @@ void Mesh::applyModelMatrix()
     rebuildOctree();
     this->needToRefresh = true;
 }
-void MeshDefinition::Mesh::recomputeNormalsFromCurrentVertices()
+void MeshDefinition::Mesh::cleanUpMesh()
 {
-    const int totTri = (int)this->affectedTriangles.size();
-    unordered_map<TriangleID, v3> newNormals;
-    newNormals.reserve(totTri);
+	this->deleteBuffers();
 
-    v3 norm;
+	this->vertices.clear();
+	this->triangles.clear();
+	this->octants.clear();
 
-    forall(id, this->affectedTriangles)
-    {
-        newNormals[id] = this->getTriangleNormal(id);
-    }
-    forall(element, currentVertices)
-    {
-        norm = v3(0);
-        forall(face, vertices[element.first].triangleIDs)
-        {
-            norm += newNormals[face];
-        }
-        element.second.normal = norm / (float)vertices[element.first].triangleIDs.size();
-    }
 }
+
 void MeshDefinition::Mesh::recomputeNormals(HistoryKeyVertexMap &apply)
 {
     const int totTri = (int)this->affectedTriangles.size();
@@ -309,30 +321,34 @@ KeyData Mesh::searchLinearParallel(rv3 direction, rv3 origin)
 
 void MeshDefinition::Mesh::storeUndoAndCurrent()
 {
-    // can likely be parallelized but I've tormented ryan more than enough about that.
-    currentVertices.clear();
-    forall(element, trianglesInRange)
-    {
-        forall(id, triangles[element].indice)
-        {
-            if (!savedVertices.contains(id))
-            {
-                savedVertices[id] = vertices[id];
-            }
-            currentVertices[id] = vertices[id];
-        }
-    }
+	// can likely be parallelized but I've tormented ryan more than enough about that.
+	currentVertices.clear();
+
+
+
+	forall(element, trianglesInRange)
+	{
+		forall(id, triangles[element].indice)
+		{
+			if (!savedVertices.contains(id))
+			{
+				savedVertices[id] = vertices[id];
+			}
+			currentVertices[id] = vertices[id];
+		}
+	}
 }
 
 void MeshDefinition::Mesh::storeChanged()
 {
-    forall(element, trianglesInRange)
-    {
-        forall(id, triangles[element].indice)
-        {
-            changedVertices[id] = vertices[id];
-        }
-    }
+	#pragma loop(hint_parallel(8))
+	for (auto element = trianglesInRange.begin(); element != trianglesInRange.end(); ++element)
+	{
+		for (int iter = 0; iter < 3; iter++)
+		{
+			changedVertices[triangles[(*element)].indice[iter]] = vertices[triangles[(*element)].indice[iter]];
+		}
+	}
 }
 
 void MeshDefinition::Mesh::saveSavedVerticesToUndo()

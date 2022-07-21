@@ -15,70 +15,6 @@ float Sculpting::Noising::RandomDegree(float range_min, float range_max) {
 	return range_min + fraction * (range_max - range_min);
 }
 
-v3 ExtendLine(v3 CenterPoint, v3 CurrentPoint, float NoiseValueX, float NoiseValueY, float NoiseValueZ, float distanceX, float distanceY)
-{
-
-	v3 NoisePoint = CurrentPoint;
-	//If we have 0 in the coordinates of the mesh simply change where 0 appeared.
-	if (CurrentPoint.x == 0)
-	{
-		NoisePoint.x = NoiseValueX;
-		NoisePoint.y = CurrentPoint.y;
-		NoisePoint.z = CurrentPoint.z;
-		return NoisePoint;
-	}
-
-	if (CurrentPoint.y == 0)
-	{
-		NoisePoint.x = CurrentPoint.x;
-		NoisePoint.y = NoiseValueY;
-		NoisePoint.z = CurrentPoint.z;
-		return NoisePoint;
-	}
-
-	if (CurrentPoint.z == 0)
-	{
-		NoisePoint.x += CurrentPoint.x;
-		NoisePoint.y = CurrentPoint.y;
-		NoisePoint.z = NoiseValueZ;
-		return NoisePoint;
-	}
-	//Using the two point line formula in three - dimensional coordinate system to find the linear equation between the Center Point with the selected Mesh Point.
-	//Then we use the random X into the linear equation to get the Y and Z value. To get our point. Doing so makes every point on the mesh in the right direction.
-	//If the distance < 0.3 than round it to 0, if not , the Y and Z value will become extreamly large.
-	if (fabs(distanceX) <= 0.3) distanceX = 0;
-	if (distanceX != 0)
-	{
-
-		float result = (NoiseValueX - CenterPoint.x) / (CurrentPoint.x - CenterPoint.x);
-		NoisePoint.x = NoiseValueX;
-		NoisePoint.y = result * (CurrentPoint.y - CenterPoint.y) + CenterPoint.y;
-		NoisePoint.z = result * (CurrentPoint.z - CenterPoint.z) + CenterPoint.z;
-		glm::vec3 cameraPos;
-		return NoisePoint;
-
-	}
-	//If that happened ,use random Y to generate Z instead.
-	if (fabs(distanceY) <= 0.08) distanceY = 0;
-	if (distanceX == 0 && distanceY != 0)
-	{
-
-		float result = (NoiseValueY - CenterPoint.y) / (CurrentPoint.y - CenterPoint.y);
-		NoisePoint.x = CurrentPoint.x;
-		NoisePoint.y = NoiseValueY;
-		NoisePoint.z = result * (CurrentPoint.z - CenterPoint.z) + CenterPoint.z;
-		return NoisePoint;
-	}
-	else
-	{
-		NoisePoint.x = CurrentPoint.x;
-		NoisePoint.y = CurrentPoint.y;
-		NoisePoint.z = NoiseValueZ;
-		return NoisePoint;
-	}
-
-}
-
 void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference payload, const int interations)
 {
 
@@ -98,7 +34,6 @@ void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference 
 	srand(static_cast<unsigned int>(time(NULL)));
 	forall(element, cMesh.currentVertices)
 	{
-
 		float r;
 		seed++;
 		// element.first is an id value that accesses the vertices of any vertice we collected from octree
@@ -117,12 +52,14 @@ void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference 
 		r = (r * float(3.14159)) / 180;
 		float randomNum = sin(r);
 
-		element.second.position += randomNum * (1.0f / 100.0f) * element.second.position;
+		cMesh.vertices[element.first].position.x += (randomNum * cMesh.vertices[element.first].normal.x) / 100;
+		cMesh.vertices[element.first].position.y += (randomNum * cMesh.vertices[element.first].normal.y) / 100;
+		cMesh.vertices[element.first].position.z += (randomNum * cMesh.vertices[element.first].normal.z) / 100;
+
 
 	}
 
-	Algos::applyCurrentVerticesToMesh(cMesh);
-	
+
 
 
 }

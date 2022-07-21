@@ -37,6 +37,17 @@ void GraphicsDataDefinition::GraphicsData::handleDynamicVertexIndexModification(
 	needToDumpHistory = true;
 }
 
+void GraphicsDataDefinition::GraphicsData::deleteBuffers()
+{
+
+	glDeleteBuffers(1, &this->ebo);
+	glDeleteBuffers(1, &this->vbo);
+	glDeleteBuffers(1, &this->vao);
+
+	ebo = vbo = vao = 0; // set all to 0 for safety.
+
+}
+
 
 
 void GraphicsData::bind()
@@ -50,12 +61,12 @@ void GraphicsData::bind()
 
 	// binding vertices
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, verticesMemorySize(), vertices.data(), GL_STREAM_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, verticesMemorySize(), vertices.data(), GL_DYNAMIC_DRAW);
 
 	// binding indices
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangleMemorySize(), static_cast<void*>(triangles.data()), GL_STREAM_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangleMemorySize(), static_cast<void*>(triangles.data()), GL_DYNAMIC_DRAW);
 
 	// enable position data
 	glEnableVertexAttribArray(0);
@@ -78,11 +89,11 @@ void GraphicsData::refresh()
 
 	// refresh vertices
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, VERTEX_SIZING(vertices), vertices.data(), GL_STREAM_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, VERTEX_SIZING(vertices), vertices.data(), GL_DYNAMIC_DRAW);
 
 	// refresh indices
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangleMemorySize(), static_cast<void*>(triangles.data()), GL_STREAM_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangleMemorySize(), static_cast<void*>(triangles.data()), GL_DYNAMIC_DRAW);
 	// enable position data
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void*)0);
@@ -94,7 +105,7 @@ void GraphicsData::refresh()
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, OpenGLVertexAttributes::SizeOfVertex, (void*)offsetof(V3D, V3D::normal)); // color data reserves 4 slots.
 
-	unbindActiveVAO();
+	
 
 	
 	needToRefresh = false;

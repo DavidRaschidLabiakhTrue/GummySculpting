@@ -71,12 +71,12 @@ namespace MeshDefinition
 			void createVariableMap();
 
 
-			void computeNormals();
+			void computeNormals() noexcept;
 			void computeNormalsParallel();
 
 			void computeNormalsFromMatrix();
 
-			void recomputeNormalsFromCurrentVertices();
+			void recomputeNormalsFromCurrentVertices() noexcept;
 			void recomputeNormals(HistoryKeyVertexMap& apply);
 
 			KeyList getTriangleNeighbors(KeyData tri);
@@ -84,10 +84,13 @@ namespace MeshDefinition
 
 			void applyModelMatrix();
 
+			void cleanUpMesh();
+
 			//ChangeLog history; // mesh reversion history.
 
 			int meshID;
 
+			bool isActive = false;
 
 			string name;
 

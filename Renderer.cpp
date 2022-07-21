@@ -28,6 +28,7 @@ inline void RendererDefinition::Renderer::drawStandard()
 	for (auto i = meshes.begin(); i != meshes.end(); ++i)
 	{
 		StandardShader.uploadModelMatrixToGPU((*i).model);
+		StandardShader.uploadActiveMeshBoolToGPU((*i).isActive);
 		(*i).render();
 	}
 

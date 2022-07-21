@@ -37,6 +37,8 @@ namespace Mesh_Manager_Definition
 			bool thereIsMeshes();
 			void switchMesh(SculptPayloadReference payload);
 
+			void deleteCurrent(); // remove the current mesh from memory.
+
 			MeshPTR getActiveMesh();
 
 			MeshReference getActiveMeshReference();

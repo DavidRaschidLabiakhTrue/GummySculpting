@@ -164,6 +164,11 @@ void ShaderDefinition::Shader::uploadRadiusToGPU(const float radius)
 	glUniform1f(ShaderSlotInfo.radius.position, radius);
 }
 
+void ShaderDefinition::Shader::uploadActiveMeshBoolToGPU(bool isActive)
+{
+	glUniform1i(ShaderSlotInfo.active.position, isActive);
+}
+
 void ShaderDefinition::Shader::uploadProjectionMatrixToGPU()
 {
 	glUniformMatrix4fv(ShaderSlotInfo.projection.position, 1, GL_FALSE, value_ptr(GlobalCamera->projection));

@@ -16,3 +16,5 @@ void GraphicsBufferObject::bindVAO()
 {
 	glBindVertexArray(vao);
 }
+
+

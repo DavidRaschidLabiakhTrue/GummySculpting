@@ -40,6 +40,7 @@ namespace ShaderPositionDefinition
 		void loadOrientation();
 
 		void loadRadius();
+		void loadActive();
 	};
 
 	// basically a global constant that contains all relevant data needed.
@@ -64,6 +65,7 @@ namespace ShaderPositionDefinition
 		ShaderPosition timeModifier;
 		ShaderPosition orientation;
 		ShaderPosition radius; // float
+		ShaderPosition active; // bool
 	};
 
 	extern ShaderPositionData ShaderSlotInfo;
