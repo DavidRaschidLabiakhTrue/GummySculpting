@@ -11,6 +11,15 @@ CameraNavDefinition::CameraNav::~CameraNav()
 {
 }
 
+
+void buttonStyle()
+{
+	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(ImColor(255, 255, 255)));
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(13, 125, 184)));
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(13, 100, 150)));
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(150, 20, 20)));
+}
+
 void CameraNavDefinition::CameraNav::build()
 {
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -33,17 +42,24 @@ void CameraNavDefinition::CameraNav::build()
 
 	ImGui::Dummy(ImVec2((float)ButtonSideLength-1, 0.f));
 	ImGui::SameLine();
+	buttonStyle();
 	ImGui::Button("^", ImVec2(ButtonSideLength, ButtonSideLength));
+	ImGui::PopStyleColor(4);
 	ImGui::Dummy(ImVec2(0.f, 0.5f));
+	buttonStyle();
 	ImGui::Button("<", ImVec2(ButtonSideLength, ButtonSideLength));
+	ImGui::PopStyleColor(4);
 	ImGui::SameLine();
 	ImGui::Dummy(ImVec2((float)ButtonSideLength-1, 0.f));
 	ImGui::SameLine();
+	buttonStyle();
 	ImGui::Button(">", ImVec2(ButtonSideLength, ButtonSideLength));
+	ImGui::PopStyleColor(4);
 	ImGui::Dummy(ImVec2(0.f, 0.5f));
 	ImGui::Dummy(ImVec2((float)ButtonSideLength-1, 0.f));
 	ImGui::SameLine();
+	buttonStyle();
 	ImGui::Button("v", ImVec2(ButtonSideLength, ButtonSideLength));
-
+	ImGui::PopStyleColor(4);
 	ImGui::End();
 }
