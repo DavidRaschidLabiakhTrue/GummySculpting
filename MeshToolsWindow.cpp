@@ -62,3 +62,8 @@ void MeshToolsWindowDefinition::MeshToolsWindow::toggleWindow()
 		windowIsOpen = true;
 	}
 }
+
+bool MeshToolsWindowDefinition::MeshToolsWindow::getWindowStatus()
+{
+	return windowIsOpen;
+}

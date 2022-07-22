@@ -71,3 +71,8 @@ void ToolsWindowDefinition::ToolsWindow::toggleWindow()
 		windowIsOpen = true;
 	}
 }
+
+bool ToolsWindowDefinition::ToolsWindow::getWindowStatus()
+{
+	return windowIsOpen;
+}
