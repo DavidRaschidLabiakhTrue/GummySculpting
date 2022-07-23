@@ -18,6 +18,7 @@ namespace MeshToolsWindowDefinition
 
 		void build();
 		void toggleWindow();
+		bool getWindowStatus();
 	};
 }
 

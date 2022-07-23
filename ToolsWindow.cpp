@@ -25,28 +25,28 @@ void ToolsWindowDefinition::ToolsWindow::build()
 	static bool checkbox3 = false;		//Edit Here
 	static bool checkbox4 = false;		//Edit Here
 
+	ImGui::SetNextWindowSize(ImVec2(330, 380));
+
+	ImGuiWindowFlags window_flags = 0
+		| ImGuiWindowFlags_NoResize
+		| ImGuiWindowFlags_NoScrollbar
+		;
+
 	if (windowIsOpen) 
 	{
-		if (!ImGui::Begin("Brush Tools", &windowIsOpen, ImGuiWindowFlags_NoCollapse))
+		if (!ImGui::Begin("Brush Tools", &windowIsOpen, window_flags))
 		{
 			ImGui::End();
 		}
 		else
 		{
-			ImGui::LabelText("", "Size");
-			ImGui::SliderFloat("Brush Radius Slider", &floatSlider, 0.f,2.0f);
-			ImGui::SliderInt("Integer Slider", &integerSlider, 0, 100);
-			ImGui::LabelText("", "Color");
-			ImGui::ColorEdit4("Color Picker", rgba);
-
-			ImGui::LabelText("", "Boolean Input");
-			ImGui::Checkbox("Checkbox 1", &checkbox1);
-			ImGui::SameLine();
-			ImGui::Checkbox("Checkbox 2", &checkbox2);
-			ImGui::Checkbox("Checkbox 3", &checkbox3);
-			ImGui::SameLine();
-			ImGui::Checkbox("Checkbox 4", &checkbox4);
-			ImGui::SameLine();
+			ImGui::LabelText("", "Brush Size");
+			ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(ImColor(13, 125, 184)));
+			ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(ImColor(150, 20, 20)));
+			ImGui::SliderFloat(" ", &floatSlider, 0.f,2.0f);
+			ImGui::PopStyleColor(2);
+			ImGui::LabelText("", "Brush Color");
+			ImGui::ColorPicker3("", rgba);
 
 			ColorSlider_Color_Values[0] = rgba[0] != 0 ? rgba[0] : ColorSlider_Color_Values[0];
 			ColorSlider_Color_Values[1] = rgba[1] != 0 ? rgba[1] : ColorSlider_Color_Values[1];
@@ -70,4 +70,9 @@ void ToolsWindowDefinition::ToolsWindow::toggleWindow()
 	{
 		windowIsOpen = true;
 	}
+}
+
+bool ToolsWindowDefinition::ToolsWindow::getWindowStatus()
+{
+	return windowIsOpen;
 }

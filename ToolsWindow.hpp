@@ -19,6 +19,7 @@ namespace ToolsWindowDefinition
 
 		void build();
 		void toggleWindow();
+		bool getWindowStatus();
 	};
 
 	extern v4 ColorSlider_Color_Values;

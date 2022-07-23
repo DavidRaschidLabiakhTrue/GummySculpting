@@ -1,6 +1,9 @@
+#include<windows.h>
 #include "Toolbar.hpp"
 
 using namespace TopBarDefinition;
+
+static unsigned int buttonDelay = 3000; // 3 seconds
 
 static float toolbarHeight = 65;
 static float buttonHeight = 30;
@@ -33,7 +36,7 @@ ToolbarDefinition::Toolbar::~Toolbar()
 void toggleTrue()
 {
 	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(ImColor(255, 255, 255)));
-	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(250, 20, 20)));
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(150, 20, 20)));
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(150, 20, 20)));
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(0, 0, 0)));
 }
@@ -43,7 +46,7 @@ void toggleFalse()
 	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(ImColor(255, 255, 255)));
 	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(13, 125, 184)));
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(13, 100, 150)));
-	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(0, 0, 0)));
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(150, 20, 20)));
 }
 //=========================================================
 
@@ -232,55 +235,6 @@ void InflateToggleButton()
 	ImGui::SameLine();
 }
 
-void SimpleSubdivToggleButton()
-{
-	int pushedColors = 0;
-
-	if (isSimpleSubToggled)
-	{
-		toggleTrue();
-		pushedColors += 4;
-	}
-	else
-	{
-		toggleFalse();
-		pushedColors += 4;
-	}
-	if (ImGui::Button("Simple Subdivide", ImVec2(buttonWidth2, buttonHeight)))
-	{
-		resetToggleButtons();
-		isSimpleSubToggled = !isSimpleSubToggled;
-		MainDirectiveDefinition::Directives.push_back({ "mesh", "simplesubdivide", "1" });
-	};
-	ImGui::PopStyleColor(pushedColors);
-	ImGui::SameLine();
-}
-
-
-void loopToggleButton()
-{
-	int pushedColors = 0;
-
-	if (isLoopToggled)
-	{
-		toggleTrue();
-		pushedColors += 4;
-	}
-	else
-	{
-		toggleFalse();
-		pushedColors += 4;
-	}
-	if (ImGui::Button("Loop Subdivide", ImVec2(buttonWidth2, buttonHeight)))
-	{
-		resetToggleButtons();
-		isLoopToggled = !isLoopToggled;
-		MainDirectiveDefinition::Directives.push_back({ "mesh", "loopsubdivide", "1" });
-	};
-	ImGui::PopStyleColor(pushedColors);
-	ImGui::SameLine();
-}
-
 void TessellationToggleButton()
 {
 	int pushedColors = 0;
@@ -304,6 +258,59 @@ void TessellationToggleButton()
 	ImGui::SameLine();
 }
 
+void SimpleSubdivToggleButton()
+{
+	int pushedColors = 0;
+
+	if (isSimpleSubToggled)
+	{
+		toggleTrue();
+		pushedColors += 4;
+	}
+	else
+	{
+		toggleFalse();
+		pushedColors += 4;
+	}
+	if (ImGui::Button("Simple Subdivide", ImVec2(buttonWidth2, buttonHeight)))
+	{
+		isSimpleSubToggled = true;
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "simplesubdivide", "1" });
+		Sleep(buttonDelay);
+		isSimpleSubToggled = false;
+	};
+	ImGui::PopStyleColor(pushedColors);
+
+	ImGui::SameLine();
+}
+
+
+void loopToggleButton()
+{
+	int pushedColors = 0;
+
+	if (isLoopToggled)
+	{
+		toggleTrue();
+		pushedColors += 4;
+	}
+	else
+	{
+		toggleFalse();
+		pushedColors += 4;
+	}
+	if (ImGui::Button("Loop Subdivide", ImVec2(buttonWidth2, buttonHeight)))
+	{
+		isLoopToggled = true;
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "loopsubdivide", "1" });
+		Sleep(buttonDelay);
+		isLoopToggled = false;
+	};
+	ImGui::PopStyleColor(pushedColors);
+	ImGui::SameLine();
+}
+
+
 void DecimationToggleButton()
 {
 	int pushedColors = 0;
@@ -319,9 +326,10 @@ void DecimationToggleButton()
 	}
 	if (ImGui::Button("Decimation", ImVec2(buttonWidth3, buttonHeight)))
 	{
-		resetToggleButtons();
-		isDecimateToggled = !isDecimateToggled;
+		isDecimateToggled = true;
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
+		Sleep(buttonDelay);
+		isDecimateToggled = false;
 	};
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
@@ -365,7 +373,6 @@ void OctreeVisualizeToggleButton()
 	}
 	if (ImGui::Button("Visualize Octree", ImVec2(buttonWidth2, buttonHeight)))
 	{
-		resetToggleButtons();
 		isOctreeToggled = !isOctreeToggled;
 		MainDirectiveDefinition::Directives.push_back({ "octree", "visualize"});
 	};
@@ -393,7 +400,7 @@ void ToolbarDefinition::Toolbar::build()
 
 	ImGui::Text("Brushes");
 	ImGui::SameLine();
-	ImGui::Dummy(ImVec2(545, 0.0f));
+	ImGui::Dummy(ImVec2(665, 0.0f)); //Change here if more brushes are added
 	ImGui::SameLine();
 	ImGui::Text("Operations");
 
@@ -404,11 +411,11 @@ void ToolbarDefinition::Toolbar::build()
 	SmoothedColorToggleButton();
 	NoiseToggleButton();
 	InflateToggleButton();
-	ImGui::Dummy(ImVec2(4, 0.0f)); //Change here if more brushes are added
+	TessellationToggleButton();
+	ImGui::Dummy(ImVec2(6, 0.0f)); //Change here if more brushes are added
 	ImGui::SameLine();
 	SimpleSubdivToggleButton();
 	loopToggleButton();
-	TessellationToggleButton();
 	DecimationToggleButton();
 	SelectorToggleButton();
 	OctreeVisualizeToggleButton();

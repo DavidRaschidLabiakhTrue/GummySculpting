@@ -66,6 +66,15 @@ void TopBarDefinition::TopBar::build()
 				MainDirectiveDefinition::Directives.emplace_back(buildCommand);
 			}
 		}
+
+		ImGui::MenuItem("-----------", "", false, false); //dummy
+
+		ImGui::MenuItem("Preferences");
+
+		if (ImGui::MenuItem("Exit"))
+		{
+			exit(0);
+		}
 		ImGui::EndMenu();
 	}
 	if (ImGui::BeginMenu("Edit"))
@@ -86,6 +95,17 @@ void TopBarDefinition::TopBar::build()
 	}
 	if (ImGui::BeginMenu("View"))
 	{
+		if (ImGui::MenuItem("Mesh Tools","",meshToolsWindow.getWindowStatus()))
+		{
+			meshToolsWindow.toggleWindow();
+			//MainDirectiveDefinition::Directives.push_back({ "settings", "toggle" });
+		}
+		if (ImGui::MenuItem("Brush Tools","",toolsWindow.getWindowStatus()))
+		{
+			toolsWindow.toggleWindow();
+			//MainDirectiveDefinition::Directives.push_back({ "settings", "toggle" });
+		}
+		ImGui::MenuItem("-----------", "", false, false); //dummy
 		ImGui::MenuItem("Reset Camera");
 
 		if (ImGui::MenuItem("Toggle Wireframe"))
@@ -95,20 +115,7 @@ void TopBarDefinition::TopBar::build()
 
 		ImGui::EndMenu();
 	}
-	if (ImGui::BeginMenu("Settings"))
-	{
-		if (ImGui::MenuItem("Mesh Tools"))
-		{
-			meshToolsWindow.toggleWindow();
-			//MainDirectiveDefinition::Directives.push_back({ "settings", "toggle" });
-		}
-		if (ImGui::MenuItem("Brush Tools"))
-		{
-			toolsWindow.toggleWindow();
-			//MainDirectiveDefinition::Directives.push_back({ "settings", "toggle" });
-		}
-		ImGui::EndMenu();
-	}
+	
 	if (ImGui::BeginMenu("Help"))
 	{
 		if (ImGui::MenuItem("Debug Console"))
