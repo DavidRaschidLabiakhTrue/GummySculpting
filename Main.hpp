@@ -84,7 +84,7 @@ class MainProgram
 
 	private:
 
-
+		void cleanUpTime(); // clean up all program resources.
 
 		void checkDirectives();
 		void processDirectives();

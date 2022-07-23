@@ -91,6 +91,12 @@ Window::~Window()
 
 }
 
+void Window_Class::Window::cleanUp()
+{
+	glfwDestroyWindow(this->winptr);
+	glfwTerminate();
+}
+
 void Window::setGFLWCallBacks()
 {
 	glfwSetFramebufferSizeCallback(winptr, Window_CallBackFunctions::framebuffer_size_callback);

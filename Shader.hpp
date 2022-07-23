@@ -39,6 +39,8 @@ namespace ShaderDefinition
 
 			void uploadActiveMeshBoolToGPU(bool isActive);
 
+			void cleanUp();
+
 			string name; // name of shader for debugging
 			
 		protected:
@@ -61,6 +63,7 @@ namespace ShaderDefinition
 	extern std::uniform_real_distribution<float> ColorDistribution;
 
 	extern void compileGlobalShaders();
+	extern void deleteGlobalShaders();
 }
 
 #endif

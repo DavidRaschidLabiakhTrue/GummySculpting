@@ -39,8 +39,9 @@ namespace Window_Class
 			Empty_Construct Window();
 			Construct Window(bool trueConstructor);
 			Deconstruct ~Window();
-
-		Public_Variables
+			
+			void cleanUp();
+		
 
 			double scroll_val = 0; // holds the scroll value.
 			bool canRender = true;

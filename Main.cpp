@@ -24,7 +24,7 @@ void handleAtExit()
 bool exitAutoSave = false;
 void autoSave(MainProgram &mainProgram)
 {
-    while (!exitAutoSave)
+    while (!exitAutoSave && mainProgram.renderer.thereIsMeshes())
     {
         int timeSlept = 0;
         while (!exitAutoSave && timeSlept < 500)
@@ -154,6 +154,10 @@ int MainProgram::ProgramCycle()
         eventQuery(); // update glfw in conjunction with opengl
     }
 
+	// this is the end of the program.
+
+	// clean up time
+	cleanUpTime();
     return 0;
 }
 
@@ -191,6 +195,28 @@ void MainProgram::autoSaveCopy()
 		}
 
     }
+}
+
+void MainProgram::cleanUpTime()
+{
+	if (renderer.thereIsMeshes())
+	{
+		for (auto iter = renderer.meshes.begin(); iter != renderer.meshes.end(); ++iter)
+		{
+			(*iter).cleanUpMesh();
+		}
+		const auto tot = renderer.meshes.size();
+
+		for (auto ind = 0; ind < tot; ind++)
+		{
+			renderer.meshes.pop_back();
+		}
+	}
+
+
+	deleteGlobalShaders(); // tell the gpu to release all shader programs now.
+	win.cleanUp(); // time to clean up window.
+
 }
 
 void MainProgram::checkDirectives()
