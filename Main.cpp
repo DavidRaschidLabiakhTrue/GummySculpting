@@ -166,7 +166,7 @@ int MainProgram::ProgramCycle()
         autoSaveCopy();
 
         TimeGateDefinition::tick(); // global time delta checker
-
+		parseKeyCommands();
         queryMechanics(); // query for input
 
         checkDirectives(); // check for directives
@@ -666,6 +666,38 @@ void MainProgram::checkDebugConsole()
     }
 
     gui.buildGuiFrame();
+}
+
+void MainProgram::parseKeyCommands()
+{
+	if (CheckKeyHeld(GLFW_KEY_LEFT_CONTROL))
+	{
+		if (CheckKeyHeld(GLFW_KEY_Z) && undoLock == false && CheckKeyHeld(GLFW_KEY_LEFT_SHIFT) == false)
+		{
+			if (renderer.thereIsMeshes())
+			{
+				say "Undoing From Key Command" done;
+				renderer.activeMesh->undoHistory();
+			}
+
+			undoLock = true;
+		}
+		else if (CheckKeyHeld(GLFW_KEY_Z) && redoLock == false && CheckKeyHeld(GLFW_KEY_LEFT_SHIFT) == true)
+		{
+			if (renderer.thereIsMeshes())
+			{
+				say "Redoing From Key Command" done;
+				renderer.activeMesh->redoHistory();
+			}
+
+			redoLock = true;
+		}
+	}
+	else if (CheckKeyReleased(GLFW_KEY_LEFT_CONTROL))
+	{
+		undoLock = false;
+		redoLock = false;
+	}
 }
 
 void MainProgram::updateMeshes()

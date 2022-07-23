@@ -115,7 +115,7 @@ class MainProgram
 		void draw2D(); // draw gui and other 2d components
 		void checkDebugConsole();
 
-
+		void parseKeyCommands(); // I just don't have the energy to program an indepth class to do this.
 		void buildGuiFrame();
 
 		void updateMeshes();
@@ -142,6 +142,8 @@ class MainProgram
 		TimeGate updateGate = TimeGate(10.0f); // need to limit the amount of times a mesh is being sent from the CPU to the GPU.
 
 
+		bool undoLock = false;
+		bool redoLock = false;
 };
 
 
