@@ -122,40 +122,7 @@ int main(int argc, char **argv)
 
 void MainProgram::parseCommandLineArguments(StringList &arguments)
 {
-    string parser = "";
-    if (arguments.size() == 0)
-    {
-        arguments.emplace_back("smoothSphere.gum"); // default argument
-    }
-    else
-    {
-        foreach (arg, arguments)
-        {
-            int argSize = (int)arg.size();
 
-            if (argSize < 4)
-            {
-                continue;
-            }
-            else
-            {
-            }
-        }
-    }
-
-    forall(strArg, arguments)
-    { // check if string can even be a .gum or .obj
-        if (strArg.size() > 4)
-        {
-            parser = strArg.substr(strArg.size() - 4, strArg.size());
-
-            if (parser == ".gum" || parser == ".obj")
-            {
-                renderer.loadMeshFromFile(strArg);
-            }
-            parser.clear();
-        }
-    }
 }
 int MainProgram::ProgramCycle()
 {
@@ -216,9 +183,13 @@ void MainProgram::autoSaveCopy()
 {
     if (doAutoSave)
     {
-        verticesCopy = renderer.getActiveMesh()->vertices;
-        trianglesCopy = renderer.getActiveMesh()->triangles;
-        doAutoSave = false;
+		if (renderer.thereIsMeshes())
+		{
+			verticesCopy = renderer.getActiveMesh()->vertices;
+			trianglesCopy = renderer.getActiveMesh()->triangles;
+			doAutoSave = false;
+		}
+
     }
 }
 
@@ -587,13 +558,17 @@ void MainProgram::preprocess(StringList &arguments)
 
     loadResources();
 
-    generateMaps();
+    //generateMaps();
     bindGraphicsDataToGPU();
 }
 
 void MainProgram::bindGraphicsDataToGPU()
 {
-    renderer.setUpMeshResources();
+	if (renderer.thereIsMeshes())
+	{
+		renderer.setUpMeshResources();
+	}
+		
 }
 void MainProgram::generateMaps()
 {
