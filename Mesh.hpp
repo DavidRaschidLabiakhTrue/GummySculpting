@@ -8,7 +8,7 @@
 
 
 #include "Octree.hpp"
-#include "Decimation.hpp"
+#include "Remesh.hpp"
 
 #include "MeshChangeLog.hpp"
 
@@ -30,6 +30,7 @@ namespace MeshDefinition
 
 	using namespace OctreeDefinition;
 	using namespace _Decimation;
+	using namespace _Remesh;
 	using namespace MeshChangeLogDefinition;
 
 	using UndoRedo_::UndoRedo;
@@ -41,7 +42,7 @@ namespace MeshDefinition
 
 	extern int MeshIDTracker;
 
-	class Mesh : public Decimation, public UndoRedo
+	class Mesh : public Remesh, public UndoRedo
 	{
 		public:
 			Mesh();
