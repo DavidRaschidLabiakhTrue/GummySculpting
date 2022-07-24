@@ -132,7 +132,7 @@ namespace UndoRedo_
 		UndoMap changedVertices; // map containing the total of new positions changed to in a stroke.
 
 		bool needToStore = false;
-		bool verboseUndoRedo = true;
+		bool verboseUndoRedo = false;
 		HistoryList history;
 		HistoryIndexController stepTracker;
 

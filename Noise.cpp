@@ -32,16 +32,11 @@ void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference 
 
 	int seed = 0;
 	srand(static_cast<unsigned int>(time(NULL)));
+	const float conversionConstant = 3.14159f / 180.0f; // precompute the const
 	forall(element, cMesh.currentVertices)
 	{
 		float r;
 		seed++;
-		// element.first is an id value that accesses the vertices of any vertice we collected from octree
-		// element.second is the vertice itself copied.
-		//
-		// // See smoothing and coloring
-		//
-		//cMesh.vertices[element.first] = ... // Apply the algo here.
 		if (seed % 2 == 0)
 		{
 			r = RandomDegree(80.0, 100.0);
@@ -49,13 +44,9 @@ void Sculpting::Noising::applyNoise(MeshReference cMesh, SculptPayloadReference 
 		else {
 			r = RandomDegree(260.0, 280.0);
 		}
-		r = (r * float(3.14159)) / 180;
-		float randomNum = sin(r);
+		float randomNum = sin(r * conversionConstant);
 
-		cMesh.vertices[element.first].position.x += (randomNum * cMesh.vertices[element.first].normal.x) / 100;
-		cMesh.vertices[element.first].position.y += (randomNum * cMesh.vertices[element.first].normal.y) / 100;
-		cMesh.vertices[element.first].position.z += (randomNum * cMesh.vertices[element.first].normal.z) / 100;
-
+		cMesh.vertices[element.first].position += payload.polarity * (randomNum * cMesh.vertices[element.first].normal) * 0.01f; // multiplication is faster than division 0.01 == 1/100
 
 	}
 

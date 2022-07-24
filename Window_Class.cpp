@@ -8,11 +8,14 @@ namespace Window_Class
 		Window* ActiveWindow = UnassignedPTR;
 		WinPtr ActiveWindowPTR = UnassignedPTR;
 		InputBuffer inputBuffer = InputBuffer();
+		bool capsLockCheck = false;
+
 	}
 
 	// implementation of GLFW callback functions.
 	namespace Window_CallBackFunctions
 	{
+		bool forceLock = true;
 		void framebuffer_size_callback(GLFWwindow* win, int width, int height)
 		{
 			WindowGlobal::ActiveWindow->canRender = (width == 0 or height == 0) ? false : true;
@@ -31,6 +34,11 @@ namespace Window_Class
 			{
 
 				WindowGlobal::inputBuffer.push_back(key);
+
+			}
+			if (key == GLFW_KEY_CAPS_LOCK && action == GLFW_PRESS)
+			{
+				WindowGlobal::capsLockCheck = !WindowGlobal::capsLockCheck; // flip it
 
 			}
 		}

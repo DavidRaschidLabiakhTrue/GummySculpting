@@ -26,7 +26,7 @@ void Sculpting::StrokingDirac::applyStrokeDirac(MeshReference cMesh, SculptPaylo
 
 		const float dist = glm::distance((*element).second.position, payload.hit) / 60.0f;
 
-		(*element).second.position += glm::sqrt(dist) * scale * (*element).second.normal;
+		(*element).second.position += payload.polarity * glm::sqrt(dist) * scale * (*element).second.normal;
 
     }
 

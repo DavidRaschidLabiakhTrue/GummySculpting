@@ -47,7 +47,7 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
 			this->payload.direction = this->direction;
 			return;
 		}
-
+		payload.modifyPolarity();
 		currentDir = direction; // update the current direction
 
 		cMesh.needToStore = false;

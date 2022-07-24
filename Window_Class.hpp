@@ -73,6 +73,7 @@ namespace Window_Class
 		extern Window* ActiveWindow;
 		extern WinPtr ActiveWindowPTR; // the window ptr everything else may access.
 		extern InputBuffer inputBuffer;
+		extern bool capsLockCheck;
 	}
 	namespace winGB = WindowGlobal;
 }

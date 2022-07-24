@@ -24,6 +24,7 @@ void handleAtExit()
 bool exitAutoSave = false;
 void autoSave(MainProgram &mainProgram)
 {
+	
     while (!exitAutoSave && mainProgram.renderer.thereIsMeshes())
     {
         int timeSlept = 0;
@@ -42,7 +43,7 @@ void autoSave(MainProgram &mainProgram)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
-
+		say "Auto Save Initiating" done;
         ofstream outfile;
         outfile.open(".autoSave.gum");
 
@@ -387,11 +388,13 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
             renderer.getActiveMesh()->undoHistory();
             renderer.getActiveMesh()->computeNormals();
             renderer.getActiveMesh()->rebuildOctree();
+			renderer.getActiveMesh()->needToRefresh = true;
             break;
         case REDO:
             renderer.getActiveMesh()->redoHistory();
             renderer.getActiveMesh()->computeNormals();
             renderer.getActiveMesh()->rebuildOctree();
+			renderer.getActiveMesh()->needToRefresh = true;
             break;
         case BEGINSELECT:
             say "Beginning Switch" done;

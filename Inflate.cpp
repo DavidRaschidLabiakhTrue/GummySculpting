@@ -21,7 +21,7 @@ void Sculpting::Inflate::applyInflate(MeshReference cMesh, SculptPayloadReferenc
 		// // See smoothing and coloring
 		//
 		//cMesh.vertices[element.first] = ... // Apply the algo here.
-		element.second.position += element.second.normal / 100.0f;
+		element.second.position += payload.polarity * element.second.normal / 100.0f;
 	}
 	
 	Algos::applySmoothAndApplyCurrentVerticesToMesh(cMesh, 1);

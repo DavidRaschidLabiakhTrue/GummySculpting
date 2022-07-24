@@ -25,3 +25,15 @@ void SculptPayloadDefinition::SculptPayload::reverseDir()
 {
 	this->rDir = direction * -1.0f;
 }
+
+void SculptPayloadDefinition::SculptPayload::modifyPolarity()
+{
+	if (capsLockCheck == true)
+	{
+		this->polarity = -1.0f;
+	}
+	else
+	{
+		this->polarity = 1.0f;
+	}
+}
