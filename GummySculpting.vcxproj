@@ -219,7 +219,6 @@
     <ClCompile Include="OrbitArray.cpp" />
     <ClCompile Include="OrbitRing.cpp" />
     <ClCompile Include="RayCasting.cpp" />
-    <ClCompile Include="Remesh.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="SamplerPayload.cpp" />
     <ClCompile Include="SculptAlgos.cpp" />
@@ -313,7 +312,6 @@
     <ClInclude Include="OrbitArray.hpp" />
     <ClInclude Include="OrbitRing.hpp" />
     <ClInclude Include="RayCasting.hpp" />
-    <ClInclude Include="Remesh.hpp" />
     <ClInclude Include="Sampler.hpp" />
     <ClInclude Include="SamplerPayload.hpp" />
     <ClInclude Include="SculptAlgos.hpp" />

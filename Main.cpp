@@ -379,9 +379,9 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
             renderer.getActiveMesh()->needToRefresh = true;
             break;
         case REMESH:
-            renderer.getActiveMesh()->remesh(1);
-            renderer.getActiveMesh()->computeNormals();
-            renderer.getActiveMesh()->needToRefresh = true;
+            // renderer.getActiveMesh()->remesh(1);
+            // renderer.getActiveMesh()->computeNormals();
+            // renderer.getActiveMesh()->needToRefresh = true;
             break;
         case UNDO:
             renderer.getActiveMesh()->undoHistory();
