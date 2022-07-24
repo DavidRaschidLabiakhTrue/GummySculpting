@@ -278,7 +278,7 @@ void SimpleSubdivToggleButton()
 	{
 		isSimpleSubToggled = true;
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "simplesubdivide", "1" });
-		Sleep(buttonDelay);
+		// Sleep(buttonDelay);
 		isSimpleSubToggled = false;
 	};
 	ImGui::PopStyleColor(pushedColors);
@@ -305,7 +305,7 @@ void loopToggleButton()
 	{
 		isLoopToggled = true;
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "loopsubdivide", "1" });
-		Sleep(buttonDelay);
+		// Sleep(buttonDelay);
 		isLoopToggled = false;
 	};
 	ImGui::PopStyleColor(pushedColors);
@@ -330,7 +330,7 @@ void DecimationToggleButton()
 	{
 		isDecimateToggled = true;
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
-		Sleep(buttonDelay);
+		// Sleep(buttonDelay);
 		isDecimateToggled = false;
 	};
 	ImGui::PopStyleColor(pushedColors);
@@ -353,8 +353,14 @@ void RemeshToggleButton()
 	if (ImGui::Button("Remesh", ImVec2(buttonWidth3, buttonHeight)))
 	{
 		isDecimateToggled = true;
-		MainDirectiveDefinition::Directives.push_back({ "mesh", "remesh" });
-		Sleep(buttonDelay);
+		// MainDirectiveDefinition::Directives.push_back({ "mesh", "remesh" });
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "loopsubdivide", "1" });
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
+		// Sleep(buttonDelay);
 		isRemeshToggled = false;
 	};
 	ImGui::PopStyleColor(pushedColors);

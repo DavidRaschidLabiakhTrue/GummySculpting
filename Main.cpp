@@ -121,7 +121,6 @@ int main(int argc, char **argv)
 
 void MainProgram::parseCommandLineArguments(StringList &arguments)
 {
-
 }
 int MainProgram::ProgramCycle()
 {
@@ -132,7 +131,7 @@ int MainProgram::ProgramCycle()
         autoSaveCopy();
 
         TimeGateDefinition::tick(); // global time delta checker
-		parseKeyCommands();
+        parseKeyCommands();
         queryMechanics(); // query for input
 
         checkDirectives(); // check for directives
@@ -153,10 +152,10 @@ int MainProgram::ProgramCycle()
         eventQuery(); // update glfw in conjunction with opengl
     }
 
-	// this is the end of the program.
+    // this is the end of the program.
 
-	// clean up time
-	cleanUpTime();
+    // clean up time
+    cleanUpTime();
     return 0;
 }
 
@@ -184,45 +183,43 @@ void MainProgram::autoSaveCopy()
 {
     if (doAutoSave)
     {
-		if (renderer.thereIsMeshes())
-		{
-			verticesCopy = renderer.getActiveMesh()->vertices;
-			trianglesCopy = renderer.getActiveMesh()->triangles;
-			doAutoSave = false;
-		}
-
+        if (renderer.thereIsMeshes())
+        {
+            verticesCopy = renderer.getActiveMesh()->vertices;
+            trianglesCopy = renderer.getActiveMesh()->triangles;
+            doAutoSave = false;
+        }
     }
 }
 
 void MainProgram::cleanUpTime()
 {
-	if (renderer.thereIsMeshes())
-	{
-		for (auto iter = renderer.meshes.begin(); iter != renderer.meshes.end(); ++iter)
-		{
-			(*iter).cleanUpMesh();
-		}
-		const auto tot = renderer.meshes.size();
+    if (renderer.thereIsMeshes())
+    {
+        for (auto iter = renderer.meshes.begin(); iter != renderer.meshes.end(); ++iter)
+        {
+            (*iter).cleanUpMesh();
+        }
+        const auto tot = renderer.meshes.size();
 
-		for (auto ind = 0; ind < tot; ind++)
-		{
-			renderer.meshes.pop_back();
-		}
-	}
+        for (auto ind = 0; ind < tot; ind++)
+        {
+            renderer.meshes.pop_back();
+        }
+    }
 
-
-	deleteGlobalShaders(); // tell the gpu to release all shader programs now.
-	win.cleanUp(); // time to clean up window.
-
+    deleteGlobalShaders(); // tell the gpu to release all shader programs now.
+    win.cleanUp();         // time to clean up window.
 }
 
 void MainProgram::checkDirectives()
 {
-    if (Directives.size() != 0)
+    while (Directives.size() != 0)
     {
         // say "Directive Detected" done;
         processDirectives();
-        Directives.clear();
+        Directives.erase(Directives.begin());
+        // Directives.clear();
         // say "Directive Exhausted" done;
     }
 }
@@ -584,17 +581,16 @@ void MainProgram::preprocess(StringList &arguments)
 
     loadResources();
 
-    //generateMaps();
+    // generateMaps();
     bindGraphicsDataToGPU();
 }
 
 void MainProgram::bindGraphicsDataToGPU()
 {
-	if (renderer.thereIsMeshes())
-	{
-		renderer.setUpMeshResources();
-	}
-		
+    if (renderer.thereIsMeshes())
+    {
+        renderer.setUpMeshResources();
+    }
 }
 void MainProgram::generateMaps()
 {
@@ -670,34 +666,34 @@ void MainProgram::checkDebugConsole()
 
 void MainProgram::parseKeyCommands()
 {
-	if (CheckKeyHeld(GLFW_KEY_LEFT_CONTROL))
-	{
-		if (CheckKeyHeld(GLFW_KEY_Z) && undoLock == false && CheckKeyHeld(GLFW_KEY_LEFT_SHIFT) == false)
-		{
-			if (renderer.thereIsMeshes())
-			{
-				say "Undoing From Key Command" done;
-				renderer.activeMesh->undoHistory();
-			}
+    if (CheckKeyHeld(GLFW_KEY_LEFT_CONTROL))
+    {
+        if (CheckKeyHeld(GLFW_KEY_Z) && undoLock == false && CheckKeyHeld(GLFW_KEY_LEFT_SHIFT) == false)
+        {
+            if (renderer.thereIsMeshes())
+            {
+                say "Undoing From Key Command" done;
+                renderer.activeMesh->undoHistory();
+            }
 
-			undoLock = true;
-		}
-		else if (CheckKeyHeld(GLFW_KEY_Z) && redoLock == false && CheckKeyHeld(GLFW_KEY_LEFT_SHIFT) == true)
-		{
-			if (renderer.thereIsMeshes())
-			{
-				say "Redoing From Key Command" done;
-				renderer.activeMesh->redoHistory();
-			}
+            undoLock = true;
+        }
+        else if (CheckKeyHeld(GLFW_KEY_Z) && redoLock == false && CheckKeyHeld(GLFW_KEY_LEFT_SHIFT) == true)
+        {
+            if (renderer.thereIsMeshes())
+            {
+                say "Redoing From Key Command" done;
+                renderer.activeMesh->redoHistory();
+            }
 
-			redoLock = true;
-		}
-	}
-	else if (CheckKeyReleased(GLFW_KEY_LEFT_CONTROL))
-	{
-		undoLock = false;
-		redoLock = false;
-	}
+            redoLock = true;
+        }
+    }
+    else if (CheckKeyReleased(GLFW_KEY_LEFT_CONTROL))
+    {
+        undoLock = false;
+        redoLock = false;
+    }
 }
 
 void MainProgram::updateMeshes()
