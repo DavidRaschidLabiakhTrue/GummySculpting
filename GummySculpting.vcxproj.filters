@@ -1009,9 +1009,6 @@
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Inflate">
       <UniqueIdentifier>{3fe6130d-49a3-4a9e-9e9f-afeb89dcbea1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mechanics\Remesh">
-      <UniqueIdentifier>{eba106f0-9ead-4492-880b-abecabaa4432}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Font Include="G:\DL\OpenDyslexic Mono (Windows, MacOS, Linux OTF)\OpenDyslexicMono-Regular.otf">

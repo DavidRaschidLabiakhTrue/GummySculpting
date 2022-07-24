@@ -38,6 +38,15 @@ namespace ShaderDefinition
 
 		CursorShader.compileShader("CursorShader.vert", "CursorShader.frag", "Cursor Shader");
 	}
+    void deleteGlobalShaders()
+    {
+		StandardShader.cleanUp();
+		WireFrameShader.cleanUp();
+		StaticMeshShader.cleanUp();
+		GridShader.cleanUp();
+		CircleShader.cleanUp();
+		CursorShader.cleanUp();
+    }
 }
 
 Usage ShaderDefinition;
@@ -167,6 +176,11 @@ void ShaderDefinition::Shader::uploadRadiusToGPU(const float radius)
 void ShaderDefinition::Shader::uploadActiveMeshBoolToGPU(bool isActive)
 {
 	glUniform1i(ShaderSlotInfo.active.position, isActive);
+}
+
+void ShaderDefinition::Shader::cleanUp()
+{
+	glDeleteProgram(this->id);
 }
 
 void ShaderDefinition::Shader::uploadProjectionMatrixToGPU()

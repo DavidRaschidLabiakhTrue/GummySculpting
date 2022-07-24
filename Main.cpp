@@ -24,7 +24,7 @@ void handleAtExit()
 bool exitAutoSave = false;
 void autoSave(MainProgram &mainProgram)
 {
-    while (!exitAutoSave)
+    while (!exitAutoSave && mainProgram.renderer.thereIsMeshes())
     {
         int timeSlept = 0;
         while (!exitAutoSave && timeSlept < 500)
@@ -121,40 +121,7 @@ int main(int argc, char **argv)
 
 void MainProgram::parseCommandLineArguments(StringList &arguments)
 {
-    string parser = "";
-    if (arguments.size() == 0)
-    {
-        arguments.emplace_back("smoothSphere.gum"); // default argument
-    }
-    else
-    {
-        foreach (arg, arguments)
-        {
-            int argSize = (int)arg.size();
 
-            if (argSize < 4)
-            {
-                continue;
-            }
-            else
-            {
-            }
-        }
-    }
-
-    forall(strArg, arguments)
-    { // check if string can even be a .gum or .obj
-        if (strArg.size() > 4)
-        {
-            parser = strArg.substr(strArg.size() - 4, strArg.size());
-
-            if (parser == ".gum" || parser == ".obj")
-            {
-                renderer.loadMeshFromFile(strArg);
-            }
-            parser.clear();
-        }
-    }
 }
 int MainProgram::ProgramCycle()
 {
@@ -165,7 +132,7 @@ int MainProgram::ProgramCycle()
         autoSaveCopy();
 
         TimeGateDefinition::tick(); // global time delta checker
-
+		parseKeyCommands();
         queryMechanics(); // query for input
 
         checkDirectives(); // check for directives
@@ -186,6 +153,10 @@ int MainProgram::ProgramCycle()
         eventQuery(); // update glfw in conjunction with opengl
     }
 
+	// this is the end of the program.
+
+	// clean up time
+	cleanUpTime();
     return 0;
 }
 
@@ -213,10 +184,36 @@ void MainProgram::autoSaveCopy()
 {
     if (doAutoSave)
     {
-        verticesCopy = renderer.getActiveMesh()->vertices;
-        trianglesCopy = renderer.getActiveMesh()->triangles;
-        doAutoSave = false;
+		if (renderer.thereIsMeshes())
+		{
+			verticesCopy = renderer.getActiveMesh()->vertices;
+			trianglesCopy = renderer.getActiveMesh()->triangles;
+			doAutoSave = false;
+		}
+
     }
+}
+
+void MainProgram::cleanUpTime()
+{
+	if (renderer.thereIsMeshes())
+	{
+		for (auto iter = renderer.meshes.begin(); iter != renderer.meshes.end(); ++iter)
+		{
+			(*iter).cleanUpMesh();
+		}
+		const auto tot = renderer.meshes.size();
+
+		for (auto ind = 0; ind < tot; ind++)
+		{
+			renderer.meshes.pop_back();
+		}
+	}
+
+
+	deleteGlobalShaders(); // tell the gpu to release all shader programs now.
+	win.cleanUp(); // time to clean up window.
+
 }
 
 void MainProgram::checkDirectives()
@@ -587,13 +584,17 @@ void MainProgram::preprocess(StringList &arguments)
 
     loadResources();
 
-    generateMaps();
+    //generateMaps();
     bindGraphicsDataToGPU();
 }
 
 void MainProgram::bindGraphicsDataToGPU()
 {
-    renderer.setUpMeshResources();
+	if (renderer.thereIsMeshes())
+	{
+		renderer.setUpMeshResources();
+	}
+		
 }
 void MainProgram::generateMaps()
 {
@@ -665,6 +666,38 @@ void MainProgram::checkDebugConsole()
     }
 
     gui.buildGuiFrame();
+}
+
+void MainProgram::parseKeyCommands()
+{
+	if (CheckKeyHeld(GLFW_KEY_LEFT_CONTROL))
+	{
+		if (CheckKeyHeld(GLFW_KEY_Z) && undoLock == false && CheckKeyHeld(GLFW_KEY_LEFT_SHIFT) == false)
+		{
+			if (renderer.thereIsMeshes())
+			{
+				say "Undoing From Key Command" done;
+				renderer.activeMesh->undoHistory();
+			}
+
+			undoLock = true;
+		}
+		else if (CheckKeyHeld(GLFW_KEY_Z) && redoLock == false && CheckKeyHeld(GLFW_KEY_LEFT_SHIFT) == true)
+		{
+			if (renderer.thereIsMeshes())
+			{
+				say "Redoing From Key Command" done;
+				renderer.activeMesh->redoHistory();
+			}
+
+			redoLock = true;
+		}
+	}
+	else if (CheckKeyReleased(GLFW_KEY_LEFT_CONTROL))
+	{
+		undoLock = false;
+		redoLock = false;
+	}
 }
 
 void MainProgram::updateMeshes()
