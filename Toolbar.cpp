@@ -21,6 +21,7 @@ static bool isSimpleSubToggled = false;
 static bool isLoopToggled = false;
 static bool isTessellationToggled = false;
 static bool isDecimateToggled = false;
+static bool isRemeshToggled = false;
 static bool isOctreeToggled = false;
 static bool isInflateToggled = false;
 static bool isSelectorToggled = false;
@@ -62,6 +63,7 @@ void resetToggleButtons()
 	isLoopToggled = false;
 	isTessellationToggled = false;
 	isDecimateToggled = false;
+	isRemeshToggled = false;
 	isOctreeToggled = false;
 	isInflateToggled = false;
 	isSelectorToggled = false;
@@ -334,6 +336,31 @@ void DecimationToggleButton()
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
+
+void RemeshToggleButton()
+{
+	int pushedColors = 0;
+	if (isRemeshToggled)
+	{
+		toggleTrue();
+		pushedColors += 4;
+	}
+	else
+	{
+		toggleFalse();
+		pushedColors += 4;
+	}
+	if (ImGui::Button("Remesh", ImVec2(buttonWidth3, buttonHeight)))
+	{
+		isDecimateToggled = true;
+		MainDirectiveDefinition::Directives.push_back({ "mesh", "remesh" });
+		Sleep(buttonDelay);
+		isRemeshToggled = false;
+	};
+	ImGui::PopStyleColor(pushedColors);
+	ImGui::SameLine();
+}
+
 void SelectorToggleButton()
 {
 	int pushedColors = 0;
@@ -417,6 +444,7 @@ void ToolbarDefinition::Toolbar::build()
 	SimpleSubdivToggleButton();
 	loopToggleButton();
 	DecimationToggleButton();
+	RemeshToggleButton();
 	SelectorToggleButton();
 	OctreeVisualizeToggleButton();
 

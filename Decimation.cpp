@@ -38,7 +38,7 @@ void Decimation::decimateMesh(float percentage) DECNOEXCEPT
         }
 
         collapseEdge(edge);
-        parameterizeVertexEdges(edge.first, edgePQ);
+        // parameterizeVertexEdges(edge.first, edgePQ);
         numCulled += 2;
     } while (numCulled < cullTarget && !edgePQ.empty());
 

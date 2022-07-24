@@ -27,7 +27,7 @@ namespace _Remesh
     class Remesh : public Decimation
     {
         public:
-
+        void remesh(int nTimes) REMNOEXCEPT;
     };
 
 } // namespace _Remesh

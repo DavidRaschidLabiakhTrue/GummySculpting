@@ -265,6 +265,9 @@
     <ClCompile Include="Inflate.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Inflate</Filter>
     </ClCompile>
+    <ClCompile Include="Remesh.cpp">
+      <Filter>Mechanics\Remesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -551,6 +554,9 @@
     </ClInclude>
     <ClInclude Include="Inflate.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Inflate</Filter>
+    </ClInclude>
+    <ClInclude Include="Remesh.hpp">
+      <Filter>Mechanics\Remesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

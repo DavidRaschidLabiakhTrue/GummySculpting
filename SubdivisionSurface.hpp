@@ -38,6 +38,7 @@ namespace Subdivision
             bool isVertexOnCrease(KeyData vertexID) SUBNOEXCEPT;
             float getCreaseAngleOfNewVertex(KeyData vertexID) SUBNOEXCEPT;
             void simpleSubdivision4to1(int level = 1, bool octreeRebuild = true, bool refreshDisplay = true, bool isLoop = false) SUBNOEXCEPT;
+            void flipEdge(KeyData v1, KeyData v2) SUBNOEXCEPT;
 
             int vertexOffset;
             float angleLimit = 1.5708f; // Radians, 90 degrees
