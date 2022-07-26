@@ -265,6 +265,9 @@
     <ClCompile Include="Inflate.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Inflate</Filter>
     </ClCompile>
+    <ClCompile Include="Brush.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Brush</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp">
@@ -551,6 +554,9 @@
     </ClInclude>
     <ClInclude Include="Inflate.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Inflate</Filter>
+    </ClInclude>
+    <ClInclude Include="Brush.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Brush</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1002,6 +1008,9 @@
     </Filter>
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Inflate">
       <UniqueIdentifier>{3fe6130d-49a3-4a9e-9e9f-afeb89dcbea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Brush">
+      <UniqueIdentifier>{86823901-18f5-4980-945c-7da76c5ab95d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

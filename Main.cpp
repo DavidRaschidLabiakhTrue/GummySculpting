@@ -543,6 +543,9 @@ void MainProgram::processSculptorCommand(StringList &arguments, int numArgs)
     case DIRAC:
         brush.currentState = BrushState::BrushDirac;
         break;
+    case BRUSH:
+        brush.currentState = BrushState::BrushBrush;
+        break;
     case TESSELLATE:
         brush.currentState = BrushState::BrushTessellate;
         break;

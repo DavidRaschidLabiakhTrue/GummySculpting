@@ -10,6 +10,7 @@
 #include "Tessellate.hpp"
 #include "Inflate.hpp"
 #include "ToolsWindow.hpp"
+#include "Brush.hpp"
 
 using namespace SculptBrushDefinition;
 
@@ -97,6 +98,7 @@ void SculptBrushDefinition::SculptBrush::drawCursor()
 void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 {
     cMesh.Octree::collectTrianglesAroundCollision(payload.radius);
+	// cMesh.collectAroundCollision(payload.radius, true);
 	cMesh.storeUndoAndCurrent(); // save the set of vertices we will operate on and save the vertices we wish to possibly undo to.
 
     switch (this->currentState)
@@ -131,6 +133,9 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 
 	case BrushState::BrushInflate:
 		Inflate::applyInflate(cMesh, payload, 4);
+		break;
+	case BrushState::BrushBrush:
+		Brush::applyBrush(cMesh, payload);
 		break;
 
 	case BrushState::BrushFold:

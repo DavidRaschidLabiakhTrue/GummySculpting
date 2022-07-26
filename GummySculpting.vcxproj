@@ -173,6 +173,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Brush.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraNav.cpp" />
     <ClCompile Include="CameraParameters.cpp" />
@@ -263,6 +264,7 @@
     <ClCompile Include="Window_Class.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Brush.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="CameraNav.hpp" />
     <ClInclude Include="CameraParameters.hpp" />
