@@ -143,6 +143,7 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
 
     case BrushState::BrushTessellate:
         Tessellate::applyTessellate(cMesh, payload);
+		handleDynamicVertexIndexModification();
         break;
 
     // case BrushState::BrushDecimate:

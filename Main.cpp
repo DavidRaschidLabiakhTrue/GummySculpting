@@ -24,11 +24,11 @@ void handleAtExit()
 bool exitAutoSave = false;
 void autoSave(MainProgram &mainProgram)
 {
-	
-    while (!exitAutoSave && mainProgram.renderer.thereIsMeshes())
+
+    while (!exitAutoSave)
     {
         int timeSlept = 0;
-        while (!exitAutoSave && timeSlept < 500)
+        while (!exitAutoSave && timeSlept < 50)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
             timeSlept++;
@@ -43,9 +43,11 @@ void autoSave(MainProgram &mainProgram)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
+
+
 		say "Auto Save Initiating" done;
         ofstream outfile;
-        outfile.open(".autoSave.gum");
+        outfile.open(".autoSave.gum", fstream::out | fstream::trunc);
 
         if (outfile.is_open())
         {
@@ -114,7 +116,7 @@ int main(int argc, char **argv)
 
     say "Main Ending" done;
     exitAutoSave = true;
-    mainProgram.doAutoSave = true;
+    mainProgram.doAutoSave = false;
     mainProgram.autoSaveCopy();
     autoSaveThread.join();
     return 0;
@@ -348,6 +350,7 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
                 renderer.getActiveMesh()->loopSubdivision(stoi(arguments[2]));
                 renderer.getActiveMesh()->computeNormals();
                 renderer.getActiveMesh()->needToRefresh = true;
+                renderer.getActiveMesh()->handleDynamicVertexIndexModification();
             }
             catch (exception &e)
             {
@@ -367,6 +370,7 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
                 renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
                 renderer.getActiveMesh()->computeNormals();
                 renderer.getActiveMesh()->needToRefresh = true;
+                renderer.getActiveMesh()->handleDynamicVertexIndexModification();
             }
             catch (exception &e)
             {
@@ -378,6 +382,7 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
             renderer.getActiveMesh()->decimateMesh();
             renderer.getActiveMesh()->computeNormals();
             renderer.getActiveMesh()->needToRefresh = true;
+            renderer.getActiveMesh()->handleDynamicVertexIndexModification();
             break;
         case REMESH:
             // renderer.getActiveMesh()->remesh(1);
