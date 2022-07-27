@@ -1,8 +1,13 @@
 #include "MeshToolsWindow.hpp"
 
+static float buttonHeight = 30;
+static float buttonWidth = 80;
+static float buttonWidth2 = 124;
+static float buttonWidth3 = 256;
+
 namespace MeshToolsWindowDefinition
 {
-	static bool windowIsOpen = false;
+	static bool windowIsOpen = true;
 }
 
 MeshToolsWindowDefinition::MeshToolsWindow::MeshToolsWindow()
@@ -12,39 +17,85 @@ MeshToolsWindowDefinition::MeshToolsWindow::~MeshToolsWindow()
 {
 }
 
+void insertButtonStyle()
+{
+	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(ImColor(255, 255, 255)));
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(13, 125, 184)));
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(13, 100, 150)));
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(150, 20, 20)));
+}
+
+void deleteButtonStyle()
+{
+	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(ImColor(255, 255, 255)));
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(150, 20, 20)));
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(130, 20, 20)));
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(0, 0, 0)));
+}
+
 void MeshToolsWindowDefinition::MeshToolsWindow::build()
 {
-	static float floatSlider1 = 0.f;	//Edit Here
-	static float floatSlider2 = 0.f;	//Edit Here
-	static int integerSlider1 = 0;		//Edit Here	
-	static int integerSlider2 = 0;		//Edit Here
-	static bool checkbox1 = false;		//Edit Here
-	static bool checkbox2 = false;		//Edit Here
-	static bool checkbox3 = false;		//Edit Here
-	static bool checkbox4 = false;		//Edit Here
+
+	ImGui::SetNextWindowSize(ImVec2(275, 240));
+
+	ImGuiWindowFlags window_flags = 0
+		| ImGuiWindowFlags_NoResize
+		| ImGuiWindowFlags_NoScrollbar
+		| ImGuiWindowFlags_NoCollapse
+		;
 
 	if (windowIsOpen)
 	{
-		if (!ImGui::Begin("Mesh Tools", &windowIsOpen, ImGuiWindowFlags_NoCollapse))
+		if (!ImGui::Begin("Mesh Tools", &windowIsOpen, window_flags))
 		{
 			ImGui::End();
 		}
 		else
 		{
-			ImGui::LabelText("", "Slider Tools");
-			ImGui::SliderFloat("Float Slider Title 1", &floatSlider1, 0.f, 0.1f); 
-			ImGui::SliderFloat("Float Slider Title 2", &floatSlider2, 0.f, 0.1f);
-			ImGui::SliderInt("Integer Slider Title 1", &integerSlider1, 0, 100);
-			ImGui::SliderInt("Integer Slider Title 2", &integerSlider2, 0, 100);
-			ImGui::LabelText("","Boolean Input");
-			ImGui::Checkbox("Checkbox 1", &checkbox1);
+			ImGui::LabelText("", "Insert");
+			insertButtonStyle();
+			ImGui::Button("Bear", ImVec2(buttonWidth, buttonHeight));
+			ImGui::PopStyleColor(4);
 			ImGui::SameLine();
-			ImGui::Checkbox("Checkbox 2", &checkbox2);
-			ImGui::Checkbox("Checkbox 3", &checkbox3);
+			insertButtonStyle();
+			ImGui::Button("Sphere", ImVec2(buttonWidth, buttonHeight));
+			ImGui::PopStyleColor(4);
 			ImGui::SameLine();
-			ImGui::Checkbox("Checkbox 4", &checkbox4);
+			insertButtonStyle();
+			ImGui::Button("Cube", ImVec2(buttonWidth, buttonHeight));
+			ImGui::PopStyleColor(4);
+			insertButtonStyle();
+			ImGui::Button("Star", ImVec2(buttonWidth, buttonHeight));
+			ImGui::PopStyleColor(4);
 			ImGui::SameLine();
-		
+			insertButtonStyle();
+			ImGui::Button("Arrow", ImVec2(buttonWidth, buttonHeight));
+			ImGui::PopStyleColor(4);
+			ImGui::SameLine();
+			insertButtonStyle();
+			ImGui::Button("Ring", ImVec2(buttonWidth, buttonHeight));
+			ImGui::PopStyleColor(4);
+			ImGui::LabelText("", "Other");
+			insertButtonStyle();
+			if (ImGui::Button("Select Mesh", ImVec2(buttonWidth2, buttonHeight)))
+			{
+				MainDirectiveDefinition::Directives.push_back({ "sculptor", "select" });
+			}
+			ImGui::PopStyleColor(4);
+			ImGui::SameLine();
+			insertButtonStyle();
+			if (ImGui::Button("Toggle WireFrame", ImVec2(buttonWidth2, buttonHeight)))
+			{
+				MainDirectiveDefinition::Directives.push_back({ "renderer",  "toggle", "wireframe" });
+			}
+			ImGui::PopStyleColor(4);
+			ImGui::Dummy(ImVec2(0.f, 0.5f));
+			deleteButtonStyle();
+			if (ImGui::Button("Delete Selected Mesh", ImVec2(buttonWidth3, buttonHeight)))
+			{
+				MainDirectiveDefinition::Directives.push_back({ "renderer", "deleteCurrent" });
+			}
+			ImGui::PopStyleColor(4);
 			ImGui::End();
 		}
 	}

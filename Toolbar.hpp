@@ -20,7 +20,7 @@ namespace ToolbarDefinition
 		~Toolbar();
 
 		void build();
-
+		
 		TopBar topBar;
 	};
 }

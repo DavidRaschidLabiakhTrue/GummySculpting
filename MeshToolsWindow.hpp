@@ -9,7 +9,6 @@ namespace MeshToolsWindowDefinition
 {
 	using namespace Window_API;
 
-
 	class MeshToolsWindow
 	{
 	public:
@@ -19,6 +18,8 @@ namespace MeshToolsWindowDefinition
 		void build();
 		void toggleWindow();
 		bool getWindowStatus();
+
+	
 	};
 }
 

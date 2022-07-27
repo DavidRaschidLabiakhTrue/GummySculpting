@@ -25,7 +25,8 @@ static bool isDecimateToggled = false;
 static bool isRemeshToggled = false;
 static bool isOctreeToggled = false;
 static bool isInflateToggled = false;
-static bool isSelectorToggled = false;
+//static bool isSelectorToggled = false;
+
 ToolbarDefinition::Toolbar::Toolbar()
 {
 }
@@ -68,7 +69,7 @@ void resetToggleButtons()
 	isRemeshToggled = false;
 	isOctreeToggled = false;
 	isInflateToggled = false;
-	isSelectorToggled = false;
+	//isSelectorToggled = false;
 }
 
 void StrokeToggleButton()
@@ -376,9 +377,9 @@ void RemeshToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Remesh", ImVec2(buttonWidth3, buttonHeight)))
+	if (ImGui::Button("Remesh", ImVec2(buttonWidth1, buttonHeight)))
 	{
-		isDecimateToggled = true;
+		isRemeshToggled = true;
 		// MainDirectiveDefinition::Directives.push_back({ "mesh", "remesh" });
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "loopsubdivide", "1" });
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
@@ -393,6 +394,7 @@ void RemeshToggleButton()
 	ImGui::SameLine();
 }
 
+/*
 void SelectorToggleButton()
 {
 	int pushedColors = 0;
@@ -415,6 +417,8 @@ void SelectorToggleButton()
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
+*/
+
 
 void OctreeVisualizeToggleButton()
 {
@@ -459,7 +463,7 @@ void ToolbarDefinition::Toolbar::build()
 
 	ImGui::Text("Brushes");
 	ImGui::SameLine();
-	ImGui::Dummy(ImVec2(665, 0.0f)); //Change here if more brushes are added
+	ImGui::Dummy(ImVec2(750, 0.0f)); //Change here if more brushes are added
 	ImGui::SameLine();
 	ImGui::Text("Operations");
 
@@ -478,7 +482,7 @@ void ToolbarDefinition::Toolbar::build()
 	loopToggleButton();
 	DecimationToggleButton();
 	RemeshToggleButton();
-	SelectorToggleButton();
+	//SelectorToggleButton();
 	OctreeVisualizeToggleButton();
 
 	ImGui::End();

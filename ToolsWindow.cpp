@@ -20,16 +20,13 @@ void ToolsWindowDefinition::ToolsWindow::build()
 	static float floatSlider = 1.0f;
 	static int integerSlider = 0;
 	static float rgba[4] = { 0.5, 0.5, 0.5, 1.0f };
-	static bool checkbox1 = false;		//Edit Here
-	static bool checkbox2 = false;		//Edit Here
-	static bool checkbox3 = false;		//Edit Here
-	static bool checkbox4 = false;		//Edit Here
 
 	ImGui::SetNextWindowSize(ImVec2(330, 380));
 
 	ImGuiWindowFlags window_flags = 0
 		| ImGuiWindowFlags_NoResize
 		| ImGuiWindowFlags_NoScrollbar
+		| ImGuiWindowFlags_NoCollapse
 		;
 
 	if (windowIsOpen) 
