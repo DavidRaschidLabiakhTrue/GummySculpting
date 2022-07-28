@@ -92,6 +92,10 @@ void StrokeToggleButton()
 ;		isStrokeToggled = !isStrokeToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "dirac" });
 	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Deforms surface of the mesh");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -115,6 +119,10 @@ void BrushToggleButton()
 		resetToggleButtons();
 ;		isBrushToggled = !isBrushToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "brush" });
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("TBA"); //CHANGE HERE
 	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
@@ -140,6 +148,10 @@ void StrokeSmoothToggleButton()
 		isStrokeSmoothToggled = !isStrokeSmoothToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "stroke" });
 	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Smooths deformation of the mesh");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -163,7 +175,11 @@ void SmoothToggleButton()
 		resetToggleButtons();
 		isSmoothToggled = !isSmoothToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "smooth" });
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Smooths the surface of the mesh");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -187,7 +203,11 @@ void ColorToggleButton()
 		resetToggleButtons();
 		isColorToggled = !isColorToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "color" });
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Adds color to the mesh");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -211,7 +231,11 @@ void SmoothedColorToggleButton()
 		resetToggleButtons();
 		isSmoothedColorToggled = !isSmoothedColorToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "smoothedcolor" });
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Smooths the color(s) of the mesh");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -235,7 +259,11 @@ void NoiseToggleButton()
 		resetToggleButtons();
 		isNoiseToggled = !isNoiseToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "noise" });
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Randomly changes surface of the mesh");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -259,7 +287,11 @@ void InflateToggleButton()
 		resetToggleButtons();
 		isInflateToggled = !isInflateToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "inflate" });
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Inflates area of the mesh");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -282,7 +314,11 @@ void TessellationToggleButton()
 		resetToggleButtons();
 		isTessellationToggled = !isTessellationToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "tessellate" });
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Adds resolution to selected area of the mesh");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -307,7 +343,11 @@ void SimpleSubdivToggleButton()
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "simplesubdivide", "1" });
 		// Sleep(buttonDelay);
 		isSimpleSubToggled = false;
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Adds resolution to the entire mesh");
+	}
 	ImGui::PopStyleColor(pushedColors);
 
 	ImGui::SameLine();
@@ -332,9 +372,12 @@ void loopToggleButton()
 	{
 		isLoopToggled = true;
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "loopsubdivide", "1" });
-		// Sleep(buttonDelay);
 		isLoopToggled = false;
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Adds resolution to the entire mesh without requiring mesh refinement");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -357,9 +400,12 @@ void DecimationToggleButton()
 	{
 		isDecimateToggled = true;
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
-		// Sleep(buttonDelay);
 		isDecimateToggled = false;
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Reduces mesh resolution");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -387,9 +433,13 @@ void RemeshToggleButton()
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
-		// Sleep(buttonDelay);
+	
 		isRemeshToggled = false;
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("TBA"); //CHANGE HERE
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -438,7 +488,11 @@ void OctreeVisualizeToggleButton()
 	{
 		isOctreeToggled = !isOctreeToggled;
 		MainDirectiveDefinition::Directives.push_back({ "octree", "visualize"});
-	};
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("TBA"); //GHANGE HERE
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
