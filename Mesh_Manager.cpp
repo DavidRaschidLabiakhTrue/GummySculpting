@@ -106,7 +106,7 @@ void Mesh_Manager_Definition::Mesh_Manager::switchMesh(SculptPayloadReference pa
 	{
 		return; // there is no point trying to switch meshes if none exist.
 	}
-	
+
 
 
 	v3 closestHit = v3(2000000.0f); // impossible.
@@ -143,7 +143,7 @@ void Mesh_Manager_Definition::Mesh_Manager::switchMesh(SculptPayloadReference pa
 	{
 		say "Mesh Not switched successfully" done;
 	}
-	
+
 
 }
 
@@ -162,6 +162,7 @@ void Mesh_Manager_Definition::Mesh_Manager::deleteCurrent()
 	}
 
 	makeLastMeshActive();
+	activeMesh->rebuildOctree();
 }
 
 void Mesh_Manager::makeLastMeshActive()
