@@ -33,9 +33,17 @@ void deleteButtonStyle()
 	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(0, 0, 0)));
 }
 
+void loadMeshFromButton(string path)
+{
+	vector<string> buildCommand;
+	buildCommand.emplace_back("file");
+	buildCommand.emplace_back("import");
+	buildCommand.emplace_back(path);
+	MainDirectiveDefinition::Directives.emplace_back(buildCommand);
+}
+
 void MeshToolsWindowDefinition::MeshToolsWindow::build()
 {
-
 	ImGui::SetNextWindowSize(ImVec2(275, 240));
 
 	ImGuiWindowFlags window_flags = 0
@@ -54,26 +62,44 @@ void MeshToolsWindowDefinition::MeshToolsWindow::build()
 		{
 			ImGui::LabelText("", "Insert");
 			insertButtonStyle();
-			ImGui::Button("Bear", ImVec2(buttonWidth, buttonHeight));
+			if (ImGui::Button("Bear", ImVec2(buttonWidth, buttonHeight)))
+			{
+				loadMeshFromButton("./Bear.gum");			
+			}
 			ImGui::PopStyleColor(4);
 			ImGui::SameLine();
 			insertButtonStyle();
-			ImGui::Button("Sphere", ImVec2(buttonWidth, buttonHeight));
+			if (ImGui::Button("Sphere", ImVec2(buttonWidth, buttonHeight)))
+			{
+				loadMeshFromButton("./sphere.gum");
+			}
 			ImGui::PopStyleColor(4);
 			ImGui::SameLine();
 			insertButtonStyle();
-			ImGui::Button("Cube", ImVec2(buttonWidth, buttonHeight));
+			if (ImGui::Button("Cube", ImVec2(buttonWidth, buttonHeight)))
+			{
+				loadMeshFromButton("./cube.gum");
+			}
 			ImGui::PopStyleColor(4);
 			insertButtonStyle();
-			ImGui::Button("Star", ImVec2(buttonWidth, buttonHeight));
+			if (ImGui::Button("Plane", ImVec2(buttonWidth, buttonHeight)))
+			{
+				loadMeshFromButton("./plane.gum");
+			}
 			ImGui::PopStyleColor(4);
 			ImGui::SameLine();
 			insertButtonStyle();
-			ImGui::Button("Arrow", ImVec2(buttonWidth, buttonHeight));
+			if (ImGui::Button("Arrow", ImVec2(buttonWidth, buttonHeight)))
+			{
+				loadMeshFromButton("./arrow.gum");
+			}
 			ImGui::PopStyleColor(4);
 			ImGui::SameLine();
 			insertButtonStyle();
-			ImGui::Button("Ring", ImVec2(buttonWidth, buttonHeight));
+			if (ImGui::Button("Ring", ImVec2(buttonWidth, buttonHeight)))
+			{
+				loadMeshFromButton("./ring.gum");
+			}
 			ImGui::PopStyleColor(4);
 			ImGui::LabelText("", "Other");
 			insertButtonStyle();
