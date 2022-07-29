@@ -84,10 +84,10 @@ void SculptBrushDefinition::SculptBrush::querySculpt(MeshReference cMesh)
         if (this->currentState == BrushState::BrushPull)
         {
             Algos::applySmoothAndApplyCurrentVerticesToMesh(cMesh, 2);
-			cMesh.updateAffectedTriangles();
+            cMesh.updateAffectedTriangles();
             cMesh.computeNormals();
             cMesh.storeChanged(); // keep a record of all newly changed vertices.
-			cMesh.needToRefresh = true;
+            cMesh.needToRefresh = true;
         }
         else if (this->currentState != BrushState::BrushPull &&
                  this->currentState != BrushState::BrushExtrude &&
@@ -181,4 +181,12 @@ void SculptBrushDefinition::SculptBrush::applySculpt(MeshReference cMesh)
     payload.wasRun = true;
     cMesh.updateAffectedTriangles();
     cMesh.needToRefresh = true;
+
+    if (this->currentState == BrushState::BrushExtrude ||
+        this->currentState == BrushState::BrushPull)
+    {
+        payload.last = -1;
+		this->currentDir = v3(0.0f);
+        payload.wasRun = false;
+    }
 }
