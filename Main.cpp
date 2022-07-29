@@ -44,8 +44,11 @@ void autoSave(MainProgram &mainProgram)
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
 
-
-		say "Auto Save Initiating" done;
+        if (!mainProgram.renderer.thereIsMeshes())
+        {
+            continue;
+        }
+        say "Auto Save Initiating" done;
         ofstream outfile;
         outfile.open(".autoSave.gum", fstream::out | fstream::trunc);
 
@@ -350,6 +353,7 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
                 renderer.getActiveMesh()->loopSubdivision(stoi(arguments[2]));
                 renderer.getActiveMesh()->computeNormals();
                 renderer.getActiveMesh()->needToRefresh = true;
+                renderer.getActiveMesh()->computeAverageArea();
                 renderer.getActiveMesh()->handleDynamicVertexIndexModification();
             }
             catch (exception &e)
@@ -370,6 +374,7 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
                 renderer.getActiveMesh()->simpleSubdivision4to1(stoi(arguments[2]));
                 renderer.getActiveMesh()->computeNormals();
                 renderer.getActiveMesh()->needToRefresh = true;
+                renderer.getActiveMesh()->computeAverageArea();
                 renderer.getActiveMesh()->handleDynamicVertexIndexModification();
             }
             catch (exception &e)
@@ -382,6 +387,7 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
             renderer.getActiveMesh()->decimateMesh();
             renderer.getActiveMesh()->computeNormals();
             renderer.getActiveMesh()->needToRefresh = true;
+            renderer.getActiveMesh()->computeAverageArea();
             renderer.getActiveMesh()->handleDynamicVertexIndexModification();
             break;
         case REMESH:
@@ -393,13 +399,15 @@ void MainProgram::processMeshCommand(StringList &arguments, int numArgs)
             renderer.getActiveMesh()->undoHistory();
             renderer.getActiveMesh()->computeNormals();
             renderer.getActiveMesh()->rebuildOctree();
-			renderer.getActiveMesh()->needToRefresh = true;
+            renderer.getActiveMesh()->computeAverageArea();
+            renderer.getActiveMesh()->needToRefresh = true;
             break;
         case REDO:
             renderer.getActiveMesh()->redoHistory();
             renderer.getActiveMesh()->computeNormals();
             renderer.getActiveMesh()->rebuildOctree();
-			renderer.getActiveMesh()->needToRefresh = true;
+            renderer.getActiveMesh()->computeAverageArea();
+            renderer.getActiveMesh()->needToRefresh = true;
             break;
         case BEGINSELECT:
             say "Beginning Switch" done;
@@ -545,6 +553,12 @@ void MainProgram::processSculptorCommand(StringList &arguments, int numArgs)
         break;
     case BRUSH:
         brush.currentState = BrushState::BrushBrush;
+        break;
+    case EXTRUDE:
+        brush.currentState = BrushState::BrushExtrude;
+        break;
+    case PULL:
+        brush.currentState = BrushState::BrushPull;
         break;
     case TESSELLATE:
         brush.currentState = BrushState::BrushTessellate;

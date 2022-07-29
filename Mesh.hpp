@@ -74,6 +74,8 @@ namespace MeshDefinition
 			void computeNormals() noexcept;
 			void computeNormalsParallel();
 
+			void computeAverageArea();
+
 			void computeNormalsFromMatrix();
 
 			void recomputeNormalsFromCurrentVertices() noexcept;
@@ -93,6 +95,8 @@ namespace MeshDefinition
 			bool isActive = false;
 
 			string name;
+
+			float avgArea = 0.0f;
 
 			unordered_map<string, variableVariantType> meshVariables;
 

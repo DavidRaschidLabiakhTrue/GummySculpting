@@ -69,6 +69,10 @@ void Octree::updateAffectedTriangles()
  */
 bool OctreeDefinition::Octree::insertTriangleParallel(TriangleID tri) ONOEXCEPT
 {
+    if(tri > triangleToOctantList.size())
+    {
+        return false;
+    }
     // Check if the triangle is in the octree
     if (!Octree::isTriangleInOctantBounds(tri, root))
     {

@@ -176,7 +176,7 @@
       <Filter>3D Objects\Visual Objects</Filter>
     </ClCompile>
     <ClCompile Include="ToolsWindow.cpp">
-      <Filter>GUI\Brush Tools Window</Filter>
+      <Filter>GUI\Tools Window</Filter>
     </ClCompile>
     <ClCompile Include="Noise.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Noise</Filter>
@@ -233,7 +233,7 @@
       <Filter>Mechanics\Sculpting\Sculpting Algos\Tessellate</Filter>
     </ClCompile>
     <ClCompile Include="MeshToolsWindow.cpp">
-      <Filter>GUI\Mesh Tools Windows</Filter>
+      <Filter>GUI\Tools Windows</Filter>
     </ClCompile>
     <ClCompile Include="Cursor.cpp">
       <Filter>3D Objects\Cursor</Filter>
@@ -267,6 +267,12 @@
     </ClCompile>
     <ClCompile Include="Brush.cpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Brush</Filter>
+    </ClCompile>
+    <ClCompile Include="Extrude.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Extrude</Filter>
+    </ClCompile>
+    <ClCompile Include="Pull.cpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Pull</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -454,7 +460,7 @@
       <Filter>Data Structures\Search\Octree\Imple\Vertex Hash</Filter>
     </ClInclude>
     <ClInclude Include="ToolsWindow.hpp">
-      <Filter>GUI\Brush Tools Window</Filter>
+      <Filter>GUI\Tools Window</Filter>
     </ClInclude>
     <ClInclude Include="Noise.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Noise</Filter>
@@ -520,7 +526,7 @@
       <Filter>Mechanics\Sculpting\Sculpting Algos\Tessellate</Filter>
     </ClInclude>
     <ClInclude Include="MeshToolsWindow.hpp">
-      <Filter>GUI\Mesh Tools Windows</Filter>
+      <Filter>GUI\Tools Windows</Filter>
     </ClInclude>
     <ClInclude Include="Cursor.hpp">
       <Filter>3D Objects\Cursor</Filter>
@@ -557,6 +563,12 @@
     </ClInclude>
     <ClInclude Include="Brush.hpp">
       <Filter>Mechanics\Sculpting\Sculpting Algos\Brush</Filter>
+    </ClInclude>
+    <ClInclude Include="Extrude.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Extrude</Filter>
+    </ClInclude>
+    <ClInclude Include="Pull.hpp">
+      <Filter>Mechanics\Sculpting\Sculpting Algos\Pull</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -874,6 +886,9 @@
     <Filter Include="Data Structures\Search\Octree\Imple\Vertex Hash">
       <UniqueIdentifier>{922e571a-1d0a-465a-93ff-b26c001d686c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\Tools Window">
+      <UniqueIdentifier>{2a8cd5ca-aabe-47be-b825-1e17c459c2c3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Noise">
       <UniqueIdentifier>{96014b26-996f-4437-8eab-7af4aef070c8}</UniqueIdentifier>
     </Filter>
@@ -955,6 +970,9 @@
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Tessellate">
       <UniqueIdentifier>{d0d079ed-79d7-4227-b157-f031fb78b756}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\Tools Windows">
+      <UniqueIdentifier>{29cb21a0-3784-44dd-a5af-50ddc39f9179}</UniqueIdentifier>
+    </Filter>
     <Filter Include="3D Objects\Cursor">
       <UniqueIdentifier>{e333eee3-5e8c-4f5f-b268-353ef2cbb054}</UniqueIdentifier>
     </Filter>
@@ -1006,11 +1024,11 @@
     <Filter Include="Mechanics\Sculpting\Sculpting Algos\Brush">
       <UniqueIdentifier>{86823901-18f5-4980-945c-7da76c5ab95d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI\Mesh Tools Windows">
-      <UniqueIdentifier>{29cb21a0-3784-44dd-a5af-50ddc39f9179}</UniqueIdentifier>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Extrude">
+      <UniqueIdentifier>{ab142da6-0bc2-48ec-979a-cd0846d9db5b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI\Brush Tools Window">
-      <UniqueIdentifier>{2a8cd5ca-aabe-47be-b825-1e17c459c2c3}</UniqueIdentifier>
+    <Filter Include="Mechanics\Sculpting\Sculpting Algos\Pull">
+      <UniqueIdentifier>{5a2f7df0-89e5-452b-9357-be538eafe4fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

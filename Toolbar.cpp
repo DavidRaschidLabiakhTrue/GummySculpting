@@ -21,12 +21,13 @@ static bool isSimpleSubToggled = false;
 static bool isLoopToggled = false;
 static bool isTessellationToggled = false;
 static bool isBrushToggled = false;
+static bool isExtrudeToggled = false;
+static bool isPullToggled = false;
 static bool isDecimateToggled = false;
 static bool isRemeshToggled = false;
 static bool isOctreeToggled = false;
 static bool isInflateToggled = false;
-//static bool isSelectorToggled = false;
-
+static bool isSelectorToggled = false;
 ToolbarDefinition::Toolbar::Toolbar()
 {
 }
@@ -65,11 +66,13 @@ void resetToggleButtons()
 	isLoopToggled = false;
 	isTessellationToggled = false;
 	isBrushToggled = false;
+	isExtrudeToggled = false;
+	isPullToggled = false;
 	isDecimateToggled = false;
 	isRemeshToggled = false;
 	isOctreeToggled = false;
 	isInflateToggled = false;
-	//isSelectorToggled = false;
+	isSelectorToggled = false;
 }
 
 void StrokeToggleButton()
@@ -113,8 +116,56 @@ void BrushToggleButton()
 	if (ImGui::Button("Brush", ImVec2(buttonWidth1, buttonHeight)))
 	{
 		resetToggleButtons();
-;		isBrushToggled = !isBrushToggled;
+		isBrushToggled = !isBrushToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "brush" });
+	}
+	ImGui::PopStyleColor(pushedColors);
+	ImGui::SameLine();
+}
+
+void ExtrudeToggleButton()
+{
+	int pushedColors = 0;
+
+	if (isExtrudeToggled)
+	{
+		toggleTrue();
+		pushedColors += 4;
+	}
+	else
+	{
+		toggleFalse();
+		pushedColors += 4;
+	}
+	if (ImGui::Button("Extrude", ImVec2(buttonWidth1, buttonHeight)))
+	{
+		resetToggleButtons();
+		isExtrudeToggled = !isExtrudeToggled;
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "extrude" });
+	}
+	ImGui::PopStyleColor(pushedColors);
+	ImGui::SameLine();
+}
+
+void PullToggleButton()
+{
+	int pushedColors = 0;
+
+	if (isPullToggled)
+	{
+		toggleTrue();
+		pushedColors += 4;
+	}
+	else
+	{
+		toggleFalse();
+		pushedColors += 4;
+	}
+	if (ImGui::Button("Pull", ImVec2(buttonWidth1, buttonHeight)))
+	{
+		resetToggleButtons();
+		isPullToggled = !isPullToggled;
+		MainDirectiveDefinition::Directives.push_back({ "sculptor", "pull" });
 	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
@@ -377,9 +428,9 @@ void RemeshToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Remesh", ImVec2(buttonWidth1, buttonHeight)))
+	if (ImGui::Button("Remesh", ImVec2(buttonWidth3, buttonHeight)))
 	{
-		isRemeshToggled = true;
+		isDecimateToggled = true;
 		// MainDirectiveDefinition::Directives.push_back({ "mesh", "remesh" });
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "loopsubdivide", "1" });
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
@@ -394,7 +445,6 @@ void RemeshToggleButton()
 	ImGui::SameLine();
 }
 
-/*
 void SelectorToggleButton()
 {
 	int pushedColors = 0;
@@ -417,8 +467,6 @@ void SelectorToggleButton()
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
-*/
-
 
 void OctreeVisualizeToggleButton()
 {
@@ -463,12 +511,14 @@ void ToolbarDefinition::Toolbar::build()
 
 	ImGui::Text("Brushes");
 	ImGui::SameLine();
-	ImGui::Dummy(ImVec2(750, 0.0f)); //Change here if more brushes are added
+	ImGui::Dummy(ImVec2(665, 0.0f)); //Change here if more brushes are added
 	ImGui::SameLine();
 	ImGui::Text("Operations");
 
 	StrokeToggleButton();
 	BrushToggleButton();
+	ExtrudeToggleButton();
+	PullToggleButton();
 	//StrokeSmoothToggleButton();
 	SmoothToggleButton();
 	ColorToggleButton();
@@ -482,7 +532,7 @@ void ToolbarDefinition::Toolbar::build()
 	loopToggleButton();
 	DecimationToggleButton();
 	RemeshToggleButton();
-	//SelectorToggleButton();
+	SelectorToggleButton();
 	OctreeVisualizeToggleButton();
 
 	ImGui::End();

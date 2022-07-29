@@ -188,6 +188,7 @@
     <ClCompile Include="Decimation.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeList.cpp" />
+    <ClCompile Include="Extrude.cpp" />
     <ClCompile Include="Gizmo.cpp" />
     <ClCompile Include="GraphicsBufferObjects.cpp" />
     <ClCompile Include="GraphicsData.cpp" />
@@ -219,6 +220,7 @@
     <ClCompile Include="OctreeVisualization.cpp" />
     <ClCompile Include="OrbitArray.cpp" />
     <ClCompile Include="OrbitRing.cpp" />
+    <ClCompile Include="Pull.cpp" />
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="SamplerPayload.cpp" />
@@ -280,6 +282,7 @@
     <ClInclude Include="Decimation.hpp" />
     <ClInclude Include="Edge.hpp" />
     <ClInclude Include="EdgeList.hpp" />
+    <ClInclude Include="Extrude.hpp" />
     <ClInclude Include="Gizmo.hpp" />
     <ClInclude Include="GraphicsBufferObjects.hpp" />
     <ClInclude Include="GraphicsData.hpp" />
@@ -313,6 +316,7 @@
     <ClInclude Include="OctreeVisualization.hpp" />
     <ClInclude Include="OrbitArray.hpp" />
     <ClInclude Include="OrbitRing.hpp" />
+    <ClInclude Include="Pull.hpp" />
     <ClInclude Include="RayCasting.hpp" />
     <ClInclude Include="Sampler.hpp" />
     <ClInclude Include="SamplerPayload.hpp" />

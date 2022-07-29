@@ -16,8 +16,8 @@ namespace TriangleLookUpDefinition
 		~TriangleLookUp();
 
 		v3 getTriangleNormal(IndexedTriangleID key); // compute the normal from a given key corresponding to a *triangle*
-
 		v3 getTriangleCentroid(IndexedTriangleID key); // get the triangle centroid -> center of a triangle
+		float getTriangleArea(IndexedTriangleID key); // get the area of a triangle
 	};
 }
 

@@ -199,6 +199,15 @@ void MeshDefinition::Mesh::computeNormalsFromMatrix()
     needToRefresh = true;
 }
 
+void Mesh::computeAverageArea() {
+    float avg = 0.0f;
+    const int totalTri = this->totalTriangles();
+    for(int i = 0; i < totalTri; i++) {
+        avg += getTriangleArea(i);
+    }
+    avgArea = avg / (float)triangles.size();
+}
+
 void Mesh::applyModelMatrix()
 {
     const auto totalvert = this->verticeCount();
@@ -249,6 +258,7 @@ void MeshDefinition::Mesh::generateGraphsAndTrees()
     computeNormals();
     collectStats();
     this->buildOctree();
+    this->computeAverageArea();
 }
 
 KeyData Mesh::searchLinear(rv3 direction, rv3 origin)
