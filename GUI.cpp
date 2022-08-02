@@ -35,7 +35,7 @@ void GuiDefinition::GUI::buildGuiFrame()
 {
 	topBar.build();
 	toolbar.build();
-	cameraNav.build();
+	//cameraNav.build();
 	meshToolsWindow.build();
 	toolsWindow.build();
 }

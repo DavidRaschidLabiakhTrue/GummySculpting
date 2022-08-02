@@ -5,6 +5,8 @@ static int topBarHeight = 0;
 using namespace MeshToolsWindowDefinition;
 using namespace ToolsWindowDefinition;
 
+static bool isOctreeSeen = false;
+
 TopBarDefinition::TopBar::TopBar()
 {
 }
@@ -101,6 +103,13 @@ void TopBarDefinition::TopBar::build()
 			toolsWindow.toggleWindow();
 			//MainDirectiveDefinition::Directives.push_back({ "settings", "toggle" });
 		}
+		ImGui::MenuItem("-----------", "", false, false); //dummy
+		if (ImGui::MenuItem("Visualize Octree","", isOctreeSeen))
+		{
+			isOctreeSeen = !isOctreeSeen;
+			MainDirectiveDefinition::Directives.push_back({ "octree", "visualize" });
+		}
+
 		ImGui::MenuItem("-----------", "", false, false); //dummy
 		ImGui::MenuItem("Reset Camera");
 
