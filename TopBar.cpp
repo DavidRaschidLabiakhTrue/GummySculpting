@@ -81,11 +81,11 @@ void TopBarDefinition::TopBar::build()
 	}
 	if (ImGui::BeginMenu("Edit"))
 	{
-		if (ImGui::MenuItem("Undo"))
+		if (ImGui::MenuItem("Undo", "Ctrl+Z"))
 		{
 			MainDirectiveDefinition::Directives.push_back({ "mesh", "undo" });
 		}
-		if (ImGui::MenuItem("Redo"))
+		if (ImGui::MenuItem("Redo", "Ctrl+Shift+Z"))
 		{
 			MainDirectiveDefinition::Directives.push_back({ "mesh", "redo" });
 		}

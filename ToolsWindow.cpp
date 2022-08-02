@@ -40,7 +40,7 @@ void ToolsWindowDefinition::ToolsWindow::build()
 			ImGui::LabelText("", "Brush Size");
 			ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(ImColor(13, 125, 184)));
 			ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(ImColor(150, 20, 20)));
-			ImGui::SliderFloat(" ", &floatSlider, 0.f,2.0f);
+			ImGui::SliderFloat(" ", &floatSlider, 0.f,2.0f,"%.2f");
 			ImGui::PopStyleColor(2);
 			ImGui::LabelText("", "Brush Color");
 			ImGui::ColorPicker3("", rgba);

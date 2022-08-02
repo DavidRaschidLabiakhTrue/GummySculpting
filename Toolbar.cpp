@@ -574,7 +574,7 @@ void ToolbarDefinition::Toolbar::build()
 
 	ImGui::Text("Brushes");
 	ImGui::SameLine();
-	ImGui::Dummy(ImVec2(857, 0.0f)); //Change here if more brushes are added
+	ImGui::Dummy(ImVec2(858, 0.0f)); //Change here if more brushes are added
 	ImGui::SameLine();
 	ImGui::Text("Operations");
 
