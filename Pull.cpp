@@ -7,7 +7,7 @@ namespace Sculpting::Pull
 
 void Sculpting::Pull::applyPull(MeshReference cMesh, SculptPayloadReference payload)
 {
-    Sculpting::Pull::counterEnd = (5.0f / payload.radius);
+    Sculpting::Pull::counterEnd = (4.0f / payload.radius);
     float thisAvgArea = 0.0f;
     foreach (tri, cMesh.trianglesInRange)
     {
@@ -15,7 +15,7 @@ void Sculpting::Pull::applyPull(MeshReference cMesh, SculptPayloadReference payl
     }
     thisAvgArea = thisAvgArea / (float)cMesh.trianglesInRange.size();
 
-    if (thisAvgArea >= payload.radius * 4.0f * cMesh.avgArea)
+    if (thisAvgArea >= payload.radius * 5.0f * cMesh.avgArea)
     {
         bool temp = payload.wasRun;
         payload.wasRun = false;
@@ -26,12 +26,44 @@ void Sculpting::Pull::applyPull(MeshReference cMesh, SculptPayloadReference payl
         cMesh.storeUndoAndCurrent();
     }
 
-    Brush::applyBrush(cMesh, payload);
+    // Brush::applyBrush(cMesh, payload);
+
+    // modified brush
+    foreach (vertex, cMesh.currentVertices)
+    {
+        const float dist = distance(vertex.second.position, payload.hit);
+        const float curve = ((glm::cos((dist / payload.radius) * pi<float>()) + 1.0f) * 0.5f);
+        const float ang = angle(vertex.second.normal, payload.hitNorm);
+        const float angLim = glm::radians(60.0f);
+        const float scale = 0.05f;
+
+        if (ang < angLim)
+        {
+            float modifier = ((glm::cos((ang / angLim) * pi<float>()) + 1.0f) * 0.5f);
+
+            vertex.second.position += payload.polarity *
+                                      payload.radius *
+                                      scale *
+                                      curve *
+                                      normalize(modifier * vertex.second.normal + (1 - modifier) * payload.hitNorm);
+        }
+        else
+        {
+            vertex.second.position += payload.polarity *
+                                      payload.radius *
+                                      scale *
+                                      curve *
+                                      payload.hitNorm;
+        }
+    }
+    Algos::applyCurrentVerticesToMesh(cMesh);
+    //
+
     if (++Sculpting::Pull::counter >= Sculpting::Pull::counterEnd)
     {
         Sculpting::Pull::counter = 0;
-        cMesh.Octree::collectTrianglesAroundCollision(payload.radius * 2.0f);
+        cMesh.Octree::collectTrianglesAroundCollision(payload.radius * 1.4f);
         cMesh.storeUndoAndCurrent();
-        Algos::applySmoothAndApplyCurrentVerticesToMesh(cMesh, 2);
+        Algos::applySmoothAndApplyCurrentVerticesToMesh(cMesh, 1);
     }
 }
