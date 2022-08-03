@@ -16,7 +16,7 @@ void Sculpting::Extrude::applyExtrude(MeshReference cMesh, SculptPayloadReferenc
     }
     thisAvgArea = thisAvgArea / (float)cMesh.trianglesInRange.size();
 
-    if (thisAvgArea >= payload.radius * 8.0f * cMesh.avgArea)
+    if (thisAvgArea >= payload.radius * 4.0f * cMesh.avgArea)
     {
         bool temp = payload.wasRun;
         payload.wasRun = false;

@@ -130,7 +130,6 @@ void OctreeDefinition::Octree::buildOctree() ONOEXCEPT
     rootOctant.octantIndex = 0;
     rootOctant.octantCenter = this->center;
     rootOctant.octantHalfSize = glm::max(maxExtent, minExtent) * octreeBuffer;
-    // rootOctant.octantState = ;
     octants.push_back(rootOctant);
     octantMutexes.push_back(make_unique<mutex>());
 
@@ -148,6 +147,7 @@ void OctreeDefinition::Octree::clearOctree() ONOEXCEPT
     octantMutexes.clear();
     octreeDepth = 0;
     octreeCurrentDepth = 0;
+    root = 0; // This mother fucker wasn't here, caused crashing when octree was resized then rebuilt
     triangleToOctantList.clear();
 }
 

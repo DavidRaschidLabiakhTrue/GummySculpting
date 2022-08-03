@@ -47,6 +47,11 @@ KeyList Mesh::getTriangleNeighbors(KeyData tri)
     return res;
 }
 
+// For random normals if needed
+static std::random_device rd;
+static std::mt19937 gen(rd());
+std::uniform_int_distribution<> dist(0,100);
+
 // TODO: Test runtimes and scaling of each version
 // Testing with normal function to find degenerate triangles
 void MeshDefinition::Mesh::computeNormals() noexcept
@@ -56,7 +61,6 @@ void MeshDefinition::Mesh::computeNormals() noexcept
     const int totalTri = this->totalTriangles();
     normalList.reserve(totalTri);
 
-    KeyList degenTriangles;
     // first calculate all the normals
     for (int i = 0; i < totalTri; i++)
     {
@@ -64,44 +68,33 @@ void MeshDefinition::Mesh::computeNormals() noexcept
 
         if (glm::any(glm::isnan(normalList[i])))
         {
-            degenTriangles.emplace_back(i);
             say "Degenerate Triangle Found" done;
-            say "Triangle" spc i spc "Normal: " spc to_string(normalList[i]) done;
+            say "Triangle" spc i spc "Normal:" spc to_string(normalList[i]) done;
             say "v0" spc triangles[i][0] spc to_string(vertices[triangles[i][0]].position) done;
             say "v1" spc triangles[i][1] spc to_string(vertices[triangles[i][1]].position) done;
             say "v2" spc triangles[i][2] spc to_string(vertices[triangles[i][2]].position) done;
+
+            auto neighbors = getTriangleNeighbors(i);
+            bool needRandom = true;
+
+            foreach (neighbor, neighbors)
+            {
+                if (neighbor < i && !glm::any(glm::isnan(normalList[neighbor])))
+                {
+                    normalList[i] = normalList[neighbor];
+                    needRandom = false;
+                    break;
+                }
+            }
+
+            if (needRandom)
+            {
+                normalList[i] = glm::normalize(glm::vec3(dist(gen), dist(gen), dist(gen)));
+            }
+
+            say "New Normal:" spc to_string(normalList[i]) done;
             say "---------------------------------" done;
         }
-    }
-
-    // Calculate normals for degenerate triangles
-    for (int i = 0; i < degenTriangles.size(); i++)
-    {
-        // Gather non-degenerate neighbors
-        KeyList neighbors = getTriangleNeighbors(degenTriangles[i]);
-        KeyList nonDegen;
-        foreach (nbor, neighbors)
-        {
-            if (!glm::any(glm::isnan(normalList[i])))
-            {
-                nonDegen.emplace_back(nbor);
-            }
-        }
-
-        // Place this at the end of the list to check again when it should have a non degenerate neighbor
-        if (nonDegen.size() == 0)
-        {
-            degenTriangles.emplace_back(degenTriangles[i]);
-            continue;
-        }
-
-        // Average the normals of the neighbors
-        normalList[degenTriangles[i]] = v3(0);
-        foreach (nbor, nonDegen)
-        {
-            normalList[degenTriangles[i]] += normalList[nbor];
-        }
-        normalList[degenTriangles[i]] = normalize(normalList[degenTriangles[i]] / (float)nonDegen.size());
     }
 
     forall(vert, this->vertices)
@@ -119,27 +112,27 @@ void MeshDefinition::Mesh::computeNormals() noexcept
 void MeshDefinition::Mesh::recomputeNormalsFromCurrentVertices() noexcept
 {
 
-	const int totalTri = affectedTriangles.size();
-	unordered_map<KeyData, v3> norm_map;
-	normalList.reserve(totalTri);
+    const int totalTri = affectedTriangles.size();
+    unordered_map<KeyData, v3> norm_map;
+    normalList.reserve(totalTri);
 
-	#pragma loop(hint_parallel(4))
-	for (int i = 0; i < totalTri; i++)
-	{
-		norm_map[affectedTriangles[i]] = getTriangleNormal(affectedTriangles[i]);
-	}
-	#pragma loop(hint_parallel(4))
-	for (auto element = currentVertices.begin(); element != currentVertices.end(); ++element)
-	{
-		v3 temp(0);
-		forall(id, (*element).second.triangleIDs)
-		{
-			temp += norm_map[id];
-		}
-		vertices[(*element).first].normal = normalize(temp / ((float)(*element).second.triangleIDs.size()));
-	}
+#pragma loop(hint_parallel(4))
+    for (int i = 0; i < totalTri; i++)
+    {
+        norm_map[affectedTriangles[i]] = getTriangleNormal(affectedTriangles[i]);
+    }
+#pragma loop(hint_parallel(4))
+    for (auto element = currentVertices.begin(); element != currentVertices.end(); ++element)
+    {
+        v3 temp(0);
+        forall(id, (*element).second.triangleIDs)
+        {
+            temp += norm_map[id];
+        }
+        vertices[(*element).first].normal = normalize(temp / ((float)(*element).second.triangleIDs.size()));
+    }
 
-	this->needToRefresh = true;
+    this->needToRefresh = true;
 }
 void MeshDefinition::Mesh::computeNormalsParallel()
 {
@@ -199,10 +192,12 @@ void MeshDefinition::Mesh::computeNormalsFromMatrix()
     needToRefresh = true;
 }
 
-void Mesh::computeAverageArea() {
+void Mesh::computeAverageArea()
+{
     float avg = 0.0f;
     const int totalTri = this->totalTriangles();
-    for(int i = 0; i < totalTri; i++) {
+    for (int i = 0; i < totalTri; i++)
+    {
         avg += getTriangleArea(i);
     }
     avgArea = avg / (float)triangles.size();
@@ -222,12 +217,11 @@ void Mesh::applyModelMatrix()
 }
 void MeshDefinition::Mesh::cleanUpMesh()
 {
-	this->deleteBuffers();
+    this->deleteBuffers();
 
-	this->vertices.clear();
-	this->triangles.clear();
-	this->octants.clear();
-
+    this->vertices.clear();
+    this->triangles.clear();
+    this->octants.clear();
 }
 
 void MeshDefinition::Mesh::recomputeNormals(HistoryKeyVertexMap &apply)
@@ -331,34 +325,32 @@ KeyData Mesh::searchLinearParallel(rv3 direction, rv3 origin)
 
 void MeshDefinition::Mesh::storeUndoAndCurrent()
 {
-	// can likely be parallelized but I've tormented ryan more than enough about that.
-	currentVertices.clear();
+    // can likely be parallelized but I've tormented ryan more than enough about that.
+    currentVertices.clear();
 
-
-
-	forall(element, trianglesInRange)
-	{
-		forall(id, triangles[element].indice)
-		{
-			if (!savedVertices.contains(id))
-			{
-				savedVertices[id] = vertices[id];
-			}
-			currentVertices[id] = vertices[id];
-		}
-	}
+    forall(element, trianglesInRange)
+    {
+        forall(id, triangles[element].indice)
+        {
+            if (!savedVertices.contains(id))
+            {
+                savedVertices[id] = vertices[id];
+            }
+            currentVertices[id] = vertices[id];
+        }
+    }
 }
 
 void MeshDefinition::Mesh::storeChanged()
 {
-	#pragma loop(hint_parallel(8))
-	for (auto element = trianglesInRange.begin(); element != trianglesInRange.end(); ++element)
-	{
-		for (int iter = 0; iter < 3; iter++)
-		{
-			changedVertices[triangles[(*element)].indice[iter]] = vertices[triangles[(*element)].indice[iter]];
-		}
-	}
+#pragma loop(hint_parallel(8))
+    for (auto element = trianglesInRange.begin(); element != trianglesInRange.end(); ++element)
+    {
+        for (int iter = 0; iter < 3; iter++)
+        {
+            changedVertices[triangles[(*element)].indice[iter]] = vertices[triangles[(*element)].indice[iter]];
+        }
+    }
 }
 
 void MeshDefinition::Mesh::saveSavedVerticesToUndo()

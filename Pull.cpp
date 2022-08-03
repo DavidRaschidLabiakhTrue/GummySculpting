@@ -15,7 +15,7 @@ void Sculpting::Pull::applyPull(MeshReference cMesh, SculptPayloadReference payl
     }
     thisAvgArea = thisAvgArea / (float)cMesh.trianglesInRange.size();
 
-    if (thisAvgArea >= payload.radius * 5.0f * cMesh.avgArea)
+    if (thisAvgArea >= payload.radius * 4.0f * cMesh.avgArea)
     {
         bool temp = payload.wasRun;
         payload.wasRun = false;
