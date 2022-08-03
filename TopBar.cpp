@@ -5,6 +5,8 @@ static int topBarHeight = 0;
 using namespace MeshToolsWindowDefinition;
 using namespace ToolsWindowDefinition;
 
+static bool isOctreeSeen = false;
+
 TopBarDefinition::TopBar::TopBar()
 {
 }
@@ -79,11 +81,11 @@ void TopBarDefinition::TopBar::build()
 	}
 	if (ImGui::BeginMenu("Edit"))
 	{
-		if (ImGui::MenuItem("Undo"))
+		if (ImGui::MenuItem("Undo", "Ctrl+Z"))
 		{
 			MainDirectiveDefinition::Directives.push_back({ "mesh", "undo" });
 		}
-		if (ImGui::MenuItem("Redo"))
+		if (ImGui::MenuItem("Redo", "Ctrl+Shift+Z"))
 		{
 			MainDirectiveDefinition::Directives.push_back({ "mesh", "redo" });
 		}
@@ -101,6 +103,13 @@ void TopBarDefinition::TopBar::build()
 			toolsWindow.toggleWindow();
 			//MainDirectiveDefinition::Directives.push_back({ "settings", "toggle" });
 		}
+		ImGui::MenuItem("-----------", "", false, false); //dummy
+		if (ImGui::MenuItem("Visualize Octree","", isOctreeSeen))
+		{
+			isOctreeSeen = !isOctreeSeen;
+			MainDirectiveDefinition::Directives.push_back({ "octree", "visualize" });
+		}
+
 		ImGui::MenuItem("-----------", "", false, false); //dummy
 		ImGui::MenuItem("Reset Camera");
 

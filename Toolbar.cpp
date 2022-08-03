@@ -89,7 +89,7 @@ void StrokeToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Stroke", ImVec2(buttonWidth1, buttonHeight)))
+	if (ImGui::Button("Clay", ImVec2(buttonWidth1, buttonHeight)))
 	{
 		resetToggleButtons();
 ;		isStrokeToggled = !isStrokeToggled;
@@ -97,7 +97,7 @@ void StrokeToggleButton()
 	}
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
 	{
-		ImGui::SetTooltip("Deforms surface of the mesh");
+		ImGui::SetTooltip("Deform the surface of the mesh in a clay like manner");
 	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
@@ -117,7 +117,7 @@ void BrushToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Brush", ImVec2(buttonWidth1, buttonHeight)))
+	if (ImGui::Button("Stroke", ImVec2(buttonWidth1, buttonHeight)))
 	{
 		resetToggleButtons();
 		isBrushToggled = !isBrushToggled;
@@ -125,7 +125,7 @@ void BrushToggleButton()
 	}
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
 	{
-		ImGui::SetTooltip("TBA"); //CHANGE HERE
+		ImGui::SetTooltip("Deform the mesh as if you are using a pen"); //CHANGE HERE
 	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
@@ -151,6 +151,10 @@ void ExtrudeToggleButton()
 		isExtrudeToggled = !isExtrudeToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "extrude" });
 	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Pull out the surface of the mesh uniformly");
+	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
@@ -174,6 +178,10 @@ void PullToggleButton()
 		resetToggleButtons();
 		isPullToggled = !isPullToggled;
 		MainDirectiveDefinition::Directives.push_back({ "sculptor", "pull" });
+	}
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+	{
+		ImGui::SetTooltip("Pull out the surface of the mesh with decreasing surface area");
 	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
@@ -277,7 +285,7 @@ void SmoothedColorToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Color Smoothing", ImVec2(buttonWidth2, buttonHeight)))
+	if (ImGui::Button("Blend", ImVec2(buttonWidth1, buttonHeight)))
 	{
 		resetToggleButtons();
 		isSmoothedColorToggled = !isSmoothedColorToggled;
@@ -474,9 +482,9 @@ void RemeshToggleButton()
 		toggleFalse();
 		pushedColors += 4;
 	}
-	if (ImGui::Button("Remesh", ImVec2(buttonWidth3, buttonHeight)))
+	if (ImGui::Button("Remesh", ImVec2(buttonWidth1, buttonHeight)))
 	{
-		isDecimateToggled = true;
+		isRemeshToggled = true;
 		// MainDirectiveDefinition::Directives.push_back({ "mesh", "remesh" });
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "loopsubdivide", "1" });
 		MainDirectiveDefinition::Directives.push_back({ "mesh", "decimate" });
@@ -489,12 +497,12 @@ void RemeshToggleButton()
 	}
 	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
 	{
-		ImGui::SetTooltip("TBA"); //CHANGE HERE
+		ImGui::SetTooltip("Remake the model with new topology"); //CHANGE HERE
 	}
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
-
+/*
 void SelectorToggleButton()
 {
 	int pushedColors = 0;
@@ -517,7 +525,8 @@ void SelectorToggleButton()
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
-
+*/
+/*
 void OctreeVisualizeToggleButton()
 {
 	int pushedColors = 0;
@@ -544,7 +553,7 @@ void OctreeVisualizeToggleButton()
 	ImGui::PopStyleColor(pushedColors);
 	ImGui::SameLine();
 }
-
+*/
 void ToolbarDefinition::Toolbar::build()
 {
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -565,7 +574,7 @@ void ToolbarDefinition::Toolbar::build()
 
 	ImGui::Text("Brushes");
 	ImGui::SameLine();
-	ImGui::Dummy(ImVec2(665, 0.0f)); //Change here if more brushes are added
+	ImGui::Dummy(ImVec2(858, 0.0f)); //Change here if more brushes are added
 	ImGui::SameLine();
 	ImGui::Text("Operations");
 
@@ -580,14 +589,14 @@ void ToolbarDefinition::Toolbar::build()
 	NoiseToggleButton();
 	InflateToggleButton();
 	TessellationToggleButton();
-	ImGui::Dummy(ImVec2(6, 0.0f)); //Change here if more brushes are added
+	ImGui::Dummy(ImVec2(6, 0.0f)); 
 	ImGui::SameLine();
 	SimpleSubdivToggleButton();
 	loopToggleButton();
 	DecimationToggleButton();
 	RemeshToggleButton();
-	SelectorToggleButton();
-	OctreeVisualizeToggleButton();
+	//SelectorToggleButton();
+	//OctreeVisualizeToggleButton();
 
 	ImGui::End();
 }

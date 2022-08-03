@@ -28,7 +28,7 @@ void autoSave(MainProgram &mainProgram)
     while (!exitAutoSave)
     {
         int timeSlept = 0;
-        while (!exitAutoSave && timeSlept < 50)
+        while (!exitAutoSave && timeSlept < 600)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
             timeSlept++;
